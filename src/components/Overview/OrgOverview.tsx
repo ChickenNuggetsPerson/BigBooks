@@ -35,7 +35,7 @@ export default function OrgOverview({ uuid }: OverviewProps) {
 
                 {(state.notes != "") &&
                     <div>
-                        <div className="bg-zinc-200  h-2 my-5 rounded-sm" />
+                        <div className="bg-zinc-200 h-1 my-5 rounded-sm" />
 
                         <p className="font-normal text-gray-700 ">{state.notes}</p>
                     </div>
