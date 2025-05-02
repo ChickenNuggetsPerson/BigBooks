@@ -16,7 +16,7 @@ const Counter = ({ val = 0, animDelta = 50 }) => {
         if (JSON.stringify(numArray) !== JSON.stringify(newNumArray)) {
             setNumArray(newNumArray);
         }
-    }, [val]);
+    }, [numArray, val]);
 
     return (
         <div className="counter flex hstack">
@@ -75,7 +75,7 @@ const NumberDisplay = ({ value, animDelay }: DisplayParms) => {
             }, animDelay + 300); 
 
         }
-    }, [value, animDelay]);
+    }, [value, animDelay, isNew]);
 
     
 
