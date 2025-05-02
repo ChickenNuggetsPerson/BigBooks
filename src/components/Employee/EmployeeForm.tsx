@@ -8,6 +8,7 @@ import TextInput from "@/components/Forms/TextInput";
 import { getEmptyDispEmployee } from "@/database/models/DisplayModels";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import LargeTextInput from "../Forms/LargeTextInput";
 
 
 interface EmployeeFormProps { empUUID: string }
@@ -68,7 +69,7 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
             <TextInput id={"address"} label={"Address"} val={props.address} placeholder={""} disabled={false} />
             <TextInput id={"ssn"} label={"SSN"} val={props.ssn} placeholder={""} disabled={false} />
 
-            <TextInput id={"notes"} label={"Notes"} val={props.notes} placeholder={""} disabled={false} />
+            <LargeTextInput id={"notes"} label={"Notes"} val={props.notes} placeholder={""} disabled={false} />
 
             <TextInput id={"orgUUID"} label={"Org UUID"} val={context?.companyUUID ?? ""} placeholder={""} disabled={true} />
             <TextInput id={"uuid"} label={"Emp UUID"} val={props.uuid} placeholder={""} disabled={true} />

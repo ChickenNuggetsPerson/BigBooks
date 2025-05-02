@@ -9,6 +9,7 @@ import Link from "next/link"
 import deactivateOrganization from "@/actions/organization/deactivateOrg"
 import { useCompany } from "@/app/CompanyContext"
 import { useRouter } from "next/navigation"
+import LargeTextInput from "../Forms/LargeTextInput"
 
 
 
@@ -87,7 +88,7 @@ export default function OrganizationForm({ orgUUID } : OrganizationFormProps) {
 
             <TextInput id={"name"} label={"Name:"} val={props.name} placeholder={""} disabled={false} />
             <TextInput id={"address"} label={"Address"} val={props.address} placeholder={""} disabled={false} />
-            <TextInput id={"notes"} label={"Notes"} val={props.notes} placeholder={""} disabled={false} />
+            <LargeTextInput id={"notes"} label={"Notes"} val={props.notes} placeholder={""} disabled={false} />
             <TextInput id={"uuid"} label={"Org UUID"} val={props.uuid} placeholder={""} disabled={true} />
 
             <button type="submit" className="primary-button">Submit</button>
