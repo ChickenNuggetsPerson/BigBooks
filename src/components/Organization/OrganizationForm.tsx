@@ -82,7 +82,7 @@ export default function OrganizationForm({ orgUUID } : OrganizationFormProps) {
     return (
         <form onSubmit={handleSubmit} className="max-w-md mx-auto card mb-5" >
 
-            <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">{newOrganization ? "Create Organization:" : "Edit Organization:"}</h5>
+            <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">{newOrganization ? "Create Organization:" : "Edit Organization:"}</h5>
 
 
             <TextInput id={"name"} label={"Name:"} val={props.name} placeholder={""} disabled={false} />
@@ -90,12 +90,12 @@ export default function OrganizationForm({ orgUUID } : OrganizationFormProps) {
             <TextInput id={"notes"} label={"Notes"} val={props.notes} placeholder={""} disabled={false} />
             <TextInput id={"uuid"} label={"Org UUID"} val={props.uuid} placeholder={""} disabled={true} />
 
-            <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-            <Link href={cancelURL(newOrganization)} className="mx-5 text-white bg-rose-700 hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800">
+            <button type="submit" className="primary-button">Submit</button>
+            <Link href={cancelURL(newOrganization)} className="mx-5 secondary-button">
                 Cancel
             </Link>
 
-            {!newOrganization && <button onClick={() => { deactivateOrganization(props.uuid, !props.isDeleted) }} className="hover:outline-2 hover:outline-pink-500 mx-5 text-black dark:text-white focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:focus:ring-rose-800">{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
+            {!newOrganization && <button onClick={() => { deactivateOrganization(props.uuid, !props.isDeleted) }} className="mx-5 accent-button">{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
         </form>
     )
 }

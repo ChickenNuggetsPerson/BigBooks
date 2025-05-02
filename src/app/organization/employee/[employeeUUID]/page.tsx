@@ -40,12 +40,12 @@ export default function EmployeeView() {
 
         <div>
 
-            <Link href={`/organization/employee`} style={{ position: 'absolute' }} className="text-black dark:text-white font-medium text-lg w-full sm:w-auto px-5 py-2.5 text-center" >
+            <Link href={`/organization/employee`} style={{ position: 'absolute' }} className="text-black font-medium text-lg w-full sm:w-auto px-5 py-2.5 text-center" >
                 ← Back
             </Link>
 
-
             <div className="flex flex-col lg:flex-row gap-6 justify-center px-10 py-20">
+
                 <AnimateChildren x={0} y={-100}>
                     <EmployeeCard employee={employee} />
                     <EmployeeSalaryCard employee={employee} />

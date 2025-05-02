@@ -25,6 +25,7 @@ export default async function createDevOrg() {
     org.name = getRandomElement(companyNames);
     org.notes = "";
     org.address = getRandomElement(addresses);
+    org.uuid = randomUUID()
     em.persist(org);
 
     const employees = [
@@ -202,11 +203,14 @@ export default async function createDevOrg() {
         employee.organization = org;
         employee.address = data.address;
         employee.hourlyRates = data.hourlyRates;
+        employee.salary = Math.floor(Math.random() * 100000);
+        employee.isSalary = (Math.floor(Math.random() * 10000) % 2 == 0)
         employee.ssn = data.ssn;
         em.persist(employee);
     }
 
     await em.flush();
+    
     revalidatePath("/")
     redirect("/")
 }

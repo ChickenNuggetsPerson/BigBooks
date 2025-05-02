@@ -27,30 +27,28 @@ export default function OrgOverview({ uuid }: OverviewProps) {
 
     return (
         <AnimateChildren x={-200} y={0}>
-            <a className="card mb-5 max-w-md">
+            <div className="card mb-5 max-w-md">
 
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{state.name}</h5>
-                {state.isDeleted && <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white opacity-50">{"[ Deactivated ]"}</h5> }
-                <p className="font-normal text-gray-700 dark:text-gray-400">{state.address}</p>
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{state.name}</h5>
+                {state.isDeleted && <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 opacity-50">{"[ Deactivated ]"}</h5> }
+                <p className="font-normal text-gray-700 ">{state.address}</p>
 
                 {(state.notes != "") &&
                     <div>
-                        <div className="bg-zinc-200 dark:bg-zinc-700 h-2 my-5 rounded-sm" />
+                        <div className="bg-zinc-200  h-2 my-5 rounded-sm" />
 
-                        <p className="font-normal text-gray-700 dark:text-gray-400">{state.notes}</p>
+                        <p className="font-normal text-gray-700 ">{state.notes}</p>
                     </div>
                 }
-            </a>
+            </div>
 
 
 
-            <a className="card max-w-sm">
+            <div className="card max-w-sm">
 
-                <h5 className="mb-2 text-2xl font-normal text-gray-700 dark:text-gray-400">Organization Statistics:</h5>
-
-
-                <h5 className="font-normal text-gray-700 dark:text-gray-400">Total Employees: {state.employeeCount}</h5>
-            </a>
+                <h5 className="mb-2 text-2xl font-normal text-gray-700 ">Organization Statistics:</h5>
+                <h5 className="font-normal text-gray-700">Total Employees: {state.employeeCount}</h5>
+            </div>
         </AnimateChildren>
     )
 }

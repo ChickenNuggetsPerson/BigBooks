@@ -1,36 +1,61 @@
 @import "tailwindcss";
+@import "./styles.css";
 
-:root {
-  color-scheme: light dark;
-}
 
 @theme {
 
-  --color-text: #15141f;
-  --color-background: #f0f0f5;
-  --color-primary: #33334d;
-  --color-secondary: #c2a3b3;
-  --color-accent: #99666c;
+  --color-text: var(--text_col);
+  --color-background: var(--background_col);
+  --color-primary: var(--primary_col);
+  --color-secondary: var(--secondary_col);
+  --color-accent: var(--accent_col);
 
-  --color-dark_text: #e2e1eb;
-  --color-dark_background: #0b0b10;
-  --color-dark_primary: #b2b2cc;
-  --color-dark_secondary: #5d3e4e;
-  --color-dark_accent: #9a676d;
+  --color-dark_text: var(--dark_text_col);
+  --color-dark_background: var(--dark_background_col);
+  --color-dark_primary: var(--dark_primary_col);
+  --color-dark_secondary: var(--dark_secondary_col);
+  --color-dark_accent: var(--dark_accent_col);
 
-  --color-card: #ffffff;
-  --color-dark_card: #18181b;
+  --color-card: var(--card_col);
+  --color-dark_card: var(--dark_card_col);
 
-  --color-background-down: #c1c1db;
-  --color-background-up: #c1c1db;
+  --color-text-up: color-mix(in srgb, var(--text_col), white 10%);
+  --color-text-down: color-mix(in srgb, var(--text_col), black 10%);
+  --color-background-up: color-mix(in srgb, var(--background_col), white 10%);
+  --color-background-down: color-mix(in srgb, var(--background_col), black 10%);
+  --color-primary-up: color-mix(in srgb, var(--primary_col), white 10%);
+  --color-primary-down: color-mix(in srgb, var(--primary_col), black 10%);
+  --color-secondary-up: color-mix(in srgb, var(--secondary_col), white 10%);
+  --color-secondary-down: color-mix(in srgb, var(--secondary_col), black 10%);
+  --color-accent-up: color-mix(in srgb, var(--accent_col), white 10%);
+  --color-accent-down: color-mix(in srgb, var(--accent_col), black 10%);
   
-
-  --color-dark_background-down: #08080d;
-  --color-dark_background-up: #272540;
+  --color-dark_text-up: color-mix(in srgb, var(--dark_text_col), white 10%);
+  --color-dark_text-down: color-mix(in srgb, var(--dark_text_col), black 10%);
+  --color-dark_background-up: color-mix(in srgb, var(--dark_background_col), white 10%);
+  --color-dark_background-down: color-mix(in srgb, var(--dark_background_col), black 10%);
+  --color-dark_primary-up: color-mix(in srgb, var(--dark_primary_col), white 10%);
+  --color-dark_primary-down: color-mix(in srgb, var(--dark_primary_col), black 10%);
+  --color-dark_secondary-up: color-mix(in srgb, var(--dark_secondary_col), white 10%);
+  --color-dark_secondary-down: color-mix(in srgb, var(--dark_secondary_col), black 10%);
+  --color-dark_accent-up: color-mix(in srgb, var(--dark_accent_col), white 10%);
+  --color-dark_accent-down: color-mix(in srgb, var(--dark_accent_col), black 10%);
+  
 }
+
 
 
 
 .card {
-  @apply block p-6 bg-card border border-gray-200 rounded-lg shadow-sm dark:bg-dark_card dark:border-zinc-700;
+  @apply p-6 bg-card border border-gray-300 rounded-lg ; /* shadow-lg */
+}
+
+.primary-button {
+  @apply text-white bg-primary hover:bg-primary-up focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
+}
+.secondary-button {
+  @apply text-white bg-secondary hover:bg-secondary-up focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
+}
+.accent-button {
+  @apply text-white bg-accent hover:bg-accent-up  focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
 }

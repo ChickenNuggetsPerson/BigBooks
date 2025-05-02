@@ -56,6 +56,12 @@ export class Employee {
     @Property({ default: "" })
     ssn!: string;
 
+    @Property({ default: true })
+    isSalary!: boolean;
+
+    @Property({ default: 0 })
+    salary!: number;
+
     @Property({ type: JsonType, default: "[]" })
     hourlyRates!: { name: string; rate: number }[];
 

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Logo from "./Decorative/Logo";
+
 
 
 enum Page {
@@ -9,7 +11,7 @@ enum Page {
 
 export default function Sidebar() {
 
-    const btnClass = "bg-dark_primary hover:bg-gray-100 dark:bg-dark_background-up dark:hover:bg-dark_secondary w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg focus:outline-hidden focus:bg-gray-100 dark:focus:bg-neutral-700 "
+    const btnClass = "bg-dark_text-up hover:bg-dark_text-down w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg focus:outline-hidden focus:bg-gray-100 "
 
     function href(p: Page) {
         return `/organization/${p}`
@@ -20,25 +22,31 @@ export default function Sidebar() {
         -translate-x-full transition-all duration-300 transform
         w-65 h-full
         fixed inset-y-0 start-0 z-60
-        bg-background-down border-e border-gray-200
-        lg:block lg:translate-x-0 lg:end-auto lg:bottom-0
-        dark:bg-dark_background-down dark:border-neutral-700" role="dialog" aria-label="Sidebar">
+        bg-white border-e border-gray-200
+        lg:block lg:translate-x-0 lg:end-auto lg:bottom-0" role="dialog" aria-label="Sidebar">
         <div className="relative flex flex-col h-full max-h-full">
-            <div className="px-6 pt-4 flex items-center">
+            {/* <div className="px-6 pt-4 flex items-center">
 
                 <div className="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-hidden focus:opacity-80" aria-label="Preline">
-                    <Link href={"/"}> Big Books</Link>
+                    <Link href={"/"}>
+                        Big Books
+
+                    </Link>
                 </div>
 
-            </div>
+            </div> */}
+
+            <Link href={"/"} >
+                <Logo width={260}/>
+            </Link>
 
 
             {/* Divider */}
-            <div className="h-[4] w-full mt-2 bg-gray-200 dark:bg-primary opacity-50"></div>
+            <div className="h-[4] w-full bg-primary opacity-50"></div>
 
 
             {/* Content */}
-            <div className="h-full overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+            <div className="h-full overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
                 <nav className="hs-accordion-group p-3 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
                     <ul className="flex flex-col space-y-1">
 

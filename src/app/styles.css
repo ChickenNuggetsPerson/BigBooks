@@ -1,0 +1,16 @@
+
+:root {
+    --text_col: #160f11;
+    --background_col: #f8f6f6;
+    --primary_col: #789283;
+    --secondary_col: #beaeb5;
+    --accent_col: #a6a091;
+
+    --dark_text_col: #f1eaec;
+    --dark_background_col: #090707;
+    --dark_primary_col: #6d8878;
+    --dark_secondary_col: #524249;
+    --dark_accent_col: #6e6859;
+
+    --card_col: #ffffff;
+}

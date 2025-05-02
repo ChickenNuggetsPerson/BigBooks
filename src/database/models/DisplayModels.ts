@@ -9,6 +9,8 @@ export interface DispEmployee {
     lastName: string;
     notes: string;
     address: string;
+    isSalary: boolean,
+    salary: number,
     hourlyRates: { name: string; rate: number }[],
     isDeleted: boolean;
     email: string;
@@ -24,6 +26,8 @@ export function getEmptyDispEmployee(name: string = ""): DispEmployee {
         lastName: "",
         notes: "",
         address: "",
+        isSalary: true,
+        salary: 0,
         hourlyRates: [],
         isDeleted: false,
         email: "",
@@ -41,6 +45,8 @@ export function getDispEmployee(e: Employee, stripSensitive: boolean = true): Di
     employee.lastName = e.lastName
     employee.notes = e.notes
     employee.address = e.address
+    employee.isSalary = e.isSalary
+    employee.salary = e.salary
     employee.hourlyRates = e.hourlyRates
     employee.isDeleted = e.isDeleted
     employee.email = e.email
@@ -64,7 +70,7 @@ export interface DispOrganization {
     employeeCount: number;
     isDeleted: boolean;
 }
-export function getEmptyDispOrganization(name: string = "") : DispOrganization {
+export function getEmptyDispOrganization(name: string = ""): DispOrganization {
     return {
         uuid: "",
         name: name,
@@ -74,7 +80,7 @@ export function getEmptyDispOrganization(name: string = "") : DispOrganization {
         isDeleted: false
     }
 }
-export async function getDispOrganization(o: Organization) : Promise<DispOrganization> {
+export async function getDispOrganization(o: Organization): Promise<DispOrganization> {
     const org = getEmptyDispOrganization()
 
     org.uuid = o.uuid
