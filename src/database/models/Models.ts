@@ -24,6 +24,18 @@ export class Organization {
 
     @Property({ default: false })
     isDeleted!: boolean;
+
+    
+
+
+    @Property({ default: 26 }) // Defulats to bi-weekly
+    periodsPerYear!: number;
+
+    @Property()
+    periodsRefDate!: Date;
+    
+    @OneToMany(() => Payperiod, (payperiod) => payperiod.organization, { cascade: [Cascade.REMOVE] })
+    payperiods = new Collection<Payperiod>(this);
 }
 
 
@@ -70,4 +82,41 @@ export class Employee {
 
     @Property({ default: false })
     isDeleted!: boolean;
+}
+
+
+@Entity()
+export class Payperiod {
+    @PrimaryKey()
+    id!: number;
+
+    @Property({ default: "" })
+    uuid!: UUID;
+
+    @ManyToOne(() => Organization, { deleteRule: "cascade" })
+    organization!: Organization;
+
+    @Property()
+    periodStart!: Date;
+
+    @Property()
+    periodEnd!: Date;
+
+    @Property({ default: [] })
+    includedEmployees!: UUID[]
+
+    @OneToMany(() => PayStub, (stub) => stub.payperiod, { cascade: [Cascade.REMOVE] })
+    payStubs = new Collection<PayStub>(this);
+}
+
+
+export class PayStub {
+    @PrimaryKey()
+    id!: number;
+
+    @Property({ default: "" })
+    uuid!: UUID;
+
+    @ManyToOne(() => Payperiod, { deleteRule: "cascade" })
+    payperiod!: Payperiod;
 }
