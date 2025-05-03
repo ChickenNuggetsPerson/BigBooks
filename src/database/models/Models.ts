@@ -38,7 +38,6 @@ export class Organization {
     payperiods = new Collection<Payperiod>(this);
 }
 
-
 @Entity()
 export class Employee {
     @PrimaryKey()
@@ -64,6 +63,9 @@ export class Employee {
 
     @Property({ default: "" })
     email!: string;
+
+    @Property({ default: "" })
+    phoneNumber!: string;
 
     @Property({ default: "" })
     ssn!: string;
@@ -110,6 +112,7 @@ export class Payperiod {
 }
 
 
+@Entity()
 export class PayStub {
     @PrimaryKey()
     id!: number;
@@ -119,4 +122,10 @@ export class PayStub {
 
     @ManyToOne(() => Payperiod, { deleteRule: "cascade" })
     payperiod!: Payperiod;
+
+    @Property({ default: "" }) 
+    employeeUUID!: UUID;
+
+    // TODO: Add everything else :3
+    // Also make sure to update the DisplayPaystubs
 }

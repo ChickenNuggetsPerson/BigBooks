@@ -44,7 +44,7 @@ export default function SelectInput({ id, label, val, disabled, options, changeC
     }
 
     return (
-        <div>
+        <div className="mb-5">
 
             <input type="hidden" name={id} id={id} value={selected?.id} readOnly={true} ></input>
 
@@ -62,7 +62,7 @@ export default function SelectInput({ id, label, val, disabled, options, changeC
                                     {options.map((option, i) => (
                                         <li key={i} onClick={() => { onPress(option.id) }}>
                                             <a className="block px-4 py-2 hover:bg-gray-100" >
-                                                {(option.id == selected?.id ? "- " : "") + option.label}
+                                                {(option.id == selected?.id ? "> " : "") + option.label}
                                             </a>
                                         </li>
                                     ))}
@@ -74,17 +74,6 @@ export default function SelectInput({ id, label, val, disabled, options, changeC
 
                 }
             </div>
-
-
-            {/* <div className="flex flex-row">
-                {options.map((option, i) => (
-                    <div key={i} className="w-full">
-                        <input id={option.id} type="radio" value={option.id} name={id} className="w-4 h-4 bg-gray-100 border-gray-300 focus:ring-primary" defaultChecked={option.id == val} readOnly={disabled} onChange={onOptionChange}></input>
-                        <label htmlFor={option.id} className=" w-full py-4 ms-2 text-sm font-medium text-text">{option.label}</label>
-                    </div>
-                ))}
-            </div> */}
-
         </div>
     )
 }

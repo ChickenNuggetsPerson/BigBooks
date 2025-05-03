@@ -22,7 +22,6 @@ export default function OrganizationSelectForm({ dismiss }: OrganizationSelectFo
             <div style={{ position: "fixed", top: 0, left: 0, height: "100vh", zIndex: 2000 }} >
                 <div style={{ position: "fixed", top: 0, left: 0, height: "100vh", zIndex: 2000 }} className="max-w-2xl mx-auto block p-6 bg-background border border-gray-200 rounded-lg shadow-sm " >
 
-                    
                     <div className="flex justify-between mb-5">
                         <h1> </h1>
                         <h5 onClick={dismiss}>← Close </h5>

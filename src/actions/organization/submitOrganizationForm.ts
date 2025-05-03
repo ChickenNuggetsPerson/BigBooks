@@ -14,6 +14,9 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
     const notes = formData.get("notes") as string
     const address = formData.get("address") as string
 
+    const periodsPerYear = Number(formData.get("periodsPerYear") as string)
+    const periodsRefDate = new Date(formData.get("periodsRefDate") as string)
+
     const em = await getEM();
 
 
@@ -29,6 +32,9 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
             organization.notes = notes
             organization.address = address
             organization.isDeleted = false
+            organization.periodsPerYear = periodsPerYear
+            organization.periodsRefDate = periodsRefDate
+
             em.persist(organization);
 
             await em.flush();
@@ -42,6 +48,8 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
             organization.name = name
             organization.notes = notes
             organization.address = address
+            organization.periodsPerYear = periodsPerYear
+            organization.periodsRefDate = periodsRefDate
 
             await em.flush()
 

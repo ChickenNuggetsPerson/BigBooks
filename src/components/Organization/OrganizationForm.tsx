@@ -10,61 +10,72 @@ import deactivateOrganization from "@/actions/organization/deactivateOrg"
 import { useCompany } from "@/app/CompanyContext"
 import { useRouter } from "next/navigation"
 import LargeTextInput from "../Forms/LargeTextInput"
+import SelectInput from "../Forms/SelectInput"
+import DateInput from "../Forms/DateInput"
 
 
 
-
+const PeriodsPerYearOptions = [
+    {
+        label: "Weekly",
+        id: "52"
+    },
+    {
+        label: "Bi-Weekly",
+        id: "26"
+    }
+]
 
 interface OrganizationFormProps { orgUUID: string }
-export default function OrganizationForm({ orgUUID } : OrganizationFormProps) {
+export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
 
-        const { setContext } = useCompany()
-        const router = useRouter()
+    const { setContext } = useCompany()
+    const router = useRouter()
 
-        const [props, setProps] = useState(getEmptyDispOrganization())
-        const [error, setError] = useState(false)
-    
-        const newOrganization = (orgUUID == "new")
-    
-        useEffect(() => {
-            async function load() {
-    
-                if (!newOrganization) {
-                    const organization = await getOrgDetails(orgUUID)
-                    if (organization) { // Employee exists
-                        setProps(organization)  
-                    } else {
-                        setError(true)
-                    }
+    const [props, setProps] = useState(getEmptyDispOrganization())
+    const [error, setError] = useState(false)
+
+    const newOrganization = (orgUUID == "new")
+
+    useEffect(() => {
+        async function load() {
+
+            if (!newOrganization) {
+                const organization = await getOrgDetails(orgUUID)
+                if (organization) { // Employee exists
+                    setProps(organization)
+                } else {
+                    setError(true)
                 }
             }
-            load()
-        }, [orgUUID, newOrganization])
-    
-    
-        if (error) {
-            return (
-                <div>
-                    Error Fetching Employee
-                </div>
-            )
         }
-    
-        function cancelURL(isNew: boolean) {
-            const url = "/organization/overview"
-            if (isNew) {
-                return "/"
-            }
+        load()
+    }, [orgUUID, newOrganization])
 
-            return url
+
+    if (error) {
+        return (
+            <div>
+                Error Fetching Employee
+            </div>
+        )
+    }
+
+    function cancelURL(isNew: boolean) {
+        const url = "/organization/overview"
+        if (isNew) {
+            return "/"
         }
-    
+
+        return url
+    }
+
     // const updateOrganization = .bind(null, newOrganization)
 
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
-        
+
         async function submit() {
             try {
                 const result = await submitOrganizationForm(newOrganization, new FormData(e.currentTarget));
@@ -72,7 +83,7 @@ export default function OrganizationForm({ orgUUID } : OrganizationFormProps) {
 
                 router.push("/organization")
 
-            } catch(err) {
+            } catch (err) {
                 alert(err)
             }
         }
@@ -89,6 +100,10 @@ export default function OrganizationForm({ orgUUID } : OrganizationFormProps) {
             <TextInput id={"name"} label={"Name:"} val={props.name} placeholder={""} disabled={false} />
             <TextInput id={"address"} label={"Address"} val={props.address} placeholder={""} disabled={false} />
             <LargeTextInput id={"notes"} label={"Notes"} val={props.notes} placeholder={""} disabled={false} />
+
+            <SelectInput id={"periodsPerYear"} label={"Pay Periods Per Year:"} val={String(props.periodsPerYear)} disabled={false} options={PeriodsPerYearOptions} changeCB={() => { }} />
+            <DateInput id={"periodsRefDate"} label={"Ref Date:"} val={props.periodsRefDate} disabled={false} />
+
             <TextInput id={"uuid"} label={"Org UUID"} val={props.uuid} placeholder={""} disabled={true} />
 
             <button type="submit" className="primary-button">Submit</button>

@@ -26,6 +26,8 @@ export default async function createDevOrg() {
     org.notes = "";
     org.address = getRandomElement(addresses);
     org.uuid = randomUUID()
+    org.periodsPerYear = 26
+    org.periodsRefDate = new Date(2025, 3, 20, 0, 0, 0)
     em.persist(org);
 
     const employees = [

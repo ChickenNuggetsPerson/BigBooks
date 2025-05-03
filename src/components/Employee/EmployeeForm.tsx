@@ -66,6 +66,7 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
             <TextInput id={"middleName"} label={"Middle Name"} val={props.middleName} placeholder={""} disabled={false} />
             <TextInput id={"lastName"} label={"Last Name"} val={props.lastName} placeholder={""} disabled={false} />
             <TextInput id={"email"} label={"Email"} val={props.email} placeholder={""} disabled={false} />
+            <TextInput id={"phoneNumber"} label={"Phone Number"} val={props.phoneNumber} placeholder={""} disabled={false} />
             <TextInput id={"address"} label={"Address"} val={props.address} placeholder={""} disabled={false} />
             <TextInput id={"ssn"} label={"SSN"} val={props.ssn} placeholder={""} disabled={false} />
 

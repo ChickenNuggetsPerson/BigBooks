@@ -30,7 +30,7 @@ export default function OrgOverview({ uuid }: OverviewProps) {
             <div className="card mb-5 max-w-md">
 
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{state.name}</h5>
-                {state.isDeleted && <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 opacity-50">{"[ Deactivated ]"}</h5> }
+                {state.isDeleted && <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 opacity-50">{"[ Deactivated ]"}</h5>}
                 <p className="font-normal text-gray-700 ">{state.address}</p>
 
                 {(state.notes != "") &&
@@ -45,8 +45,10 @@ export default function OrgOverview({ uuid }: OverviewProps) {
 
 
             <div className="card max-w-sm">
-
                 <h5 className="mb-2 text-2xl font-normal text-gray-700 ">Organization Statistics:</h5>
+
+                {/* {periodToStr(generatePayperiodFromDate(state.periodsRefDate, state.periodsPerYear, new Date()))} */}
+                
                 <h5 className="font-normal text-gray-700">Total Employees: {state.employeeCount}</h5>
             </div>
         </AnimateChildren>

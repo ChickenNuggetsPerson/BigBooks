@@ -23,3 +23,9 @@ export function MoneyToStr(money: number) {
 export function HourlyRateStr(rate: number) {
     return MoneyToStr(rate) + " / hr"
 }
+
+
+
+
+
+

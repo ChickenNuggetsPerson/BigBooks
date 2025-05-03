@@ -18,6 +18,7 @@ export default async function submitEmployeeForm(newEmployee: boolean, formData:
     const lastname = formData.get("lastName") as string
 
     const email = formData.get("email") as string
+    const phoneNumber = formData.get("phoneNumber") as string
 
     const notes = formData.get("notes") as string
     const address = formData.get("address") as string
@@ -48,6 +49,7 @@ export default async function submitEmployeeForm(newEmployee: boolean, formData:
             employee.address = address
             employee.ssn = ssn
             employee.email = email
+            employee.phoneNumber = phoneNumber
             employee.isDeleted = false
 
             // employee.hourlyRates = [{ name: "Standard", rate: 20 }];
@@ -67,6 +69,7 @@ export default async function submitEmployeeForm(newEmployee: boolean, formData:
             employee.address = address
             employee.ssn = ssn
             employee.email = email
+            employee.phoneNumber = phoneNumber
             // employee.isDeleted = isDeleted
 
             await em.flush()

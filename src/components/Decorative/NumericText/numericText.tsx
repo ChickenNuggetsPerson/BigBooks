@@ -2,34 +2,45 @@
 
 import { useEffect, useState } from "react";
 import "./text.css"
+import { AnimatePresence, motion } from "framer-motion";
 
 
 
-const Counter = ({ val = 0, animDelta = 50 }) => {
-    const [numArray, setNumArray] = useState(Array.from([], Number));
+const NumericText = ({ val = "", animDelta = 50, spacing = 0 }) => {
+    const [charArray, setNumArray] = useState(Array.from([], String));
+    const [id] = useState(Math.random())
 
     useEffect(() => {
-        // Split the value into individual digits
-        const newNumArray = Array.from(String(val), Number);
+
+        const newCharArray = val.split("")
 
         // Only update the array if the value changes
-        if (JSON.stringify(numArray) !== JSON.stringify(newNumArray)) {
-            setNumArray(newNumArray);
+        if (JSON.stringify(charArray) !== JSON.stringify(newCharArray)) {
+            setNumArray(newCharArray);
         }
-    }, [numArray, val]);
+    }, [charArray, val]);
 
     return (
-        <div className="counter flex hstack">
-            {numArray.map((num, i) => (
-                <NumberDisplay key={i} value={num} animDelay={i * animDelta} />
-            ))}
+        <div className="flex flex-row">
+            <AnimatePresence>
+                {charArray.map((num, i) => (
+                    <motion.div
+                        key={id + "-" + i}
+                        exit={{ opacity: 0, transform: "translateY(20px)" }}
+                        transition={{ duration: 0.2, type: 'linear', delay: (i * animDelta)/1000 }}
+                        style={{marginRight: spacing}}
+                    >
+                        <NumberDisplay key={i} value={num} animDelay={i * animDelta} />
+                    </motion.div>
+                ))}
+            </AnimatePresence>
         </div>
     );
 };
 
 
 interface DisplayParms {
-    value: number
+    value: string
     animDelay: number
 }
 
@@ -38,28 +49,31 @@ const NumberDisplay = ({ value, animDelay }: DisplayParms) => {
     const [isNew, setNew] = useState(true)
 
     const [transitionClass, setClass] = useState("numeric-text fade-in")
-    const [width, setWidth] = useState("0px")
+    const [width, setWidth] = useState("1rem")
 
     useEffect(() => {
-        
+
         if (isNew) {
             setTimeout(() => {
                 setDisplayValue(value)
-                setNew(false)
             }, animDelay);
 
             setTimeout(() => {
                 setClass("numeric-text fade-in fade-default")
                 setWidth("1rem")
-            }, animDelay + 250); 
+            }, animDelay + 250);
 
             setTimeout(() => {
                 setClass("numeric-text")
-            }, animDelay + 300); 
+            }, animDelay + 300);
+
+            setNew(false)
 
         } else {
 
-            setClass("numeric-text fade-out")
+            setTimeout(() => {
+                setClass("numeric-text fade-out")
+            }, animDelay);
 
             setTimeout(() => {
                 setDisplayValue(value)
@@ -72,12 +86,12 @@ const NumberDisplay = ({ value, animDelay }: DisplayParms) => {
 
             setTimeout(() => {
                 setClass("numeric-text")
-            }, animDelay + 300); 
+            }, animDelay + 300);
 
         }
     }, [value, animDelay, isNew]);
 
-    
+
 
     return (
         <h1 className={transitionClass} style={{ width: width }}>
@@ -86,4 +100,4 @@ const NumberDisplay = ({ value, animDelay }: DisplayParms) => {
     );
 };
 
-export default Counter;
+export default NumericText;
