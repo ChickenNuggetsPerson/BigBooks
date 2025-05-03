@@ -1,4 +1,4 @@
-import { HStack, Spacer } from "../Stacking/stacking";
+import { HStack, Spacer } from "../Stacking/Stacking";
 import Counter from "./numericText";
 
 
