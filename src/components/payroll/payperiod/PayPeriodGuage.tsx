@@ -37,7 +37,7 @@ export default function PayPeriodGuage({ p }: PayPeriodGuageProps) {
         }
 
         if (per == 0.0 || Number.isNaN(per)) {
-            return "0%"
+            return " 0%"
         }
 
         if (per < 0.1) {

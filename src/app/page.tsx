@@ -11,7 +11,7 @@ export default function Home() {
       <div>
         <OrganizationList />
       </div>
-      <button style={{position: 'fixed'}} className="secondary-button" onClick={createDevOrg} >Create</button>
+      <button style={{position: 'absolute', left: 60}} className="secondary-button" onClick={createDevOrg} >Create</button>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 'use client'
 
 
-import { getEmptyDispPayPeriod } from "@/database/models/DisplayModels";
+import { DispPayPeriod, getEmptyDispPayPeriod } from "@/database/models/DisplayModels";
 import { useEffect, useState } from "react";
 import PayPeriodGuage from "./PayPeriodGuage";
 import { useCompany } from "@/app/CompanyContext";
@@ -27,7 +27,12 @@ export default function PayPeriodOverview() {
             const current = await getCurrentPayperiod(context?.companyUUID ?? "", new Date(), true)
             if (current) {
                 setPeriod(current)
-                setStep(0)
+                
+                if (current.includedEmployees.length == 0) {
+                    setStep(0)
+                } else {
+                    setStep(1)
+                }
             }
         }
 
@@ -69,6 +74,10 @@ export default function PayPeriodOverview() {
 
                 {step == 0 && <>
                     <EmployeeList employeePage={false} selectCB={(selected) => { updateIncluded(selected); } } preSelected={period.includedEmployees} />
+                </>}
+
+                {step == 1 && <>
+
                 </>}
 
             </div>

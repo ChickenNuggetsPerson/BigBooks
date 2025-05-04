@@ -64,7 +64,7 @@ export default function EmployeeList({ employeePage, selectCB, preSelected }: Em
     const [sort, setSort] = useState("last")
     const [showDeleted, setShowDeleted] = useState(false)
 
-    const [selected, setSelected] = useState(preSelected)
+    const [selected, setSelected] = useState([] as string[])
     const [showSave, setShowSave] = useState(false)
 
     useEffect(() => { // Fetch data
@@ -78,6 +78,8 @@ export default function EmployeeList({ employeePage, selectCB, preSelected }: Em
     }, [context, showDeleted])
 
     useEffect(() => { filterList() }, [search, sort, filter])
+
+    useEffect(() => {setSelected(preSelected)}, [preSelected])
 
     function filterList() {
 
