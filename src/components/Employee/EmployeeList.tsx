@@ -3,7 +3,7 @@
 import getEmployeeList from "@/actions/employee/getEmployeeList";
 import { useCompany } from "@/app/CompanyContext";
 import { DispEmployee } from "@/database/models/DisplayModels";
-import { motion, press } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -65,6 +65,7 @@ export default function EmployeeList({ employeePage, selectCB, preSelected }: Em
     const [showDeleted, setShowDeleted] = useState(false)
 
     const [selected, setSelected] = useState(preSelected)
+    const [showSave, setShowSave] = useState(false)
 
     useEffect(() => { // Fetch data
         async function load() {
@@ -155,8 +156,18 @@ export default function EmployeeList({ employeePage, selectCB, preSelected }: Em
         if (val) {
             setSelected(filteredList.map((e) => { return e.uuid }))
         } else {
-            setSelected([])
+            const f = filteredList.map((e) => e.uuid)
+            setSelected(selected => selected.filter(c => { return f.indexOf(c) == -1 }))
         }
+    }
+
+    useEffect(() => {
+        setShowSave(JSON.stringify(preSelected.toSorted()) != JSON.stringify(selected.toSorted()))
+    }, [preSelected, selected])
+
+    function save() {
+        if (!showSave) { return }
+        selectCB(selected)
     }
 
     return (
@@ -198,8 +209,8 @@ export default function EmployeeList({ employeePage, selectCB, preSelected }: Em
                                 <CheckboxInput id={"showDeactivated"} label={"Select All"} val={false} disabled={false} changeCB={(val) => { selectAll(val) }} />
                             </div>
 
-                            <div className="flex flex-col justify-cente ml-2">
-                                <button className={"border rounded-md border-accent p-1 " + (preSelected == selected) ? "" : "text-white bg-accent"}>Save Selection</button>
+                            <div className="flex flex-col justify-center mb-3">
+                                <button onClick={save} className={"border rounded-md border-accent p-1 " + (showSave ? "text-white bg-accent" : "")}>Save Selection</button>
                             </div>
                         </div>
                     }

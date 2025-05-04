@@ -50,7 +50,10 @@ export default function PayPeriodOverview() {
         await setPayperiodIncludes(period.uuid, includes) // Send new inlcludes to the server
 
         const current = await getCurrentPayperiod(context?.companyUUID ?? "", new Date(), true)
-        if (current) { setPeriod(current) } // Update state
+        if (current) { 
+            setPeriod(current) 
+            setStep(1)
+        } // Update state
     }
 
 
@@ -62,7 +65,11 @@ export default function PayPeriodOverview() {
             <div className="flex-1 pr-8 overflow-y-scroll overflow-x-hidden" style={{ scrollbarWidth: "none" }}>
                 <ProgressPanel steps={PageSteps} currentStep={step} changeCB={(index) => { setStep(index) }} />
 
-                <EmployeeList employeePage={false} selectCB={(selected) => { updateIncluded(selected); } } preSelected={period.includedEmployees} />
+                <div className="m-5"></div>
+
+                {step == 0 && <>
+                    <EmployeeList employeePage={false} selectCB={(selected) => { updateIncluded(selected); } } preSelected={period.includedEmployees} />
+                </>}
 
             </div>
 

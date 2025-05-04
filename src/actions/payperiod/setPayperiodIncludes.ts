@@ -25,5 +25,7 @@ export default async function setPayperiodIncludes(periodUUID: string, includes:
 
     period.includedEmployees = includes as UUID[]
 
+    await em.flush();
+
     revalidatePath("/organization/payroll")
 }

@@ -15,7 +15,11 @@ export default function PayPeriodGuage({ p }: PayPeriodGuageProps) {
 
     useEffect(() => {
         setTimeout(() => {
-            setPercent(p.payStubs.length / p.includedEmployees.length)
+
+            const paystubCompletion = (p.payStubs.length / p.includedEmployees.length) * 0.8
+            const inclusionCompletion = (p.includedEmployees.length != 0) ? 0.2 : 0.0
+
+            setPercent(paystubCompletion + inclusionCompletion)
         }, 750);
     }, [p])
     
@@ -33,7 +37,7 @@ export default function PayPeriodGuage({ p }: PayPeriodGuageProps) {
         }
 
         if (per == 0.0 || Number.isNaN(per)) {
-            return "00%"
+            return "0%"
         }
 
         if (per < 0.1) {
