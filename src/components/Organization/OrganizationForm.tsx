@@ -101,7 +101,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
             <TextInput id={"address"} label={"Address"} val={props.address} placeholder={""} disabled={false} />
             <LargeTextInput id={"notes"} label={"Notes"} val={props.notes} placeholder={""} disabled={false} />
 
-            <SelectInput id={"periodsPerYear"} label={"Pay Periods Per Year:"} val={String(props.periodsPerYear)} disabled={false} options={PeriodsPerYearOptions} changeCB={() => { }} />
+            <SelectInput id={"periodsPerYear"} label={"Pay Periods Per Year:"} val={String(props.periodsPerYear)} disabled={false} options={PeriodsPerYearOptions} changeCB={() => { }} searchable={false} />
             <DateInput id={"periodsRefDate"} label={"Ref Date:"} val={props.periodsRefDate} disabled={false} />
 
             <TextInput id={"uuid"} label={"Org UUID"} val={props.uuid} placeholder={""} disabled={true} />

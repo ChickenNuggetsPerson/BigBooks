@@ -59,3 +59,11 @@
 .accent-button {
   @apply text-white bg-accent hover:bg-accent-up  focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
 }
+
+
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}

@@ -16,7 +16,7 @@ export default function PayPeriodGuage({ p }: PayPeriodGuageProps) {
     useEffect(() => {
         setTimeout(() => {
             setPercent(p.payStubs.length / p.includedEmployees.length)
-        }, 1000);
+        }, 750);
     }, [p])
     
     function convert(per: number) {
@@ -44,7 +44,7 @@ export default function PayPeriodGuage({ p }: PayPeriodGuageProps) {
     }
 
     return (
-        <div className="relative size-50 card">
+        <div className="relative size-60 card">
             <svg className="rotate-[135deg] size-full" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
 
                 <circle cx="18" cy="18" r="16" fill="none" className="stroke-current text-gray-200" strokeWidth="2" strokeDasharray="75 100" strokeLinecap="round"></circle>
@@ -58,10 +58,10 @@ export default function PayPeriodGuage({ p }: PayPeriodGuageProps) {
             </svg>
             
             <div className="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                <span className="text-4xl font-bold text-accent">
+                <span className="text-4xl font-bold text-dark_secondary">
                     <NumericText val={percentText(percent)} spacing={8} />
                 </span>
-                <span className="text-accent block">Complete</span>
+                <span className="text-dark_secondary block">Complete</span>
             </div>
         </div>
     )

@@ -142,21 +142,31 @@ export function generatePayperiodFromDate(orgRefDate: Date, perYear: number, dat
         shiftAmt = 14
     }    
 
-    let end = new Date(orgRefDate)
+    let end = new Date(orgRefDate.toDateString())
+    end.setHours(23, 59, 59)
 
     while (date > end) {
         end = end.addDays(shiftAmt)
     }
 
     const p = getEmptyDispPayPeriod()
+
     p.periodStart = new Date(end.addDays(1 - shiftAmt))
     p.periodEnd = new Date(end)
+
+    p.periodStart.setHours(0, 0, 0)
+    p.periodEnd.setHours(23, 59, 59)
+
+    console.log(p.periodStart.toLocaleString())
+    console.log(p.periodEnd.toLocaleString())
 
     return p
 }
 export function periodToStr(p: DispPayPeriod) : string {
     function format(per: Date) {
-        return `${per.getMonth() + 1}/${per.getDate()}/${per.getFullYear()}`
+        // return `${per.getMonth() + 1}/${per.getDate()}/${per.getFullYear()}`
+        // return per.toLocaleString()
+        return per.toLocaleDateString()
     }
 
     return format(p.periodStart) + " - " + format(p.periodEnd)

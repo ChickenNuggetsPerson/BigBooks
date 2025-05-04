@@ -4,6 +4,7 @@ import { getEM } from "@/database/db"
 import { generatePayperiodFromDate, getDispPayPeriod, getEmptyDispPayPeriod } from "@/database/models/DisplayModels"
 import { Organization, Payperiod } from "@/database/models/Models"
 import { UUID } from "crypto"
+import { revalidatePath } from "next/cache"
 
 
 
@@ -35,5 +36,6 @@ export default async function createPayperiod(orgUUID: string, refDate: Date) {
 
     await em.flush();
 
+    revalidatePath("/organization/payroll")
     return getDispPayPeriod(payperiod)
 }

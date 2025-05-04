@@ -1,7 +1,7 @@
 'use server'
 
 import { getEM } from "@/database/db";
-import { getDispPayPeriod } from "@/database/models/DisplayModels";
+import { getDispPayPeriod, getEmptyDispPayPeriod } from "@/database/models/DisplayModels";
 import { Payperiod } from "@/database/models/Models";
 import { UUID } from "crypto";
 import createPayperiod from "./createPayperiod";
@@ -9,6 +9,10 @@ import createPayperiod from "./createPayperiod";
 
 
 export default async function getPayperiodByDate(orgUUID: string, refDate: Date, createIfNULL: boolean) {
+
+    if (orgUUID.trim() == "") {
+        return getEmptyDispPayPeriod()
+    }
 
     const em = await getEM();
     const period = await em.findOne(Payperiod, { 
@@ -18,6 +22,7 @@ export default async function getPayperiodByDate(orgUUID: string, refDate: Date,
             uuid: (orgUUID as UUID),
         }
     })
+
     if (period) {
         return getDispPayPeriod(period)
     }

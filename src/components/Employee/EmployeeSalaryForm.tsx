@@ -72,7 +72,7 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
             <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">Edit Employee Pay</h5>
             <h6 className="mb-5 text-2xl tracking-tight text-gray-400">{`${props.firstName} ${props.lastName}`}</h6>
 
-            <SelectInput id={"isSalary"} label={"Pay Type"} val={SalaryOptions[props.isSalary ? 0 : 1].id} disabled={false} options={SalaryOptions} changeCB={onSalaryTypeChange} />
+            <SelectInput id={"isSalary"} label={"Pay Type"} val={SalaryOptions[props.isSalary ? 0 : 1].id} disabled={false} options={SalaryOptions} changeCB={onSalaryTypeChange} searchable={false}/>
 
             <Divider />
 

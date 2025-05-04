@@ -1,3 +1,5 @@
+'use client'
+
 import EmployeeList from "@/components/Employee/EmployeeList";
 
 export default function Employee() {
@@ -9,7 +11,7 @@ export default function Employee() {
 
             {/* <Sidebar name={name} uuid={orgUUID} page={Page.Employee}></Sidebar> */}
 
-            <EmployeeList/>
+            <EmployeeList employeePage={true} selectCB={() => {}} preSelected={[]}/>
         </div>
     );
 }
