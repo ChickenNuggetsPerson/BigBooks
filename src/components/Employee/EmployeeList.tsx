@@ -77,12 +77,7 @@ export default function EmployeeList({ employeePage, selectCB, preSelected }: Em
         load()
     }, [context, showDeleted])
 
-    useEffect(() => { filterList() }, [search, sort, filter])
-
-    useEffect(() => {setSelected(preSelected)}, [preSelected])
-
-    function filterList() {
-
+    useEffect(() => { // Run every time the list needs to be updated
         const salary = filter == "salary"
         const hourly = filter == "hourly"
         const all = filter == "all"
@@ -129,7 +124,10 @@ export default function EmployeeList({ employeePage, selectCB, preSelected }: Em
         }
 
         setFilteredList(f)
-    }
+    }, [search, sort, filter, list])
+
+    useEffect(() => {setSelected(preSelected)}, [preSelected])
+
 
     const inputHandler = (e: { target: { value: string; }; }) => { // Filter search
         setSearch(e.target.value)

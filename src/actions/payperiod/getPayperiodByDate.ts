@@ -1,10 +1,8 @@
 'use server'
 
-import { getEM } from "@/database/db";
 import { getDispPayPeriod, getEmptyDispPayPeriod } from "@/database/models/DisplayModels";
-import { Payperiod } from "@/database/models/Models";
-import { UUID } from "crypto";
 import createPayperiod from "./createPayperiod";
+import { prisma } from "@/database/prisma";
 
 
 
@@ -14,12 +12,13 @@ export default async function getPayperiodByDate(orgUUID: string, refDate: Date,
         return getEmptyDispPayPeriod()
     }
 
-    const em = await getEM();
-    const period = await em.findOne(Payperiod, { 
-        periodStart: { $lte: refDate },
-        periodEnd: { $gte: refDate },
-        organization: {
-            uuid: (orgUUID as UUID),
+    const period = await prisma.payperiod.findFirst({
+        where: {
+            periodStart: { lte: refDate },
+            periodEnd: { gte: refDate },
+            organization: {
+                uuid: orgUUID
+            }
         }
     })
 

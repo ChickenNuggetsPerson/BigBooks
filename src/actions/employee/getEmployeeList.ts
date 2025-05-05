@@ -1,33 +1,31 @@
 'use server'
 
-import { getEM } from "@/database/db"
 import { getDispEmployee, getEmptyDispEmployee } from "@/database/models/DisplayModels"
-import { Employee, Organization } from "@/database/models/Models"
-import { UUID } from "crypto"
-
+import { prisma } from "@/database/prisma";
 
 
 
 export default async function getEmployeeList(orgUUID: string, showDeleted: boolean) {
+    try {
 
-    const em = await getEM();
-    const organization = await em.findOne(Organization, { uuid: (orgUUID as UUID) })
-
-    if (organization) {
-        
-
-        let list = (await organization.employees.load()).map((e: Employee) => { return getDispEmployee(e, true) })
-
-        list = list.filter((e) => { return e.isDeleted == showDeleted })
-
-        list = list.sort((a, b) => {
-            if (a.lastName.toLowerCase() > b.lastName.toLowerCase()) { return 1 }
-            if (a.lastName.toLowerCase() < b.lastName.toLowerCase()) { return -1 }
-            return 0
+        const organization = await prisma.organization.findUnique({
+            where: { uuid: orgUUID },
+            include: {
+                employees: true
+            }
         })
 
-        return list
-    } else {
+        if (!organization) { return [getEmptyDispEmployee("Error")] }
+
+        const list = organization.employees
+            .map((e) => getDispEmployee(e, true))
+            .filter((e) => e.isDeleted === showDeleted)
+            .sort((a, b) => a.lastName.toLowerCase().localeCompare(b.lastName.toLowerCase()));
+
+        return list;
+
+    } catch (err) {
+        console.error(err)
         return [getEmptyDispEmployee("Error")]
     }
 }

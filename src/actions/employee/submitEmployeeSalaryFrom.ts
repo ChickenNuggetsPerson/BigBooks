@@ -1,8 +1,6 @@
 'use server'
 
-import { getEM } from "@/database/db"
-import { Employee } from "@/database/models/Models"
-import { UUID } from "crypto"
+import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
@@ -26,24 +24,36 @@ export default async function submitEmployeeSalaryForm(formData: FormData) {
     const uuid = formData.get("uuid") as string
     const mode = formData.get("isSalary") as string
 
-    const em = await getEM();
+    const filing = formData.get("filing") as string
+    const dependants = Number(formData.get("dependants") as string)
 
     console.log(formData)
 
     try {
-        const employee = await em.findOneOrFail(Employee, { uuid: (uuid as UUID) })
 
         if (mode == "salary") {
-            employee.isSalary = true
-            employee.salary = Number(formData.get("salary"))
+            await prisma.employee.update({
+                where: { uuid: uuid },
+                data: {
+                    filingStatus: filing,
+                    dependants: dependants,
+                    isSalary: true,
+                    salary: Number(formData.get("salary"))
+                }
+            })
         }
 
         if (mode == "hourly") {
-            employee.isSalary = false
-            employee.hourlyRates = getRateArray(formData)
+            await prisma.employee.update({
+                where: { uuid: uuid },
+                data: {
+                    filingStatus: filing,
+                    dependants: dependants,
+                    isSalary: false,
+                    hourlyRates: getRateArray(formData)
+                }
+            })
         }
-
-        await em.flush()
 
     } catch (err) { console.log(err) }
 

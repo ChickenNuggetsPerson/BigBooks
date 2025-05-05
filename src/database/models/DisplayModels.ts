@@ -1,4 +1,7 @@
-import { Employee, Organization, Payperiod } from "./Models";
+import { Employee, Organization, Payperiod } from "../generated/prisma/client";
+import { prisma } from "../prisma";
+import { FilingTypes } from "../Taxes/FilingTypes";
+import { EmployeeHourlyRate } from "./SchemaJSON";
 
 
 
@@ -17,6 +20,8 @@ export interface DispEmployee {
     phoneNumber: string;
     orgUUID: string;
     ssn: string;
+    filingStatus: FilingTypes;
+    dependants: number;
 }
 export function getEmptyDispEmployee(name: string = ""): DispEmployee {
     return {
@@ -33,7 +38,9 @@ export function getEmptyDispEmployee(name: string = ""): DispEmployee {
         email: "",
         phoneNumber: "",
         orgUUID: "",
-        ssn: ""
+        ssn: "",
+        filingStatus: FilingTypes.Single,
+        dependants: 0
     }
 }
 export function getDispEmployee(e: Employee, stripSensitive: boolean = true): DispEmployee {
@@ -46,12 +53,20 @@ export function getDispEmployee(e: Employee, stripSensitive: boolean = true): Di
     employee.notes = e.notes
     employee.address = e.address
     employee.isSalary = e.isSalary
-    employee.salary = e.salary
-    employee.hourlyRates = e.hourlyRates
+    employee.salary = Number(e.salary)
+    
+    if (Array.isArray(e.hourlyRates)) {
+        employee.hourlyRates = e.hourlyRates as unknown as EmployeeHourlyRate[];
+    }
+
     employee.isDeleted = e.isDeleted
     employee.email = e.email
     employee.phoneNumber = e.phoneNumber
-    employee.orgUUID = e.organization.uuid
+    
+    employee.orgUUID = e.organizationId;
+
+    employee.filingStatus = e.filingStatus as FilingTypes
+    employee.dependants = e.dependants
 
     if (!stripSensitive) {
         employee.ssn = e.ssn
@@ -92,7 +107,9 @@ export async function getDispOrganization(o: Organization): Promise<DispOrganiza
     org.name = o.name
     org.notes = o.notes
     org.address = o.address
-    org.employeeCount = await o.employees.loadCount()
+
+    org.employeeCount = await prisma.employee.count({ where: { organizationId: o.uuid }})
+
     org.isDeleted = o.isDeleted
     org.periodsPerYear = o.periodsPerYear
     org.periodsRefDate = o.periodsRefDate
@@ -122,17 +139,21 @@ export function getEmptyDispPayPeriod(): DispPayPeriod {
 }
 export async function getDispPayPeriod(p: Payperiod): Promise<DispPayPeriod> {
     const pay = getEmptyDispPayPeriod()
-    
+
     pay.uuid = p.uuid
-    pay.orgID = p.organization.uuid
+    pay.orgID = p.organizationId
     pay.periodStart = p.periodStart
     pay.periodEnd = p.periodEnd
-    pay.includedEmployees = p.includedEmployees
-    pay.payStubs = (await p.payStubs.load()).map((stub) => { return stub.uuid }) // Only send array of stub UUIDs
+
+    if (Array.isArray(p.includedEmployees)) {
+        pay.includedEmployees = p.includedEmployees as unknown as string[];
+    }
+
+    pay.payStubs = (await prisma.payStub.findMany({where: {payperiodId: p.uuid}, select: {uuid: true}})).map((s) => s.uuid) // Only send array of stub UUIDs
 
     return pay
 }
-export function generatePayperiodFromDate(orgRefDate: Date, perYear: number, date: Date) : DispPayPeriod {
+export function generatePayperiodFromDate(orgRefDate: Date, perYear: number, date: Date): DispPayPeriod {
 
     let shiftAmt = 0
 
@@ -140,7 +161,7 @@ export function generatePayperiodFromDate(orgRefDate: Date, perYear: number, dat
         shiftAmt = 7
     } else { // Bi-Weekly
         shiftAmt = 14
-    }    
+    }
 
     let end = new Date(orgRefDate.toDateString())
     end.setHours(23, 59, 59)
@@ -162,7 +183,7 @@ export function generatePayperiodFromDate(orgRefDate: Date, perYear: number, dat
 
     return p
 }
-export function periodToStr(p: DispPayPeriod) : string {
+export function periodToStr(p: DispPayPeriod): string {
     function format(per: Date) {
         // return `${per.getMonth() + 1}/${per.getDate()}/${per.getFullYear()}`
         // return per.toLocaleString()

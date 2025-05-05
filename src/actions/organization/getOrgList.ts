@@ -1,15 +1,14 @@
 'use server'
 
-import { getEM } from "@/database/db";
 import { getDispOrganization } from "@/database/models/DisplayModels";
-import { Organization } from "@/database/models/Models";
+import { prisma } from "@/database/prisma";
 
 
 
 
 export default async function getOrgList(showDeleted: boolean) {
-    const em = await getEM();
-    const organizations = await em.findAll(Organization)
+
+    const organizations = await prisma.organization.findMany()
 
     let list = []
     for (let i = 0; i < organizations.length; i++) {

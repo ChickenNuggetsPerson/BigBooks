@@ -1,7 +1,7 @@
 'use client'
 
 
-import { DispPayPeriod, getEmptyDispPayPeriod } from "@/database/models/DisplayModels";
+import { getEmptyDispPayPeriod } from "@/database/models/DisplayModels";
 import { useEffect, useState } from "react";
 import PayPeriodGuage from "./PayPeriodGuage";
 import { useCompany } from "@/app/CompanyContext";

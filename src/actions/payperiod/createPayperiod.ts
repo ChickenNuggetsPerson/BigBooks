@@ -1,9 +1,7 @@
 'use server'
 
-import { getEM } from "@/database/db"
 import { generatePayperiodFromDate, getDispPayPeriod, getEmptyDispPayPeriod } from "@/database/models/DisplayModels"
-import { Organization, Payperiod } from "@/database/models/Models"
-import { UUID } from "crypto"
+import { prisma } from "@/database/prisma";
 import { revalidatePath } from "next/cache"
 
 
@@ -13,9 +11,7 @@ import { revalidatePath } from "next/cache"
 // refDate is a date within the payperiod
 export default async function createPayperiod(orgUUID: string, refDate: Date) {
 
-    const em = await getEM();
-
-    const organization = await em.findOne(Organization, { uuid: (orgUUID as UUID) })
+    const organization = await prisma.organization.findUnique({ where: { uuid: orgUUID }})
     if (!organization) {
         return getEmptyDispPayPeriod() // Cry
     }
@@ -24,17 +20,14 @@ export default async function createPayperiod(orgUUID: string, refDate: Date) {
 
     const current = generatePayperiodFromDate(organization.periodsRefDate, organization.periodsPerYear, refDate)
 
-    const payperiod = new Payperiod()
-    payperiod.organization = organization
-    payperiod.uuid = crypto.randomUUID() as UUID
-
-    payperiod.includedEmployees = []
-    payperiod.periodStart = current.periodStart
-    payperiod.periodEnd = current.periodEnd
-
-    em.persist(payperiod);
-
-    await em.flush();
+    const payperiod = await prisma.payperiod.create({
+        data: {
+            includedEmployees: [],
+            periodStart: current.periodStart,
+            periodEnd: current.periodEnd,
+            organizationId: organization.uuid
+        }
+    })
 
     revalidatePath("/organization/payroll")
     return getDispPayPeriod(payperiod)

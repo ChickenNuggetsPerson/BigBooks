@@ -1,31 +1,18 @@
 'use server'
 
-import { getEM } from "@/database/db"
-import { Payperiod } from "@/database/models/Models";
-import { UUID } from "crypto";
+import { prisma } from "@/database/prisma";
 import { revalidatePath } from "next/cache";
-
-
-
-
-
 
 
 
 export default async function setPayperiodIncludes(periodUUID: string, includes: string[]) {
 
-
-    const em = await getEM();
-    const period = await em.findOne(Payperiod, {
-        uuid: (periodUUID as UUID)
+    await prisma.payperiod.update({
+        where: { uuid: periodUUID },
+        data: {
+            includedEmployees: includes
+        }
     })
-    if (!period) {
-        return
-    }
-
-    period.includedEmployees = includes as UUID[]
-
-    await em.flush();
 
     revalidatePath("/organization/payroll")
 }

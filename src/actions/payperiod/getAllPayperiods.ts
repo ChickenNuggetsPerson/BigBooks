@@ -1,22 +1,14 @@
 'use server'
 
-import { getEM } from "@/database/db";
 import { getDispPayPeriod } from "@/database/models/DisplayModels";
-import { Organization } from "@/database/models/Models";
-import { UUID } from "crypto";
+import { prisma } from "@/database/prisma";
 
 
 
 export default async function getAllPayperiods(orgUUID: string) {
 
-    const em = await getEM();
-    const organization = await em.findOne(Organization, { uuid: (orgUUID as UUID) })
 
-    if (!organization) {
-        return []
-    }
-
-    const periods = await organization.payperiods.load()
+    const periods = await prisma.payperiod.findMany({ where: { organizationId: orgUUID }})
 
     const newList = []
     for (let i = 0; i < periods.length; i++) {

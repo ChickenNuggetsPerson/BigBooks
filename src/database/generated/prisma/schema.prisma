@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/database/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  uuid           String   @id @unique @default(uuid())
+  name           String
+  notes          String   @default("")
+  address        String   @default("")
+  isDeleted      Boolean  @default(false)
+  periodsPerYear Int      @default(26)
+  periodsRefDate DateTime
+
+  employees  Employee[]
+  payperiods Payperiod[]
+}
+
+model Employee {
+  uuid         String  @id @unique @default(uuid())
+  firstName    String  @default("")
+  middleName   String  @default("")
+  lastName     String  @default("")
+  notes        String  @default("")
+  address      String  @default("")
+  email        String  @default("")
+  phoneNumber  String  @default("")
+  ssn          String  @default("")
+  isSalary     Boolean @default(true)
+  salary       Decimal @default(0)
+  hourlyRates  Json
+  filingStatus String  @default("Single")
+  dependants   Int     @default(0)
+  isDeleted    Boolean @default(false)
+
+  organization   Organization @relation(fields: [organizationId], references: [uuid])
+  organizationId String
+
+  payStubs PayStub[]
+}
+
+model Payperiod {
+  uuid              String   @id @unique @default(uuid())
+  periodStart       DateTime
+  periodEnd         DateTime
+  includedEmployees Json
+
+  organization   Organization @relation(fields: [organizationId], references: [uuid])
+  organizationId String
+
+  payStubs PayStub[]
+}
+
+model PayStub {
+  uuid       String  @id @unique @default(uuid())
+  hourly     Json
+  salary     Decimal @default(0)
+  commission Decimal @default(0)
+  bonus      Decimal @default(0)
+
+  federalRate Decimal @default(0)
+  federalAmt  Decimal @default(0)
+  stateRate   Decimal @default(0)
+  stateAmt    Decimal @default(0)
+  mediRate    Decimal @default(0)
+  mediAmt     Decimal @default(0)
+  socialRate  Decimal @default(0)
+  socialAmt   Decimal @default(0)
+
+  reimbursements Json
+  deductions     Json
+
+  employee   Employee @relation(fields: [employeeId], references: [uuid])
+  employeeId String
+
+  payperiod   Payperiod @relation(fields: [payperiodId], references: [uuid])
+  payperiodId String
+}

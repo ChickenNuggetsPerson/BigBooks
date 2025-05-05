@@ -1,8 +1,6 @@
 'use server'
 
-import { getEM } from "@/database/db"
-import { Employee, Organization } from "@/database/models/Models"
-import { UUID } from "crypto"
+import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
@@ -24,55 +22,45 @@ export default async function submitEmployeeForm(newEmployee: boolean, formData:
     const address = formData.get("address") as string
     const ssn = formData.get("ssn") as string
 
-    // let isDeleted = false
-    // if (formData.get("isDeleted")) {
-    //     const d = formData.get("isDeleted")
-    //     if (d == "true") { isDeleted = true } else { isDeleted = false }
-    // }
-
-    const em = await getEM();
 
     // console.log(formData)
 
     if (newEmployee) {
         try {
-            const organization = await em.findOneOrFail(Organization, { uuid: (orgUUID as UUID) })
 
-            const employee = new Employee();
-            employee.organization = organization;
-
-            employee.uuid = crypto.randomUUID() as UUID
-            employee.firstName = firstName
-            employee.middleName = middleName
-            employee.lastName = lastname
-            employee.notes = notes
-            employee.address = address
-            employee.ssn = ssn
-            employee.email = email
-            employee.phoneNumber = phoneNumber
-            employee.isDeleted = false
-
-            // employee.hourlyRates = [{ name: "Standard", rate: 20 }];
-            em.persist(employee);
-
-            await em.flush();
-
+            await prisma.employee.create({
+                data: {
+                    firstName: firstName,
+                    middleName: middleName,
+                    lastName: lastname,
+                    notes: notes,
+                    address: address,
+                    ssn: ssn,
+                    email: email,
+                    phoneNumber: phoneNumber,
+                    isDeleted: false,
+                    hourlyRates: [],
+                    organizationId: orgUUID,
+                }
+            })
 
         } catch (err) { console.log(err) }
     } else {
         try {
-            const employee = await em.findOneOrFail(Employee, { uuid: (uuid as UUID) })
-            employee.firstName = firstName
-            employee.middleName = middleName
-            employee.lastName = lastname
-            employee.notes = notes
-            employee.address = address
-            employee.ssn = ssn
-            employee.email = email
-            employee.phoneNumber = phoneNumber
-            // employee.isDeleted = isDeleted
 
-            await em.flush()
+            await prisma.employee.update({
+                where: { uuid: uuid },
+                data: {
+                    firstName: firstName,
+                    middleName: middleName,
+                    lastName: lastname,
+                    notes: notes,
+                    address: address,
+                    ssn: ssn,
+                    email: email,
+                    phoneNumber: phoneNumber
+                }
+            })
 
         } catch (err) { console.log(err) }
 

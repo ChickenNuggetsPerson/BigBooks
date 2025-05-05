@@ -1,12 +1,10 @@
 'use server'
 
-import { getEM } from "@/database/db"
-import { Organization } from "@/database/models/Models"
-import { UUID } from "crypto"
+
+import { prisma } from "@/database/prisma"
 
 export default async function getOrgName(uuid: string) {
-    const em = await getEM();
     
-    const organization = await em.findOne(Organization, { uuid: (uuid as UUID) })
+    const organization = await prisma.organization.findUnique({ where: { uuid: uuid } })
     return organization ? organization.name : "Error"
 }
