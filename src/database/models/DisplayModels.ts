@@ -1,7 +1,7 @@
-import { Employee, Organization, Payperiod } from "../generated/prisma/client";
+import { Employee, Organization, Payperiod, PayStub } from "../generated/prisma/client";
 import { prisma } from "../prisma";
 import { FilingTypes } from "../Taxes/FilingTypes";
-import { EmployeeHourlyRate } from "./SchemaJSON";
+import { EmployeeHourlyRate, PaystubExtra, PaystubHourly } from "./SchemaJSON";
 
 
 
@@ -194,6 +194,75 @@ export function periodToStr(p: DispPayPeriod): string {
 }
 
 
+
+
+export interface DispPaystub {
+    uuid: string
+    
+    hourly: PaystubHourly[]
+    salary: number
+    commission: number
+    bonus: number
+    
+    federalRate: number
+    federalAmt: number
+    stateRate: number
+    stateAmt: number
+    mediRate: number
+    mediAmt: number
+    socialRate: number
+    socialAmt: number
+
+    reimbursements: PaystubExtra[]
+    deductions: PaystubExtra[]
+
+    employeeUUID: string
+    payperiodUUID: string
+}
+export function getEmptyDispPaystub() : DispPaystub {
+    return {
+        uuid: "",
+        hourly: [],
+        salary: 0,
+        commission: 0,
+        bonus: 0,
+        federalRate: 0,
+        federalAmt: 0,
+        stateRate: 0,
+        stateAmt: 0,
+        mediRate: 0,
+        mediAmt: 0,
+        socialRate: 0,
+        socialAmt: 0,
+        reimbursements: [],
+        deductions: [],
+        employeeUUID: "",
+        payperiodUUID: ""
+    }
+}
+export function getDispPaystub(p: PayStub) : DispPaystub {
+    const stub = getEmptyDispPaystub()
+
+    stub.uuid = p.uuid
+    stub.hourly = p.hourly as unknown as PaystubHourly[]
+    stub.salary = Number(p.salary)
+    stub.commission = Number(p.commission)
+    stub.bonus = Number(p.bonus)
+    stub.federalRate = Number(p.federalRate)
+    stub.federalAmt = Number(p.federalAmt)
+    stub.stateRate = Number(p.stateRate)
+    stub.stateAmt = Number(p.stateAmt)
+    stub.mediRate = Number(p.mediRate)
+    stub.mediAmt = Number(p.mediAmt)
+    stub.socialRate = Number(p.socialRate)
+    stub.socialAmt = Number(p.socialAmt)
+    stub.reimbursements = p.reimbursements as unknown as PaystubExtra[]
+    stub.deductions = p.deductions as unknown as PaystubExtra[]
+    stub.employeeUUID = p.employeeId
+    stub.payperiodUUID = p.payperiodId
+
+    return stub
+}
 
 
 // Date Stuff

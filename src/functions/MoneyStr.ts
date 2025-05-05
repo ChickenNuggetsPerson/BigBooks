@@ -26,6 +26,17 @@ export function HourlyRateStr(rate: number) {
 
 
 
+export function PaddedMoneyStr(money: number, width: number, padLeft: boolean) {
+    const str = MoneyToStr(money)
 
+    let pad = width - str.length
+    if (pad <= 0) { pad = 0 }
+
+    if (padLeft) {
+        return " ".repeat(pad) + str
+    } else {
+        return str + " ".repeat(pad)
+    }
+}
 
 

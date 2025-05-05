@@ -8,7 +8,8 @@ type ProgressPanelProps = {
 
 export default function ProgressPanel({ steps, currentStep, changeCB }: ProgressPanelProps) {
     return (
-        <div className="flex w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-sm">
+        <div className='flex flex-row justify-center'>
+            <div className="flex w-full overflow-hidden rounded-xl border border-gray-300 bg-white shadow-sm max-w-200">
             {steps.map((step, index) => {
                 const isCompleted = index < currentStep;
                 const isActive = index === currentStep;
@@ -32,6 +33,7 @@ export default function ProgressPanel({ steps, currentStep, changeCB }: Progress
                     </div>
                 );
             })}
+        </div>
         </div>
     );
 }

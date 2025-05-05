@@ -116,7 +116,7 @@ function SalarySection({ d }: SectionProps) {
     return (
         <div className="card">
             Salary:
-            <NumberInput id={"salary"} label={""} val={d.salary} placeholder={""} disabled={false} />
+            <NumberInput id={"salary"} label={"Annual Salary"} val={d.salary} placeholder={""} disabled={false} />
         </div>
     )
 }

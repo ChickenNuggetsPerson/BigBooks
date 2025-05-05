@@ -69,7 +69,7 @@ export default function EmployeeList({ employeePage, selectCB, preSelected }: Em
 
     useEffect(() => { // Fetch data
         async function load() {
-            const l = await getEmployeeList(context?.companyUUID ?? "", showDeleted)
+            const l = await getEmployeeList(context?.companyUUID ?? "", showDeleted ? 3 : 2)
             setList(l)
             setFilteredList(l)
         }

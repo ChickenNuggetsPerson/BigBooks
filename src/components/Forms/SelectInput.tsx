@@ -66,9 +66,9 @@ export default function SelectInput({ id, label, val, disabled, options, changeC
                 <h2 className="p-3 bg-card border border-gray-200 rounded-lg shadow-sm" style={{ width: searchable ? 200 : 130 }}>{selected?.label}</h2>
 
                 {expanded &&
-                    <div style={{ position: "absolute", zIndex: 20000, right: searchable ? 0 : "none" }} >
+                    <div style={{ position: "absolute", zIndex: 20000, transform: searchable ? "translateX(-20px)" : "translateX(0px)" }} >
                         <AnimateChildren x={0} y={-10}>
-                            <div className={"bg-white divide-y divide-gray-100 rounded-lg shadow-sm " + (searchable ? "w-70 overflow-scroll h-50" : "w-40")}>
+                            <div className={"bg-white divide-y divide-gray-100 rounded-lg shadow-lg " + (searchable ? "w-70 overflow-y-scroll overflow-x-hidden h-50" : "w-40")}>
                                 <ul className="py-2 text-sm text-gray-700 ">
 
                                     {searchable &&
