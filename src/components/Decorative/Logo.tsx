@@ -23,7 +23,7 @@ export default function Logo({ width }: LogoProps) {
     // />
 
     return (
-        <div style={{ fontSize: width / 5.8, backgroundColor: "var(--color-primary)", color: "white" }} className={'text-center rounded-md ' + openSans.className}>
+        <div style={{ fontSize: width / 5.8, backgroundColor: "var(--color-primary)", color: "white" }} className={'text-center ' + openSans.className + (width > 260 ? " rounded-md" : "")}>
             BIG Books
         </div>
     )
