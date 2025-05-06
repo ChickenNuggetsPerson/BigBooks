@@ -21,7 +21,8 @@ export function getEmptyPaystubHourly() : PaystubHourly { return { name: "", hou
 
 export interface PaystubExtra {
     name: string
-    percent: number
+    percent: number // If percent is zero, the extra is a flat amount 
+    flatAmt: number
     amount: number
 }
-export function getEmptyPaystubExtra() : PaystubExtra { return { name: "", percent: 0, amount: 0 } }
+export function getEmptyPaystubExtra() : PaystubExtra { return { name: "", percent: 0, flatAmt: 0, amount: 0 } }

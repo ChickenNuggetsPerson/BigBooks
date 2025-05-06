@@ -4,15 +4,13 @@
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
 import getOrgDetails from "@/actions/organization/getOrgDetails";
 import getPaystub from "@/actions/paystub/getPaystub";
+import submitPaystubForm from "@/actions/paystub/submitPaystubForm";
 import AnimateChildren from "@/components/AnimateChildren";
 import NumericText from "@/components/Decorative/NumericText/NumericText";
-import { Divider } from "@/components/Forms/Divider";
-import NumberInput from "@/components/Forms/NumberInput";
 import TextInput from "@/components/Forms/TextInput";
-import { getEmptyDispEmployee, getEmptyDispOrganization, getEmptyDispPaystub } from "@/database/models/DisplayModels";
-import { getEmptyPaystubHourly } from "@/database/models/SchemaJSON";
-import { updateTaxes } from "@/database/Taxes/TaxTypes";
-import { MoneyToStr, PaddedMoneyStr } from "@/functions/MoneyStr";
+import { DispPaystub, getEmptyDispEmployee, getEmptyDispPaystub } from "@/database/models/DisplayModels";
+import { populatePaystub, updateTotals } from "@/database/Taxes/TaxTypes";
+import { PaddedMoneyStr } from "@/functions/MoneyStr";
 import { percentToStr } from "@/functions/PercentStr";
 import { useEffect, useState } from "react";
 
@@ -21,11 +19,10 @@ import { useEffect, useState } from "react";
 
 
 
-interface PaystubFormProps { empUUID: string, periodUUID: string }
-export default function PaystubForm({ empUUID, periodUUID }: PaystubFormProps) {
+interface PaystubFormProps { empUUID: string, periodUUID: string, cb: () => void }
+export default function PaystubForm({ empUUID, periodUUID, cb }: PaystubFormProps) {
 
     const [loaded, setLoaded] = useState(false)
-    const [organization, setOrganization] = useState(getEmptyDispOrganization())
     const [employee, setEmployee] = useState(getEmptyDispEmployee())
     const [paystub, setPaystub] = useState(getEmptyDispPaystub())
 
@@ -40,15 +37,13 @@ export default function PaystubForm({ empUUID, periodUUID }: PaystubFormProps) {
             }
 
             const o = await getOrgDetails(e.orgUUID)
-            if (o) {
-                setOrganization(o)
-            }
-
+            
             const p = await getPaystub(empUUID, periodUUID)
             if (p) {
                 setPaystub(p)
+                updateTotalDisplays(p)
             } else {
-                setPaystub(updateTaxes(e, o)) // Generate default items
+                setPaystub(populatePaystub(e, o, periodUUID)) // Generate default items
             }
 
             setLoaded(true)
@@ -84,33 +79,49 @@ export default function PaystubForm({ empUUID, periodUUID }: PaystubFormProps) {
     const [otherItems, setOtherItems] = useState(0)
     const [netPay, setNetPay] = useState(0)
 
-    useEffect(() => { // update display totals
-
-        let gross = paystub.salary
-        paystub.hourly.forEach((hourly) => {
+    function updateTotalDisplays(p: DispPaystub) {
+        let gross = p.salary
+        p.hourly.forEach((hourly) => {
             gross += hourly.amount
         })
-        gross += paystub.commission + paystub.bonus
+        gross += p.commission + p.bonus
         setGrossEarnings(gross)
 
-        const taxes = paystub.mediAmt + paystub.stateAmt + paystub.socialAmt + paystub.federalAmt
+        const taxes = p.mediAmt + p.stateAmt + p.socialAmt + p.federalAmt
         setTotalTaxes(taxes)
+
+        const otherItems = p.otherItems.reduce((prev, item) => { return prev + item.amount }, 0)
+        setOtherItems(otherItems)
+
+        const netPay = gross - taxes + otherItems
+        setNetPay(netPay)
+    }
+
+    useEffect(() => { // update display totals)
+        const updated = updateTotals(paystub)
+        if (JSON.stringify(updated) !== JSON.stringify(paystub)) { // Avoid infinite loop
+            setPaystub(updated)
+            updateTotalDisplays(updated)
+        }
     }, [paystub])
 
-    useEffect(() => {
-        const newStub = { ...paystub } // Update tax amts
-        newStub.federalAmt = newStub.federalRate * grossEarnings
-        newStub.stateAmt = newStub.stateRate * grossEarnings
-        newStub.mediAmt = newStub.mediRate * grossEarnings
-        newStub.socialAmt = newStub.socialAmt * grossEarnings
-        setPaystub(newStub)
-    }, [grossEarnings])
+
+
+    // Submit / Save Code
+    const handleClick = async () => {
+        await submitPaystubForm(paystub)
+        cb()
+        const p = await getPaystub(empUUID, periodUUID)
+        if (p) {
+            setPaystub(p) // Update paystub based on database
+        }
+    };
 
 
     return (
         <>
 
-            {loaded && <form className="max-w-md mx-auto " >
+            {loaded && <form className="max-w-md mx-auto mb-100" >
                 <h5 className="text-3xl font-bold tracking-tight text-gray-900 ">
                     <NumericText val={employee.firstName + " " + employee.lastName} spacing={2} />
                 </h5>
@@ -124,7 +135,7 @@ export default function PaystubForm({ empUUID, periodUUID }: PaystubFormProps) {
 
                         {/* Salary */}
                         {employee.isSalary && <>
-                            <NumInput id={"salary"} label={"Salary"} val={paystub.salary} disabled={true} cb={(val) => { }} />
+                            <NumInput id={"salary"} label={"Salary"} val={paystub.salary} disabled={true} cb={() => { }} />
                         </>}
 
                         {/* Hourly */}
@@ -214,6 +225,47 @@ export default function PaystubForm({ empUUID, periodUUID }: PaystubFormProps) {
                         </div>
 
                     </AnimateChildren>
+                </div>
+
+                {/* Third Card */}
+                <div className="card mb-5">
+
+                    <AnimateChildren x={0} y={-20}>
+
+                        <p>Deductions + Reimbursements</p>
+                        <p>TODO: Figure this out</p>
+
+                        <div className="h-px bg-accent mb-5"></div>
+
+                        <div className="flex flex-row justify-between text-md font-bold tracking-tight text-gray-900 ">
+                            <p>Total Payroll Items: </p>
+                            <NumericText val={PaddedMoneyStr(otherItems, 20, true)} spacing={-5} animDelta={10} />
+                        </div>
+
+                    </AnimateChildren>
+                </div>
+
+                {/* Fourth Card */}
+                <div className="card mb-5">
+
+                    <AnimateChildren x={0} y={-20}>
+
+                        <TextInput id={"empUUID"} label={"empUUID"} val={paystub.employeeUUID} placeholder={""} disabled={true} />
+                        <TextInput id={"periodUUID"} label={"periodUUID"} val={paystub.payperiodUUID} placeholder={""} disabled={true} />
+                        <TextInput id={"stubUUID"} label={"stubUUID"} val={paystub.uuid} placeholder={""} disabled={true} />
+
+                        <div className="h-px bg-accent mb-5"></div>
+
+                        <div className="flex flex-row justify-between text-md font-bold tracking-tight text-gray-900 ">
+                            <p>Net Pay: </p>
+                            <NumericText val={PaddedMoneyStr(netPay, 20, true)} spacing={-5} animDelta={10} />
+                        </div>
+
+                    </AnimateChildren>
+                </div>
+
+                <div className="flex flex-row justify-end">
+                    <button onClick={handleClick} type="button" className="primary-button">Submit</button>
                 </div>
 
             </form>}

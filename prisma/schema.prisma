@@ -81,8 +81,7 @@ model PayStub {
   socialRate   Decimal    @default(0)
   socialAmt    Decimal    @default(0)
 
-  reimbursements Json
-  deductions     Json
+  otherItems   Json
 
   employee     Employee  @relation(fields: [employeeId], references: [uuid])
   employeeId   String

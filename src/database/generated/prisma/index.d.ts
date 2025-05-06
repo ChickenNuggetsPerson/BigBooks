@@ -4832,8 +4832,7 @@ export namespace Prisma {
     mediAmt: number
     socialRate: number
     socialAmt: number
-    reimbursements: number
-    deductions: number
+    otherItems: number
     employeeId: number
     payperiodId: number
     _all: number
@@ -4916,8 +4915,7 @@ export namespace Prisma {
     mediAmt?: true
     socialRate?: true
     socialAmt?: true
-    reimbursements?: true
-    deductions?: true
+    otherItems?: true
     employeeId?: true
     payperiodId?: true
     _all?: true
@@ -5023,8 +5021,7 @@ export namespace Prisma {
     mediAmt: Decimal
     socialRate: Decimal
     socialAmt: Decimal
-    reimbursements: JsonValue
-    deductions: JsonValue
+    otherItems: JsonValue
     employeeId: string
     payperiodId: string
     _count: PayStubCountAggregateOutputType | null
@@ -5062,8 +5059,7 @@ export namespace Prisma {
     mediAmt?: boolean
     socialRate?: boolean
     socialAmt?: boolean
-    reimbursements?: boolean
-    deductions?: boolean
+    otherItems?: boolean
     employeeId?: boolean
     payperiodId?: boolean
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
@@ -5084,8 +5080,7 @@ export namespace Prisma {
     mediAmt?: boolean
     socialRate?: boolean
     socialAmt?: boolean
-    reimbursements?: boolean
-    deductions?: boolean
+    otherItems?: boolean
     employeeId?: boolean
     payperiodId?: boolean
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
@@ -5106,8 +5101,7 @@ export namespace Prisma {
     mediAmt?: boolean
     socialRate?: boolean
     socialAmt?: boolean
-    reimbursements?: boolean
-    deductions?: boolean
+    otherItems?: boolean
     employeeId?: boolean
     payperiodId?: boolean
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
@@ -5128,13 +5122,12 @@ export namespace Prisma {
     mediAmt?: boolean
     socialRate?: boolean
     socialAmt?: boolean
-    reimbursements?: boolean
-    deductions?: boolean
+    otherItems?: boolean
     employeeId?: boolean
     payperiodId?: boolean
   }
 
-  export type PayStubOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "hourly" | "salary" | "commission" | "bonus" | "federalRate" | "federalAmt" | "stateRate" | "stateAmt" | "mediRate" | "mediAmt" | "socialRate" | "socialAmt" | "reimbursements" | "deductions" | "employeeId" | "payperiodId", ExtArgs["result"]["payStub"]>
+  export type PayStubOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "hourly" | "salary" | "commission" | "bonus" | "federalRate" | "federalAmt" | "stateRate" | "stateAmt" | "mediRate" | "mediAmt" | "socialRate" | "socialAmt" | "otherItems" | "employeeId" | "payperiodId", ExtArgs["result"]["payStub"]>
   export type PayStubInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
     payperiod?: boolean | PayperiodDefaultArgs<ExtArgs>
@@ -5168,8 +5161,7 @@ export namespace Prisma {
       mediAmt: Prisma.Decimal
       socialRate: Prisma.Decimal
       socialAmt: Prisma.Decimal
-      reimbursements: Prisma.JsonValue
-      deductions: Prisma.JsonValue
+      otherItems: Prisma.JsonValue
       employeeId: string
       payperiodId: string
     }, ExtArgs["result"]["payStub"]>
@@ -5610,8 +5602,7 @@ export namespace Prisma {
     readonly mediAmt: FieldRef<"PayStub", 'Decimal'>
     readonly socialRate: FieldRef<"PayStub", 'Decimal'>
     readonly socialAmt: FieldRef<"PayStub", 'Decimal'>
-    readonly reimbursements: FieldRef<"PayStub", 'Json'>
-    readonly deductions: FieldRef<"PayStub", 'Json'>
+    readonly otherItems: FieldRef<"PayStub", 'Json'>
     readonly employeeId: FieldRef<"PayStub", 'String'>
     readonly payperiodId: FieldRef<"PayStub", 'String'>
   }
@@ -6097,8 +6088,7 @@ export namespace Prisma {
     mediAmt: 'mediAmt',
     socialRate: 'socialRate',
     socialAmt: 'socialAmt',
-    reimbursements: 'reimbursements',
-    deductions: 'deductions',
+    otherItems: 'otherItems',
     employeeId: 'employeeId',
     payperiodId: 'payperiodId'
   };
@@ -6462,8 +6452,7 @@ export namespace Prisma {
     mediAmt?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonFilter<"PayStub">
-    deductions?: JsonFilter<"PayStub">
+    otherItems?: JsonFilter<"PayStub">
     employeeId?: StringFilter<"PayStub"> | string
     payperiodId?: StringFilter<"PayStub"> | string
     employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
@@ -6484,8 +6473,7 @@ export namespace Prisma {
     mediAmt?: SortOrder
     socialRate?: SortOrder
     socialAmt?: SortOrder
-    reimbursements?: SortOrder
-    deductions?: SortOrder
+    otherItems?: SortOrder
     employeeId?: SortOrder
     payperiodId?: SortOrder
     employee?: EmployeeOrderByWithRelationInput
@@ -6509,8 +6497,7 @@ export namespace Prisma {
     mediAmt?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonFilter<"PayStub">
-    deductions?: JsonFilter<"PayStub">
+    otherItems?: JsonFilter<"PayStub">
     employeeId?: StringFilter<"PayStub"> | string
     payperiodId?: StringFilter<"PayStub"> | string
     employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
@@ -6531,8 +6518,7 @@ export namespace Prisma {
     mediAmt?: SortOrder
     socialRate?: SortOrder
     socialAmt?: SortOrder
-    reimbursements?: SortOrder
-    deductions?: SortOrder
+    otherItems?: SortOrder
     employeeId?: SortOrder
     payperiodId?: SortOrder
     _count?: PayStubCountOrderByAggregateInput
@@ -6559,8 +6545,7 @@ export namespace Prisma {
     mediAmt?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonWithAggregatesFilter<"PayStub">
-    deductions?: JsonWithAggregatesFilter<"PayStub">
+    otherItems?: JsonWithAggregatesFilter<"PayStub">
     employeeId?: StringWithAggregatesFilter<"PayStub"> | string
     payperiodId?: StringWithAggregatesFilter<"PayStub"> | string
   }
@@ -6852,8 +6837,7 @@ export namespace Prisma {
     mediAmt?: Decimal | DecimalJsLike | number | string
     socialRate?: Decimal | DecimalJsLike | number | string
     socialAmt?: Decimal | DecimalJsLike | number | string
-    reimbursements: JsonNullValueInput | InputJsonValue
-    deductions: JsonNullValueInput | InputJsonValue
+    otherItems: JsonNullValueInput | InputJsonValue
     employee: EmployeeCreateNestedOneWithoutPayStubsInput
     payperiod: PayperiodCreateNestedOneWithoutPayStubsInput
   }
@@ -6872,8 +6856,7 @@ export namespace Prisma {
     mediAmt?: Decimal | DecimalJsLike | number | string
     socialRate?: Decimal | DecimalJsLike | number | string
     socialAmt?: Decimal | DecimalJsLike | number | string
-    reimbursements: JsonNullValueInput | InputJsonValue
-    deductions: JsonNullValueInput | InputJsonValue
+    otherItems: JsonNullValueInput | InputJsonValue
     employeeId: string
     payperiodId: string
   }
@@ -6892,8 +6875,7 @@ export namespace Prisma {
     mediAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonNullValueInput | InputJsonValue
-    deductions?: JsonNullValueInput | InputJsonValue
+    otherItems?: JsonNullValueInput | InputJsonValue
     employee?: EmployeeUpdateOneRequiredWithoutPayStubsNestedInput
     payperiod?: PayperiodUpdateOneRequiredWithoutPayStubsNestedInput
   }
@@ -6912,8 +6894,7 @@ export namespace Prisma {
     mediAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonNullValueInput | InputJsonValue
-    deductions?: JsonNullValueInput | InputJsonValue
+    otherItems?: JsonNullValueInput | InputJsonValue
     employeeId?: StringFieldUpdateOperationsInput | string
     payperiodId?: StringFieldUpdateOperationsInput | string
   }
@@ -6932,8 +6913,7 @@ export namespace Prisma {
     mediAmt?: Decimal | DecimalJsLike | number | string
     socialRate?: Decimal | DecimalJsLike | number | string
     socialAmt?: Decimal | DecimalJsLike | number | string
-    reimbursements: JsonNullValueInput | InputJsonValue
-    deductions: JsonNullValueInput | InputJsonValue
+    otherItems: JsonNullValueInput | InputJsonValue
     employeeId: string
     payperiodId: string
   }
@@ -6952,8 +6932,7 @@ export namespace Prisma {
     mediAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonNullValueInput | InputJsonValue
-    deductions?: JsonNullValueInput | InputJsonValue
+    otherItems?: JsonNullValueInput | InputJsonValue
   }
 
   export type PayStubUncheckedUpdateManyInput = {
@@ -6970,8 +6949,7 @@ export namespace Prisma {
     mediAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonNullValueInput | InputJsonValue
-    deductions?: JsonNullValueInput | InputJsonValue
+    otherItems?: JsonNullValueInput | InputJsonValue
     employeeId?: StringFieldUpdateOperationsInput | string
     payperiodId?: StringFieldUpdateOperationsInput | string
   }
@@ -7322,8 +7300,7 @@ export namespace Prisma {
     mediAmt?: SortOrder
     socialRate?: SortOrder
     socialAmt?: SortOrder
-    reimbursements?: SortOrder
-    deductions?: SortOrder
+    otherItems?: SortOrder
     employeeId?: SortOrder
     payperiodId?: SortOrder
   }
@@ -7972,8 +7949,7 @@ export namespace Prisma {
     mediAmt?: Decimal | DecimalJsLike | number | string
     socialRate?: Decimal | DecimalJsLike | number | string
     socialAmt?: Decimal | DecimalJsLike | number | string
-    reimbursements: JsonNullValueInput | InputJsonValue
-    deductions: JsonNullValueInput | InputJsonValue
+    otherItems: JsonNullValueInput | InputJsonValue
     payperiod: PayperiodCreateNestedOneWithoutPayStubsInput
   }
 
@@ -7991,8 +7967,7 @@ export namespace Prisma {
     mediAmt?: Decimal | DecimalJsLike | number | string
     socialRate?: Decimal | DecimalJsLike | number | string
     socialAmt?: Decimal | DecimalJsLike | number | string
-    reimbursements: JsonNullValueInput | InputJsonValue
-    deductions: JsonNullValueInput | InputJsonValue
+    otherItems: JsonNullValueInput | InputJsonValue
     payperiodId: string
   }
 
@@ -8071,8 +8046,7 @@ export namespace Prisma {
     mediAmt?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonFilter<"PayStub">
-    deductions?: JsonFilter<"PayStub">
+    otherItems?: JsonFilter<"PayStub">
     employeeId?: StringFilter<"PayStub"> | string
     payperiodId?: StringFilter<"PayStub"> | string
   }
@@ -8118,8 +8092,7 @@ export namespace Prisma {
     mediAmt?: Decimal | DecimalJsLike | number | string
     socialRate?: Decimal | DecimalJsLike | number | string
     socialAmt?: Decimal | DecimalJsLike | number | string
-    reimbursements: JsonNullValueInput | InputJsonValue
-    deductions: JsonNullValueInput | InputJsonValue
+    otherItems: JsonNullValueInput | InputJsonValue
     employee: EmployeeCreateNestedOneWithoutPayStubsInput
   }
 
@@ -8137,8 +8110,7 @@ export namespace Prisma {
     mediAmt?: Decimal | DecimalJsLike | number | string
     socialRate?: Decimal | DecimalJsLike | number | string
     socialAmt?: Decimal | DecimalJsLike | number | string
-    reimbursements: JsonNullValueInput | InputJsonValue
-    deductions: JsonNullValueInput | InputJsonValue
+    otherItems: JsonNullValueInput | InputJsonValue
     employeeId: string
   }
 
@@ -8458,8 +8430,7 @@ export namespace Prisma {
     mediAmt?: Decimal | DecimalJsLike | number | string
     socialRate?: Decimal | DecimalJsLike | number | string
     socialAmt?: Decimal | DecimalJsLike | number | string
-    reimbursements: JsonNullValueInput | InputJsonValue
-    deductions: JsonNullValueInput | InputJsonValue
+    otherItems: JsonNullValueInput | InputJsonValue
     payperiodId: string
   }
 
@@ -8477,8 +8448,7 @@ export namespace Prisma {
     mediAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonNullValueInput | InputJsonValue
-    deductions?: JsonNullValueInput | InputJsonValue
+    otherItems?: JsonNullValueInput | InputJsonValue
     payperiod?: PayperiodUpdateOneRequiredWithoutPayStubsNestedInput
   }
 
@@ -8496,8 +8466,7 @@ export namespace Prisma {
     mediAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonNullValueInput | InputJsonValue
-    deductions?: JsonNullValueInput | InputJsonValue
+    otherItems?: JsonNullValueInput | InputJsonValue
     payperiodId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -8515,8 +8484,7 @@ export namespace Prisma {
     mediAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonNullValueInput | InputJsonValue
-    deductions?: JsonNullValueInput | InputJsonValue
+    otherItems?: JsonNullValueInput | InputJsonValue
     payperiodId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -8534,8 +8502,7 @@ export namespace Prisma {
     mediAmt?: Decimal | DecimalJsLike | number | string
     socialRate?: Decimal | DecimalJsLike | number | string
     socialAmt?: Decimal | DecimalJsLike | number | string
-    reimbursements: JsonNullValueInput | InputJsonValue
-    deductions: JsonNullValueInput | InputJsonValue
+    otherItems: JsonNullValueInput | InputJsonValue
     employeeId: string
   }
 
@@ -8553,8 +8520,7 @@ export namespace Prisma {
     mediAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonNullValueInput | InputJsonValue
-    deductions?: JsonNullValueInput | InputJsonValue
+    otherItems?: JsonNullValueInput | InputJsonValue
     employee?: EmployeeUpdateOneRequiredWithoutPayStubsNestedInput
   }
 
@@ -8572,8 +8538,7 @@ export namespace Prisma {
     mediAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonNullValueInput | InputJsonValue
-    deductions?: JsonNullValueInput | InputJsonValue
+    otherItems?: JsonNullValueInput | InputJsonValue
     employeeId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -8591,8 +8556,7 @@ export namespace Prisma {
     mediAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     socialAmt?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    reimbursements?: JsonNullValueInput | InputJsonValue
-    deductions?: JsonNullValueInput | InputJsonValue
+    otherItems?: JsonNullValueInput | InputJsonValue
     employeeId?: StringFieldUpdateOperationsInput | string
   }
 

@@ -125,7 +125,7 @@ export interface DispPayPeriod {
     periodStart: Date;
     periodEnd: Date;
     includedEmployees: string[];
-    payStubs: string[]
+    payStubs: DispPaystub[]
 }
 export function getEmptyDispPayPeriod(): DispPayPeriod {
     return {
@@ -149,7 +149,7 @@ export async function getDispPayPeriod(p: Payperiod): Promise<DispPayPeriod> {
         pay.includedEmployees = p.includedEmployees as unknown as string[];
     }
 
-    pay.payStubs = (await prisma.payStub.findMany({where: {payperiodId: p.uuid}, select: {uuid: true}})).map((s) => s.uuid) // Only send array of stub UUIDs
+    pay.payStubs = (await prisma.payStub.findMany({where: {payperiodId: p.uuid}})).map((stub) => { return getDispPaystub(stub) })
 
     return pay
 }
@@ -213,8 +213,7 @@ export interface DispPaystub {
     socialRate: number
     socialAmt: number
 
-    reimbursements: PaystubExtra[]
-    deductions: PaystubExtra[]
+    otherItems: PaystubExtra[]
 
     employeeUUID: string
     payperiodUUID: string
@@ -234,8 +233,7 @@ export function getEmptyDispPaystub() : DispPaystub {
         mediAmt: 0,
         socialRate: 0,
         socialAmt: 0,
-        reimbursements: [],
-        deductions: [],
+        otherItems: [],
         employeeUUID: "",
         payperiodUUID: ""
     }
@@ -256,8 +254,7 @@ export function getDispPaystub(p: PayStub) : DispPaystub {
     stub.mediAmt = Number(p.mediAmt)
     stub.socialRate = Number(p.socialRate)
     stub.socialAmt = Number(p.socialAmt)
-    stub.reimbursements = p.reimbursements as unknown as PaystubExtra[]
-    stub.deductions = p.deductions as unknown as PaystubExtra[]
+    stub.otherItems = p.otherItems as unknown as PaystubExtra[]
     stub.employeeUUID = p.employeeId
     stub.payperiodUUID = p.payperiodId
 

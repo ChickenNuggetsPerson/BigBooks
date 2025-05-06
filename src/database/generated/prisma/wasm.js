@@ -168,8 +168,7 @@ exports.Prisma.PayStubScalarFieldEnum = {
   mediAmt: 'mediAmt',
   socialRate: 'socialRate',
   socialAmt: 'socialAmt',
-  reimbursements: 'reimbursements',
-  deductions: 'deductions',
+  otherItems: 'otherItems',
   employeeId: 'employeeId',
   payperiodId: 'payperiodId'
 };

@@ -36,17 +36,25 @@ export default function PayPeriodOverview() {
             if (current) {
                 setPeriod(current)
 
-                if (current.includedEmployees.length == 0) {
-                    setStep(0)
-                } else {
-                    setStep(1)
-                }
+                // if (current.includedEmployees.length == 0) {
+                setStep(0)
+                // } else {
+                //     setStep(1)
+                // }
             }
 
         }
 
         load()
     }, [context?.companyUUID])
+
+
+    async function refreshPeriod() {
+        const current = await getCurrentPayperiod(context?.companyUUID ?? "", new Date(), true)
+        if (current) {
+            setPeriod(current)
+        }
+    }
 
     async function changePeriod(uuid: string) { // Changes the period variable 
         const p = await getPayperiodByUUID(uuid)
@@ -88,7 +96,7 @@ export default function PayPeriodOverview() {
                 </>}
 
                 {step == 1 && <>
-                    <EditPaystubScreen period={period} allEmployees={allEmployees} />
+                    <EditPaystubScreen period={period} allEmployees={allEmployees} refresh={() => {refreshPeriod()}} />
                 </>}
 
             </div>
@@ -97,7 +105,7 @@ export default function PayPeriodOverview() {
             {/* <div className="bg-secondary w-0.5 rounded mr-2"></div> */}
 
             {/* Side Bar */}
-            <div className="w-65 overflow-y-auto overflow-x-hidden" style={{scrollbarWidth: "none"}}>
+            <div className="w-65 overflow-y-auto overflow-x-hidden" style={{ scrollbarWidth: "none" }}>
                 <AnimateChildren x={40} y={0}>
                     <div className="flex flex-col justify-start">
                         <div className="card w-60">
