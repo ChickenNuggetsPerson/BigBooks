@@ -1,5 +1,3 @@
-'use client'
-
 import { DispEmployee } from "@/database/models/DisplayModels";
 import EditableDiv from "../Decorative/EditButton";
 import { HourlyRateStr, MoneyToStr } from "@/functions/MoneyStr";
@@ -10,16 +8,21 @@ import { HourlyRateStr, MoneyToStr } from "@/functions/MoneyStr";
 
 export default function EmployeeSalaryCard({ employee }: { employee: DispEmployee }) {
 
+
+
     return (
+
         <EditableDiv url={`/organization/employee/${employee.uuid}/editSalary`} className="w-xs card mb-5">
 
             <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">Employee Pay</h5>
-            
-            {employee.isSalary && <SalaryRate salary={employee.salary}/>}
+
+            {employee.isSalary && <SalaryRate salary={employee.salary} />}
 
             {!employee.isSalary && <HourlyRates rates={employee?.hourlyRates ?? []} />}
-            
+
         </EditableDiv>
+
+
     );
 }
 

@@ -7,7 +7,7 @@ import { prisma } from "@/database/prisma"
 
 
 
-export default async function getPaystub(empUUID: string, periodUUID: string) {
+export default async function getPaystubByPeriod(empUUID: string, periodUUID: string) {
     
     const stub = await prisma.payStub.findFirst({
         where: {
@@ -17,7 +17,7 @@ export default async function getPaystub(empUUID: string, periodUUID: string) {
     })
 
     if (stub) {
-        return getDispPaystub(stub)
+        return getDispPaystub(stub, null)
     }
 
     return undefined

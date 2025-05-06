@@ -16,7 +16,12 @@ export default function PayPeriodGuage({ p }: PayPeriodGuageProps) {
     useEffect(() => {
         setTimeout(() => {
 
-            const paystubCompletion = (p.payStubs.length / p.includedEmployees.length) * 80
+            let max = p.includedEmployees.length
+            if (max < p.payStubs.length) {
+                max = p.payStubs.length
+            }
+
+            const paystubCompletion = (p.payStubs.length / max) * 80
             const inclusionCompletion = (p.includedEmployees.length != 0) ? 20 : 0
 
             const per = (paystubCompletion + inclusionCompletion) / 100

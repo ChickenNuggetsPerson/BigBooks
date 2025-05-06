@@ -51,7 +51,7 @@ export default function SelectInput({ id, label, val, disabled, options, changeC
     }
 
     const inputHandler = (e: { target: { value: string; }; }) => { // Filter search
-        const o = options.filter((f) => { return f.label.includes(e.target.value) })
+        const o = options.filter((f) => { return f.label.toLowerCase().includes(e.target.value.toLowerCase()) })
         setFilteredList(o)
     };
 

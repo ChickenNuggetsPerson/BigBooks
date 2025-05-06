@@ -45,6 +45,7 @@ export function populatePaystub(e: DispEmployee, o: DispOrganization, periodUUID
             const hourly = getEmptyPaystubHourly()
             hourly.name = rate.name
             hourly.rate = rate.rate
+            hourly.amount = 0
             return hourly
         })
     }

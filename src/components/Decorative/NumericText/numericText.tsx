@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 
 
-const NumericText = ({ val = "", animDelta = 50, spacing = 0 }) => {
+const NumericText = ({ val = "", animDelta = 50, spacing = 0, expand = false }) => {
     const [charArray, setNumArray] = useState(Array.from([], String));
     const [id] = useState(Math.random())
 
@@ -30,7 +30,7 @@ const NumericText = ({ val = "", animDelta = 50, spacing = 0 }) => {
                         transition={{ duration: 0.2, type: 'linear', delay: (i * animDelta)/1000 }}
                         style={{marginRight: spacing}}
                     >
-                        <NumberDisplay key={i} value={num} animDelay={i * animDelta} />
+                        <NumberDisplay key={i} value={num} animDelay={i * animDelta} expand={expand}/>
                     </motion.div>
                 ))}
             </AnimatePresence>
@@ -41,15 +41,16 @@ const NumericText = ({ val = "", animDelta = 50, spacing = 0 }) => {
 
 interface DisplayParms {
     value: string
-    animDelay: number
+    animDelay: number,
+    expand: boolean
 }
 
-const NumberDisplay = ({ value, animDelay }: DisplayParms) => {
+const NumberDisplay = ({ value, animDelay, expand }: DisplayParms) => {
     const [displayValue, setDisplayValue] = useState(value);
     const [isNew, setNew] = useState(true)
 
     const [transitionClass, setClass] = useState("numeric-text fade-in")
-    const [width, setWidth] = useState("1rem")
+    const [width, setWidth] = useState(expand ? "0rem" : "1rem")
 
     useEffect(() => {
 

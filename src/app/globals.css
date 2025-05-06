@@ -29,7 +29,7 @@
   --color-secondary-down: color-mix(in srgb, var(--secondary_col), black 10%);
   --color-accent-up: color-mix(in srgb, var(--accent_col), white 10%);
   --color-accent-down: color-mix(in srgb, var(--accent_col), black 10%);
-  
+
   --color-dark_text-up: color-mix(in srgb, var(--dark_text_col), white 10%);
   --color-dark_text-down: color-mix(in srgb, var(--dark_text_col), black 10%);
   --color-dark_background-up: color-mix(in srgb, var(--dark_background_col), white 10%);
@@ -40,30 +40,41 @@
   --color-dark_secondary-down: color-mix(in srgb, var(--dark_secondary_col), black 10%);
   --color-dark_accent-up: color-mix(in srgb, var(--dark_accent_col), white 10%);
   --color-dark_accent-down: color-mix(in srgb, var(--dark_accent_col), black 10%);
-  
+
 }
 
 
 
 
 .card {
-  @apply p-6 bg-card border border-gray-300 rounded-lg ; /* shadow-lg */
+  @apply p-6 bg-card border border-gray-300 rounded-lg;
+  /* shadow-lg */
 }
 
 .primary-button {
   @apply text-white bg-primary hover:bg-primary-up focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
 }
+
 .secondary-button {
   @apply text-white bg-secondary hover:bg-secondary-up focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
 }
+
 .accent-button {
-  @apply text-white bg-accent hover:bg-accent-up  focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
+  @apply text-white bg-accent hover:bg-accent-up focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
 }
 
 
 
 .prevent-select {
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
 }
+
+
+
+
+

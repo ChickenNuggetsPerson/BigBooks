@@ -1,6 +1,6 @@
 
 .numeric-text {
-    transition: transform 0.5s cubic-bezier(.47,1.64,.44,.98), opacity 0.2s ease-in-out, width 0.2s linear;
+    transition: transform 0.5s cubic-bezier(.47,1.64,.44,.98), opacity 0.2s ease-in-out, width 0.1s linear;
     display: inline-block;
     overflow: visible;
 

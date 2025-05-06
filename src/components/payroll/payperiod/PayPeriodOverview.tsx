@@ -35,12 +35,7 @@ export default function PayPeriodOverview() {
             const current = await getCurrentPayperiod(context?.companyUUID ?? "", new Date(), true)
             if (current) {
                 setPeriod(current)
-
-                // if (current.includedEmployees.length == 0) {
                 setStep(0)
-                // } else {
-                //     setStep(1)
-                // }
             }
 
         }
@@ -50,7 +45,7 @@ export default function PayPeriodOverview() {
 
 
     async function refreshPeriod() {
-        const current = await getCurrentPayperiod(context?.companyUUID ?? "", new Date(), true)
+        const current = await getPayperiodByUUID(period.uuid)
         if (current) {
             setPeriod(current)
         }
@@ -71,7 +66,7 @@ export default function PayPeriodOverview() {
 
         await setPayperiodIncludes(period.uuid, includes) // Send new inlcludes to the server
 
-        const current = await getCurrentPayperiod(context?.companyUUID ?? "", new Date(), true)
+        const current = await getPayperiodByUUID(period.uuid)
         if (current) {
             setPeriod(current)
             setStep(1)

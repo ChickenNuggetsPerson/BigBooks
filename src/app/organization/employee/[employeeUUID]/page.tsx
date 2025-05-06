@@ -1,38 +1,18 @@
-'use client'
-
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
-import AnimateChildren from "@/components/AnimateChildren";
 import EmployeeCard from "@/components/Employee/EmployeeCard";
 import EmployeeSalaryCard from "@/components/Employee/EmployeeSalaryCard";
-import { getEmptyDispEmployee } from "@/database/models/DisplayModels";
+import { EmployeeSelectPaystub } from "@/components/Employee/EmployeeSelectPaystub";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
 
 
-export default function EmployeeView() {
+export default async function EmployeeView({ params }: { params: { employeeUUID: string } }) {
 
-    const params = useParams()
-    const { employeeUUID } = params
-    const empUUID = employeeUUID as string
+    const empUUID = (await params).employeeUUID
 
-    const [employee, setEmployee] = useState(getEmptyDispEmployee())
-    const [error, setError] = useState(false)
+    const employee = await getEmployeeProps(empUUID, false)
 
-    useEffect(() => {
-        async function load() {
-            const e = await getEmployeeProps(empUUID, false)
-            if (e) {
-                setEmployee(e)
-            } else {
-                setError(true)
-            }
-        }
-        load()
-    }, [empUUID])
-
-    if (error) {
+    if (!employee) {
         return (<a>Error Loading Details</a>)
     }
 
@@ -46,10 +26,13 @@ export default function EmployeeView() {
 
             <div className="flex flex-col lg:flex-row gap-6 justify-center px-10 py-20">
 
-                <AnimateChildren x={0} y={-100}>
+                {/* <AnimateChildren x={0} y={-100}> */}
                     <EmployeeCard employee={employee} />
-                    <EmployeeSalaryCard employee={employee} />
-                </AnimateChildren>
+                    <div>
+                        <EmployeeSalaryCard employee={employee} />
+                        <EmployeeSelectPaystub empUUID={employee.uuid} />
+                    </div>
+                {/* </AnimateChildren> */}
             </div>
 
         </div>

@@ -1,0 +1,15 @@
+'use server'
+
+import { getDispPaystub } from "@/database/models/DisplayModels"
+import { prisma } from "@/database/prisma"
+
+
+
+
+
+
+
+export default async function getEmployeePaystubs(empUUID: string) {
+    const stubs = await prisma.payStub.findMany({ where: { employeeId: empUUID }, include: { payperiod: true }})
+    return stubs.map((stub) => getDispPaystub(stub, stub.payperiod))
+}

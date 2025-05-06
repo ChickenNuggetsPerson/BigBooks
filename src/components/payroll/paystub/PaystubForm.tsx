@@ -3,7 +3,8 @@
 
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
 import getOrgDetails from "@/actions/organization/getOrgDetails";
-import getPaystub from "@/actions/paystub/getPaystub";
+import deletePaystub from "@/actions/paystub/deletePaystub";
+import getPaystubByPeriod from "@/actions/paystub/getPaystubByPeriod";
 import submitPaystubForm from "@/actions/paystub/submitPaystubForm";
 import AnimateChildren from "@/components/AnimateChildren";
 import NumericText from "@/components/Decorative/NumericText/NumericText";
@@ -13,6 +14,7 @@ import { populatePaystub, updateTotals } from "@/database/Taxes/TaxTypes";
 import { PaddedMoneyStr } from "@/functions/MoneyStr";
 import { percentToStr } from "@/functions/PercentStr";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 
 
@@ -27,31 +29,32 @@ export default function PaystubForm({ empUUID, periodUUID, cb }: PaystubFormProp
     const [paystub, setPaystub] = useState(getEmptyDispPaystub())
 
     useEffect(() => {
-        async function load() {
-
-            const e = await getEmployeeProps(empUUID, true)
-            if (e) {
-                setEmployee(e)
-            } else {
-                return // Employee not found
-            }
-
-            const o = await getOrgDetails(e.orgUUID)
-            
-            const p = await getPaystub(empUUID, periodUUID)
-            if (p) {
-                setPaystub(p)
-                updateTotalDisplays(p)
-            } else {
-                setPaystub(populatePaystub(e, o, periodUUID)) // Generate default items
-            }
-
-            setLoaded(true)
-
-        }
-        load()
+        initialLoad(false)
     }, [empUUID, periodUUID])
 
+
+    async function initialLoad(clear: boolean) {
+
+        const e = await getEmployeeProps(empUUID, true)
+        if (e) {
+            setEmployee(e)
+        } else {
+            return // Employee not found
+        }
+
+        const o = await getOrgDetails(e.orgUUID)
+
+        const p = await getPaystubByPeriod(empUUID, periodUUID)
+        if (p && !clear) {
+            setPaystub(p)
+            updateTotalDisplays(p)
+        } else {
+            setPaystub(populatePaystub(e, o, periodUUID)) // Generate default items
+        }
+
+        setLoaded(true)
+
+    }
 
 
     function updateHourly(name: string, hours: number) {
@@ -108,13 +111,32 @@ export default function PaystubForm({ empUUID, periodUUID, cb }: PaystubFormProp
 
 
     // Submit / Save Code
-    const handleClick = async () => {
-        await submitPaystubForm(paystub)
-        cb()
-        const p = await getPaystub(empUUID, periodUUID)
-        if (p) {
-            setPaystub(p) // Update paystub based on database
-        }
+    const handleSubmit = () => {
+
+        toast.promise(async () => {
+            await submitPaystubForm(paystub)
+            cb()
+            const p = await getPaystubByPeriod(empUUID, periodUUID)
+            if (p) {
+                setPaystub(p) // Update paystub based on database
+            }
+        }, {
+            loading: 'Saving...',
+            success: <b>Paystub Saved!</b>,
+            error: <b>Could not save...</b>,
+        })
+    };
+
+    const handleDelete = () => {
+        toast.promise(async () => {
+            await deletePaystub(paystub.uuid)
+            await initialLoad(true)
+            cb()
+        }, {
+            loading: 'Deleting...',
+            success: <b>Paystub Deleted</b>,
+            error: <b>Could not delete...</b>,
+        })
     };
 
 
@@ -122,6 +144,8 @@ export default function PaystubForm({ empUUID, periodUUID, cb }: PaystubFormProp
         <>
 
             {loaded && <form className="max-w-md mx-auto mb-100" >
+                <div><Toaster /></div>
+
                 <h5 className="text-3xl font-bold tracking-tight text-gray-900 ">
                     <NumericText val={employee.firstName + " " + employee.lastName} spacing={2} />
                 </h5>
@@ -264,8 +288,10 @@ export default function PaystubForm({ empUUID, periodUUID, cb }: PaystubFormProp
                     </AnimateChildren>
                 </div>
 
-                <div className="flex flex-row justify-end">
-                    <button onClick={handleClick} type="button" className="primary-button">Submit</button>
+                <div className="flex flex-row justify-between">
+                    {paystub.uuid != "" && <button onClick={handleDelete} type="button" className="accent-button">Delete</button>}
+                    <div></div>
+                    <button onClick={handleSubmit} type="button" className="primary-button">Submit</button>
                 </div>
 
             </form>}

@@ -149,7 +149,7 @@ export async function getDispPayPeriod(p: Payperiod): Promise<DispPayPeriod> {
         pay.includedEmployees = p.includedEmployees as unknown as string[];
     }
 
-    pay.payStubs = (await prisma.payStub.findMany({where: {payperiodId: p.uuid}})).map((stub) => { return getDispPaystub(stub) })
+    pay.payStubs = (await prisma.payStub.findMany({where: {payperiodId: p.uuid}})).map((stub) => { return getDispPaystub(stub, p) })
 
     return pay
 }
@@ -203,6 +203,9 @@ export interface DispPaystub {
     salary: number
     commission: number
     bonus: number
+
+    periodStart: Date
+    periodEnd: Date
     
     federalRate: number
     federalAmt: number
@@ -225,6 +228,8 @@ export function getEmptyDispPaystub() : DispPaystub {
         salary: 0,
         commission: 0,
         bonus: 0,
+        periodStart: new Date(),
+        periodEnd: new Date(),
         federalRate: 0,
         federalAmt: 0,
         stateRate: 0,
@@ -238,7 +243,7 @@ export function getEmptyDispPaystub() : DispPaystub {
         payperiodUUID: ""
     }
 }
-export function getDispPaystub(p: PayStub) : DispPaystub {
+export function getDispPaystub(p: PayStub, period: Payperiod | null) : DispPaystub {
     const stub = getEmptyDispPaystub()
 
     stub.uuid = p.uuid
@@ -257,6 +262,11 @@ export function getDispPaystub(p: PayStub) : DispPaystub {
     stub.otherItems = p.otherItems as unknown as PaystubExtra[]
     stub.employeeUUID = p.employeeId
     stub.payperiodUUID = p.payperiodId
+
+    if (period) {
+        stub.periodStart = period.periodStart
+        stub.periodEnd = period.periodEnd
+    }
 
     return stub
 }
