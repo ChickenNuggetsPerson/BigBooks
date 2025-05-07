@@ -8,7 +8,7 @@ import { useCompany } from "@/app/CompanyContext";
 import getCurrentPayperiod from "@/actions/payperiod/getPayperiodByDate";
 import PayPeriodList from "./PayPeriodList";
 import getPayperiodByUUID from "@/actions/payperiod/getPayperiodByUUID";
-import ProgressPanel from "./ProgressPannel";
+import ProgressBar from "../../Decorative/ProgressBar/ProgressPannel";
 import EmployeeList from "@/components/Employee/EmployeeList";
 import setPayperiodIncludes from "@/actions/payperiod/setPayperiodIncludes";
 import EditPaystubScreen from "../paystub/EditPaystubScreen";
@@ -81,7 +81,7 @@ export default function PayPeriodOverview() {
             {/* Main Content */}
             <div className="flex-1 pr-8 overflow-y-scroll overflow-x-hidden" style={{ scrollbarWidth: "none" }}>
                 <AnimateChildren x={0} y={-30}>
-                    <ProgressPanel steps={PageSteps} currentStep={step} changeCB={(index) => { setStep(index) }} />
+                    <ProgressBar steps={PageSteps} currentStep={step} changeCB={(index) => { setStep(index) }} />
                 </AnimateChildren>
 
                 <div className="m-5"></div>
