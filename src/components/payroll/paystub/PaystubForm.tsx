@@ -14,7 +14,7 @@ import { DispPaystub, getEmptyDispEmployee, getEmptyDispPaystub } from "@/databa
 import { populatePaystub, updateTotals } from "@/database/Taxes/TaxTypes";
 import { PaddedMoneyStr } from "@/functions/MoneyStr";
 import { percentToStr } from "@/functions/PercentStr";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 
@@ -29,33 +29,28 @@ export default function PaystubForm({ empUUID, periodUUID, cb }: PaystubFormProp
     const [employee, setEmployee] = useState(getEmptyDispEmployee())
     const [paystub, setPaystub] = useState(getEmptyDispPaystub())
 
-    useEffect(() => {
-        initialLoad(false)
-    }, [empUUID, periodUUID])
-
-
-    async function initialLoad(clear: boolean) {
-
+    
+    const initialLoad = useCallback(async (clear: boolean) => {
         const e = await getEmployeeProps(empUUID, true)
-        if (e) {
-            setEmployee(e)
-        } else {
-            return // Employee not found
-        }
-
+        if (!e) return
+    
+        setEmployee(e)
         const o = await getOrgDetails(e.orgUUID)
-
         const p = await getPaystubByPeriod(empUUID, periodUUID)
+    
         if (p && !clear) {
             setPaystub(p)
             updateTotalDisplays(p)
         } else {
-            setPaystub(populatePaystub(e, o, periodUUID)) // Generate default items
+            setPaystub(populatePaystub(e, o, periodUUID))
         }
-
+    
         setLoaded(true)
+    }, [empUUID, periodUUID])
 
-    }
+    useEffect(() => {
+        initialLoad(false)
+    }, [initialLoad])
 
 
     function updateHourly(name: string, hours: number) {

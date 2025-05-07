@@ -5,8 +5,11 @@ import { EmployeeSelectPaystub } from "@/components/Employee/EmployeeSelectPayst
 import Link from "next/link";
 
 
-
-export default async function EmployeeView({ params }: { params: { employeeUUID: string } }) {
+export default async function EmployeeView({
+    params,
+}: {
+    params: Promise<{ employeeUUID: string }>
+}) {
 
     const empUUID = (await params).employeeUUID
 
@@ -27,11 +30,11 @@ export default async function EmployeeView({ params }: { params: { employeeUUID:
             <div className="flex flex-col lg:flex-row gap-6 justify-center px-10 py-20">
 
                 {/* <AnimateChildren x={0} y={-100}> */}
-                    <EmployeeCard employee={employee} />
-                    <div>
-                        <EmployeeSalaryCard employee={employee} />
-                        <EmployeeSelectPaystub empUUID={employee.uuid} />
-                    </div>
+                <EmployeeCard employee={employee} />
+                <div>
+                    <EmployeeSalaryCard employee={employee} />
+                    <EmployeeSelectPaystub empUUID={employee.uuid} />
+                </div>
                 {/* </AnimateChildren> */}
             </div>
 

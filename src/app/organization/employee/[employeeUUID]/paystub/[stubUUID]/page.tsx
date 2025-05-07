@@ -4,10 +4,11 @@ import PaystubCard from "@/components/payroll/paystub/PaystubCard"
 
 
 
-type Props = {
-    params: { employeeUUID: string, stubUUID: string }
-}
-export default async function PaystubViewPage({ params }: Props) {
+export default async function PaystubViewPage({
+    params,
+}: {
+    params: Promise<{ employeeUUID: string; stubUUID: string }>
+}) {
 
     const { stubUUID } = await params
 
