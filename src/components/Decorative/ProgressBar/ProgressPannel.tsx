@@ -20,20 +20,24 @@ export default function ProgressBar({ steps, currentStep, changeCB }: ProgressBa
         return `0 ${size * (steps.length - (currentStep + 1))}% 0 ${currentStep * size}%`
     }
 
+    const transition = "clip-path .4s ease-out"
+
     return (
         <div className="flex flex-row justify-center">
             <div className="relative flex overflow-hidden rounded-xl border border-gray-300 shadow-sm max-w-200 w-full">
                 {/* Background Layer */}
 
                 <div
-                    className="absolute inset-0 bg-primary z-10 transition-all duration-1000"
+                    className="absolute inset-0 bg-primary z-10"
                     style={{
+                        transition: transition,
                         clipPath: `inset(${getSelectedPercent()})` // you can dynamically apply your clipPath here
                     }}
                 ></div>
                 <div
-                    className="absolute inset-0 bg-primary opacity-30 z-0 transition-all duration-1000"
+                    className="absolute inset-0 bg-primary opacity-30 z-0"
                     style={{
+                        transition: transition,
                         clipPath: `inset(0 ${getPercent()} 0 0)` // you can dynamically apply your clipPath here
                     }}
                 ></div>
