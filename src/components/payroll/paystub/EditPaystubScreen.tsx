@@ -24,7 +24,11 @@ export default function EditPaystubScreen({ period, allEmployees, refresh }: Edi
             .map((e) => { return { label: e.firstName + " " + e.lastName, id: e.uuid } })
             .filter((e) => { return period.includedEmployees.includes(e.id) })
         setList(l)
-    }, [allEmployees, period])
+
+        if (!period.includedEmployees.includes(selected?.id ?? "")) {
+            setSelected(null as unknown as { label: string, id: string })
+        }
+    }, [allEmployees, period, selected])
 
     function selectItem(i: { label: string, id: string }) {
         setSelected(null as unknown as { label: string, id: string })

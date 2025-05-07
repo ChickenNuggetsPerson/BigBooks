@@ -3,6 +3,7 @@
 
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
 import getOrgDetails from "@/actions/organization/getOrgDetails";
+import deleteAndDeselectPaystub from "@/actions/paystub/deleteAndDeselectPaystub";
 import deletePaystub from "@/actions/paystub/deletePaystub";
 import getPaystubByPeriod from "@/actions/paystub/getPaystubByPeriod";
 import submitPaystubForm from "@/actions/paystub/submitPaystubForm";
@@ -127,9 +128,13 @@ export default function PaystubForm({ empUUID, periodUUID, cb }: PaystubFormProp
         })
     };
 
-    const handleDelete = () => {
+    function handleDelete(deselect: boolean) {
         toast.promise(async () => {
-            await deletePaystub(paystub.uuid)
+            if (deselect) {
+                await deleteAndDeselectPaystub(paystub.uuid, paystub.payperiodUUID, paystub.employeeUUID)
+            } else {
+                await deletePaystub(paystub.uuid)
+            }
             await initialLoad(true)
             cb()
         }, {
@@ -289,7 +294,12 @@ export default function PaystubForm({ empUUID, periodUUID, cb }: PaystubFormProp
                 </div>
 
                 <div className="flex flex-row justify-between">
-                    {paystub.uuid != "" && <button onClick={handleDelete} type="button" className="accent-button">Delete</button>}
+                    {paystub.uuid != "" &&
+                        <AnimateChildren x={0} y={-20}>
+                            <button onClick={() => { handleDelete(false) }} type="button" className="accent-button">Delete</button>
+                            <button onClick={() => { handleDelete(true) }} type="button" className="accent-button">Delete and Deselect</button>
+                        </AnimateChildren>
+                    }
                     <div></div>
                     <button onClick={handleSubmit} type="button" className="primary-button">Submit</button>
                 </div>
