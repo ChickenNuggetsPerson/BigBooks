@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import CheckboxInput from "../Forms/CheckboxInput";
 import SelectInput from "../Forms/SelectInput";
+import AnimateChildren from "../AnimateChildren";
 
 
 
@@ -126,7 +127,7 @@ export default function EmployeeList({ employeePage, selectCB, preSelected }: Em
         setFilteredList(f)
     }, [search, sort, filter, list])
 
-    useEffect(() => {setSelected(preSelected)}, [preSelected])
+    useEffect(() => { setSelected(preSelected) }, [preSelected])
 
 
     const inputHandler = (e: { target: { value: string; }; }) => { // Filter search
@@ -173,50 +174,52 @@ export default function EmployeeList({ employeePage, selectCB, preSelected }: Em
     return (
         <div>
 
-            {/* New Employee Button */}
-            {employeePage &&
-                <Link type="button" href={`/organization/employee/new/edit`} className="card w-xs block mb-5 hover:shadow-primary">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 "> Create New Employee</h5>
-                    <p className="font-normal text-gray-700 ">Click to Create</p>
-                </Link>
-            }
+            <AnimateChildren x={0} y={-20}>
+                {/* New Employee Button */}
+                {employeePage &&
+                    <Link type="button" href={`/organization/employee/new/edit`} className="card w-xs block mb-5 hover:shadow-primary">
+                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 "> Create New Employee</h5>
+                        <p className="font-normal text-gray-700 ">Click to Create</p>
+                    </Link>
+                }
 
 
-            <div className="card flex flex-row justify-between mb-5" style={{ paddingTop: 7, paddingBottom: 3 }}>
+                <div className="card flex flex-row justify-between mb-5" style={{ paddingTop: 7, paddingBottom: 3 }}>
 
-                {/* Search Bar */}
-                <div className="w-2/5 flex flex-col justify-center mr-4">
-                    <div className="relative z-0 w-full mb-5 group">
-                        <input onChange={inputHandler} type="text" name={"search"} id={"search"} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder={""} defaultValue={""} />
-                        <label htmlFor={"search"} className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Search:</label>
+                    {/* Search Bar */}
+                    <div className="w-2/5 flex flex-col justify-center mr-4">
+                        <div className="relative z-0 w-full mb-5 group">
+                            <input onChange={inputHandler} type="text" name={"search"} id={"search"} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder={""} defaultValue={""} />
+                            <label htmlFor={"search"} className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Search:</label>
+                        </div>
                     </div>
-                </div>
 
-                <div className="flex flex-row justify-between w-3/5">
+                    <div className="flex flex-row justify-between w-3/5">
 
-                    {employeePage &&
-                        <div className="flex flex-col justify-center pt-4">
-                            <CheckboxInput id={"showDeactivated"} label={"Show Deactivated"} val={false} disabled={false} changeCB={(val) => { setShowDeleted(val) }} />
-                        </div>
-                    }
-
-                    <SelectInput id={"filter"} label={"Filter:"} val={filter} disabled={false} options={filterArray} changeCB={(val) => { setFilter(val); }} searchable={false} />
-                    <SelectInput id={"sort"} label={"Sort By:"} val={sort} disabled={false} options={sortByArray} changeCB={(val) => { setSort(val) }} searchable={false} />
-
-                    {!employeePage &&
-                        <div className="flex flex-col">
-                            <div className="flex flex-col justify-center pt-4 ml-2" style={{marginBottom: 0}}>
-                                <CheckboxInput id={"showDeactivated"} label={"Select All"} val={false} disabled={false} changeCB={(val) => { selectAll(val) }} />
+                        {employeePage &&
+                            <div className="flex flex-col justify-center pt-4">
+                                <CheckboxInput id={"showDeactivated"} label={"Show Deactivated"} val={false} disabled={false} changeCB={(val) => { setShowDeleted(val) }} />
                             </div>
+                        }
 
-                            <div className="flex flex-col justify-center mb-3">
-                                <button onClick={save} className={"border rounded-md border-accent p-1 " + (showSave ? "text-white bg-accent" : "")}>Save Selection</button>
+                        <SelectInput id={"filter"} label={"Filter:"} val={filter} disabled={false} options={filterArray} changeCB={(val) => { setFilter(val); }} searchable={false} />
+                        <SelectInput id={"sort"} label={"Sort By:"} val={sort} disabled={false} options={sortByArray} changeCB={(val) => { setSort(val) }} searchable={false} />
+
+                        {!employeePage &&
+                            <div className="flex flex-col">
+                                <div className="flex flex-col justify-center pt-4 ml-2" style={{ marginBottom: 0 }}>
+                                    <CheckboxInput id={"showDeactivated"} label={"Select All"} val={false} disabled={false} changeCB={(val) => { selectAll(val) }} />
+                                </div>
+
+                                <div className="flex flex-col justify-center mb-3">
+                                    <button onClick={save} className={"border rounded-md border-accent p-1 " + (showSave ? "text-white bg-accent" : "")}>Save Selection</button>
+                                </div>
                             </div>
-                        </div>
-                    }
-                </div>
+                        }
+                    </div>
 
-            </div>
+                </div>
+            </AnimateChildren>
 
             <table className="table-fixed w-full">
 

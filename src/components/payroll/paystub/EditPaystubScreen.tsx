@@ -21,6 +21,9 @@ export default function EditPaystubScreen({ period, allEmployees, refresh }: Edi
 
     useEffect(() => {
         const l = allEmployees
+            .toSorted((a, b) => {
+                return a.lastName.localeCompare(b.lastName)
+            })
             .map((e) => { return { label: e.firstName + " " + e.lastName, id: e.uuid } })
             .filter((e) => { return period.includedEmployees.includes(e.id) })
         setList(l)
@@ -43,30 +46,32 @@ export default function EditPaystubScreen({ period, allEmployees, refresh }: Edi
 
 
             {/* Left List */}
-            <div className="w-65 pr-8 overflow-y-scroll overflow-x-hidden" style={{ scrollbarWidth: "none" }}>
+            <AnimateChildren x={-30} y={0}>
+                <div className="w-65 pr-8 overflow-y-scroll overflow-x-hidden" style={{ scrollbarWidth: "none" }}>
 
-                <div className="card">
+                    <div className="card">
 
-                    <h1>Included Employees</h1>
+                        <h1>Included Employees</h1>
 
-                    <div className="h-px bg-accent my-2"></div>
+                        <div className="h-px bg-accent my-2"></div>
 
-                    <ol>
-                        <AnimateChildren x={0} y={-10}>
-                            {list.map((item) => (<>
-                                <li key={item.id} onClick={() => { selectItem(item) }} className={"border-b border-secondary last:border-b-0 p-2 rounded-md hover:bg-gray-100 shadow flex flex-row"}>
-                                    <div className={"size-5 rounded-sm border-primary border "
-                                        + (period.payStubs.findIndex((s) => { return s.employeeUUID == item.id }) != -1 ? "bg-primary" : "")
-                                    }></div>
+                        <ol>
+                            <AnimateChildren x={0} y={-10}>
+                                {list.map((item) => (<>
+                                    <li key={item.id} onClick={() => { selectItem(item) }} className={"border-b border-secondary last:border-b-0 p-2 rounded-md hover:bg-gray-100 shadow flex flex-row"}>
+                                        <div className={"size-5 rounded-sm border-primary border "
+                                            + (period.payStubs.findIndex((s) => { return s.employeeUUID == item.id }) != -1 ? "bg-primary" : "")
+                                        }></div>
 
-                                    <p className="ml-2">{item.label}</p>
-                                </li>
-                            </>))}
-                        </AnimateChildren>
-                    </ol>
+                                        <p className="ml-2">{item.label}</p>
+                                    </li>
+                                </>))}
+                            </AnimateChildren>
+                        </ol>
+                    </div>
+
                 </div>
-
-            </div>
+            </AnimateChildren>
 
 
             {/* Center of page */}
