@@ -9,11 +9,12 @@ const openSans = Open_Sans({
 
 
 interface LogoProps {
-    width: number
+    width: number,
+    rounded: boolean
 }
-export default function Logo({ width }: LogoProps) {
+export default function Logo({ width, rounded }: LogoProps) {
     return (
-        <div style={{ fontSize: width / 5.8, backgroundColor: "var(--color-primary)", color: "white" }} className={'text-center ' + openSans.className + (width > 260 ? " rounded-md" : "")}>
+        <div style={{ fontSize: width / 5.8, backgroundColor: "var(--color-primary)", color: "white" }} className={'text-center ' + openSans.className + (rounded ? " rounded-md" : "")}>
             BIG Books
         </div>
     )

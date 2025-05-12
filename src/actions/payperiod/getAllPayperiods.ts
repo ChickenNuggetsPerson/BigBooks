@@ -1,12 +1,14 @@
 'use server'
 
+import { redirectIfInvalidSession } from "@/auth/auth";
 import { getDispPayPeriod } from "@/database/models/DisplayModels";
 import { prisma } from "@/database/prisma";
 
 
 
 export default async function getAllPayperiods(orgUUID: string) {
-
+    
+    await redirectIfInvalidSession()
 
     const periods = await prisma.payperiod.findMany({ where: { organizationId: orgUUID }})
 

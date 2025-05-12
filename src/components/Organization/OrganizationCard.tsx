@@ -1,9 +1,8 @@
 'use client'
 
-import { useCompany } from '@/app/CompanyContext';
-import { generateCompanyContext } from '@/app/CompanyProps';
+
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation'
+import { useChangeSelectedOrg } from './changeSelectedOrg';
 
 
 interface OrganizationCardProps {
@@ -15,12 +14,15 @@ interface OrganizationCardProps {
 
 export default function OrganizationCard({ name, address, uuid, i }: OrganizationCardProps) {
 
-    const router = useRouter()
-    const { setContext } = useCompany();
+    const changeSelectOrg = useChangeSelectedOrg()
 
     return (
 
-        <motion.tr onClick={() => { setContext(generateCompanyContext(uuid, name)); router.push(`/organization`) }} className="cursor-pointer rounded-lg bg-card border border-gray-200 shadow-sm mb-5 hover:bg-gray-100 "
+        <motion.tr onClick={() => { 
+            
+            changeSelectOrg(uuid, name)
+
+        }} className="cursor-pointer rounded-lg bg-card border border-gray-200 shadow-sm mb-5 hover:bg-gray-100 "
             initial={{ opacity: 0 }}
             exit={{ opacity: 0 }}
             animate={{ opacity: 1 }}

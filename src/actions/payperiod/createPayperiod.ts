@@ -1,5 +1,6 @@
 'use server'
 
+import { redirectIfInvalidSession } from "@/auth/auth";
 import { generatePayperiodFromDate, getDispPayPeriod, getEmptyDispPayPeriod } from "@/database/models/DisplayModels"
 import { prisma } from "@/database/prisma";
 import { revalidatePath } from "next/cache"
@@ -10,6 +11,8 @@ import { revalidatePath } from "next/cache"
 
 // refDate is a date within the payperiod
 export default async function createPayperiod(orgUUID: string, refDate: Date) {
+
+    await redirectIfInvalidSession()
 
     const organization = await prisma.organization.findUnique({ where: { uuid: orgUUID }})
     if (!organization) {

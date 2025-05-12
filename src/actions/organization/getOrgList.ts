@@ -1,5 +1,6 @@
 'use server'
 
+import { redirectIfInvalidSession } from "@/auth/auth";
 import { getDispOrganization } from "@/database/models/DisplayModels";
 import { prisma } from "@/database/prisma";
 
@@ -7,6 +8,8 @@ import { prisma } from "@/database/prisma";
 
 
 export default async function getOrgList(showDeleted: boolean) {
+
+    await redirectIfInvalidSession()
 
     const organizations = await prisma.organization.findMany()
 

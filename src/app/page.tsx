@@ -1,17 +1,24 @@
-import createDevOrg from "@/actions/createDevOrg";
-import OrganizationList from "@/components/Organization/OrganizationList";
+import AnimateChildren from "@/components/AnimateChildren";
+import Logo from "@/components/Decorative/Logo";
+import UserGreetingCard from "@/components/User/UserGreetingCard";
 
 
 
-export default function Home() {
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
 
   return (
-    <div className="grid justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="justify-items-center min-h-screen p-8">
 
-      <div>
-        <OrganizationList />
-      </div>
-      <button style={{position: 'absolute', left: 60}} className="secondary-button" onClick={createDevOrg} >Create</button>
+      <AnimateChildren x={0} y={-20}>
+        <div className="w-100 mb-10">
+          <Logo width={300} rounded={true} />
+        </div>
+
+        <UserGreetingCard />
+      </AnimateChildren>
+
     </div>
   );
 }

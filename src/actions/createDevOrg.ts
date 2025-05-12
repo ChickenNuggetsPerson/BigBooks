@@ -1,6 +1,7 @@
 'use server'
 
 
+import { redirectIfInvalidSession } from "@/auth/auth";
 import { prisma } from "@/database/prisma";
 import { FilingTypes } from "@/database/Taxes/FilingTypes";
 import { revalidatePath } from "next/cache";
@@ -151,6 +152,8 @@ const getRandomElement = (array: string[]) => array[Math.floor(Math.random() * a
 
 
 export default async function createDevOrg() {
+
+    await redirectIfInvalidSession()
 
     // Create Organization
     const org = await prisma.organization.create({

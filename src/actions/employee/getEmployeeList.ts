@@ -1,5 +1,6 @@
 'use server'
 
+import { redirectIfInvalidSession } from "@/auth/auth";
 import { getDispEmployee, getEmptyDispEmployee } from "@/database/models/DisplayModels"
 import { prisma } from "@/database/prisma";
 
@@ -13,6 +14,9 @@ enum FilterOption {
 
 // 1 For All, 2 For Visable, 3 for Deactivated
 export default async function getEmployeeList(orgUUID: string, filter: FilterOption) {
+
+    await redirectIfInvalidSession()
+    
     try {
 
         const organization = await prisma.organization.findUnique({

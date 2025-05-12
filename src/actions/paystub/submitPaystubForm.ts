@@ -1,5 +1,6 @@
 'use server'
 
+import { redirectIfInvalidSession } from "@/auth/auth"
 import { Prisma } from "@/database/generated/prisma"
 import { DispPaystub } from "@/database/models/DisplayModels"
 import { prisma } from "@/database/prisma"
@@ -24,6 +25,8 @@ import { prisma } from "@/database/prisma"
 // payperiodUUID: string
 
 export default async function submitPaystubForm(newStub: DispPaystub) {
+
+    await redirectIfInvalidSession()
 
     if (newStub.uuid == "") { // Create new
 

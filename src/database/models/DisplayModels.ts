@@ -1,4 +1,4 @@
-import { Employee, Organization, Payperiod, PayStub } from "../generated/prisma/client";
+import { Employee, Organization, Payperiod, PayStub, User } from "../generated/prisma/client";
 import { prisma } from "../prisma";
 import { FilingTypes } from "../Taxes/FilingTypes";
 import { EmployeeHourlyRate, PaystubExtra, PaystubHourly } from "./SchemaJSON";
@@ -284,3 +284,38 @@ Date.prototype.addDays = function (days: number): Date {
     result.setDate(result.getDate() + days);
     return result;
 };
+
+
+
+
+
+
+
+
+interface DispUser {
+    uuid: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    username: string
+}
+export function getEmptyDispUser() : DispUser {
+    return {
+        uuid: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        username: ""
+    }
+}
+export function getDispUser(u: User) {
+    const user = getEmptyDispUser()
+
+    user.uuid = u.uuid
+    user.firstName = u.firstName
+    user.lastName = u.lastName
+    user.email = u.email
+    user.username = u.username
+
+    return user
+}

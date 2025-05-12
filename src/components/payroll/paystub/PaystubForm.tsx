@@ -317,7 +317,7 @@ interface NumInputProps {
     disabled: boolean
     cb: (val: number) => void
 }
-function NumInput({ id, label, val, disabled, cb }: NumInputProps) {
+export function NumInput({ id, label, val, disabled, cb }: NumInputProps) {
 
     const inputHandler = (e: { target: { value: string; }; }) => { // Filter search
         cb(Number(e.target.value))

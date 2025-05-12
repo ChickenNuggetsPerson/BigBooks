@@ -14,6 +14,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  uuid     String  @id @unique @default(uuid())
+  isActive Boolean
+
+  firstName String
+  lastName  String
+
+  email String
+
+  username String @unique
+  passHash String @unique
+}
+
+model RegistrationCode {
+  uuid    String   @id @unique @default(uuid())
+  expires DateTime
+}
+
 model Organization {
   uuid           String   @id @unique @default(uuid())
   name           String

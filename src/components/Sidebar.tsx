@@ -37,7 +37,7 @@ export default function Sidebar() {
             </div> */}
 
             <Link href={"/"} >
-                <Logo width={260}/>
+                <Logo width={260} rounded={false}/>
             </Link>
 
 

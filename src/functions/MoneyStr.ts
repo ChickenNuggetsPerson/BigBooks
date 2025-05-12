@@ -32,7 +32,10 @@ export function HourlyRateStr(rate: number) {
     return MoneyToStr(rate) + " / hr"
 }
 
-
+export function HourStr(hours: number) {
+    const sub = hours == 1 ? " hr" : " hrs"
+    return Math.floor(hours * 100) / 100 + sub
+}
 
 export function PaddedMoneyStr(money: number, width: number, padLeft: boolean) {
     const str = MoneyToStr(money)

@@ -40,7 +40,7 @@ export default function OrganizationList() {
     return (
         <>
 
-            <Logo width={300} />
+            <Logo width={300} rounded={true} />
 
             <div className="flex flex-row w-full mb-10 card mt-5" >
                 <div className=" relative z-0 w-full mb-5 group">

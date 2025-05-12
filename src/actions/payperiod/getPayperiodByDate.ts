@@ -3,10 +3,13 @@
 import { getDispPayPeriod, getEmptyDispPayPeriod } from "@/database/models/DisplayModels";
 import createPayperiod from "./createPayperiod";
 import { prisma } from "@/database/prisma";
+import { redirectIfInvalidSession } from "@/auth/auth";
 
 
 
 export default async function getPayperiodByDate(orgUUID: string, refDate: Date, createIfNULL: boolean) {
+
+    await redirectIfInvalidSession()
 
     if (orgUUID.trim() == "") {
         return getEmptyDispPayPeriod()

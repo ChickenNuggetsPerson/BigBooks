@@ -17,6 +17,28 @@ datasource db {
 
 
 
+model User {
+  uuid          String      @id @default(uuid()) @unique
+  isActive      Boolean
+
+  firstName     String
+  lastName      String
+
+  email         String
+  
+  username      String      @unique
+  passHash      String      @unique
+}
+
+model RegistrationCode {
+  uuid          String      @id @default(uuid()) @unique
+  expires       DateTime
+}
+
+
+
+
+
 model Organization {
   uuid           String     @id @default(uuid()) @unique
   name           String

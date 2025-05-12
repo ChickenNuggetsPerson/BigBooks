@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -16,14 +16,14 @@ export default function OrganizationLayout({
 }>) {
   return (
     <>
-      <header>
-        <Header/>
-      </header>
 
-      <Sidebar/>
-      
+      <Sidebar />
+
       <main>
-        <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72 mt-10">
+        <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72 mt-10">  
+
+          <Header />
+
           <Suspense fallback={<Loading />}>
             {children}
           </Suspense>
