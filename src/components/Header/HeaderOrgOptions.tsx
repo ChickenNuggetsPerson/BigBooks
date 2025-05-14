@@ -2,7 +2,7 @@
 
 import { useCompany } from "@/app/CompanyContext"
 import { useState } from "react"
-import AnimateChildren from "../AnimateChildren"
+import AnimateChildren from "../Decorative/AnimateChildren"
 import Link from "next/link"
 import OrganizationSelectForm from "../Organization/OrganizationSelectForm"
 

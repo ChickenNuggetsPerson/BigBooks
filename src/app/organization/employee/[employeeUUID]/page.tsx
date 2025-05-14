@@ -1,4 +1,5 @@
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
+import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import EmployeeCard from "@/components/Employee/EmployeeCard";
 import EmployeeSalaryCard from "@/components/Employee/EmployeeSalaryCard";
 import { EmployeeSelectPaystub } from "@/components/Employee/EmployeeSelectPaystub";
@@ -29,13 +30,13 @@ export default async function EmployeeView({
 
             <div className="flex flex-col lg:flex-row gap-6 justify-center px-10 py-20">
 
-                {/* <AnimateChildren x={0} y={-100}> */}
-                <EmployeeCard employee={employee} />
-                <div>
-                    <EmployeeSalaryCard employee={employee} />
-                    <EmployeeSelectPaystub empUUID={employee.uuid} />
-                </div>
-                {/* </AnimateChildren> */}
+                <AnimateChildren x={0} y={-100}>
+                    <EmployeeCard employee={employee} />
+                    <div>
+                        <EmployeeSalaryCard employee={employee} />
+                        <EmployeeSelectPaystub empUUID={employee.uuid} />
+                    </div>
+                </AnimateChildren>
             </div>
 
         </div>

@@ -1,6 +1,6 @@
 import { logout } from "@/auth/actions/Logout";
 import { getSession, getUserFromSession } from "@/auth/auth";
-import AnimateChildren from "@/components/AnimateChildren";
+import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import { redirect } from "next/navigation";
 import EditableDiv from "@/components/Decorative/EditButton";
 import { UserOrganizationSelect } from "@/components/User/UserOrganizationSelect";

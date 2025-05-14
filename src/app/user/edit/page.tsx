@@ -1,5 +1,5 @@
 import { getSession } from "@/auth/auth";
-import AnimateChildren from "@/components/AnimateChildren";
+import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import EditUserForm from "@/components/auth/EditUserForm";
 import { redirect } from "next/navigation";
 

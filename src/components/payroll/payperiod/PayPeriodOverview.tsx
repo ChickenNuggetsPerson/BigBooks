@@ -13,7 +13,7 @@ import EmployeeList from "@/components/Employee/EmployeeList";
 import setPayperiodIncludes from "@/actions/payperiod/setPayperiodIncludes";
 import EditPaystubScreen from "../paystub/EditPaystubScreen";
 import getEmployeeList from "@/actions/employee/getEmployeeList";
-import AnimateChildren from "@/components/AnimateChildren";
+import AnimateChildren from "@/components/Decorative/AnimateChildren";
 
 
 

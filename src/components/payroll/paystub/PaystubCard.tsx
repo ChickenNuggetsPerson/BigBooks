@@ -1,6 +1,6 @@
 'use client'
 
-import AnimateChildren from "@/components/AnimateChildren";
+import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import NumericText from "@/components/Decorative/NumericText/NumericText";
 import TextInput from "@/components/Forms/TextInput";
 import { DispPaystub } from "@/database/models/DisplayModels";

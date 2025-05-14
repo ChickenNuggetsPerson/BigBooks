@@ -2,7 +2,7 @@
 
 import getOrgDetails from "@/actions/organization/getOrgDetails";
 import { useEffect, useState } from "react";
-import AnimateChildren from "../AnimateChildren";
+import AnimateChildren from "../Decorative/AnimateChildren";
 import { getEmptyDispOrganization } from "@/database/models/DisplayModels";
 
 

@@ -4,7 +4,7 @@
 import { DispEmployee, DispPayPeriod } from "@/database/models/DisplayModels"
 import PaystubForm from "./PaystubForm"
 import { useEffect, useState } from "react"
-import AnimateChildren from "@/components/AnimateChildren"
+import AnimateChildren from "@/components/Decorative/AnimateChildren"
 
 
 

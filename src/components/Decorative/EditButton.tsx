@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from "react";
-import AnimateChildren from "../AnimateChildren";
+import AnimateChildren from "./AnimateChildren";
 import Link from "next/link";
 
 

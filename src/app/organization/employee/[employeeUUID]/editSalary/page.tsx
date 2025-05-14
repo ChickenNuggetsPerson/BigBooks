@@ -1,6 +1,6 @@
 'use client'
 
-import AnimateChildren from "@/components/AnimateChildren";
+import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import EmployeeSalaryForm from "@/components/Employee/EmployeeSalaryForm";
 import { useParams } from "next/navigation";
 

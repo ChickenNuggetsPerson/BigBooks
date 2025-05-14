@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import AnimateChildren from "../AnimateChildren";
+import AnimateChildren from "../Decorative/AnimateChildren";
 
 
 

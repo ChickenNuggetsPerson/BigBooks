@@ -1,4 +1,4 @@
-import AnimateChildren from "@/components/AnimateChildren";
+import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import Logo from "@/components/Decorative/Logo";
 import UserGreetingCard from "@/components/User/UserGreetingCard";
 

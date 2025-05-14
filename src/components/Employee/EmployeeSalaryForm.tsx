@@ -7,7 +7,7 @@ import { DispEmployee, getEmptyDispEmployee } from "@/database/models/DisplayMod
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import SelectInput from "../Forms/SelectInput";
-import AnimateChildren from "../AnimateChildren";
+import AnimateChildren from "../Decorative/AnimateChildren";
 import NumberInput from "../Forms/NumberInput";
 import { Divider } from "../Forms/Divider";
 import { FilingTypes } from "@/database/Taxes/FilingTypes";

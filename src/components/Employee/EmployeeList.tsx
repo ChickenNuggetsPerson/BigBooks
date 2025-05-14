@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import CheckboxInput from "../Forms/CheckboxInput";
 import SelectInput from "../Forms/SelectInput";
-import AnimateChildren from "../AnimateChildren";
+import AnimateChildren from "../Decorative/AnimateChildren";
 
 
 
