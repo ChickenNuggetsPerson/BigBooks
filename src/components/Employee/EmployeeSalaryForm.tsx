@@ -115,8 +115,9 @@ interface SectionProps { d: DispEmployee }
 function SalarySection({ d }: SectionProps) {
     return (
         <div className="card">
-            Salary:
-            <NumberInput id={"salary"} label={"Annual Salary"} val={d.salary} placeholder={""} disabled={false} />
+            <div className="mt-3">
+                <NumberInput id={"salary"} label={"Annual Salary"} val={d.salary} placeholder={""} disabled={false} />
+            </div>
         </div>
     )
 }
