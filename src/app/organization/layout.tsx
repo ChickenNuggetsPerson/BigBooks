@@ -20,7 +20,7 @@ export default function OrganizationLayout({
       <Sidebar />
 
       <main>
-        <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72 mt-10">  
+        <div style={{ height: "calc(100vh - calc(var(--spacing) * 12))" }} className="w-full pt-10 px-4 ps-72 mt-12">  
 
           <Header />
 

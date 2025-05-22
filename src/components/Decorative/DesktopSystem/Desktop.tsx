@@ -48,7 +48,7 @@ export default function Desktop({ children }: { children: React.ReactNode }) {
 
     return (
         <WindowManagerProvider addWindow={addWindow} >
-            <div className="w-full h-screen relative overflow-hidden">
+            <div className="w-full h-full relative overflow-hidden">
                 {windows.map((win, i) => (
                     <Window
                         key={win.id}
