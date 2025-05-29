@@ -1,6 +1,6 @@
 'use server'
 
-import { redirectIfInvalidSession } from "@/auth/auth";
+import { getSession, redirectIfInvalidSession } from "@/auth/auth";
 import { getDispOrganization } from "@/database/models/DisplayModels";
 import { prisma } from "@/database/prisma";
 
@@ -10,15 +10,33 @@ import { prisma } from "@/database/prisma";
 export default async function getOrgList(showDeleted: boolean) {
 
     await redirectIfInvalidSession()
-
-    const organizations = await prisma.organization.findMany()
+    const session = await getSession()
+    if (!session) { return [] }
 
     let list = []
-    for (let i = 0; i < organizations.length; i++) {
-        list.push(await getDispOrganization(organizations[i]))
+
+    if (session.isAdmin) {
+        const orgs = await prisma.organization.findMany()
+        for (let i = 0; i < orgs.length; i++) {
+            list.push(await getDispOrganization(orgs[i]))
+        }
+
+    } else {
+
+        const user = await prisma.user.findUnique({ where: { uuid: session.userID }, include: { memberships: true } })
+        if (!user) { return [] }
+
+        for (let i = 0; i < user.memberships.length; i++) {
+            const org = await prisma.organization.findUnique({ where: { uuid: user.memberships[i].organizationId } })
+            if (!org) { continue }
+            list.push(await getDispOrganization(org))
+        }
+
     }
 
-    list = list.filter((e) => { return e.isDeleted == showDeleted})
+    if (!showDeleted) {
+        list = list.filter((e) => { return e.isDeleted == false })
+    }
 
     list = list.sort((a, b) => {
         if (a.name.toLowerCase() > b.name.toLowerCase()) { return 1 }

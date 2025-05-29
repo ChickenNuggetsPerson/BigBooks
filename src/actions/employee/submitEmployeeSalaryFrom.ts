@@ -1,6 +1,8 @@
 'use server'
 
 import { redirectIfInvalidSession } from "@/auth/auth"
+import { RoleTypes } from "@/auth/roles/Roles"
+import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
@@ -23,6 +25,7 @@ function getRateArray(formData: FormData) {
 export default async function submitEmployeeSalaryForm(formData: FormData) {
 
     await redirectIfInvalidSession()
+    await throwIfInsufficientPerms(RoleTypes.Editor)
 
     const uuid = formData.get("uuid") as string
     const mode = formData.get("isSalary") as string

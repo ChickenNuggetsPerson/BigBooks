@@ -1,6 +1,8 @@
 'use server'
 
 import { redirectIfInvalidSession } from "@/auth/auth"
+import { RoleTypes } from "@/auth/roles/Roles"
+import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { Prisma } from "@/database/generated/prisma"
 import { DispPaystub } from "@/database/models/DisplayModels"
 import { prisma } from "@/database/prisma"
@@ -27,6 +29,7 @@ import { prisma } from "@/database/prisma"
 export default async function submitPaystubForm(newStub: DispPaystub) {
 
     await redirectIfInvalidSession()
+    await throwIfInsufficientPerms(RoleTypes.Editor)
 
     if (newStub.uuid == "") { // Create new
 

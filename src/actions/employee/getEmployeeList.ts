@@ -1,6 +1,8 @@
 'use server'
 
 import { redirectIfInvalidSession } from "@/auth/auth";
+import { RoleTypes } from "@/auth/roles/Roles";
+import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
 import { getDispEmployee, getEmptyDispEmployee } from "@/database/models/DisplayModels"
 import { prisma } from "@/database/prisma";
 
@@ -16,6 +18,7 @@ enum FilterOption {
 export default async function getEmployeeList(orgUUID: string, filter: FilterOption) {
 
     await redirectIfInvalidSession()
+    await throwIfInsufficientPerms(RoleTypes.Viewer)
     
     try {
 

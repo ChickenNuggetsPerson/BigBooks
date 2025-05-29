@@ -2,6 +2,8 @@
 
 import { generateCompanyContext } from "@/app/CompanyProps"
 import { redirectIfInvalidSession } from "@/auth/auth"
+import { RoleTypes } from "@/auth/roles/Roles"
+import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
 
@@ -9,6 +11,7 @@ import { revalidatePath } from "next/cache"
 export default async function submitOrganizationForm(newOrganization: boolean, formData: FormData) {
 
     await redirectIfInvalidSession()
+    await throwIfInsufficientPerms(RoleTypes.Viewer)
 
     const uuid = formData.get("uuid") as string
     const name = formData.get("name") as string

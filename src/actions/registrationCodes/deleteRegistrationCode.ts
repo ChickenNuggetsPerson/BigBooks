@@ -20,6 +20,6 @@ export default async function deleteRegistrationCode(code: string) {
 
     await prisma.registrationCode.delete({ where: { uuid: code } })
 
-    revalidatePath("/user/codes")
-    redirect("/user/codes")
+    revalidatePath("/user/users")
+    redirect("/user/users")
 }

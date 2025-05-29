@@ -28,6 +28,8 @@ model User {
   
   username      String      @unique
   passHash      String      @unique
+
+  memberships   Role[]
 }
 
 model RegistrationCode {
@@ -35,6 +37,22 @@ model RegistrationCode {
   expires       DateTime
 }
 
+
+
+
+model Role {
+  uuid           String        @id @default(uuid())
+  user           User          @relation(fields: [userId], references: [uuid])
+  userId         String
+
+  organization   Organization  @relation(fields: [organizationId], references: [uuid])
+  organizationId String
+
+  role           String        @default("")
+  joinedAt       DateTime      @default(now())
+
+  @@unique([userId, organizationId]) // Prevents duplicate entries
+}
 
 
 
@@ -50,6 +68,8 @@ model Organization {
 
   employees      Employee[]
   payperiods     Payperiod[]
+
+  memberships    Role[]
 }
 
 model Employee {

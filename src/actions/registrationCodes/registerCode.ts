@@ -23,6 +23,6 @@ export default async function registerCode() {
 
     await prisma.registrationCode.create({ data: { expires: expires } })
 
-    revalidatePath("/user/codes")
-    redirect("/user/codes")
+    revalidatePath("/user/users")
+    redirect("/user/users")
 }

@@ -7,10 +7,10 @@ import bcrypt from 'bcryptjs';
 import { getDispUser, getEmptyDispUser } from '@/database/models/DisplayModels';
 
 
-
-interface Session {
+export interface Session {
     userID: string,
-    isAdmin: boolean
+    isAdmin: boolean,
+    orgUUID: string
 }
 
 // Function for user login
@@ -22,13 +22,12 @@ export async function loginUser(username: string, password: string) {
 
     // TODO: Check for authentication :3
 
-    let token = ""
-
     if (username == process.env.ADMIN_USER && password == process.env.ADMIN_PASS) {
 
-        token = await signSession({
+        await updateSession({
             userID: "admin",
-            isAdmin: true
+            isAdmin: true,
+            orgUUID: ""
         })
 
     } else {
@@ -45,12 +44,24 @@ export async function loginUser(username: string, password: string) {
         const match = await bcrypt.compare(password, user.passHash)
         if (!match) { throw new Error("Invalid Credentials") }
 
-        token = await signSession({
+        await updateSession({
             userID: user.uuid,
-            isAdmin: false
+            isAdmin: false,
+            orgUUID: ""
         })
     }
+}
 
+
+// Updates the user's session
+export async function updateSession(session: Session) {
+
+    if (session.orgUUID == "") {
+        const currentSession = await getSession()
+        session.orgUUID = currentSession?.orgUUID ?? "" // Copy over the selected organization if needed
+    }
+
+    const token = await signSession(session)
 
     const cookieStore = await cookies()
     cookieStore.set("session", token, { // Set session
@@ -61,6 +72,14 @@ export async function loginUser(username: string, password: string) {
         sameSite: "lax"
     })
 }
+
+export async function refreshSession() { // Refreshes the session expire time 
+    const session = await getSession()
+    if (session) {
+        updateSession(session)
+    }
+}
+
 
 // Creates the user in the database
 export async function registerUser(username: string, password: string) {
@@ -91,13 +110,14 @@ export async function getUserFromSession() {
 
     if (session.isAdmin) { // Make a disp user for the admin
         const dispUser = getEmptyDispUser()
-        dispUser.firstName = "ADMIN"
+        dispUser.firstName = "SYSTEM"
+        dispUser.lastName = "ADMIN"
         return dispUser
     }
 
     const user = await prisma.user.findUnique({ where: { uuid: session.userID, isActive: true } })
     if (user) {
-        return getDispUser(user)
+        return await getDispUser(user)
     }
     return null
 }
@@ -120,6 +140,7 @@ export async function throwIfInvalidSession() {
     if (!(await isValidSession())) {
         throw new Error("Unauthorized")
     }
+    await refreshSession() // Refresh session so the expire time restarts
 }
 
 export async function redirectIfInvalidSession() {

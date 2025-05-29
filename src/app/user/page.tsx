@@ -42,7 +42,7 @@ export default async function UserPage() {
                 <button className="accent-button mt-5" onClick={logout}>Logout</button>
 
                 {session?.isAdmin &&
-                    <Link href={"/user/codes"} className="primary-button mt-5">
+                    <Link href={"/user/users"} className="primary-button mt-5">
                         Employees
                     </Link>
                 }

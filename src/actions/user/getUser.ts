@@ -7,7 +7,7 @@ import { prisma } from "@/database/prisma"
 
 
 
-export default async function getUser(userUUID: string) {
+export default async function getUser(userUUID: string) { // TODO: figure out propper permissions of this
 
     await redirectIfInvalidSession()
 
@@ -18,7 +18,7 @@ export default async function getUser(userUUID: string) {
     })
 
     if (user) {
-        return getDispUser(user)
+        return await getDispUser(user)
     } else {
         return getEmptyDispUser()
     }

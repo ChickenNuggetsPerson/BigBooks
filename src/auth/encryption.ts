@@ -1,11 +1,12 @@
 import bcrypt from 'bcryptjs';
 import { JWTPayload, SignJWT, jwtVerify } from 'jose';
+import { Session } from './auth';
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
 const alg = 'HS256';
 
-export async function signSession(payload: JWTPayload) {
-    return await new SignJWT(payload)
+export async function signSession(payload: Session) {
+    return await new SignJWT(payload as unknown as JWTPayload)
         .setProtectedHeader({ alg })
         .setIssuedAt()
         .setExpirationTime('2h')

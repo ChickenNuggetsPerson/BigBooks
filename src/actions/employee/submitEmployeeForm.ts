@@ -1,6 +1,8 @@
 'use server'
 
 import { redirectIfInvalidSession } from "@/auth/auth"
+import { RoleTypes } from "@/auth/roles/Roles"
+import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
@@ -9,6 +11,7 @@ import { redirect } from "next/navigation"
 export default async function submitEmployeeForm(newEmployee: boolean, formData: FormData) {
 
     await redirectIfInvalidSession()
+    await throwIfInsufficientPerms(RoleTypes.Editor)
 
     const orgUUID = formData.get("orgUUID") as string
     const uuid = formData.get("uuid") as string

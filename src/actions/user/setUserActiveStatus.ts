@@ -22,6 +22,7 @@ export default async function setUserActiveStatus(userID: string, status: boolea
         data: { isActive: status }
     })
 
-    revalidatePath("/user/codes")
-    redirect("/user/codes")
+    revalidatePath("/user/users")
+    revalidatePath("/user/users/" + userID)
+    revalidatePath("/user/users/" + userID)
 }

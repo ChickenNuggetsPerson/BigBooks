@@ -1,3 +1,4 @@
+import { DispRole, getRoleFromID } from "@/auth/roles/Roles";
 import { Employee, Organization, Payperiod, PayStub, User } from "../generated/prisma/client";
 import { prisma } from "../prisma";
 import { FilingTypes } from "../Taxes/FilingTypes";
@@ -291,13 +292,14 @@ Date.prototype.addDays = function (days: number): Date {
 
 
 
-
-interface DispUser {
+export interface DispUser {
     uuid: string,
     firstName: string,
     lastName: string,
     email: string,
-    username: string
+    username: string,
+    isActive: boolean,
+    memberships: DispRole[]
 }
 export function getEmptyDispUser() : DispUser {
     return {
@@ -305,10 +307,12 @@ export function getEmptyDispUser() : DispUser {
         firstName: "",
         lastName: "",
         email: "",
-        username: ""
+        username: "",
+        isActive: false,
+        memberships: []
     }
 }
-export function getDispUser(u: User) {
+export async function getDispUser(u: User) {
     const user = getEmptyDispUser()
 
     user.uuid = u.uuid
@@ -316,6 +320,16 @@ export function getDispUser(u: User) {
     user.lastName = u.lastName
     user.email = u.email
     user.username = u.username
+    user.isActive = u.isActive
+
+    user.memberships = (await prisma.role.findMany({ where: { userId: user.uuid }})).map((r) => {
+        const role = getRoleFromID(r.role)
+        role.orgUUID = r.organizationId
+        role.userUUID = r.userId
+
+        return role
+    }) // Kill ME
+
 
     return user
 }
