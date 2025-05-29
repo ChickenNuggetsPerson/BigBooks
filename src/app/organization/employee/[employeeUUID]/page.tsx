@@ -28,16 +28,13 @@ export default async function EmployeeView({
                 ← Back
             </Link>
 
-            <div className="flex flex-col lg:flex-row gap-6 justify-center px-10 py-20">
-
-                <AnimateChildren x={0} y={-100}>
-                    <EmployeeCard employee={employee} />
-                    <div>
-                        <EmployeeSalaryCard employee={employee} />
-                        <EmployeeSelectPaystub empUUID={employee.uuid} />
-                    </div>
-                </AnimateChildren>
-            </div>
+            <AnimateChildren y={-100} className="flex flex-col lg:flex-row gap-6 justify-center px-10 py-20">
+                <EmployeeCard employee={employee} />
+                <div>
+                    <EmployeeSalaryCard employee={employee} />
+                    <EmployeeSelectPaystub empUUID={employee.uuid} />
+                </div>
+            </AnimateChildren>
 
         </div>
 
