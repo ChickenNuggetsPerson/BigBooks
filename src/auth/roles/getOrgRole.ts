@@ -1,7 +1,7 @@
 import { getSession, getUserFromSession } from "@/auth/auth";
 import { prisma } from "@/database/prisma";
 import { redirect } from "next/navigation";
-import { getRoleFromID, Role_Admin, Role_Error } from "./Roles";
+import { getRoleFromID, Role_Error, Role_SysAdmin } from "./Roles";
 
 
 
@@ -17,7 +17,7 @@ export default async function getOrgRole() {
     }
 
     if (session.isAdmin) {
-        return Role_Admin // If logged in as sys admin, just return the admin role
+        return Role_SysAdmin // If logged in as sys admin, just return the admin role
     }
 
     const user = await getUserFromSession()

@@ -15,7 +15,7 @@ export default async function InteractiveUserIcon() {
     return (
         <div className="mt-1 flex flex-row">
 
-            <div className="p-1 rounded-md text-white font-bold mr-2 max-h-8" style={{backgroundColor: role.color}}>
+            <div className="p-1 rounded-md text-white font-bold mr-2 max-h-8" style={{background: role.color}}>
                 {role.type}
             </div>
 

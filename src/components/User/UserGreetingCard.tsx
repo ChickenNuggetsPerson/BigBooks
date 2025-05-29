@@ -1,7 +1,6 @@
 
 import { logout } from "@/auth/actions/Logout"
-import { getSession } from "@/auth/auth"
-import { prisma } from "@/database/prisma"
+import { getUserFromSession } from "@/auth/auth"
 import Link from "next/link"
 
 
@@ -10,8 +9,7 @@ import Link from "next/link"
 
 export default async function UserGreetingCard() {
 
-    const session = await getSession()
-    const user = await prisma.user.findUnique({ where: { uuid: session?.userID ?? "" } })
+    const user = await getUserFromSession()
 
     if (!user) {
         return (
