@@ -11,7 +11,7 @@ import { revalidatePath } from "next/cache"
 export default async function submitOrganizationForm(newOrganization: boolean, formData: FormData) {
 
     await redirectIfInvalidSession()
-    await throwIfInsufficientPerms(RoleTypes.Viewer)
+    await throwIfInsufficientPerms(RoleTypes.Admin)
 
     const uuid = formData.get("uuid") as string
     const name = formData.get("name") as string
