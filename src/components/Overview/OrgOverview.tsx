@@ -2,8 +2,9 @@
 
 import getOrgDetails from "@/actions/organization/getOrgDetails";
 import { useEffect, useState } from "react";
-import AnimateChildren from "../Decorative/AnimateChildren";
 import { getEmptyDispOrganization } from "@/database/models/DisplayModels";
+import AnimateChildren from "../Decorative/AnimateChildren";
+import AdminCard from "../admin/AdminCard";
 
 
 
@@ -26,8 +27,9 @@ export default function OrgOverview({ uuid }: OverviewProps) {
     }, [uuid])
 
     return (
-        <AnimateChildren x={-200} y={0}>
-            <div className="card mb-5 max-w-md">
+        // <AnimateChildren x={-200} y={0}>
+        <AnimateChildren className="grid grid-cols-2 gap-4">
+            <div className="card max-w-md">
 
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{state.name}</h5>
                 {state.isDeleted && <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 opacity-50">{"[ Deactivated ]"}</h5>}
@@ -42,15 +44,17 @@ export default function OrgOverview({ uuid }: OverviewProps) {
                 }
             </div>
 
-
-
             <div className="card max-w-sm">
                 <h5 className="mb-2 text-2xl font-normal text-gray-700 ">Organization Statistics:</h5>
 
                 {/* {periodToStr(generatePayperiodFromDate(state.periodsRefDate, state.periodsPerYear, new Date()))} */}
-                
+
                 <h5 className="font-normal text-gray-700">Total Employees: {state.employeeCount}</h5>
             </div>
+
+            <AdminCard />
+
         </AnimateChildren>
+
     )
 }

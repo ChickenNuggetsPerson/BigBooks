@@ -3,7 +3,6 @@
 import { useCompany } from "@/app/CompanyContext"
 import { useState } from "react"
 import AnimateChildren from "../Decorative/AnimateChildren"
-import Link from "next/link"
 import OrganizationSelectForm from "../Organization/OrganizationSelectForm"
 
 
@@ -33,18 +32,14 @@ export default function HeaderOrgOptions() {
                     <div className={"bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44"}>
 
                         <ul className="py-2 text-sm text-gray-700 " aria-labelledby="dropdownHoverButton">
-                            <li>
-                                <Link className="block px-4 py-2 hover:bg-gray-100 " href={"/organization/edit"}>
-                                    Edit Organization
-                                </Link>
-                            </li>
-
 
                             <li>
                                 <a onClick={() => { setSelectOrg(!selectOrg) }} className="block px-4 py-2 hover:bg-gray-100" >
                                     Switch Organization
                                 </a>
                             </li>
+
+
 
                         </ul>
                     </div>
