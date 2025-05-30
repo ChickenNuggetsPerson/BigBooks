@@ -3,27 +3,15 @@
 import createUserRole from "@/actions/user/roles/createUserRole"
 import deleteUserRole from "@/actions/user/roles/deleteUserRole"
 import editUserRole from "@/actions/user/roles/editUserRole"
-import { Role_Viewer, Role_Editor, Role_Admin, DispRole, RoleTypes } from "@/auth/roles/Roles"
+import { DispRole, RoleTypes } from "@/auth/roles/Roles"
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
 import SelectInput from "@/components/Forms/SelectInput"
 import { DispUser } from "@/database/models/DisplayModels"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { getRoleDescription, selectableRoles } from "./RoleModalProps"
 
-const roles = [
-    {
-        label: Role_Viewer.type,
-        id: Role_Viewer.type
-    },
-    {
-        label: Role_Editor.type,
-        id: Role_Editor.type
-    },
-    {
-        label: Role_Admin.type,
-        id: Role_Admin.type
-    }
-]
+
 
 export default function RoleModal({ role, user, orgUUID, orgName }: { role: DispRole | null, user: DispUser, orgUUID: string, orgName: string }) {
 
@@ -32,19 +20,7 @@ export default function RoleModal({ role, user, orgUUID, orgName }: { role: Disp
 
     const isNew = role == null
 
-    function getText(r: RoleTypes) {
-        switch (r) {
-            case RoleTypes.Viewer:
-                return `As a viewer, ${user.firstName} can view employee data and payroll items.`
-            case RoleTypes.Editor:
-                return `As an editor, ${user.firstName} can edit employee data and payroll items.`
-            case RoleTypes.Admin:
-                return `As an admin, ${user.firstName} will have all permissions of an editor and viewer. ${user.firstName} will also be able to edit the roles of other users associated with this organization.`
-            default:
-                return ""
-        }
-    }
-
+    
     const router = useRouter()
 
     async function save() {
@@ -75,12 +51,12 @@ export default function RoleModal({ role, user, orgUUID, orgName }: { role: Disp
             </div>
 
             <div className="flex flex-row">
-                <SelectInput id={""} label={"Organization Role:"} val={selectedRole} disabled={false} options={roles} changeCB={(val) => { setRole(val as RoleTypes) }} searchable={false} />
-                <p className="p-5 w-sm h-40">{getText(selectedRole)}</p>
+                <SelectInput id={""} label={"Organization Role:"} val={selectedRole} disabled={false} options={selectableRoles} changeCB={(val) => { setRole(val as RoleTypes) }} searchable={false} />
+                <p className="p-5 w-sm h-40">{getRoleDescription(selectedRole)}</p>
             </div>
 
             <div className="flex flex-row justify-between">
-                {!isNew && <button onClick={remove} className="accent-button">Remove Role</button>}
+                {!isNew && <button onClick={remove} className="accent-button">Remove From Organization</button>}
                 {isNew && <div></div>}
                 <button onClick={save} className="primary-button">Save Changes</button>
             </div>

@@ -4,7 +4,7 @@
 import { DispRole } from "@/auth/roles/Roles";
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
 import { DispOrganization, DispUser } from "@/database/models/DisplayModels";
-import RoleModal from "./RoleModal";
+import RoleModal from "../../OrgAdmin/RoleModal";
 
 
 

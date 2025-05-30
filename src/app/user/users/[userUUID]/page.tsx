@@ -1,4 +1,4 @@
-import UserInfoForm from "@/components/User/UserList/UserInfoForm/UserInfoForm"
+import UserInfoForm from "@/components/User/SysAdminUserList/UserInfoForm/UserInfoForm"
 import Link from "next/link"
 
 

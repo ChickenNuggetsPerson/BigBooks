@@ -1,6 +1,7 @@
 import { getUserFromSession } from "@/auth/auth"
 import getOrgRole from "@/auth/roles/getOrgRole"
 import Link from "next/link"
+import { UserRoleIcon } from "./UserRoleIcon"
 
 
 export default async function InteractiveUserIcon() {
@@ -15,9 +16,7 @@ export default async function InteractiveUserIcon() {
     return (
         <div className="mt-1 flex flex-row">
 
-            <div className="p-1 rounded-md text-white font-bold mr-2 max-h-8" style={{background: role.color}}>
-                {role.type}
-            </div>
+            <UserRoleIcon role={role} />
 
             <Link href={"/user"} className="font-black text-xl ">
                 {user.firstName + " " + user.lastName}

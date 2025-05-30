@@ -24,6 +24,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type RegistrationCode = $Result.DefaultSelection<Prisma.$RegistrationCodePayload>
 /**
+ * Model InviteCode
+ * 
+ */
+export type InviteCode = $Result.DefaultSelection<Prisma.$InviteCodePayload>
+/**
  * Model Role
  * 
  */
@@ -193,6 +198,16 @@ export class PrismaClient<
     * ```
     */
   get registrationCode(): Prisma.RegistrationCodeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.inviteCode`: Exposes CRUD operations for the **InviteCode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more InviteCodes
+    * const inviteCodes = await prisma.inviteCode.findMany()
+    * ```
+    */
+  get inviteCode(): Prisma.InviteCodeDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.role`: Exposes CRUD operations for the **Role** model.
@@ -685,6 +700,7 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     RegistrationCode: 'RegistrationCode',
+    InviteCode: 'InviteCode',
     Role: 'Role',
     Organization: 'Organization',
     Employee: 'Employee',
@@ -708,7 +724,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "registrationCode" | "role" | "organization" | "employee" | "payperiod" | "payStub"
+      modelProps: "user" | "registrationCode" | "inviteCode" | "role" | "organization" | "employee" | "payperiod" | "payStub"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -857,6 +873,80 @@ export namespace Prisma {
           count: {
             args: Prisma.RegistrationCodeCountArgs<ExtArgs>
             result: $Utils.Optional<RegistrationCodeCountAggregateOutputType> | number
+          }
+        }
+      }
+      InviteCode: {
+        payload: Prisma.$InviteCodePayload<ExtArgs>
+        fields: Prisma.InviteCodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InviteCodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InviteCodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InviteCodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InviteCodePayload>
+          }
+          findFirst: {
+            args: Prisma.InviteCodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InviteCodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InviteCodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InviteCodePayload>
+          }
+          findMany: {
+            args: Prisma.InviteCodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InviteCodePayload>[]
+          }
+          create: {
+            args: Prisma.InviteCodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InviteCodePayload>
+          }
+          createMany: {
+            args: Prisma.InviteCodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InviteCodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InviteCodePayload>[]
+          }
+          delete: {
+            args: Prisma.InviteCodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InviteCodePayload>
+          }
+          update: {
+            args: Prisma.InviteCodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InviteCodePayload>
+          }
+          deleteMany: {
+            args: Prisma.InviteCodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InviteCodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.InviteCodeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InviteCodePayload>[]
+          }
+          upsert: {
+            args: Prisma.InviteCodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InviteCodePayload>
+          }
+          aggregate: {
+            args: Prisma.InviteCodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInviteCode>
+          }
+          groupBy: {
+            args: Prisma.InviteCodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InviteCodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InviteCodeCountArgs<ExtArgs>
+            result: $Utils.Optional<InviteCodeCountAggregateOutputType> | number
           }
         }
       }
@@ -1316,6 +1406,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     registrationCode?: RegistrationCodeOmit
+    inviteCode?: InviteCodeOmit
     role?: RoleOmit
     organization?: OrganizationOmit
     employee?: EmployeeOmit
@@ -1448,12 +1539,14 @@ export namespace Prisma {
   export type OrganizationCountOutputType = {
     employees: number
     payperiods: number
+    inviteCodes: number
     memberships: number
   }
 
   export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employees?: boolean | OrganizationCountOutputTypeCountEmployeesArgs
     payperiods?: boolean | OrganizationCountOutputTypeCountPayperiodsArgs
+    inviteCodes?: boolean | OrganizationCountOutputTypeCountInviteCodesArgs
     memberships?: boolean | OrganizationCountOutputTypeCountMembershipsArgs
   }
 
@@ -1480,6 +1573,13 @@ export namespace Prisma {
    */
   export type OrganizationCountOutputTypeCountPayperiodsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PayperiodWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountInviteCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InviteCodeWhereInput
   }
 
   /**
@@ -3605,6 +3705,1049 @@ export namespace Prisma {
 
 
   /**
+   * Model InviteCode
+   */
+
+  export type AggregateInviteCode = {
+    _count: InviteCodeCountAggregateOutputType | null
+    _min: InviteCodeMinAggregateOutputType | null
+    _max: InviteCodeMaxAggregateOutputType | null
+  }
+
+  export type InviteCodeMinAggregateOutputType = {
+    uuid: string | null
+    organizationId: string | null
+    role: string | null
+    expires: Date | null
+  }
+
+  export type InviteCodeMaxAggregateOutputType = {
+    uuid: string | null
+    organizationId: string | null
+    role: string | null
+    expires: Date | null
+  }
+
+  export type InviteCodeCountAggregateOutputType = {
+    uuid: number
+    organizationId: number
+    role: number
+    expires: number
+    _all: number
+  }
+
+
+  export type InviteCodeMinAggregateInputType = {
+    uuid?: true
+    organizationId?: true
+    role?: true
+    expires?: true
+  }
+
+  export type InviteCodeMaxAggregateInputType = {
+    uuid?: true
+    organizationId?: true
+    role?: true
+    expires?: true
+  }
+
+  export type InviteCodeCountAggregateInputType = {
+    uuid?: true
+    organizationId?: true
+    role?: true
+    expires?: true
+    _all?: true
+  }
+
+  export type InviteCodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InviteCode to aggregate.
+     */
+    where?: InviteCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InviteCodes to fetch.
+     */
+    orderBy?: InviteCodeOrderByWithRelationInput | InviteCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InviteCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InviteCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InviteCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned InviteCodes
+    **/
+    _count?: true | InviteCodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InviteCodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InviteCodeMaxAggregateInputType
+  }
+
+  export type GetInviteCodeAggregateType<T extends InviteCodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateInviteCode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInviteCode[P]>
+      : GetScalarType<T[P], AggregateInviteCode[P]>
+  }
+
+
+
+
+  export type InviteCodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InviteCodeWhereInput
+    orderBy?: InviteCodeOrderByWithAggregationInput | InviteCodeOrderByWithAggregationInput[]
+    by: InviteCodeScalarFieldEnum[] | InviteCodeScalarFieldEnum
+    having?: InviteCodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InviteCodeCountAggregateInputType | true
+    _min?: InviteCodeMinAggregateInputType
+    _max?: InviteCodeMaxAggregateInputType
+  }
+
+  export type InviteCodeGroupByOutputType = {
+    uuid: string
+    organizationId: string
+    role: string
+    expires: Date
+    _count: InviteCodeCountAggregateOutputType | null
+    _min: InviteCodeMinAggregateOutputType | null
+    _max: InviteCodeMaxAggregateOutputType | null
+  }
+
+  type GetInviteCodeGroupByPayload<T extends InviteCodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InviteCodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InviteCodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InviteCodeGroupByOutputType[P]>
+            : GetScalarType<T[P], InviteCodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InviteCodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    organizationId?: boolean
+    role?: boolean
+    expires?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inviteCode"]>
+
+  export type InviteCodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    organizationId?: boolean
+    role?: boolean
+    expires?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inviteCode"]>
+
+  export type InviteCodeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    organizationId?: boolean
+    role?: boolean
+    expires?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inviteCode"]>
+
+  export type InviteCodeSelectScalar = {
+    uuid?: boolean
+    organizationId?: boolean
+    role?: boolean
+    expires?: boolean
+  }
+
+  export type InviteCodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "organizationId" | "role" | "expires", ExtArgs["result"]["inviteCode"]>
+  export type InviteCodeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type InviteCodeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type InviteCodeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $InviteCodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "InviteCode"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      uuid: string
+      organizationId: string
+      role: string
+      expires: Date
+    }, ExtArgs["result"]["inviteCode"]>
+    composites: {}
+  }
+
+  type InviteCodeGetPayload<S extends boolean | null | undefined | InviteCodeDefaultArgs> = $Result.GetResult<Prisma.$InviteCodePayload, S>
+
+  type InviteCodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InviteCodeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InviteCodeCountAggregateInputType | true
+    }
+
+  export interface InviteCodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['InviteCode'], meta: { name: 'InviteCode' } }
+    /**
+     * Find zero or one InviteCode that matches the filter.
+     * @param {InviteCodeFindUniqueArgs} args - Arguments to find a InviteCode
+     * @example
+     * // Get one InviteCode
+     * const inviteCode = await prisma.inviteCode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InviteCodeFindUniqueArgs>(args: SelectSubset<T, InviteCodeFindUniqueArgs<ExtArgs>>): Prisma__InviteCodeClient<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one InviteCode that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InviteCodeFindUniqueOrThrowArgs} args - Arguments to find a InviteCode
+     * @example
+     * // Get one InviteCode
+     * const inviteCode = await prisma.inviteCode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InviteCodeFindUniqueOrThrowArgs>(args: SelectSubset<T, InviteCodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InviteCodeClient<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InviteCode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InviteCodeFindFirstArgs} args - Arguments to find a InviteCode
+     * @example
+     * // Get one InviteCode
+     * const inviteCode = await prisma.inviteCode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InviteCodeFindFirstArgs>(args?: SelectSubset<T, InviteCodeFindFirstArgs<ExtArgs>>): Prisma__InviteCodeClient<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InviteCode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InviteCodeFindFirstOrThrowArgs} args - Arguments to find a InviteCode
+     * @example
+     * // Get one InviteCode
+     * const inviteCode = await prisma.inviteCode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InviteCodeFindFirstOrThrowArgs>(args?: SelectSubset<T, InviteCodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__InviteCodeClient<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more InviteCodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InviteCodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all InviteCodes
+     * const inviteCodes = await prisma.inviteCode.findMany()
+     * 
+     * // Get first 10 InviteCodes
+     * const inviteCodes = await prisma.inviteCode.findMany({ take: 10 })
+     * 
+     * // Only select the `uuid`
+     * const inviteCodeWithUuidOnly = await prisma.inviteCode.findMany({ select: { uuid: true } })
+     * 
+     */
+    findMany<T extends InviteCodeFindManyArgs>(args?: SelectSubset<T, InviteCodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a InviteCode.
+     * @param {InviteCodeCreateArgs} args - Arguments to create a InviteCode.
+     * @example
+     * // Create one InviteCode
+     * const InviteCode = await prisma.inviteCode.create({
+     *   data: {
+     *     // ... data to create a InviteCode
+     *   }
+     * })
+     * 
+     */
+    create<T extends InviteCodeCreateArgs>(args: SelectSubset<T, InviteCodeCreateArgs<ExtArgs>>): Prisma__InviteCodeClient<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many InviteCodes.
+     * @param {InviteCodeCreateManyArgs} args - Arguments to create many InviteCodes.
+     * @example
+     * // Create many InviteCodes
+     * const inviteCode = await prisma.inviteCode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InviteCodeCreateManyArgs>(args?: SelectSubset<T, InviteCodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many InviteCodes and returns the data saved in the database.
+     * @param {InviteCodeCreateManyAndReturnArgs} args - Arguments to create many InviteCodes.
+     * @example
+     * // Create many InviteCodes
+     * const inviteCode = await prisma.inviteCode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many InviteCodes and only return the `uuid`
+     * const inviteCodeWithUuidOnly = await prisma.inviteCode.createManyAndReturn({
+     *   select: { uuid: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InviteCodeCreateManyAndReturnArgs>(args?: SelectSubset<T, InviteCodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a InviteCode.
+     * @param {InviteCodeDeleteArgs} args - Arguments to delete one InviteCode.
+     * @example
+     * // Delete one InviteCode
+     * const InviteCode = await prisma.inviteCode.delete({
+     *   where: {
+     *     // ... filter to delete one InviteCode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InviteCodeDeleteArgs>(args: SelectSubset<T, InviteCodeDeleteArgs<ExtArgs>>): Prisma__InviteCodeClient<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one InviteCode.
+     * @param {InviteCodeUpdateArgs} args - Arguments to update one InviteCode.
+     * @example
+     * // Update one InviteCode
+     * const inviteCode = await prisma.inviteCode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InviteCodeUpdateArgs>(args: SelectSubset<T, InviteCodeUpdateArgs<ExtArgs>>): Prisma__InviteCodeClient<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more InviteCodes.
+     * @param {InviteCodeDeleteManyArgs} args - Arguments to filter InviteCodes to delete.
+     * @example
+     * // Delete a few InviteCodes
+     * const { count } = await prisma.inviteCode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InviteCodeDeleteManyArgs>(args?: SelectSubset<T, InviteCodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InviteCodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InviteCodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many InviteCodes
+     * const inviteCode = await prisma.inviteCode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InviteCodeUpdateManyArgs>(args: SelectSubset<T, InviteCodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InviteCodes and returns the data updated in the database.
+     * @param {InviteCodeUpdateManyAndReturnArgs} args - Arguments to update many InviteCodes.
+     * @example
+     * // Update many InviteCodes
+     * const inviteCode = await prisma.inviteCode.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more InviteCodes and only return the `uuid`
+     * const inviteCodeWithUuidOnly = await prisma.inviteCode.updateManyAndReturn({
+     *   select: { uuid: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends InviteCodeUpdateManyAndReturnArgs>(args: SelectSubset<T, InviteCodeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one InviteCode.
+     * @param {InviteCodeUpsertArgs} args - Arguments to update or create a InviteCode.
+     * @example
+     * // Update or create a InviteCode
+     * const inviteCode = await prisma.inviteCode.upsert({
+     *   create: {
+     *     // ... data to create a InviteCode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the InviteCode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InviteCodeUpsertArgs>(args: SelectSubset<T, InviteCodeUpsertArgs<ExtArgs>>): Prisma__InviteCodeClient<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of InviteCodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InviteCodeCountArgs} args - Arguments to filter InviteCodes to count.
+     * @example
+     * // Count the number of InviteCodes
+     * const count = await prisma.inviteCode.count({
+     *   where: {
+     *     // ... the filter for the InviteCodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends InviteCodeCountArgs>(
+      args?: Subset<T, InviteCodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InviteCodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a InviteCode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InviteCodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InviteCodeAggregateArgs>(args: Subset<T, InviteCodeAggregateArgs>): Prisma.PrismaPromise<GetInviteCodeAggregateType<T>>
+
+    /**
+     * Group by InviteCode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InviteCodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InviteCodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InviteCodeGroupByArgs['orderBy'] }
+        : { orderBy?: InviteCodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InviteCodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInviteCodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the InviteCode model
+   */
+  readonly fields: InviteCodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for InviteCode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InviteCodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the InviteCode model
+   */
+  interface InviteCodeFieldRefs {
+    readonly uuid: FieldRef<"InviteCode", 'String'>
+    readonly organizationId: FieldRef<"InviteCode", 'String'>
+    readonly role: FieldRef<"InviteCode", 'String'>
+    readonly expires: FieldRef<"InviteCode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * InviteCode findUnique
+   */
+  export type InviteCodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InviteCode
+     */
+    select?: InviteCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InviteCode
+     */
+    omit?: InviteCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InviteCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which InviteCode to fetch.
+     */
+    where: InviteCodeWhereUniqueInput
+  }
+
+  /**
+   * InviteCode findUniqueOrThrow
+   */
+  export type InviteCodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InviteCode
+     */
+    select?: InviteCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InviteCode
+     */
+    omit?: InviteCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InviteCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which InviteCode to fetch.
+     */
+    where: InviteCodeWhereUniqueInput
+  }
+
+  /**
+   * InviteCode findFirst
+   */
+  export type InviteCodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InviteCode
+     */
+    select?: InviteCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InviteCode
+     */
+    omit?: InviteCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InviteCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which InviteCode to fetch.
+     */
+    where?: InviteCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InviteCodes to fetch.
+     */
+    orderBy?: InviteCodeOrderByWithRelationInput | InviteCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InviteCodes.
+     */
+    cursor?: InviteCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InviteCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InviteCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InviteCodes.
+     */
+    distinct?: InviteCodeScalarFieldEnum | InviteCodeScalarFieldEnum[]
+  }
+
+  /**
+   * InviteCode findFirstOrThrow
+   */
+  export type InviteCodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InviteCode
+     */
+    select?: InviteCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InviteCode
+     */
+    omit?: InviteCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InviteCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which InviteCode to fetch.
+     */
+    where?: InviteCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InviteCodes to fetch.
+     */
+    orderBy?: InviteCodeOrderByWithRelationInput | InviteCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InviteCodes.
+     */
+    cursor?: InviteCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InviteCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InviteCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InviteCodes.
+     */
+    distinct?: InviteCodeScalarFieldEnum | InviteCodeScalarFieldEnum[]
+  }
+
+  /**
+   * InviteCode findMany
+   */
+  export type InviteCodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InviteCode
+     */
+    select?: InviteCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InviteCode
+     */
+    omit?: InviteCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InviteCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which InviteCodes to fetch.
+     */
+    where?: InviteCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InviteCodes to fetch.
+     */
+    orderBy?: InviteCodeOrderByWithRelationInput | InviteCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing InviteCodes.
+     */
+    cursor?: InviteCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InviteCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InviteCodes.
+     */
+    skip?: number
+    distinct?: InviteCodeScalarFieldEnum | InviteCodeScalarFieldEnum[]
+  }
+
+  /**
+   * InviteCode create
+   */
+  export type InviteCodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InviteCode
+     */
+    select?: InviteCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InviteCode
+     */
+    omit?: InviteCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InviteCodeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a InviteCode.
+     */
+    data: XOR<InviteCodeCreateInput, InviteCodeUncheckedCreateInput>
+  }
+
+  /**
+   * InviteCode createMany
+   */
+  export type InviteCodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many InviteCodes.
+     */
+    data: InviteCodeCreateManyInput | InviteCodeCreateManyInput[]
+  }
+
+  /**
+   * InviteCode createManyAndReturn
+   */
+  export type InviteCodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InviteCode
+     */
+    select?: InviteCodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InviteCode
+     */
+    omit?: InviteCodeOmit<ExtArgs> | null
+    /**
+     * The data used to create many InviteCodes.
+     */
+    data: InviteCodeCreateManyInput | InviteCodeCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InviteCodeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * InviteCode update
+   */
+  export type InviteCodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InviteCode
+     */
+    select?: InviteCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InviteCode
+     */
+    omit?: InviteCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InviteCodeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a InviteCode.
+     */
+    data: XOR<InviteCodeUpdateInput, InviteCodeUncheckedUpdateInput>
+    /**
+     * Choose, which InviteCode to update.
+     */
+    where: InviteCodeWhereUniqueInput
+  }
+
+  /**
+   * InviteCode updateMany
+   */
+  export type InviteCodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update InviteCodes.
+     */
+    data: XOR<InviteCodeUpdateManyMutationInput, InviteCodeUncheckedUpdateManyInput>
+    /**
+     * Filter which InviteCodes to update
+     */
+    where?: InviteCodeWhereInput
+    /**
+     * Limit how many InviteCodes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * InviteCode updateManyAndReturn
+   */
+  export type InviteCodeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InviteCode
+     */
+    select?: InviteCodeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InviteCode
+     */
+    omit?: InviteCodeOmit<ExtArgs> | null
+    /**
+     * The data used to update InviteCodes.
+     */
+    data: XOR<InviteCodeUpdateManyMutationInput, InviteCodeUncheckedUpdateManyInput>
+    /**
+     * Filter which InviteCodes to update
+     */
+    where?: InviteCodeWhereInput
+    /**
+     * Limit how many InviteCodes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InviteCodeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * InviteCode upsert
+   */
+  export type InviteCodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InviteCode
+     */
+    select?: InviteCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InviteCode
+     */
+    omit?: InviteCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InviteCodeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the InviteCode to update in case it exists.
+     */
+    where: InviteCodeWhereUniqueInput
+    /**
+     * In case the InviteCode found by the `where` argument doesn't exist, create a new InviteCode with this data.
+     */
+    create: XOR<InviteCodeCreateInput, InviteCodeUncheckedCreateInput>
+    /**
+     * In case the InviteCode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InviteCodeUpdateInput, InviteCodeUncheckedUpdateInput>
+  }
+
+  /**
+   * InviteCode delete
+   */
+  export type InviteCodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InviteCode
+     */
+    select?: InviteCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InviteCode
+     */
+    omit?: InviteCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InviteCodeInclude<ExtArgs> | null
+    /**
+     * Filter which InviteCode to delete.
+     */
+    where: InviteCodeWhereUniqueInput
+  }
+
+  /**
+   * InviteCode deleteMany
+   */
+  export type InviteCodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InviteCodes to delete
+     */
+    where?: InviteCodeWhereInput
+    /**
+     * Limit how many InviteCodes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * InviteCode without action
+   */
+  export type InviteCodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InviteCode
+     */
+    select?: InviteCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InviteCode
+     */
+    omit?: InviteCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InviteCodeInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Role
    */
 
@@ -4884,6 +6027,7 @@ export namespace Prisma {
     periodsRefDate?: boolean
     employees?: boolean | Organization$employeesArgs<ExtArgs>
     payperiods?: boolean | Organization$payperiodsArgs<ExtArgs>
+    inviteCodes?: boolean | Organization$inviteCodesArgs<ExtArgs>
     memberships?: boolean | Organization$membershipsArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
@@ -4922,6 +6066,7 @@ export namespace Prisma {
   export type OrganizationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employees?: boolean | Organization$employeesArgs<ExtArgs>
     payperiods?: boolean | Organization$payperiodsArgs<ExtArgs>
+    inviteCodes?: boolean | Organization$inviteCodesArgs<ExtArgs>
     memberships?: boolean | Organization$membershipsArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -4933,6 +6078,7 @@ export namespace Prisma {
     objects: {
       employees: Prisma.$EmployeePayload<ExtArgs>[]
       payperiods: Prisma.$PayperiodPayload<ExtArgs>[]
+      inviteCodes: Prisma.$InviteCodePayload<ExtArgs>[]
       memberships: Prisma.$RolePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5339,6 +6485,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     employees<T extends Organization$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payperiods<T extends Organization$payperiodsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$payperiodsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayperiodPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    inviteCodes<T extends Organization$inviteCodesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$inviteCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     memberships<T extends Organization$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5807,6 +6954,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PayperiodScalarFieldEnum | PayperiodScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.inviteCodes
+   */
+  export type Organization$inviteCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InviteCode
+     */
+    select?: InviteCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InviteCode
+     */
+    omit?: InviteCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InviteCodeInclude<ExtArgs> | null
+    where?: InviteCodeWhereInput
+    orderBy?: InviteCodeOrderByWithRelationInput | InviteCodeOrderByWithRelationInput[]
+    cursor?: InviteCodeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InviteCodeScalarFieldEnum | InviteCodeScalarFieldEnum[]
   }
 
   /**
@@ -9502,6 +10673,16 @@ export namespace Prisma {
   export type RegistrationCodeScalarFieldEnum = (typeof RegistrationCodeScalarFieldEnum)[keyof typeof RegistrationCodeScalarFieldEnum]
 
 
+  export const InviteCodeScalarFieldEnum: {
+    uuid: 'uuid',
+    organizationId: 'organizationId',
+    role: 'role',
+    expires: 'expires'
+  };
+
+  export type InviteCodeScalarFieldEnum = (typeof InviteCodeScalarFieldEnum)[keyof typeof InviteCodeScalarFieldEnum]
+
+
   export const RoleScalarFieldEnum: {
     uuid: 'uuid',
     userId: 'userId',
@@ -9779,6 +10960,56 @@ export namespace Prisma {
     expires?: DateTimeWithAggregatesFilter<"RegistrationCode"> | Date | string
   }
 
+  export type InviteCodeWhereInput = {
+    AND?: InviteCodeWhereInput | InviteCodeWhereInput[]
+    OR?: InviteCodeWhereInput[]
+    NOT?: InviteCodeWhereInput | InviteCodeWhereInput[]
+    uuid?: StringFilter<"InviteCode"> | string
+    organizationId?: StringFilter<"InviteCode"> | string
+    role?: StringFilter<"InviteCode"> | string
+    expires?: DateTimeFilter<"InviteCode"> | Date | string
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }
+
+  export type InviteCodeOrderByWithRelationInput = {
+    uuid?: SortOrder
+    organizationId?: SortOrder
+    role?: SortOrder
+    expires?: SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+  }
+
+  export type InviteCodeWhereUniqueInput = Prisma.AtLeast<{
+    uuid?: string
+    AND?: InviteCodeWhereInput | InviteCodeWhereInput[]
+    OR?: InviteCodeWhereInput[]
+    NOT?: InviteCodeWhereInput | InviteCodeWhereInput[]
+    organizationId?: StringFilter<"InviteCode"> | string
+    role?: StringFilter<"InviteCode"> | string
+    expires?: DateTimeFilter<"InviteCode"> | Date | string
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }, "uuid" | "uuid">
+
+  export type InviteCodeOrderByWithAggregationInput = {
+    uuid?: SortOrder
+    organizationId?: SortOrder
+    role?: SortOrder
+    expires?: SortOrder
+    _count?: InviteCodeCountOrderByAggregateInput
+    _max?: InviteCodeMaxOrderByAggregateInput
+    _min?: InviteCodeMinOrderByAggregateInput
+  }
+
+  export type InviteCodeScalarWhereWithAggregatesInput = {
+    AND?: InviteCodeScalarWhereWithAggregatesInput | InviteCodeScalarWhereWithAggregatesInput[]
+    OR?: InviteCodeScalarWhereWithAggregatesInput[]
+    NOT?: InviteCodeScalarWhereWithAggregatesInput | InviteCodeScalarWhereWithAggregatesInput[]
+    uuid?: StringWithAggregatesFilter<"InviteCode"> | string
+    organizationId?: StringWithAggregatesFilter<"InviteCode"> | string
+    role?: StringWithAggregatesFilter<"InviteCode"> | string
+    expires?: DateTimeWithAggregatesFilter<"InviteCode"> | Date | string
+  }
+
   export type RoleWhereInput = {
     AND?: RoleWhereInput | RoleWhereInput[]
     OR?: RoleWhereInput[]
@@ -9851,6 +11082,7 @@ export namespace Prisma {
     periodsRefDate?: DateTimeFilter<"Organization"> | Date | string
     employees?: EmployeeListRelationFilter
     payperiods?: PayperiodListRelationFilter
+    inviteCodes?: InviteCodeListRelationFilter
     memberships?: RoleListRelationFilter
   }
 
@@ -9864,6 +11096,7 @@ export namespace Prisma {
     periodsRefDate?: SortOrder
     employees?: EmployeeOrderByRelationAggregateInput
     payperiods?: PayperiodOrderByRelationAggregateInput
+    inviteCodes?: InviteCodeOrderByRelationAggregateInput
     memberships?: RoleOrderByRelationAggregateInput
   }
 
@@ -9880,6 +11113,7 @@ export namespace Prisma {
     periodsRefDate?: DateTimeFilter<"Organization"> | Date | string
     employees?: EmployeeListRelationFilter
     payperiods?: PayperiodListRelationFilter
+    inviteCodes?: InviteCodeListRelationFilter
     memberships?: RoleListRelationFilter
   }, "uuid" | "uuid">
 
@@ -10308,6 +11542,54 @@ export namespace Prisma {
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type InviteCodeCreateInput = {
+    uuid?: string
+    role: string
+    expires: Date | string
+    organization: OrganizationCreateNestedOneWithoutInviteCodesInput
+  }
+
+  export type InviteCodeUncheckedCreateInput = {
+    uuid?: string
+    organizationId: string
+    role: string
+    expires: Date | string
+  }
+
+  export type InviteCodeUpdateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    expires?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutInviteCodesNestedInput
+  }
+
+  export type InviteCodeUncheckedUpdateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    expires?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InviteCodeCreateManyInput = {
+    uuid?: string
+    organizationId: string
+    role: string
+    expires: Date | string
+  }
+
+  export type InviteCodeUpdateManyMutationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    expires?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InviteCodeUncheckedUpdateManyInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    expires?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type RoleCreateInput = {
     uuid?: string
     role?: string
@@ -10372,6 +11654,7 @@ export namespace Prisma {
     periodsRefDate: Date | string
     employees?: EmployeeCreateNestedManyWithoutOrganizationInput
     payperiods?: PayperiodCreateNestedManyWithoutOrganizationInput
+    inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
     memberships?: RoleCreateNestedManyWithoutOrganizationInput
   }
 
@@ -10385,6 +11668,7 @@ export namespace Prisma {
     periodsRefDate: Date | string
     employees?: EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
     payperiods?: PayperiodUncheckedCreateNestedManyWithoutOrganizationInput
+    inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
     memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
@@ -10398,6 +11682,7 @@ export namespace Prisma {
     periodsRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUpdateManyWithoutOrganizationNestedInput
     payperiods?: PayperiodUpdateManyWithoutOrganizationNestedInput
+    inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUpdateManyWithoutOrganizationNestedInput
   }
 
@@ -10411,6 +11696,7 @@ export namespace Prisma {
     periodsRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
     payperiods?: PayperiodUncheckedUpdateManyWithoutOrganizationNestedInput
+    inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
@@ -10894,14 +12180,35 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
   export type OrganizationScalarRelationFilter = {
     is?: OrganizationWhereInput
     isNot?: OrganizationWhereInput
+  }
+
+  export type InviteCodeCountOrderByAggregateInput = {
+    uuid?: SortOrder
+    organizationId?: SortOrder
+    role?: SortOrder
+    expires?: SortOrder
+  }
+
+  export type InviteCodeMaxOrderByAggregateInput = {
+    uuid?: SortOrder
+    organizationId?: SortOrder
+    role?: SortOrder
+    expires?: SortOrder
+  }
+
+  export type InviteCodeMinOrderByAggregateInput = {
+    uuid?: SortOrder
+    organizationId?: SortOrder
+    role?: SortOrder
+    expires?: SortOrder
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type RoleUserIdOrganizationIdCompoundUniqueInput = {
@@ -10956,11 +12263,21 @@ export namespace Prisma {
     none?: PayperiodWhereInput
   }
 
+  export type InviteCodeListRelationFilter = {
+    every?: InviteCodeWhereInput
+    some?: InviteCodeWhereInput
+    none?: InviteCodeWhereInput
+  }
+
   export type EmployeeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type PayperiodOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type InviteCodeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11326,6 +12643,20 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type OrganizationCreateNestedOneWithoutInviteCodesInput = {
+    create?: XOR<OrganizationCreateWithoutInviteCodesInput, OrganizationUncheckedCreateWithoutInviteCodesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutInviteCodesInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutInviteCodesNestedInput = {
+    create?: XOR<OrganizationCreateWithoutInviteCodesInput, OrganizationUncheckedCreateWithoutInviteCodesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutInviteCodesInput
+    upsert?: OrganizationUpsertWithoutInviteCodesInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutInviteCodesInput, OrganizationUpdateWithoutInviteCodesInput>, OrganizationUncheckedUpdateWithoutInviteCodesInput>
+  }
+
   export type UserCreateNestedOneWithoutMembershipsInput = {
     create?: XOR<UserCreateWithoutMembershipsInput, UserUncheckedCreateWithoutMembershipsInput>
     connectOrCreate?: UserCreateOrConnectWithoutMembershipsInput
@@ -11368,6 +12699,13 @@ export namespace Prisma {
     connect?: PayperiodWhereUniqueInput | PayperiodWhereUniqueInput[]
   }
 
+  export type InviteCodeCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<InviteCodeCreateWithoutOrganizationInput, InviteCodeUncheckedCreateWithoutOrganizationInput> | InviteCodeCreateWithoutOrganizationInput[] | InviteCodeUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: InviteCodeCreateOrConnectWithoutOrganizationInput | InviteCodeCreateOrConnectWithoutOrganizationInput[]
+    createMany?: InviteCodeCreateManyOrganizationInputEnvelope
+    connect?: InviteCodeWhereUniqueInput | InviteCodeWhereUniqueInput[]
+  }
+
   export type RoleCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<RoleCreateWithoutOrganizationInput, RoleUncheckedCreateWithoutOrganizationInput> | RoleCreateWithoutOrganizationInput[] | RoleUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: RoleCreateOrConnectWithoutOrganizationInput | RoleCreateOrConnectWithoutOrganizationInput[]
@@ -11387,6 +12725,13 @@ export namespace Prisma {
     connectOrCreate?: PayperiodCreateOrConnectWithoutOrganizationInput | PayperiodCreateOrConnectWithoutOrganizationInput[]
     createMany?: PayperiodCreateManyOrganizationInputEnvelope
     connect?: PayperiodWhereUniqueInput | PayperiodWhereUniqueInput[]
+  }
+
+  export type InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<InviteCodeCreateWithoutOrganizationInput, InviteCodeUncheckedCreateWithoutOrganizationInput> | InviteCodeCreateWithoutOrganizationInput[] | InviteCodeUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: InviteCodeCreateOrConnectWithoutOrganizationInput | InviteCodeCreateOrConnectWithoutOrganizationInput[]
+    createMany?: InviteCodeCreateManyOrganizationInputEnvelope
+    connect?: InviteCodeWhereUniqueInput | InviteCodeWhereUniqueInput[]
   }
 
   export type RoleUncheckedCreateNestedManyWithoutOrganizationInput = {
@@ -11432,6 +12777,20 @@ export namespace Prisma {
     deleteMany?: PayperiodScalarWhereInput | PayperiodScalarWhereInput[]
   }
 
+  export type InviteCodeUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<InviteCodeCreateWithoutOrganizationInput, InviteCodeUncheckedCreateWithoutOrganizationInput> | InviteCodeCreateWithoutOrganizationInput[] | InviteCodeUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: InviteCodeCreateOrConnectWithoutOrganizationInput | InviteCodeCreateOrConnectWithoutOrganizationInput[]
+    upsert?: InviteCodeUpsertWithWhereUniqueWithoutOrganizationInput | InviteCodeUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: InviteCodeCreateManyOrganizationInputEnvelope
+    set?: InviteCodeWhereUniqueInput | InviteCodeWhereUniqueInput[]
+    disconnect?: InviteCodeWhereUniqueInput | InviteCodeWhereUniqueInput[]
+    delete?: InviteCodeWhereUniqueInput | InviteCodeWhereUniqueInput[]
+    connect?: InviteCodeWhereUniqueInput | InviteCodeWhereUniqueInput[]
+    update?: InviteCodeUpdateWithWhereUniqueWithoutOrganizationInput | InviteCodeUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: InviteCodeUpdateManyWithWhereWithoutOrganizationInput | InviteCodeUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: InviteCodeScalarWhereInput | InviteCodeScalarWhereInput[]
+  }
+
   export type RoleUpdateManyWithoutOrganizationNestedInput = {
     create?: XOR<RoleCreateWithoutOrganizationInput, RoleUncheckedCreateWithoutOrganizationInput> | RoleCreateWithoutOrganizationInput[] | RoleUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: RoleCreateOrConnectWithoutOrganizationInput | RoleCreateOrConnectWithoutOrganizationInput[]
@@ -11472,6 +12831,20 @@ export namespace Prisma {
     update?: PayperiodUpdateWithWhereUniqueWithoutOrganizationInput | PayperiodUpdateWithWhereUniqueWithoutOrganizationInput[]
     updateMany?: PayperiodUpdateManyWithWhereWithoutOrganizationInput | PayperiodUpdateManyWithWhereWithoutOrganizationInput[]
     deleteMany?: PayperiodScalarWhereInput | PayperiodScalarWhereInput[]
+  }
+
+  export type InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<InviteCodeCreateWithoutOrganizationInput, InviteCodeUncheckedCreateWithoutOrganizationInput> | InviteCodeCreateWithoutOrganizationInput[] | InviteCodeUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: InviteCodeCreateOrConnectWithoutOrganizationInput | InviteCodeCreateOrConnectWithoutOrganizationInput[]
+    upsert?: InviteCodeUpsertWithWhereUniqueWithoutOrganizationInput | InviteCodeUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: InviteCodeCreateManyOrganizationInputEnvelope
+    set?: InviteCodeWhereUniqueInput | InviteCodeWhereUniqueInput[]
+    disconnect?: InviteCodeWhereUniqueInput | InviteCodeWhereUniqueInput[]
+    delete?: InviteCodeWhereUniqueInput | InviteCodeWhereUniqueInput[]
+    connect?: InviteCodeWhereUniqueInput | InviteCodeWhereUniqueInput[]
+    update?: InviteCodeUpdateWithWhereUniqueWithoutOrganizationInput | InviteCodeUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: InviteCodeUpdateManyWithWhereWithoutOrganizationInput | InviteCodeUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: InviteCodeScalarWhereInput | InviteCodeScalarWhereInput[]
   }
 
   export type RoleUncheckedUpdateManyWithoutOrganizationNestedInput = {
@@ -11838,6 +13211,74 @@ export namespace Prisma {
     joinedAt?: DateTimeFilter<"Role"> | Date | string
   }
 
+  export type OrganizationCreateWithoutInviteCodesInput = {
+    uuid?: string
+    name: string
+    notes?: string
+    address?: string
+    isDeleted?: boolean
+    periodsPerYear?: number
+    periodsRefDate: Date | string
+    employees?: EmployeeCreateNestedManyWithoutOrganizationInput
+    payperiods?: PayperiodCreateNestedManyWithoutOrganizationInput
+    memberships?: RoleCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutInviteCodesInput = {
+    uuid?: string
+    name: string
+    notes?: string
+    address?: string
+    isDeleted?: boolean
+    periodsPerYear?: number
+    periodsRefDate: Date | string
+    employees?: EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
+    payperiods?: PayperiodUncheckedCreateNestedManyWithoutOrganizationInput
+    memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutInviteCodesInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutInviteCodesInput, OrganizationUncheckedCreateWithoutInviteCodesInput>
+  }
+
+  export type OrganizationUpsertWithoutInviteCodesInput = {
+    update: XOR<OrganizationUpdateWithoutInviteCodesInput, OrganizationUncheckedUpdateWithoutInviteCodesInput>
+    create: XOR<OrganizationCreateWithoutInviteCodesInput, OrganizationUncheckedCreateWithoutInviteCodesInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutInviteCodesInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutInviteCodesInput, OrganizationUncheckedUpdateWithoutInviteCodesInput>
+  }
+
+  export type OrganizationUpdateWithoutInviteCodesInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    notes?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    periodsPerYear?: IntFieldUpdateOperationsInput | number
+    periodsRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    employees?: EmployeeUpdateManyWithoutOrganizationNestedInput
+    payperiods?: PayperiodUpdateManyWithoutOrganizationNestedInput
+    memberships?: RoleUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutInviteCodesInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    notes?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    periodsPerYear?: IntFieldUpdateOperationsInput | number
+    periodsRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    employees?: EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
+    payperiods?: PayperiodUncheckedUpdateManyWithoutOrganizationNestedInput
+    memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
   export type UserCreateWithoutMembershipsInput = {
     uuid?: string
     isActive: boolean
@@ -11873,6 +13314,7 @@ export namespace Prisma {
     periodsRefDate: Date | string
     employees?: EmployeeCreateNestedManyWithoutOrganizationInput
     payperiods?: PayperiodCreateNestedManyWithoutOrganizationInput
+    inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutMembershipsInput = {
@@ -11885,6 +13327,7 @@ export namespace Prisma {
     periodsRefDate: Date | string
     employees?: EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
     payperiods?: PayperiodUncheckedCreateNestedManyWithoutOrganizationInput
+    inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutMembershipsInput = {
@@ -11944,6 +13387,7 @@ export namespace Prisma {
     periodsRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUpdateManyWithoutOrganizationNestedInput
     payperiods?: PayperiodUpdateManyWithoutOrganizationNestedInput
+    inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutMembershipsInput = {
@@ -11956,6 +13400,7 @@ export namespace Prisma {
     periodsRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
     payperiods?: PayperiodUncheckedUpdateManyWithoutOrganizationNestedInput
+    inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type EmployeeCreateWithoutOrganizationInput = {
@@ -12028,6 +13473,27 @@ export namespace Prisma {
 
   export type PayperiodCreateManyOrganizationInputEnvelope = {
     data: PayperiodCreateManyOrganizationInput | PayperiodCreateManyOrganizationInput[]
+  }
+
+  export type InviteCodeCreateWithoutOrganizationInput = {
+    uuid?: string
+    role: string
+    expires: Date | string
+  }
+
+  export type InviteCodeUncheckedCreateWithoutOrganizationInput = {
+    uuid?: string
+    role: string
+    expires: Date | string
+  }
+
+  export type InviteCodeCreateOrConnectWithoutOrganizationInput = {
+    where: InviteCodeWhereUniqueInput
+    create: XOR<InviteCodeCreateWithoutOrganizationInput, InviteCodeUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type InviteCodeCreateManyOrganizationInputEnvelope = {
+    data: InviteCodeCreateManyOrganizationInput | InviteCodeCreateManyOrganizationInput[]
   }
 
   export type RoleCreateWithoutOrganizationInput = {
@@ -12118,6 +13584,32 @@ export namespace Prisma {
     organizationId?: StringFilter<"Payperiod"> | string
   }
 
+  export type InviteCodeUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: InviteCodeWhereUniqueInput
+    update: XOR<InviteCodeUpdateWithoutOrganizationInput, InviteCodeUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<InviteCodeCreateWithoutOrganizationInput, InviteCodeUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type InviteCodeUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: InviteCodeWhereUniqueInput
+    data: XOR<InviteCodeUpdateWithoutOrganizationInput, InviteCodeUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type InviteCodeUpdateManyWithWhereWithoutOrganizationInput = {
+    where: InviteCodeScalarWhereInput
+    data: XOR<InviteCodeUpdateManyMutationInput, InviteCodeUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type InviteCodeScalarWhereInput = {
+    AND?: InviteCodeScalarWhereInput | InviteCodeScalarWhereInput[]
+    OR?: InviteCodeScalarWhereInput[]
+    NOT?: InviteCodeScalarWhereInput | InviteCodeScalarWhereInput[]
+    uuid?: StringFilter<"InviteCode"> | string
+    organizationId?: StringFilter<"InviteCode"> | string
+    role?: StringFilter<"InviteCode"> | string
+    expires?: DateTimeFilter<"InviteCode"> | Date | string
+  }
+
   export type RoleUpsertWithWhereUniqueWithoutOrganizationInput = {
     where: RoleWhereUniqueInput
     update: XOR<RoleUpdateWithoutOrganizationInput, RoleUncheckedUpdateWithoutOrganizationInput>
@@ -12143,6 +13635,7 @@ export namespace Prisma {
     periodsPerYear?: number
     periodsRefDate: Date | string
     payperiods?: PayperiodCreateNestedManyWithoutOrganizationInput
+    inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
     memberships?: RoleCreateNestedManyWithoutOrganizationInput
   }
 
@@ -12155,6 +13648,7 @@ export namespace Prisma {
     periodsPerYear?: number
     periodsRefDate: Date | string
     payperiods?: PayperiodUncheckedCreateNestedManyWithoutOrganizationInput
+    inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
     memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
@@ -12228,6 +13722,7 @@ export namespace Prisma {
     periodsPerYear?: IntFieldUpdateOperationsInput | number
     periodsRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     payperiods?: PayperiodUpdateManyWithoutOrganizationNestedInput
+    inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUpdateManyWithoutOrganizationNestedInput
   }
 
@@ -12240,6 +13735,7 @@ export namespace Prisma {
     periodsPerYear?: IntFieldUpdateOperationsInput | number
     periodsRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     payperiods?: PayperiodUncheckedUpdateManyWithoutOrganizationNestedInput
+    inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
@@ -12290,6 +13786,7 @@ export namespace Prisma {
     periodsPerYear?: number
     periodsRefDate: Date | string
     employees?: EmployeeCreateNestedManyWithoutOrganizationInput
+    inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
     memberships?: RoleCreateNestedManyWithoutOrganizationInput
   }
 
@@ -12302,6 +13799,7 @@ export namespace Prisma {
     periodsPerYear?: number
     periodsRefDate: Date | string
     employees?: EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
+    inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
     memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
@@ -12375,6 +13873,7 @@ export namespace Prisma {
     periodsPerYear?: IntFieldUpdateOperationsInput | number
     periodsRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUpdateManyWithoutOrganizationNestedInput
+    inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUpdateManyWithoutOrganizationNestedInput
   }
 
@@ -12387,6 +13886,7 @@ export namespace Prisma {
     periodsPerYear?: IntFieldUpdateOperationsInput | number
     periodsRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
+    inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
@@ -12599,6 +14099,12 @@ export namespace Prisma {
     includedEmployees: JsonNullValueInput | InputJsonValue
   }
 
+  export type InviteCodeCreateManyOrganizationInput = {
+    uuid?: string
+    role: string
+    expires: Date | string
+  }
+
   export type RoleCreateManyOrganizationInput = {
     uuid?: string
     userId: string
@@ -12683,6 +14189,24 @@ export namespace Prisma {
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     includedEmployees?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type InviteCodeUpdateWithoutOrganizationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    expires?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InviteCodeUncheckedUpdateWithoutOrganizationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    expires?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InviteCodeUncheckedUpdateManyWithoutOrganizationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    expires?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RoleUpdateWithoutOrganizationInput = {

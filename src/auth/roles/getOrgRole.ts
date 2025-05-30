@@ -9,7 +9,7 @@ import { getRoleFromID, Role_Error, Role_SysAdmin } from "./Roles";
 
 
 // To be run in server actions
-export default async function getOrgRole() {
+export default async function getOrgRole(orgUUID: string = "") {
 
     const session = await getSession()
     if (!session) {
@@ -28,7 +28,7 @@ export default async function getOrgRole() {
 
     const role = await prisma.role.findFirst({
         where: {
-            organizationId: session.orgUUID,
+            organizationId: (orgUUID == "") ? session.orgUUID : orgUUID,
             userId: user.uuid
         }
     })

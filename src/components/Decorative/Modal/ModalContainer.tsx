@@ -16,6 +16,7 @@ export default function ModalContainer({ children }: { children: React.ReactNode
         setModals([...modals, modal])
     }
     function popModal() {
+        if (modals.length == 0) { return }
         if (modals[modals.length - 1].required) { return }
 
         const m = [...modals]
@@ -31,7 +32,7 @@ export default function ModalContainer({ children }: { children: React.ReactNode
                     <motion.div
 
                         className='backdrop-blur-sm fixed w-screen h-screen '
-                        style={{ zIndex: 1000 }}
+                        style={{ zIndex: 100000 }}
 
                         initial={{ opacity: 0 }}
                         exit={{ opacity: 0 }}
@@ -44,7 +45,7 @@ export default function ModalContainer({ children }: { children: React.ReactNode
                             <div
                                 key={"Modal-" + i}
                                 className="fixed w-screen h-screen top-0 flex justify-center"
-                                style={{ zIndex: 1000 + (i * 100) }}
+                                style={{ zIndex: 100000 + (i * 100) }}
                             >
 
                                 <motion.div

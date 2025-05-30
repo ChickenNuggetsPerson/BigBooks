@@ -2,7 +2,7 @@ import { logout } from "@/auth/actions/Logout";
 import { getSession, getUserFromSession } from "@/auth/auth";
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import { redirect } from "next/navigation";
-import EditableDiv from "@/components/Decorative/EditButton";
+import EditableDiv from "@/components/Decorative/EditableDiv";
 import { UserOrganizationSelect } from "@/components/User/UserOrganizationSelect";
 import Link from "next/link";
 

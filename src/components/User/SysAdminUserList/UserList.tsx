@@ -1,5 +1,5 @@
-import getUserList from "@/actions/user/getUserList";
-import EditableDiv from "@/components/Decorative/EditButton";
+import getAllUsers from "@/actions/user/getAllUsers";
+import EditableDiv from "@/components/Decorative/EditableDiv";
 
 
 
@@ -8,7 +8,7 @@ import EditableDiv from "@/components/Decorative/EditButton";
 
 export default async function UserList() {
 
-    const list = (await getUserList()) || []
+    const list = (await getAllUsers()) || []
 
     return (
         <div className="card w-100">

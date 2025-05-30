@@ -18,5 +18,5 @@
         - [ ] This is where you set their hourly rate. 
     - [ ] Go over every employee and review the item. 
 - [ ] Look into window's approach 
-- [ ] Admin page for making org admins
+- [X] Admin page for making org admins
 - [ ] Orgadmins can create users that have access to the organization

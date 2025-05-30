@@ -1,7 +1,7 @@
 'use client'
 
 import { DispEmployee } from "@/database/models/DisplayModels"
-import EditableDiv from "../Decorative/EditButton"
+import EditableDiv from "../Decorative/EditableDiv"
 
 
 

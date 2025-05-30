@@ -1,5 +1,5 @@
 import { RegistrationCodeList } from "@/components/User/RegistrationCode/RegistrationCodeList";
-import UserList from "@/components/User/UserList/UserList";
+import UserList from "@/components/User/SysAdminUserList/UserList";
 import Link from "next/link";
 
 

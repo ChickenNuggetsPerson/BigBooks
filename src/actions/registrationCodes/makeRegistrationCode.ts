@@ -12,7 +12,7 @@ import { redirect } from "next/navigation"
 
 
 
-export default async function registerCode() {
+export default async function makeRegistrationCode() {
 
     const session = await getSession()
     if (!session) { redirect("/user/login") }

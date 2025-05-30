@@ -13,9 +13,15 @@ export function useChangeSelectedOrg() { // Turn this into a react hook
     const { setContext } = useCompany();
 
     return async (uuid: string, name: string) => {
-        setContext(generateCompanyContext(uuid, name));
-        await UpdateSelectedOrg(uuid)
 
+        const result = await UpdateSelectedOrg(uuid)
+        if (result.error) { 
+            alert("You do not have the permissions to access that organization.")
+            return
+        }
+        
+        setContext(generateCompanyContext(uuid, name));
+        
         router.push(`/organization`);
         router.refresh(); // Optional if needed
     };

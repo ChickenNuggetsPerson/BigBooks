@@ -1,5 +1,5 @@
 import getRegistrationCodes from "@/actions/registrationCodes/getRegistrationCodes"
-import registerCode from "@/actions/registrationCodes/registerCode"
+import makeRegistrationCode from "@/actions/registrationCodes/makeRegistrationCode"
 import TextInput from "../../Forms/TextInput"
 import CodeDeleteButton from "./CodeDeleteButton"
 import CodeCopyButton from "./CodeCopyButton"
@@ -23,7 +23,7 @@ export async function RegistrationCodeList() {
         <div className="card w-170">
             <div><Toaster /></div>
 
-            <button onClick={registerCode} className="primary-button">New Code</button>
+            <button onClick={makeRegistrationCode} className="primary-button">New Code</button>
 
             <div className="h-px bg-accent mt-2 mb-4"></div>
 

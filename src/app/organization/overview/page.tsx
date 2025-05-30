@@ -16,8 +16,8 @@ export default async function Overview() {
     const details = await getOrgDetails(session?.orgUUID ?? " ")
 
     return (
-        // <AnimateChildren x={-200} y={0}>
-        <AnimateChildren className="grid grid-cols-2 gap-4">
+
+        <AnimateChildren x={-200} className="grid grid-cols-2 gap-4">
             <div className="card max-w-sm">
 
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{details.name}</h5>
@@ -35,8 +35,6 @@ export default async function Overview() {
 
             <div className="card max-w-sm">
                 <h5 className="mb-2 text-2xl font-normal text-gray-700 ">Organization Statistics:</h5>
-
-                {/* {periodToStr(generatePayperiodFromDate(state.periodsRefDate, state.periodsPerYear, new Date()))} */}
 
                 <h5 className="font-normal text-gray-700">Total Employees: {details.employeeCount}</h5>
             </div>

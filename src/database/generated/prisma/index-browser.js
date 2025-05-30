@@ -132,6 +132,13 @@ exports.Prisma.RegistrationCodeScalarFieldEnum = {
   expires: 'expires'
 };
 
+exports.Prisma.InviteCodeScalarFieldEnum = {
+  uuid: 'uuid',
+  organizationId: 'organizationId',
+  role: 'role',
+  expires: 'expires'
+};
+
 exports.Prisma.RoleScalarFieldEnum = {
   uuid: 'uuid',
   userId: 'userId',
@@ -220,6 +227,7 @@ exports.Prisma.QueryMode = {
 exports.Prisma.ModelName = {
   User: 'User',
   RegistrationCode: 'RegistrationCode',
+  InviteCode: 'InviteCode',
   Role: 'Role',
   Organization: 'Organization',
   Employee: 'Employee',

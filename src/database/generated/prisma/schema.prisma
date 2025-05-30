@@ -34,6 +34,17 @@ model RegistrationCode {
   expires DateTime
 }
 
+model InviteCode {
+  uuid String @id @unique @default(uuid())
+
+  organization   Organization @relation(fields: [organizationId], references: [uuid])
+  organizationId String
+
+  role String
+
+  expires DateTime
+}
+
 model Role {
   uuid   String @id @default(uuid())
   user   User   @relation(fields: [userId], references: [uuid])
@@ -60,6 +71,7 @@ model Organization {
   employees  Employee[]
   payperiods Payperiod[]
 
+  inviteCodes InviteCode[]
   memberships Role[]
 }
 
