@@ -20,7 +20,6 @@ export default function ChangelogPage() {
     let match;
 
     while ((match = versionRegex.exec(changelog)) !== null) {
-        console.log(match)
         const version = match[1];
         const date = match[2];
         const content = match[3].trim();
@@ -31,7 +30,7 @@ export default function ChangelogPage() {
         <div className="flex flex-row justify-center">
             <div className="w-xl mt-10">
                 {versions.map((version) => (
-                    <div className="markdown-body card" key={version.version}>
+                    <div className="markdown-body card" key={version.version} style={{ marginBottom: 20 }}>
                         <MarkdownAsync>{`### Version ${version.version} \n\n ${version.content}`}</MarkdownAsync>
                     </div>
                 ))}
