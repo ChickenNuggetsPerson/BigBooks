@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import AnimateChildren from "../Decorative/AnimateChildren";
+import { motion } from "framer-motion";
 
 
 
@@ -62,10 +63,17 @@ export default function SelectInput({ id, label, val, disabled, options, changeC
 
             <input type="hidden" name={id} id={id} value={selected?.id} readOnly={true} ></input>
 
-            <h1 className="text-sm text-gray-500 select-none">{label}</h1>
+            {selected.id !== "" && 
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                >
+                    <h1 className="text-sm text-gray-500 select-none">{label}</h1>
+                </motion.div>
+            }
 
             <div onMouseOver={hoverStart} onMouseOut={hoverEnd} style={{ maxWidth: "150px", margin: "0px" }} >
-                <h2 className="p-3 bg-card border border-gray-200 rounded-lg shadow-sm" style={{ width: searchable ? 200 : 130, minHeight: "50px" }}>{selected?.label}</h2>
+                <h2 className="p-3 bg-card border border-gray-200 rounded-lg shadow-sm" style={{ width: searchable ? 200 : 130, minHeight: "50px" }}>{selected.id == "" ? label : selected.label}</h2>
 
                 {expanded &&
                     <div style={{ position: "absolute", zIndex: 20000, transform: searchable ? "translateX(-20px)" : "translateX(0px)" }} >
