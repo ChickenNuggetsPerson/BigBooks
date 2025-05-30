@@ -8,7 +8,7 @@ import deletePaystub from "@/actions/paystub/deletePaystub";
 import getPaystubByPeriod from "@/actions/paystub/getPaystubByPeriod";
 import submitPaystubForm from "@/actions/paystub/submitPaystubForm";
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
-import NumericText from "@/components/Decorative/NumericText/Counter";
+import NumericText from "@/components/Decorative/NumericText/NumericText";
 import TextInput from "@/components/Forms/TextInput";
 import { DispPaystub, getEmptyDispEmployee, getEmptyDispPaystub } from "@/database/models/DisplayModels";
 import { populatePaystub, updateTotals } from "@/database/Taxes/TaxTypes";

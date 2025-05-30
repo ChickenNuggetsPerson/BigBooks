@@ -1,4 +1,4 @@
-'use clients'
+'use client'
 
 import deactivateEmployee from "@/actions/employee/deactivateEmployee";
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";

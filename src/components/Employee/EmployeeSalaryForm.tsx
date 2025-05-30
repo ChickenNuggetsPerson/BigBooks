@@ -1,4 +1,4 @@
-'use clients'
+'use client'
 
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
 import submitEmployeeSalaryForm from "@/actions/employee/submitEmployeeSalaryFrom";
