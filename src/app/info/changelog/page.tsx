@@ -14,32 +14,27 @@ export default function ChangelogPage() {
     const filePath = path.join(process.cwd(), 'CHANGELOG.md');
     const changelog = fs.readFileSync(filePath, 'utf8');
 
-    // const versionRegex = /## \[(\d+\.\d+\.\d+)]\([^)]+\) \((\d{4}-\d{2}-\d{2})\)([\s\S]*?)(?=^## |\z)/gm;
+    const versionRegex = /## \[(\d+\.\d+\.\d+)]\([^)]+\) \((\d{4}-\d{2}-\d{2})\)([\s\S]*?)(?=^## |\z)/gm;
 
-    // const versions: { version: string; date: string; content: string }[] = [];
-    // let match;
+    const versions: { version: string; date: string; content: string }[] = [];
+    let match;
 
-    // while ((match = versionRegex.exec(changelog)) !== null) {
-    //     console.log(match)
-    //     const version = match[1];
-    //     const date = match[2];
-    //     const content = match[3].trim();
-    //     versions.push({ version, date, content });
-    // }
-    // console.log(changelog)
+    while ((match = versionRegex.exec(changelog)) !== null) {
+        console.log(match)
+        const version = match[1];
+        const date = match[2];
+        const content = match[3].trim();
+        versions.push({ version, date, content });
+    }
 
     return (
         <div className="flex flex-row justify-center">
             <div className="w-xl mt-10">
-                {/* {versions.map((version) => (
+                {versions.map((version) => (
                     <div className="markdown-body card" key={version.version}>
                         <MarkdownAsync>{`### Version ${version.version} \n\n ${version.content}`}</MarkdownAsync>
                     </div>
-                ))} */}
-
-                <div className="markdown-body card">
-                    <MarkdownAsync>{changelog}</MarkdownAsync>
-                </div>
+                ))}
             </div>
         </div>
     )
