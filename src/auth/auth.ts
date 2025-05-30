@@ -63,12 +63,14 @@ export async function updateSession(session: Session) {
 
     const token = await signSession(session)
 
+    const age = 60 * 60 * (session.isAdmin ? 0.5 : 2) // 0.5 hours for SysAdmin, 2 hours for regular users
+
     const cookieStore = await cookies()
     cookieStore.set("session", token, { // Set session
         httpOnly: true,
         secure: process.env.NODE_ENV == "production",
         path: "/",
-        maxAge: 60 * 60 * 2, // 1 Hour
+        maxAge: age, 
         sameSite: "lax"
     })
 }
