@@ -1,4 +1,4 @@
-## 0.1.0
+## 0.1.1
 
 ### Commits
 
@@ -27,6 +27,7 @@
 - Updated progress bar [`c06562b`](https://github.com/ChickenNuggetsPerson/BigBooks/commit/c06562bfaa16c71d0cbde2fca7601edbd9267ab1)
 - More UI changes [`8fd2597`](https://github.com/ChickenNuggetsPerson/BigBooks/commit/8fd25977a3c7fe963475cf860664755ce6adfae0)
 - Fixed lint issues [`efe9eba`](https://github.com/ChickenNuggetsPerson/BigBooks/commit/efe9eba37f88dd54284c3d50b223f47f5bcda0c0)
+- Updated Changelog [`e45d84d`](https://github.com/ChickenNuggetsPerson/BigBooks/commit/e45d84d48d2b224047847c771eaf50814a83abcc)
 - Updated models for pay stubs [`a51d5ba`](https://github.com/ChickenNuggetsPerson/BigBooks/commit/a51d5ba27611dd9e278a5e8ee9a4f8ce308674ef)
 - Finished work on select page [`cae830e`](https://github.com/ChickenNuggetsPerson/BigBooks/commit/cae830ef898c765e42fbf10afad071dc6ffabcbc)
 - Added delete and deselect button to paystub form [`7ef3a2e`](https://github.com/ChickenNuggetsPerson/BigBooks/commit/7ef3a2ecbf451f48920b87b4a42c43bec9ba12d0)
