@@ -7,9 +7,9 @@ import Link from "next/link"
 
 export default function DevCard() {
     return (
-        <div className="w-100 border border-gray-300 rounded-4xl font-mono">
+        <div className="w-100 border border-gray-300 rounded-3xl font-mono">
 
-            <div className="bg-primary font-black text-white p-2 pl-5 pt-3 rounded-t-4xl h-10">
+            <div className="bg-primary font-black text-white p-2 pl-5 pt-3 rounded-t-3xl h-10">
                 BIG Books
             </div>
 

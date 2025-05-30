@@ -1,5 +1,8 @@
 # Big Books
 
+A full stack accounting / payroll software built with [NEXT.js](https://nextjs.org/)
+- Icon Library: https://lucide.dev/
+
 ## To-Do List
 - [ ] Remove payperiod table
 - [ ] Store period start and end in the paystub
@@ -21,5 +24,3 @@
 - [X] Admin page for making org admins
 - [ ] Orgadmins can create users that have access to the organization
 
-
-Icons: https://lucide.dev/
