@@ -64,7 +64,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
     function cancelURL(isNew: boolean) {
         const url = "/organization/overview"
         if (isNew) {
-            return "/"
+            return "/user/users"
         }
 
         return url
@@ -81,7 +81,11 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
                 const result = await submitOrganizationForm(newOrganization, new FormData(e.currentTarget));
                 setContext({ companyUUID: result.companyUUID, companyName: result.companyName });
 
-                router.push("/organization")
+                if (newOrganization) {
+                    router.push("/user/users")
+                } else {
+                    router.push("/organization")
+                }
 
             } catch (err) {
                 alert(err)

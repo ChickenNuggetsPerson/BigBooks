@@ -24,8 +24,10 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
     let returnUUID = ""
     let returnNAME = ""
 
-    if (newOrganization) {
+    if (newOrganization) {        
         try {
+
+            await throwIfInsufficientPerms(RoleTypes.SysAdmin)
 
             const organization = await prisma.organization.create({
                 data: {
@@ -63,6 +65,5 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
     }
 
     revalidatePath(`/organization/overview`)
-    console.log(returnUUID, returnNAME)
     return generateCompanyContext(returnUUID, returnNAME)
 }

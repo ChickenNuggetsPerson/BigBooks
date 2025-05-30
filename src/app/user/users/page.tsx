@@ -16,6 +16,12 @@ export default async function CodesPage() {
                 <MoveLeft color="white" />
             </Link>
 
+            <div>
+                <Link href={"/user/users/newOrganization"} className="accent-button fixed bottom-5 left-5">
+                    New Organization
+                </Link>
+            </div>
+
             <div className="flex flex-row gap-10">
                 <RegistrationCodeList />
                 <UserList />
