@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate",
-    "vercel-build": "prisma generate && prisma migrate deploy && next build"
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
+    "updateChangelog": "auto-changelog -p --template ./changelogs/template.hbs"
   },
   "dependencies": {
     "@prisma/client": "^6.7.0",
@@ -16,6 +16,7 @@
     "bcryptjs": "^3.0.2",
     "better-sqlite3": "^11.9.1",
     "framer-motion": "^12.5.0",
+    "github-markdown-css": "^5.8.1",
     "jose": "^6.0.11",
     "lucide-react": "^0.511.0",
     "next": "15.2.2",
@@ -25,6 +26,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.5.2",
+    "react-markdown": "^10.1.0",
     "react-modal": "^3.16.3",
     "react-rnd": "^10.5.2",
     "ts-node": "^10.9.2"
@@ -36,11 +38,18 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "auto-changelog": "^2.5.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.2.2",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.0.17",
     "typescript": "^5"
+  },
+  "auto-changelog": {
+    "output": "./changelogs/CHANGELOG.md",
+    "template": "keepachangelog",
+    "unreleased": true,
+    "commitLimit": false
   }
 }
