@@ -87,6 +87,9 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -185,15 +188,15 @@ exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
-};
-
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
 };
 
 
@@ -245,18 +248,17 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "sqlite",
-  "postinstall": false,
+  "activeProvider": "postgresql",
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "value": "postgresql://myuser:mypassword@localhost:5432/mydb"
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/database/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  uuid     String  @id @unique @default(uuid())\n  isActive Boolean\n\n  firstName String\n  lastName  String\n\n  email String\n\n  username String @unique\n  passHash String @unique\n\n  memberships Role[]\n}\n\nmodel RegistrationCode {\n  uuid    String   @id @unique @default(uuid())\n  expires DateTime\n}\n\nmodel InviteCode {\n  uuid String @id @unique @default(uuid())\n\n  organization   Organization @relation(fields: [organizationId], references: [uuid])\n  organizationId String\n\n  role String\n\n  expires DateTime\n}\n\nmodel Role {\n  uuid   String @id @default(uuid())\n  user   User   @relation(fields: [userId], references: [uuid])\n  userId String\n\n  organization   Organization @relation(fields: [organizationId], references: [uuid])\n  organizationId String\n\n  role     String   @default(\"\")\n  joinedAt DateTime @default(now())\n\n  @@unique([userId, organizationId]) // Prevents duplicate entries\n}\n\nmodel Organization {\n  uuid           String   @id @unique @default(uuid())\n  name           String\n  notes          String   @default(\"\")\n  address        String   @default(\"\")\n  isDeleted      Boolean  @default(false)\n  periodsPerYear Int      @default(26)\n  periodsRefDate DateTime\n\n  employees  Employee[]\n  payperiods Payperiod[]\n\n  inviteCodes InviteCode[]\n  memberships Role[]\n}\n\nmodel Employee {\n  uuid         String  @id @unique @default(uuid())\n  firstName    String  @default(\"\")\n  middleName   String  @default(\"\")\n  lastName     String  @default(\"\")\n  notes        String  @default(\"\")\n  address      String  @default(\"\")\n  email        String  @default(\"\")\n  phoneNumber  String  @default(\"\")\n  ssn          String  @default(\"\")\n  isSalary     Boolean @default(true)\n  salary       Decimal @default(0)\n  hourlyRates  Json\n  filingStatus String  @default(\"Single\")\n  dependants   Int     @default(0)\n  isDeleted    Boolean @default(false)\n\n  organization   Organization @relation(fields: [organizationId], references: [uuid])\n  organizationId String\n\n  payStubs PayStub[]\n}\n\nmodel Payperiod {\n  uuid              String   @id @unique @default(uuid())\n  periodStart       DateTime\n  periodEnd         DateTime\n  includedEmployees Json\n\n  organization   Organization @relation(fields: [organizationId], references: [uuid])\n  organizationId String\n\n  payStubs PayStub[]\n}\n\nmodel PayStub {\n  uuid       String  @id @unique @default(uuid())\n  hourly     Json\n  salary     Decimal @default(0)\n  commission Decimal @default(0)\n  bonus      Decimal @default(0)\n\n  federalRate Decimal @default(0)\n  federalAmt  Decimal @default(0)\n  stateRate   Decimal @default(0)\n  stateAmt    Decimal @default(0)\n  mediRate    Decimal @default(0)\n  mediAmt     Decimal @default(0)\n  socialRate  Decimal @default(0)\n  socialAmt   Decimal @default(0)\n\n  otherItems Json\n\n  employee   Employee @relation(fields: [employeeId], references: [uuid])\n  employeeId String\n\n  payperiod   Payperiod @relation(fields: [payperiodId], references: [uuid])\n  payperiodId String\n}\n",
-  "inlineSchemaHash": "eda915f1be70daa2f1385b5382b95a65abf0eed3c47b1e938e7e4265aaf75be2",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/database/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  uuid     String  @id @unique @default(uuid())\n  isActive Boolean\n\n  firstName String\n  lastName  String\n\n  email String\n\n  username String @unique\n  passHash String @unique\n\n  memberships Role[]\n}\n\nmodel RegistrationCode {\n  uuid    String   @id @unique @default(uuid())\n  expires DateTime\n}\n\nmodel InviteCode {\n  uuid String @id @unique @default(uuid())\n\n  organization   Organization @relation(fields: [organizationId], references: [uuid])\n  organizationId String\n\n  role String\n\n  expires DateTime\n}\n\nmodel Role {\n  uuid   String @id @default(uuid())\n  user   User   @relation(fields: [userId], references: [uuid])\n  userId String\n\n  organization   Organization @relation(fields: [organizationId], references: [uuid])\n  organizationId String\n\n  role     String   @default(\"\")\n  joinedAt DateTime @default(now())\n\n  @@unique([userId, organizationId]) // Prevents duplicate entries\n}\n\nmodel Organization {\n  uuid           String   @id @unique @default(uuid())\n  name           String\n  notes          String   @default(\"\")\n  address        String   @default(\"\")\n  isDeleted      Boolean  @default(false)\n  periodsPerYear Int      @default(26)\n  periodsRefDate DateTime\n\n  employees  Employee[]\n  payperiods Payperiod[]\n\n  inviteCodes InviteCode[]\n  memberships Role[]\n}\n\nmodel Employee {\n  uuid         String  @id @unique @default(uuid())\n  firstName    String  @default(\"\")\n  middleName   String  @default(\"\")\n  lastName     String  @default(\"\")\n  notes        String  @default(\"\")\n  address      String  @default(\"\")\n  email        String  @default(\"\")\n  phoneNumber  String  @default(\"\")\n  ssn          String  @default(\"\")\n  isSalary     Boolean @default(true)\n  salary       Decimal @default(0)\n  hourlyRates  Json\n  filingStatus String  @default(\"Single\")\n  dependants   Int     @default(0)\n  isDeleted    Boolean @default(false)\n\n  organization   Organization @relation(fields: [organizationId], references: [uuid])\n  organizationId String\n\n  payStubs PayStub[]\n}\n\nmodel Payperiod {\n  uuid              String   @id @unique @default(uuid())\n  periodStart       DateTime\n  periodEnd         DateTime\n  includedEmployees Json\n\n  organization   Organization @relation(fields: [organizationId], references: [uuid])\n  organizationId String\n\n  payStubs PayStub[]\n}\n\nmodel PayStub {\n  uuid       String  @id @unique @default(uuid())\n  hourly     Json\n  salary     Decimal @default(0)\n  commission Decimal @default(0)\n  bonus      Decimal @default(0)\n\n  federalRate Decimal @default(0)\n  federalAmt  Decimal @default(0)\n  stateRate   Decimal @default(0)\n  stateAmt    Decimal @default(0)\n  mediRate    Decimal @default(0)\n  mediAmt     Decimal @default(0)\n  socialRate  Decimal @default(0)\n  socialAmt   Decimal @default(0)\n\n  otherItems Json\n\n  employee   Employee @relation(fields: [employeeId], references: [uuid])\n  employeeId String\n\n  payperiod   Payperiod @relation(fields: [payperiodId], references: [uuid])\n  payperiodId String\n}\n",
+  "inlineSchemaHash": "1d031d0690f6e47f241564c7e62ded1c5b9176465fa20bd8ad02af0ac633f9c9",
   "copyEngine": true
 }
 

@@ -1,18 +1,15 @@
-version: '3.8'
-
+version: '3'
 services:
-  postgres:
-    image: postgres:16
-    container_name: mikroorm_postgres
+  db:
+    image: postgres:17
     restart: always
     environment:
-      POSTGRES_USER: mikro_user
-      POSTGRES_PASSWORD: mikro_pass
-      POSTGRES_DB: mikro_db
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
-
+      - postgres-data:/var/lib/postgresql/data
 volumes:
-  pgdata:
+  postgres-data:
