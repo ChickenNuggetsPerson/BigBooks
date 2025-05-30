@@ -1,6 +1,6 @@
 'use client'
 
-import NumericText from "@/components/Decorative/NumericText/NumericText"
+import NumericText from "@/components/Decorative/NumericText/Counter"
 import { DispPayPeriod } from "@/database/models/DisplayModels"
 import { useEffect, useState } from "react"
 
