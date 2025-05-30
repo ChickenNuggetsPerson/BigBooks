@@ -13,7 +13,7 @@ import { Toaster } from "react-hot-toast"
 
 
 export async function RegistrationCodeList() {
-    
+
     let codes = await getRegistrationCodes()
     if (!codes) {
         codes = []
@@ -27,19 +27,18 @@ export async function RegistrationCodeList() {
 
             <div className="h-px bg-accent mt-2 mb-4"></div>
 
-            {codes.map((code, index) => (
-                <div key={index} className="card flex flex-row justify-between gap-4">
+            <div className="h-55 overflow-y-scroll">
+                {codes.map((code, index) => (
+                    <div key={index} className="card flex flex-row justify-between gap-2 max-h-25 mb-2 select-none">
 
-                    <p>{code.expires.toDateString()}</p>
+                        <p>{code.expires.toDateString()}</p>
+                        <TextInput id={""} label={""} val={code.code} placeholder={""} disabled={true} />
+                        <CodeCopyButton code={code.code} />
+                        <CodeDeleteButton code={code.code} />
 
-                    <TextInput id={""} label={""} val={code.code} placeholder={""} disabled={true} />
-
-                    <CodeCopyButton code={code.code} />
-
-                    <CodeDeleteButton code={code.code} />
-                
-                </div>
-            ))}
+                    </div>
+                ))}
+            </div>
 
 
         </div>

@@ -22,33 +22,36 @@ export default async function UserPage() {
     }
 
     return (
-        <AnimateChildren y={-20}>
-            <EditableDiv className="card w-100 h-55" url={session?.isAdmin ? "" : "/user/edit"}>
+        <>
+            <AnimateChildren y={-20} className="pb-20">
+                <EditableDiv className="card w-100 h-55" url={session?.isAdmin ? "" : "/user/edit"}>
 
-                <p className="text-xl font-semibold">{user.firstName + " " + user.lastName}</p>
+                    <p className="text-xl font-semibold">{user.firstName + " " + user.lastName}</p>
 
-                <div className="h-px bg-accent mb-2"></div>
+                    <div className="h-px bg-accent mb-2"></div>
 
-                <p className="font-mono">{"Username: " + user.username}</p>
-                <p className="font-mono">{"Email: " + user.email}</p>
+                    <p className="font-mono">{"Username: " + user.username}</p>
+                    <p className="font-mono">{"Email: " + user.email}</p>
 
-                <div className="h-3"></div>
+                    <div className="h-3"></div>
 
-                <UserOrganizationSelect />
+                    <UserOrganizationSelect />
 
-            </EditableDiv>
+                </EditableDiv>
+            </AnimateChildren>
 
-            <div className="flex flex-row justify-between">
+
+            <div className="flex flex-col absolute bottom-5 left-5">
                 <button className="accent-button mt-5" onClick={logout}>Logout</button>
 
                 {session?.isAdmin &&
-                    <Link href={"/user/users"} className="primary-button mt-5">
+                    <Link href={"/user/users"} className="secondary-button mt-2">
                         Employees
                     </Link>
                 }
             </div>
+        </>
 
-        </AnimateChildren>
     )
 }
 

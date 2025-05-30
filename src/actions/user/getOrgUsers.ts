@@ -16,7 +16,7 @@ export default async function getOrgUsers(orgUUID: string) {
     const users = [] as User[]
 
     for (let i = 0; i < roles.length; i++) {
-        const user = await prisma.user.findUnique({ where: { uuid: roles[i].userId }})
+        const user = await prisma.user.findUnique({ where: { uuid: roles[i].userId, isActive: true }})
         if (user) {
             users.push(user)
         }

@@ -1,5 +1,6 @@
 import { RegistrationCodeList } from "@/components/User/RegistrationCode/RegistrationCodeList";
 import UserList from "@/components/User/SysAdminUserList/UserList";
+import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 
 
@@ -11,8 +12,8 @@ import Link from "next/link";
 export default async function CodesPage() {
     return (
         <div>
-            <Link href={`/user`} className="text-black font-medium text-lg" >
-                ← Back
+            <Link href={`/user`}>
+                <MoveLeft color="white" />
             </Link>
 
             <div className="flex flex-row gap-10">

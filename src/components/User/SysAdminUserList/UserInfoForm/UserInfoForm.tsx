@@ -36,7 +36,7 @@ export default async function UserInfoForm({ userID }: { userID: string }) {
     }
 
     return (
-        <div className="card w-lg">
+        <div className="card w-lg h-80">
 
             <div className="flex flex-row justify-between pb-2">
                 <div>
@@ -50,9 +50,9 @@ export default async function UserInfoForm({ userID }: { userID: string }) {
             <div className="bg-accent h-px mb-5"></div>
 
 
-            <div className="flex flex-row w-full">
+            <div className="flex flex-row w-full h-50">
 
-                <div className="card w-1/2">
+                <div className="card w-1/2 overflow-y-scroll">
                     <h1>Unincluded Orgs:</h1>
                     <div className="bg-accent h-px mb-1"></div>
 
@@ -63,7 +63,7 @@ export default async function UserInfoForm({ userID }: { userID: string }) {
                     </div>
 
                 </div>
-                <div className="card w-1/2">
+                <div className="card w-1/2 overflow-y-scroll">
                     <h1>Belongs To:</h1>
                     <div className="bg-accent h-px mb-1"></div>
 
