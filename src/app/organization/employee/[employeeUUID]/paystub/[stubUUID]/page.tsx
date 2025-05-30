@@ -1,5 +1,6 @@
 import getPaystubById from "@/actions/paystub/getPaystubById"
 import PaystubCard from "@/components/payroll/paystub/PaystubCard"
+import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 
 
@@ -14,7 +15,7 @@ export default async function PaystubViewPage({params}: {params: Promise<{ emplo
     return (
         <>
             <Link href={`/organization/employee/${employeeUUID}`} style={{ position: 'absolute' }} className="text-black font-medium text-lg w-full sm:w-auto px-5 py-2.5 text-center" >
-                ← Back
+                <MoveLeft size={20}/>
             </Link>
 
             <div className="flex flex-col lg:flex-row gap-6 justify-center px-10 py-20">

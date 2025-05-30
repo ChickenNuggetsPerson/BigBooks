@@ -22,7 +22,7 @@ export function UserOrganizationSelect() {
                 return { id: org.uuid, label: org.name }
             })
 
-            setOptions([{ id: " ", label: "- Select Organization-" }, ...options])
+            setOptions(options)
         }
 
         load()
@@ -40,9 +40,7 @@ export function UserOrganizationSelect() {
 
     return (
         <div>
-
-            {options.length != 0 && <SelectInput id={""} label={""} val={" "} disabled={false} options={options} changeCB={changePage} searchable={true} />}
-
+            {options.length != 0 && <SelectInput id={""} label={"Select Organization"} val={" "} disabled={false} options={options} changeCB={changePage} searchable={true} />}
         </div>
     )
 }

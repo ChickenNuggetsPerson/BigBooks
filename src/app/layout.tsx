@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
 
-      <body className={`antialiased bg-background text-text`}>
+      <body className={`antialiased text-text`}>
         <ModalContainer>
           <CompanyProvider>
             {children}

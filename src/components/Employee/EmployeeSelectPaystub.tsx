@@ -17,7 +17,7 @@ export function EmployeeSelectPaystub({ empUUID }: { empUUID: string }) {
         async function load() {
             const stubs = await getEmployeePaystubs(empUUID)
 
-            const opt = [{ id: "select", label: "- Select Paystub -" }]
+            const opt = [] as { id: string, label: string}[]
 
             stubs.forEach((stub) => {
                 opt.push({ id: stub.uuid, label: `Ending In: ${stub.periodEnd.toLocaleDateString()}` })
@@ -38,7 +38,7 @@ export function EmployeeSelectPaystub({ empUUID }: { empUUID: string }) {
     return (
         <>
             {options.length != 0 &&
-                <SelectInput id={""} label={"View Paystub"} val={"select"} disabled={false} options={options} changeCB={onSelect} searchable={true} />
+                <SelectInput id={""} label={"View Paystub"} val={""} disabled={false} options={options} changeCB={onSelect} searchable={true} />
             }
         </>
     )

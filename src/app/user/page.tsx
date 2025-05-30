@@ -22,8 +22,8 @@ export default async function UserPage() {
     }
 
     return (
-        <AnimateChildren x={0} y={-20}>
-            <EditableDiv className="card w-100 h-50" url={session?.isAdmin ? "" : "/user/edit"}>
+        <AnimateChildren y={-20}>
+            <EditableDiv className="card w-100 h-55" url={session?.isAdmin ? "" : "/user/edit"}>
 
                 <p className="text-xl font-semibold">{user.firstName + " " + user.lastName}</p>
 

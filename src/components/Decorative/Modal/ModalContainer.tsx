@@ -31,7 +31,7 @@ export default function ModalContainer({ children }: { children: React.ReactNode
                 {modals.length !== 0 &&
                     <motion.div
 
-                        className='backdrop-blur-sm fixed w-screen h-screen '
+                        className='backdrop-blur-sm fixed w-screen h-screen top-0'
                         style={{ zIndex: 100000 }}
 
                         initial={{ opacity: 0 }}

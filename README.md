@@ -20,3 +20,6 @@
 - [ ] Look into window's approach 
 - [X] Admin page for making org admins
 - [ ] Orgadmins can create users that have access to the organization
+
+
+Icons: https://lucide.dev/
