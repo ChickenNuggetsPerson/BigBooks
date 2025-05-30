@@ -11,28 +11,36 @@ export const dynamic = 'force-static';
 
 export default function ChangelogPage() {
 
-    const filePath = path.join(process.cwd(), './changelogs/CHANGELOG.md');
+    const filePath = path.join(process.cwd(), 'CHANGELOG.md');
     const changelog = fs.readFileSync(filePath, 'utf8');
 
-    const versionRegex = /##\s+([0-9]+\.[0-9]+\.[0-9]+)([\s\S]*?)(?=^##\s+[0-9]+\.[0-9]+\.[0-9]+|\z)/gm;
+    // const versionRegex = /## \[(\d+\.\d+\.\d+)]\([^)]+\) \((\d{4}-\d{2}-\d{2})\)([\s\S]*?)(?=^## |\z)/gm;
 
-    const versions = [];
-    let match;
+    // const versions: { version: string; date: string; content: string }[] = [];
+    // let match;
 
-    while ((match = versionRegex.exec(changelog)) !== null) {
-        const version = match[1];
-        const content = match[2].trim();
-        versions.push({ version, content });
-    }
+    // while ((match = versionRegex.exec(changelog)) !== null) {
+    //     console.log(match)
+    //     const version = match[1];
+    //     const date = match[2];
+    //     const content = match[3].trim();
+    //     versions.push({ version, date, content });
+    // }
+
+    // console.log(changelog)
 
     return (
         <div className="flex flex-row justify-center">
             <div className="w-xl mt-10">
-                {versions.map((version) => (
+                {/* {versions.map((version) => (
                     <div className="markdown-body card" key={version.version}>
                         <MarkdownAsync>{`### Version ${version.version} \n\n ${version.content}`}</MarkdownAsync>
                     </div>
-                ))}
+                ))} */}
+
+                <div className="markdown-body card">
+                    <MarkdownAsync>{changelog}</MarkdownAsync>
+                </div>
             </div>
         </div>
     )
