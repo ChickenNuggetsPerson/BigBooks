@@ -26,7 +26,6 @@ export default function ChangelogPage() {
     //     const content = match[3].trim();
     //     versions.push({ version, date, content });
     // }
-
     // console.log(changelog)
 
     return (
