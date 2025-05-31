@@ -3,8 +3,8 @@ import { getSession, getUserFromSession } from "@/auth/auth";
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import { redirect } from "next/navigation";
 import EditableDiv from "@/components/Decorative/EditableDiv";
-import { UserOrganizationSelect } from "@/components/User/UserOrganizationSelect";
 import Link from "next/link";
+import OrganizationList from "@/components/Organization/OrganizationList";
 
 
 export const dynamic = 'force-dynamic';
@@ -23,7 +23,7 @@ export default async function UserPage() {
 
     return (
         <>
-            <AnimateChildren y={-20} className="pb-20">
+            <AnimateChildren y={-20} className="pb-20 flex flex-row gap-20">
                 <EditableDiv className="card w-100 h-55" url={session?.isAdmin ? "" : "/user/edit"}>
 
                     <p className="text-xl font-semibold">{user.firstName + " " + user.lastName}</p>
@@ -33,11 +33,10 @@ export default async function UserPage() {
                     <p className="font-mono">{"Username: " + user.username}</p>
                     <p className="font-mono">{"Email: " + user.email}</p>
 
-                    <div className="h-3"></div>
-
-                    <UserOrganizationSelect />
-
                 </EditableDiv>
+
+                <OrganizationList />
+
             </AnimateChildren>
 
 
