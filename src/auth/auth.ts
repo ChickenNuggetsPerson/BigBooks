@@ -7,6 +7,17 @@ import bcrypt from 'bcryptjs';
 import { getDispUser, getEmptyDispUser } from '@/database/models/DisplayModels';
 
 
+
+async function SlowDown() {
+    if (process.env.SLOW_MODE !== "true") { return }
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(true)
+        }, 1000);
+    })
+}
+
+
 export interface Session {
     userID: string,
     isAdmin: boolean,
@@ -125,6 +136,8 @@ export async function getUserFromSession() {
 }
 
 export async function getSession(): Promise<Session | null> {
+    await SlowDown()
+
     const token = (await cookies()).get('session')?.value;
     if (!token) return null;
     return await verifySession(token) as Session | null;
