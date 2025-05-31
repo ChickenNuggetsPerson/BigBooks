@@ -1,9 +1,8 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import "./text.css"
 import { AnimatePresence, motion } from "framer-motion";
-
+import "./text.css"
 
 
 const NumericText = ({ val = "", animDelta = 50, spacing = 0, expand = false }) => {
@@ -25,12 +24,24 @@ const NumericText = ({ val = "", animDelta = 50, spacing = 0, expand = false }) 
             <AnimatePresence>
                 {charArray.map((num, i) => (
                     <motion.div
-                        key={id + "-" + i}
-                        exit={{ opacity: 0, transform: "translateY(20px)" }}
+                        key={id + "-" + i }
+                        exit={{ 
+                            opacity: 0, 
+                            transform: "translateY(20px)",
+                            width: "0rem",
+                            marginRight: expand ? 0 : spacing
+                        }}
+                        initial={{
+                            marginRight: expand ? 0 : spacing
+                        }}
+                        animate={{
+                            marginRight: spacing
+                        }}
+
                         transition={{ duration: 0.2, type: 'linear', delay: (i * animDelta)/1000 }}
                         style={{marginRight: spacing}}
                     >
-                        <NumberDisplay key={i} value={num} animDelay={i * animDelta} expand={expand}/>
+                        <NumberDisplay value={num} key={id + " " + i} animDelay={i * animDelta} expand={expand}/>
                     </motion.div>
                 ))}
             </AnimatePresence>
@@ -55,6 +66,9 @@ const NumberDisplay = ({ value, animDelay, expand }: DisplayParms) => {
     useEffect(() => {
 
         if (isNew) {
+
+            // When the number appears
+
             setTimeout(() => {
                 setDisplayValue(value)
             }, animDelay);
@@ -70,7 +84,9 @@ const NumberDisplay = ({ value, animDelay, expand }: DisplayParms) => {
 
             setNew(false)
 
-        } else {
+        } else { 
+
+            // When the value changes
 
             setTimeout(() => {
                 setClass("numeric-text fade-out")
