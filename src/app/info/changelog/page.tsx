@@ -1,8 +1,6 @@
 import path from "path";
 import fs from "fs"
-import { MarkdownAsync } from "react-markdown";
-
-import "github-markdown-css"
+import ChangeLogList from "./ChangeLogList";
 
 
 
@@ -14,26 +12,20 @@ export default function ChangelogPage() {
     const filePath = path.join(process.cwd(), 'CHANGELOG.md');
     const changelog = fs.readFileSync(filePath, 'utf8');
 
-    const versionRegex = /## \[(\d+\.\d+\.\d+)]\([^)]+\) \((\d{4}-\d{2}-\d{2})\)([\s\S]*?)(?=^## |\z)/gm;
-
-    const versions: { version: string; date: string; content: string }[] = [];
-    let match;
-
-    while ((match = versionRegex.exec(changelog)) !== null) {
-        const version = match[1];
-        const date = match[2];
-        const content = match[3].trim();
-        versions.push({ version, date, content });
-    }
+    const versions = [] as string[];
+    
+    changelog.split("## [").forEach((str, i) => {
+        if (i == 0) {
+            // versions.push(str) Don't add the first changelog item 
+        } else {
+            versions.push("## [" + str)
+        }
+    })
 
     return (
         <div className="flex flex-row justify-center">
             <div className="w-xl mt-10">
-                {versions.map((version) => (
-                    <div className="markdown-body card" key={version.version} style={{ marginBottom: 20 }}>
-                        <MarkdownAsync>{`### Version ${version.version} \n\n ${version.content}`}</MarkdownAsync>
-                    </div>
-                ))}
+                <ChangeLogList items={versions}/>
             </div>
         </div>
     )
