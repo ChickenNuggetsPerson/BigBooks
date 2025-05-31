@@ -1,6 +1,7 @@
 import { Suspense } from "react"
 import InteractiveUserIcon from "../User/InteractiveUserIcon"
 import HeaderOrgOptions from "./HeaderOrgOptions"
+import Loading from "@/app/Loading"
 
 
 
@@ -13,7 +14,7 @@ export default function Header() {
             <div className="flex flex-row justify-between">
                 <HeaderOrgOptions />
                 
-                <Suspense fallback={<p>Loading</p>}>
+                <Suspense fallback={<Loading />}>
                     <InteractiveUserIcon />
                 </Suspense>
 

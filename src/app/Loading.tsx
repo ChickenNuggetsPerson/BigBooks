@@ -21,7 +21,7 @@ export default function Loading() {
         <div className="flex" style={{ height: "80dvh" }}>
             <div className="m-auto flex font-mono font-bold text-xl">
 
-                <NumericText val={text} spacing={-4} expand={true}/>
+                <NumericText val={text} spacing={-4} expand={true} />
 
             </div>
         </div>

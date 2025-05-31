@@ -2,7 +2,7 @@ import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import Loading from "./Loading";
+import Loading from "../Loading";
 
 export const metadata: Metadata = {
   title: "Big Books",
@@ -20,7 +20,7 @@ export default function OrganizationLayout({
       <Sidebar />
 
       <main>
-        <div style={{ height: "calc(100vh - calc(var(--spacing) * 12))" }} className="w-full pt-10 px-4 ps-72 mt-12">  
+        <div style={{ height: "calc(100vh - calc(var(--spacing) * 12))" }} className="w-full pt-10 px-4 ps-72 mt-12">
 
           <Header />
 
