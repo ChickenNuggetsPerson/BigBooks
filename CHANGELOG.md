@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.3](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v1.0.2...v1.0.3) (2025-05-31)
+
+
+### Bug Fixes
+
+* added padding to changelog ([904b0f2](https://github.com/ChickenNuggetsPerson/BigBooks/commit/904b0f21a242a0b0c85f1dc0b5f13bd4802d20ab))
+* Changed organization selector in the User Page ([ed785a2](https://github.com/ChickenNuggetsPerson/BigBooks/commit/ed785a23fe80ebfee1fecd216081a208d4e6b3bd))
+* Changes to loading screens ([408f72e](https://github.com/ChickenNuggetsPerson/BigBooks/commit/408f72e2cda1f25d129c2d86485311ec543c26b7))
+* Updated Employee UI ([dc799ad](https://github.com/ChickenNuggetsPerson/BigBooks/commit/dc799ad5d4d85f50df78339417be89cbbe7f66a7))
+
 ## [1.0.2](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v1.0.1...v1.0.2) (2025-05-30)
 
 
