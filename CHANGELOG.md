@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v1.0.4...v1.1.0) (2025-05-31)
+
+
+### Features
+
+* Added ping pong page ([b6109c7](https://github.com/ChickenNuggetsPerson/BigBooks/commit/b6109c7acee44cb73e46f9b327ad2786dad303c0))
+
 ## [1.0.4](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v1.0.3...v1.0.4) (2025-05-31)
 
 
