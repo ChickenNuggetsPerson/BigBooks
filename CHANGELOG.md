@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v1.0.3...v1.0.4) (2025-05-31)
+
+
+### Bug Fixes
+
+* Made final version of the changelog page ([be45560](https://github.com/ChickenNuggetsPerson/BigBooks/commit/be455605021a3a2e6a3b459b25526ba49ff7ef79))
+
 ## [1.0.3](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v1.0.2...v1.0.3) (2025-05-31)
 
 
