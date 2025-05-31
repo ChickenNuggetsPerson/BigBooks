@@ -4,7 +4,6 @@ import getEmployeeList from "@/actions/employee/getEmployeeList";
 import { useCompany } from "@/app/CompanyContext";
 import { DispEmployee } from "@/database/models/DisplayModels";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import CheckboxInput from "../Forms/CheckboxInput";
@@ -175,14 +174,6 @@ export default function EmployeeList({ employeePage, selectCB, preSelected }: Em
         <div>
 
             <AnimateChildren x={0} y={-20}>
-                {/* New Employee Button */}
-                {employeePage &&
-                    <Link type="button" href={`/organization/employee/new/edit`} className="card w-xs block mb-5 hover:shadow-primary">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 "> Create New Employee</h5>
-                        <p className="font-normal text-gray-700 ">Click to Create</p>
-                    </Link>
-                }
-
 
                 <div className="card flex flex-row justify-between mb-5" style={{ paddingTop: 7, paddingBottom: 3 }}>
 
@@ -196,14 +187,14 @@ export default function EmployeeList({ employeePage, selectCB, preSelected }: Em
 
                     <div className="flex flex-row justify-between w-3/5">
 
+                        <SelectInput id={"filter"} label={"Filter:"} val={filter} disabled={false} options={filterArray} changeCB={(val) => { setFilter(val); }} searchable={false} />
+                        <SelectInput id={"sort"} label={"Sort By:"} val={sort} disabled={false} options={sortByArray} changeCB={(val) => { setSort(val) }} searchable={false} />
+
                         {employeePage &&
                             <div className="flex flex-col justify-center pt-4">
                                 <CheckboxInput id={"showDeactivated"} label={"Show Deactivated"} val={false} disabled={false} changeCB={(val) => { setShowDeleted(val) }} />
                             </div>
                         }
-
-                        <SelectInput id={"filter"} label={"Filter:"} val={filter} disabled={false} options={filterArray} changeCB={(val) => { setFilter(val); }} searchable={false} />
-                        <SelectInput id={"sort"} label={"Sort By:"} val={sort} disabled={false} options={sortByArray} changeCB={(val) => { setSort(val) }} searchable={false} />
 
                         {!employeePage &&
                             <div className="flex flex-col">
