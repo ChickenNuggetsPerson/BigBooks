@@ -56,11 +56,11 @@ export default function PingPongPage() {
 
 
     return (
-        <div className="font-bold text-9xl select-none bg-black text-white h-screen">
+        <div className="font-bold text-9xl select-none">
 
             <div className="flex flex-row justify-between mx-20 font-semibold gap-4">
-                <input className="bg-gray-900 w-1/2" onChange={(e) => { setP1Name(e.target.value) }} defaultValue={p1Name} ></input>
-                <input className="bg-gray-900 w-1/2" onChange={(e) => { setP2Name(e.target.value) }} defaultValue={p2Name} ></input>
+                <input className="bg-gray-200 w-1/2" onChange={(e) => { setP1Name(e.target.value) }} defaultValue={p1Name} ></input>
+                <input className="bg-gray-200 w-1/2" onChange={(e) => { setP2Name(e.target.value) }} defaultValue={p2Name} ></input>
             </div>
 
             <div className="flex flex-row justify-between mx-50 mt-10" style={{ fontSize: 250 }}>
