@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.0.6](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v1.0.5...v0.0.6) (2025-06-03)
+
+
+### Features
+
+* Added Phone Number and SSN formatting to employee form ([217a7fe](https://github.com/ChickenNuggetsPerson/BigBooks/commit/217a7fea2045032a317900ea5aa4164be278bca5))
+* Items are copyable on the employee page ([6d783e9](https://github.com/ChickenNuggetsPerson/BigBooks/commit/6d783e91c1bf51cd54e18ce73ae7850f51dab4e1))
+* Users can now be allocated oganization creation limits ([96018c1](https://github.com/ChickenNuggetsPerson/BigBooks/commit/96018c134186c422d3b690e0e1d536b0142538f3))
+
+
+### Bug Fixes
+
+* Fixed layout of changelog page ([10385f2](https://github.com/ChickenNuggetsPerson/BigBooks/commit/10385f273317a274add34d9bd4f34707e2a88ed7))
+* Fixed permissions with admins and editing other admin roles ([1363bca](https://github.com/ChickenNuggetsPerson/BigBooks/commit/1363bca06bdc0857a1a632f6c2ec18c3c88e8b86))
+* Renamed SYSAdmin users button ([7e8e520](https://github.com/ChickenNuggetsPerson/BigBooks/commit/7e8e520230b90335f46430a8656a9e21cc4a511c))
+* Updated permissions check for deactivated organizations list ([c18c5e7](https://github.com/ChickenNuggetsPerson/BigBooks/commit/c18c5e777d080412ffa4f423a0fed93f0906e0bb))
+
+
+### Miscellaneous Chores
+
+* release 0.0.6 ([c747599](https://github.com/ChickenNuggetsPerson/BigBooks/commit/c74759942f71b6464eb7b5007d48d24e9a627071))
+
 ## [1.0.5](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v1.0.4...v1.0.5) (2025-06-03)
 
 
