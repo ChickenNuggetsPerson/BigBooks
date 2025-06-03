@@ -99,7 +99,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
 
 
             <TextInput id={"name"} label={"Name:"} val={props.name} />
-            <TextInput id={"address"} label={"Address"} val={props.address} />
+            <LargeTextInput id={"address"} label={"Address"} val={props.address} />
             <LargeTextInput id={"notes"} label={"Notes"} val={props.notes} />
 
             <TextInput id={"uuid"} label={"Org UUID"} val={props.uuid} disabled={true} />
