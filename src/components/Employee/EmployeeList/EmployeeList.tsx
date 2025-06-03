@@ -139,7 +139,7 @@ export default function EmployeeList({
             }
 
             {pageination &&
-                <div className="flex flex-row justify-start max-w-md -translate-y-8">
+                <div className="flex flex-row justify-start max-w-md -translate-y-8 select-none">
                     <ChevronLeft strokeWidth={1.5} onClick={() => { if (table.getCanPreviousPage()) { table.previousPage() } }} className="mr-1" />
                     <ChevronRight strokeWidth={1.5} onClick={() => { if (table.getCanNextPage()) { table.nextPage() } }} className="mr-5" />
 
