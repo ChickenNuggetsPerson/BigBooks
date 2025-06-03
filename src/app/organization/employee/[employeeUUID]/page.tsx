@@ -3,7 +3,6 @@ import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import EmployeeCard from "@/components/Employee/EmployeeCard";
 import EmployeeSalaryCard from "@/components/Employee/EmployeeSalaryCard";
 import { EmployeeSelectPaystub } from "@/components/Employee/EmployeeSelectPaystub";
-import { hideSSN } from "@/functions/SSNStr";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -15,14 +14,11 @@ export default async function EmployeeView({
 }) {
 
     const empUUID = (await params).employeeUUID
-
-    const employee = await getEmployeeProps(empUUID, false)
+    const employee = await getEmployeeProps(empUUID, true)
 
     if (!employee) {
         return (<a>Error Loading Details</a>)
     }
-
-    employee.ssn = hideSSN(employee.ssn)
 
     return (
 
