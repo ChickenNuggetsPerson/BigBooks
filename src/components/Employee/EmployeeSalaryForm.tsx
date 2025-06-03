@@ -4,7 +4,6 @@ import getEmployeeProps from "@/actions/employee/getEmployeeProps";
 import submitEmployeeSalaryForm from "@/actions/employee/submitEmployeeSalaryFrom";
 import TextInput from "@/components/Forms/TextInput";
 import { DispEmployee, getEmptyDispEmployee } from "@/database/models/DisplayModels";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import SelectInput from "../Forms/SelectInput";
 import AnimateChildren from "../Decorative/AnimateChildren";
@@ -71,38 +70,36 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
         )
     }
 
-    function cancelURL(id: string) {
-        return `/organization/employee/${id}`
-    }
-
     function onSalaryTypeChange(val: string) { setSection(val) }
 
     return (
 
-        <form className="max-w-md mx-auto card mb-5" action={submitEmployeeSalaryForm}>
+        <form className="grid grid-cols-2" action={submitEmployeeSalaryForm}>
 
-            <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">Edit Employee Pay</h5>
-            <h6 className="mb-5 text-2xl tracking-tight text-gray-400">{`${props.firstName} ${props.lastName}`}</h6>
+            <div className="max-w-md card">
+                <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">Edit Employee Pay</h5>
+                <Divider />
+                <h6 className="mb-5 text-2xl tracking-tight text-gray-400">{`${props.firstName} ${props.lastName}`}</h6>
 
-            <SelectInput id={"filing"} label={"Filing Status"} val={props.filingStatus} options={FilingOptions} />
-            <NumberInput id={"dependants"} label={"# of Dependants"} val={props.dependants} />
+                <div className="flex flex-row gap-4">
+                    <SelectInput id={"filing"} label={"Filing Status"} val={props.filingStatus} options={FilingOptions} />
+                    <div className="mt-8 w-full">
+                        <NumberInput id={"dependants"} label={"# of Dependants"} val={props.dependants} />
+                    </div>
+                </div>
 
-            <SelectInput id={"isSalary"} label={"Pay Type"} val={SalaryOptions[props.isSalary ? 0 : 1].id} options={SalaryOptions} changeCB={onSalaryTypeChange} />
+                <SelectInput id={"isSalary"} label={"Pay Type"} val={SalaryOptions[props.isSalary ? 0 : 1].id} options={SalaryOptions} changeCB={onSalaryTypeChange} />
 
-            <Divider />
-
-            <div className="mb-10">
-                {section == SalaryOptions[0].id && <AnimateChildren x={0} y={-10}> <SalarySection d={props} /> </AnimateChildren>}
-                {section == SalaryOptions[1].id && <AnimateChildren x={0} y={-10}> <HourlySection d={props} /> </AnimateChildren>}
+                <button type="submit" className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>
             </div>
 
-            <TextInput id={"uuid"} label={"Emp UUID"} val={props.uuid} disabled/>
+            <div className="max-w-md card">
+                <div className="mb-10">
+                    {section == SalaryOptions[0].id && <AnimateChildren x={0} y={-10}> <SalarySection d={props} /> </AnimateChildren>}
+                    {section == SalaryOptions[1].id && <AnimateChildren x={0} y={-10}> <HourlySection d={props} /> </AnimateChildren>}
+                </div>
 
-            <div>
-                <button type="submit" className="primary-button">Submit</button>
-                <Link href={cancelURL(props.uuid)} className="mx-5 secondary-button">
-                    Cancel
-                </Link>
+                <TextInput id={"uuid"} label={"Emp UUID"} val={props.uuid} disabled />
             </div>
         </form>
 
