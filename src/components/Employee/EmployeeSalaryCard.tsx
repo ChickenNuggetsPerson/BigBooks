@@ -1,6 +1,7 @@
 import { DispEmployee } from "@/database/models/DisplayModels";
 import EditableDiv from "../Decorative/EditableDiv";
 import { HourlyRateStr, MoneyToStr } from "@/functions/MoneyStr";
+import { Divider } from "../Forms/Divider";
 
 
 
@@ -16,8 +17,21 @@ export default function EmployeeSalaryCard({ employee }: { employee: DispEmploye
 
             <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">Employee Pay</h5>
 
-            {employee.isSalary && <SalaryRate salary={employee.salary} />}
+            <Divider />
 
+            <div className="flex flex-row gap-2">
+                <p>Status: </p>
+                <p className="font-semibold font-mono">{employee.filingStatus}</p>
+            </div>
+
+            <div className="flex flex-row gap-2">
+                <p>Dependants: </p>
+                <p className="font-semibold font-mono">{employee.dependants}</p>
+            </div>
+
+            <Divider />
+
+            {employee.isSalary && <SalaryRate salary={employee.salary} />}
             {!employee.isSalary && <HourlyRates rates={employee?.hourlyRates ?? []} />}
 
         </EditableDiv>

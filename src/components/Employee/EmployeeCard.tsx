@@ -2,6 +2,7 @@
 
 import { DispEmployee } from "@/database/models/DisplayModels"
 import EditableDiv from "../Decorative/EditableDiv"
+import { Divider } from "../Forms/Divider"
 
 
 
@@ -13,6 +14,8 @@ export default function EmployeeCard({ employee }: { employee: DispEmployee }) {
         <EditableDiv url={`/organization/employee/${employee.uuid}/edit`} className="w-sm card mb-5">
 
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{`${employee?.firstName} ${employee?.lastName}`}</h5>
+
+            <Divider />
 
 
             {employee?.isDeleted && <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900  opacity-50">{"[ Deactivated ]"}</h5>}
