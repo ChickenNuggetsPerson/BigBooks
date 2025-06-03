@@ -27,6 +27,8 @@ model User {
   passHash String @unique
 
   memberships Role[]
+
+  allocatedOrganizations Int @default(0)
 }
 
 model RegistrationCode {

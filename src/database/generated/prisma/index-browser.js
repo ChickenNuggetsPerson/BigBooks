@@ -127,7 +127,8 @@ exports.Prisma.UserScalarFieldEnum = {
   lastName: 'lastName',
   email: 'email',
   username: 'username',
-  passHash: 'passHash'
+  passHash: 'passHash',
+  allocatedOrganizations: 'allocatedOrganizations'
 };
 
 exports.Prisma.RegistrationCodeScalarFieldEnum = {

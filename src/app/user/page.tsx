@@ -33,6 +33,16 @@ export default async function UserPage() {
                     <p className="font-mono">{"Username: " + user.username}</p>
                     <p className="font-mono">{"Email: " + user.email}</p>
 
+
+                    {(user.allocatedOrganizations !== 0 || session?.isAdmin) &&
+                        <div className="flex flex-col justify-end h-full">
+                            <Link href={"/user/newOrganization"} className="primary-button">
+                                New Organization
+                            </Link>
+                        </div>
+                    }
+
+
                 </EditableDiv>
 
                 <OrganizationList />

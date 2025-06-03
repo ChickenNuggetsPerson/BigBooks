@@ -55,7 +55,7 @@ export function getDispEmployee(e: Employee, stripSensitive: boolean = true): Di
     employee.address = e.address
     employee.isSalary = e.isSalary
     employee.salary = Number(e.salary)
-    
+
     if (Array.isArray(e.hourlyRates)) {
         employee.hourlyRates = e.hourlyRates as unknown as EmployeeHourlyRate[];
     }
@@ -63,7 +63,7 @@ export function getDispEmployee(e: Employee, stripSensitive: boolean = true): Di
     employee.isDeleted = e.isDeleted
     employee.email = e.email
     employee.phoneNumber = e.phoneNumber
-    
+
     employee.orgUUID = e.organizationId;
 
     employee.filingStatus = e.filingStatus as FilingTypes
@@ -109,7 +109,7 @@ export async function getDispOrganization(o: Organization): Promise<DispOrganiza
     org.notes = o.notes
     org.address = o.address
 
-    org.employeeCount = await prisma.employee.count({ where: { organizationId: o.uuid }})
+    org.employeeCount = await prisma.employee.count({ where: { organizationId: o.uuid } })
 
     org.isDeleted = o.isDeleted
     org.periodsPerYear = o.periodsPerYear
@@ -150,7 +150,7 @@ export async function getDispPayPeriod(p: Payperiod): Promise<DispPayPeriod> {
         pay.includedEmployees = p.includedEmployees as unknown as string[];
     }
 
-    pay.payStubs = (await prisma.payStub.findMany({where: {payperiodId: p.uuid}})).map((stub) => { return getDispPaystub(stub, p) })
+    pay.payStubs = (await prisma.payStub.findMany({ where: { payperiodId: p.uuid } })).map((stub) => { return getDispPaystub(stub, p) })
 
     return pay
 }
@@ -199,7 +199,7 @@ export function periodToStr(p: DispPayPeriod): string {
 
 export interface DispPaystub {
     uuid: string
-    
+
     hourly: PaystubHourly[]
     salary: number
     commission: number
@@ -207,7 +207,7 @@ export interface DispPaystub {
 
     periodStart: Date
     periodEnd: Date
-    
+
     federalRate: number
     federalAmt: number
     stateRate: number
@@ -222,7 +222,7 @@ export interface DispPaystub {
     employeeUUID: string
     payperiodUUID: string
 }
-export function getEmptyDispPaystub() : DispPaystub {
+export function getEmptyDispPaystub(): DispPaystub {
     return {
         uuid: "",
         hourly: [],
@@ -244,7 +244,7 @@ export function getEmptyDispPaystub() : DispPaystub {
         payperiodUUID: ""
     }
 }
-export function getDispPaystub(p: PayStub, period: Payperiod | null) : DispPaystub {
+export function getDispPaystub(p: PayStub, period: Payperiod | null): DispPaystub {
     const stub = getEmptyDispPaystub()
 
     stub.uuid = p.uuid
@@ -299,9 +299,10 @@ export interface DispUser {
     email: string,
     username: string,
     isActive: boolean,
-    memberships: DispRole[]
+    memberships: DispRole[],
+    allocatedOrganizations: number
 }
-export function getEmptyDispUser() : DispUser {
+export function getEmptyDispUser(): DispUser {
     return {
         uuid: "",
         firstName: "",
@@ -309,7 +310,8 @@ export function getEmptyDispUser() : DispUser {
         email: "",
         username: "",
         isActive: false,
-        memberships: []
+        memberships: [],
+        allocatedOrganizations: 0
     }
 }
 export async function getDispUser(u: User) {
@@ -322,7 +324,7 @@ export async function getDispUser(u: User) {
     user.username = u.username
     user.isActive = u.isActive
 
-    user.memberships = (await prisma.role.findMany({ where: { userId: user.uuid }})).map((r) => {
+    user.memberships = (await prisma.role.findMany({ where: { userId: user.uuid } })).map((r) => {
         const role = getRoleFromID(r.role)
         role.orgUUID = r.organizationId
         role.userUUID = r.userId
@@ -330,6 +332,7 @@ export async function getDispUser(u: User) {
         return role
     }) // Kill ME
 
+    user.allocatedOrganizations = u.allocatedOrganizations
 
     return user
 }

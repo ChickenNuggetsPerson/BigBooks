@@ -80,9 +80,6 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
         return url
     }
 
-    // const updateOrganization = .bind(null, newOrganization)
-
-
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
 
@@ -94,13 +91,13 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
                 setContext({ companyUUID: result.companyUUID, companyName: result.companyName });
 
                 if (newOrganization) {
-                    router.push("/user/users")
+                    router.push("/user")
                 } else {
                     router.push("/organization")
                 }
 
             } catch (err) {
-                alert(err)
+                console.log(err)
             }
 
             setLoading(false)

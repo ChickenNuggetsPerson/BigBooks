@@ -1,17 +1,17 @@
 'use server'
 
 import { generateCompanyContext } from "@/app/CompanyProps"
-import { redirectIfInvalidSession } from "@/auth/auth"
-import { RoleTypes } from "@/auth/roles/Roles"
+import { getSession, getUserFromSession, redirectIfInvalidSession } from "@/auth/auth"
+import { getIDFromRoleType, RoleTypes } from "@/auth/roles/Roles"
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 
 export default async function submitOrganizationForm(newOrganization: boolean, formData: FormData) {
 
     await redirectIfInvalidSession()
-    await throwIfInsufficientPerms(RoleTypes.Admin)
 
     const uuid = formData.get("uuid") as string
     const name = formData.get("name") as string
@@ -24,27 +24,52 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
     let returnUUID = ""
     let returnNAME = ""
 
-    if (newOrganization) {        
-        try {
+    if (newOrganization) {
+        // New Organization
 
-            await throwIfInsufficientPerms(RoleTypes.SysAdmin)
+        const session = await getSession()
+        const user = await getUserFromSession()
 
-            const organization = await prisma.organization.create({
+        if (!user || !session) { throw new Error("Insufficient Permissions") }
+
+        if (user.allocatedOrganizations <= 0 && !session.isAdmin) { throw new Error("Insufficient Permissions") }
+
+        const organization = await prisma.organization.create({
+            data: {
+                name: name,
+                notes: notes,
+                address: address,
+                isDeleted: false,
+                periodsPerYear: periodsPerYear,
+                periodsRefDate: periodsRefDate
+            }
+        })
+
+        if (!session.isAdmin) {
+
+            await prisma.user.update({
+                where: { uuid: user.uuid },
                 data: {
-                    name: name,
-                    notes: notes,
-                    address: address,
-                    isDeleted: false,
-                    periodsPerYear: periodsPerYear,
-                    periodsRefDate: periodsRefDate
+                    allocatedOrganizations: user.allocatedOrganizations - 1 // Use up an allocated organization
                 }
             })
 
-            returnUUID = organization.uuid
-            returnNAME = organization.name
-        } catch (err) { console.log(err) }
+            await prisma.role.create({
+                data: {
+                    userId: user.uuid,
+                    organizationId: organization.uuid,
+                    role: getIDFromRoleType(RoleTypes.Admin)
+                }
+            }) // Add the user to the organization
+        }
+
+        revalidatePath("/user")
+        redirect("/user")
+
     } else {
-        try {
+        try { // Edit page
+
+            await throwIfInsufficientPerms(RoleTypes.Admin)
 
             await prisma.organization.update({
                 where: { uuid: uuid },
