@@ -1,6 +1,7 @@
 'use server'
 
 import { getSession, redirectIfInvalidSession } from "@/auth/auth";
+import { getRoleFromID, Role_Admin } from "@/auth/roles/Roles";
 import { getDispOrganization } from "@/database/models/DisplayModels";
 import { prisma } from "@/database/prisma";
 
@@ -29,6 +30,11 @@ export default async function getOrgList(showDeleted: boolean) {
         for (let i = 0; i < user.memberships.length; i++) {
             const org = await prisma.organization.findUnique({ where: { uuid: user.memberships[i].organizationId } })
             if (!org) { continue }
+
+            if (org.isDeleted && (getRoleFromID(user.memberships[i].role).level) < Role_Admin.level) {
+                continue
+            }
+
             list.push(await getDispOrganization(org))
         }
 
