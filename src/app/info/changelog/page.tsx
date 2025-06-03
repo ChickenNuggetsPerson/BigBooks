@@ -24,7 +24,7 @@ export default function ChangelogPage() {
 
     return (
         <div className="flex flex-row justify-center">
-            <div className="w-xl mt-10">
+            <div className="mt-10">
                 <ChangeLogList items={versions}/>
             </div>
         </div>

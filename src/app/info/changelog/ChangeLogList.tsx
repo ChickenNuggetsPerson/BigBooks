@@ -2,7 +2,6 @@
 
 import Markdown from "react-markdown";
 import { useState } from "react";
-import { motion } from "framer-motion";
 
 import "github-markdown-css"
 import SelectInput from "@/components/Forms/SelectInput";
@@ -26,16 +25,16 @@ export default function ChangeLogList({ items }: { items: string[] }) {
 
             <div className="flex flex-row gap-4">
 
-            <SelectInput id={""} label={""} val={String(current)} disabled={false} options={options} changeCB={(val) => { setCurrent(Number(val)) }} searchable={false} />
+                <SelectInput id={""} label={""} val={String(current)} disabled={false} options={options} changeCB={(val) => { setCurrent(Number(val)) }} searchable={false} />
 
-            <motion.div
-                className="markdown-body card overflow-y-clip w-lg"
-                style={{ marginBottom: 20 }}
-            >
-                <Markdown>{items[current]}</Markdown>
-            </motion.div>
+                <div
+                    className="markdown-body card w-xl"
+                    style={{ marginBottom: 20 }}
+                >
+                    <Markdown>{items[current]}</Markdown>
+                </div>
 
-        </div>
+            </div>
         </div>
     )
 }
