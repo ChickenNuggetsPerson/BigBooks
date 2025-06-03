@@ -4,7 +4,7 @@ import deactivateEmployee from "@/actions/employee/deactivateEmployee";
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
 import submitEmployeeForm from "@/actions/employee/submitEmployeeForm"
 import { useCompany } from "@/app/CompanyContext";
-import TextInput from "@/components/Forms/TextInput";
+import TextInput, { InputMasks } from "@/components/Forms/TextInput";
 import { getEmptyDispEmployee } from "@/database/models/DisplayModels";
 import { useEffect, useState } from "react";
 import LargeTextInput from "../Forms/LargeTextInput";
@@ -93,9 +93,9 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
             <div className="card max-w-md">
 
                 <TextInput id={"email"} label={"Email"} val={props.email} />
-                <TextInput id={"phoneNumber"} label={"Phone Number"} val={props.phoneNumber} />
+                <TextInput id={"phoneNumber"} label={"Phone Number"} val={props.phoneNumber} mask={InputMasks.PHONE}/>
                 <LargeTextInput id={"address"} label={"Address"} val={props.address} />
-                <TextInput id={"ssn"} label={"SSN"} val={props.ssn} />
+                <TextInput id={"ssn"} label={"SSN"} val={props.ssn} mask={InputMasks.SSN}/>
 
                 <TextInput id={"orgUUID"} label={"Org UUID"} val={context?.companyUUID ?? ""} disabled={true} />
                 <TextInput id={"uuid"} label={"Emp UUID"} val={props.uuid} disabled={true} />
