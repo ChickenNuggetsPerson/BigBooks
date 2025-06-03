@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CollapsibleDiv from "../Decorative/CollapsibleDiv";
 
 
 
@@ -10,11 +11,8 @@ import Link from "next/link";
 
 export default function AdminCard({ }) {
     return (
-        <div className="card max-w-sm">
-            <h5 className="mb-2 text-2xl font-semibold text-gray-700 ">Admin Tools:</h5>
-            <div className="bg-accent h-px"></div>
-
-
+        <CollapsibleDiv title={"Admin Tools:"} className="card max-w-sm">
+        
             <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/organization/admin/configureOrganization"}>
                 Edit Organization Details
             </Link>
@@ -23,7 +21,7 @@ export default function AdminCard({ }) {
                 Configure Users
             </Link>
 
-        </div>
+        </CollapsibleDiv>
 
     )
 }

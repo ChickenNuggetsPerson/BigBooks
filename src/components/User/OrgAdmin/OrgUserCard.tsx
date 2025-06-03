@@ -1,12 +1,10 @@
 'use client'
 
 import { UserRoleIcon } from "../UserRoleIcon";
-import getUsersOrgRole from "@/auth/roles/getUsersOrgRole";
 import ClickableDiv from "@/components/Decorative/ClickableDiv";
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
 import RoleModal from "./RoleModal";
-import { useEffect, useState } from "react";
-import { Role_Error, RoleTypes } from "@/auth/roles/Roles";
+import { getIDFromRoleType, getRoleFromID, RoleTypes } from "@/auth/roles/Roles";
 import { useCompany } from "@/app/CompanyContext";
 import { DispUser } from "@/database/models/DisplayModels";
 
@@ -18,17 +16,8 @@ export default function OrgUserCard({ user }: { user: DispUser }) {
     const { addModal } = useModalManager()
     const { context } = useCompany()
 
-    const [role, setRole] = useState(Role_Error)
-
-    useEffect(() => {
-        async function load() {
-            const r = await getUsersOrgRole(user.uuid, context?.companyUUID ?? "")
-            if (r) {
-                setRole(r)
-            }
-        }
-        load()
-    }, [context?.companyUUID, user.uuid, user.memberships])
+    const roleType = user.memberships.find((r) => r.orgUUID == context?.companyUUID)?.type ?? RoleTypes.Error
+    const role = getRoleFromID(getIDFromRoleType(roleType))
 
     function pressed() {
         if (role.type == RoleTypes.Error) { return }
