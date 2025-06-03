@@ -2,14 +2,13 @@ import { DispEmployee } from "@/database/models/DisplayModels";
 import EditableDiv from "../Decorative/EditableDiv";
 import { HourlyRateStr, MoneyToStr } from "@/functions/MoneyStr";
 import { Divider } from "../Forms/Divider";
+import { CardProp } from "./EmployeeCard";
 
 
 
 
 
 export default function EmployeeSalaryCard({ employee }: { employee: DispEmployee }) {
-
-
 
     return (
 
@@ -19,15 +18,8 @@ export default function EmployeeSalaryCard({ employee }: { employee: DispEmploye
 
             <Divider />
 
-            <div className="flex flex-row gap-2">
-                <p>Status: </p>
-                <p className="font-semibold font-mono">{employee.filingStatus}</p>
-            </div>
-
-            <div className="flex flex-row gap-2">
-                <p>Dependants: </p>
-                <p className="font-semibold font-mono">{employee.dependants}</p>
-            </div>
+            <CardProp label="Status:" val={employee.filingStatus}/>
+            <CardProp label="Dependants:" val={String(employee.dependants)}/>
 
             <Divider />
 
@@ -58,16 +50,6 @@ export function HourlyRates({ rates }: HourlyRateProps) {
 
                 <tbody className="bg-gray-100 text-black">
                     {rates.map((rate, i) => (
-
-                        // <div className="flex text-white" key={i}>
-                        //     <span className="bg-primary  inline-flex items-center px-3 text-sm rounded-s-md ">
-                        //         <a>{rate.name}</a>
-                        //     </span>
-                        //     <input type="text" defaultValue={`$${rate.rate} / hr`}
-                        //         className="bg-primary-up bordertext-gray-900 block flex-1 min-w-0 w-full text-sm p-2.5 rounded-e-md"
-                        //         disabled></input>
-                        // </div>
-
                         <tr key={i}>
                             <td className="text-center">{rate.name}</td>
                             <td className="text-center">{HourlyRateStr(rate.rate)}</td>
@@ -85,11 +67,6 @@ export function HourlyRates({ rates }: HourlyRateProps) {
 interface SalaryRateProps { salary: number }
 export function SalaryRate({ salary }: SalaryRateProps) {
     return (
-        <div className="w-max">
-            <a className="font-normal text-gray-500 ">Salary: </a>
-
-            <p className="font-mono">{MoneyToStr(salary)}</p>
-        </div>
-
+        <CardProp label={"Salary:"} val={MoneyToStr(salary)} />
     )
 }
