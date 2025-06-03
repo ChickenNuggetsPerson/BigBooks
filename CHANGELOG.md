@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.7](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.0.6...v0.0.7) (2025-06-03)
+
+
+### Features
+
+* Nothing new in this update. I am testing out some things in the backend. Check previous version for patch notes. ([8f44823](https://github.com/ChickenNuggetsPerson/BigBooks/commit/8f44823b339e05f99113f2668c79e5f32f58a7a2))
+
+
+### Miscellaneous Chores
+
+* release 0.0.7 ([bb5a467](https://github.com/ChickenNuggetsPerson/BigBooks/commit/bb5a467f4eb16e51d485dccf9bc8badd29aa2b19))
+
 ## [0.0.6](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v1.0.5...v0.0.6) (2025-06-03)
 
 
