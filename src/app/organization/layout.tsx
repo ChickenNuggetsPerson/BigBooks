@@ -24,7 +24,7 @@ export default function OrganizationLayout({
 
           <Header />
 
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<Loading hCenter vCenter />}>
             {children}
           </Suspense>
         </div>

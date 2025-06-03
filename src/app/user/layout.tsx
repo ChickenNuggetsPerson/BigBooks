@@ -17,7 +17,7 @@ export default function UserPageLayout({
         <>
             <div className="flex flex-row justify-center">
                 <div className="h-screen flex flex-col justify-center pb-10">
-                    <Suspense fallback={<Loading />}>
+                    <Suspense fallback={<Loading hCenter vCenter />}>
                         {children}
                     </Suspense>
                 </div>

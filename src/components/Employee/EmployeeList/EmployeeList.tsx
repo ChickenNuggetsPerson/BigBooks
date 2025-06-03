@@ -13,6 +13,7 @@ import SelectInput from "@/components/Forms/SelectInput";
 import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight } from "lucide-react";
 import NumericText from "@/components/Decorative/NumericText/NumericText";
 import { limitString } from "@/functions/StringFunctions";
+import Loading from "@/app/Loading";
 
 
 
@@ -42,6 +43,8 @@ export default function EmployeeList({
     const [showDeact, setShowDeact] = useState(2)
 
     const [columnFilters, setColumnFilters] = useState([] as ColumnFilter[])
+    
+    const [loading, setLoading] = useState(false)
 
 
     const colums = [
@@ -84,10 +87,13 @@ export default function EmployeeList({
     })
 
     useEffect(() => { // Fetch data
+        
+        setLoading(true)
         async function load() {
             // 1 For All, 2 For Visable, 3 for Deactivated
             const l = await getEmployeeList(context?.companyUUID ?? "", showDeact)
             setList(l)
+            setLoading(false)
         }
 
         load()
@@ -197,6 +203,9 @@ export default function EmployeeList({
 
 
             </table>
+
+            {loading && <Loading hCenter/>}
+
         </AnimateChildren>
     )
 }
