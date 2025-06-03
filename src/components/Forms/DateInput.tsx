@@ -2,7 +2,17 @@
 
 
 
-export default function DateInput({ id, label, val, disabled }: { id: string, label: string, val: Date, disabled: boolean }) {
+export default function DateInput({ 
+    id = "", 
+    label = "", 
+    val = new Date(), 
+    disabled = false 
+}: {
+    id?: string, 
+    label?: string, 
+    val?: Date, 
+    disabled?: boolean 
+}) {
     
     function formatDate(val: Date): string {
         return val.toISOString().split('T')[0]; // Ensures YYYY-MM-DD

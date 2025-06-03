@@ -2,7 +2,19 @@
 
 
 
-export default function LargeTextInput({ id, label, val, placeholder, disabled }: { id: string, label: string, val: string, placeholder: string, disabled: boolean }) {
+export default function LargeTextInput({ 
+    id = "", 
+    label = "", 
+    val = "", 
+    placeholder = "", 
+    disabled = false
+}: { 
+    id?: string, 
+    label?: string, 
+    val?: string, 
+    placeholder?: string, 
+    disabled?: boolean 
+}) {
     return (
         <div className={"relative z-0 w-full mt-10 mb-5 group " + (disabled ? "opacity-50" : "")}>
             <textarea name={id} id={id} className="rounded block py-2.5 px-2.5 w-full text-sm text-gray-900 bg-background border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder={placeholder} defaultValue={val} readOnly={disabled} />

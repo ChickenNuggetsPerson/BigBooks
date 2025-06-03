@@ -101,14 +101,14 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
             <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">{newOrganization ? "Create Organization:" : "Edit Organization:"}</h5>
 
 
-            <TextInput id={"name"} label={"Name:"} val={props.name} placeholder={""} disabled={false} />
-            <TextInput id={"address"} label={"Address"} val={props.address} placeholder={""} disabled={false} />
-            <LargeTextInput id={"notes"} label={"Notes"} val={props.notes} placeholder={""} disabled={false} />
+            <TextInput id={"name"} label={"Name:"} val={props.name} />
+            <TextInput id={"address"} label={"Address"} val={props.address} />
+            <LargeTextInput id={"notes"} label={"Notes"} val={props.notes} />
 
-            <SelectInput id={"periodsPerYear"} label={"Pay Periods Per Year:"} val={String(props.periodsPerYear)} disabled={false} options={PeriodsPerYearOptions} changeCB={() => { }} searchable={false} />
+            <SelectInput id={"periodsPerYear"} label={"Pay Periods Per Year:"} val={String(props.periodsPerYear)} options={PeriodsPerYearOptions} />
             <DateInput id={"periodsRefDate"} label={"Ref Date:"} val={props.periodsRefDate} disabled={false} />
 
-            <TextInput id={"uuid"} label={"Org UUID"} val={props.uuid} placeholder={""} disabled={true} />
+            <TextInput id={"uuid"} label={"Org UUID"} val={props.uuid} disabled={true} />
 
             <button type="submit" className="primary-button">Submit</button>
             <Link href={cancelURL(newOrganization)} className="mx-5 secondary-button">

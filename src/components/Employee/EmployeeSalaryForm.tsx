@@ -84,10 +84,10 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
             <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">Edit Employee Pay</h5>
             <h6 className="mb-5 text-2xl tracking-tight text-gray-400">{`${props.firstName} ${props.lastName}`}</h6>
 
-            <SelectInput id={"filing"} label={"Filing Status"} val={props.filingStatus} disabled={false} options={FilingOptions} changeCB={() => {}} searchable={false} />
-            <NumberInput id={"dependants"} label={"# of Dependants"} val={props.dependants} placeholder={""} disabled={false} />
+            <SelectInput id={"filing"} label={"Filing Status"} val={props.filingStatus} options={FilingOptions} />
+            <NumberInput id={"dependants"} label={"# of Dependants"} val={props.dependants} />
 
-            <SelectInput id={"isSalary"} label={"Pay Type"} val={SalaryOptions[props.isSalary ? 0 : 1].id} disabled={false} options={SalaryOptions} changeCB={onSalaryTypeChange} searchable={false}/>
+            <SelectInput id={"isSalary"} label={"Pay Type"} val={SalaryOptions[props.isSalary ? 0 : 1].id} options={SalaryOptions} changeCB={onSalaryTypeChange} />
 
             <Divider />
 
@@ -96,7 +96,7 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
                 {section == SalaryOptions[1].id && <AnimateChildren x={0} y={-10}> <HourlySection d={props} /> </AnimateChildren>}
             </div>
 
-            <TextInput id={"uuid"} label={"Emp UUID"} val={props.uuid} placeholder={""} disabled={true} />
+            <TextInput id={"uuid"} label={"Emp UUID"} val={props.uuid} disabled/>
 
             <div>
                 <button type="submit" className="primary-button">Submit</button>

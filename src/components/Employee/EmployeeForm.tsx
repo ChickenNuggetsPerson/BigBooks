@@ -59,23 +59,23 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
                 </div>
 
 
-                <TextInput id={"firstName"} label={"First Name"} val={props.firstName} placeholder={""} disabled={false} />
-                <TextInput id={"middleName"} label={"Middle Name"} val={props.middleName} placeholder={""} disabled={false} />
-                <TextInput id={"lastName"} label={"Last Name"} val={props.lastName} placeholder={""} disabled={false} />
-                <LargeTextInput id={"notes"} label={"Notes"} val={props.notes} placeholder={""} disabled={false} />
+                <TextInput id={"firstName"} label={"First Name"} val={props.firstName} />
+                <TextInput id={"middleName"} label={"Middle Name"} val={props.middleName} />
+                <TextInput id={"lastName"} label={"Last Name"} val={props.lastName} />
+                <LargeTextInput id={"notes"} label={"Notes"} val={props.notes} />
 
                 <button type="submit" className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>
             </div>
 
             <div className="card max-w-md">
 
-                <TextInput id={"email"} label={"Email"} val={props.email} placeholder={""} disabled={false} />
-                <TextInput id={"phoneNumber"} label={"Phone Number"} val={props.phoneNumber} placeholder={""} disabled={false} />
-                <LargeTextInput id={"address"} label={"Address"} val={props.address} placeholder={""} disabled={false} />
-                <TextInput id={"ssn"} label={"SSN"} val={props.ssn} placeholder={""} disabled={false} />
+                <TextInput id={"email"} label={"Email"} val={props.email} />
+                <TextInput id={"phoneNumber"} label={"Phone Number"} val={props.phoneNumber} />
+                <LargeTextInput id={"address"} label={"Address"} val={props.address} />
+                <TextInput id={"ssn"} label={"SSN"} val={props.ssn} />
 
-                <TextInput id={"orgUUID"} label={"Org UUID"} val={context?.companyUUID ?? ""} placeholder={""} disabled={true} />
-                <TextInput id={"uuid"} label={"Emp UUID"} val={props.uuid} placeholder={""} disabled={true} />
+                <TextInput id={"orgUUID"} label={"Org UUID"} val={context?.companyUUID ?? ""} disabled={true} />
+                <TextInput id={"uuid"} label={"Emp UUID"} val={props.uuid} disabled={true} />
             </div>
 
         </form>
