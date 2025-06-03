@@ -8,6 +8,7 @@ import TextInput from "@/components/Forms/TextInput";
 import { getEmptyDispEmployee } from "@/database/models/DisplayModels";
 import { useEffect, useState } from "react";
 import LargeTextInput from "../Forms/LargeTextInput";
+import Loading from "@/app/Loading";
 
 
 
@@ -17,10 +18,12 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
     const { context } = useCompany()
     const [props, setProps] = useState(getEmptyDispEmployee())
     const [error, setError] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const newEmployee = empUUID == "new"
 
     useEffect(() => {
+        setLoading(true)
         async function load() {
 
             if (!newEmployee) {
@@ -32,6 +35,8 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
                 }
             }
 
+            setLoading(false)
+
         }
         load()
 
@@ -39,6 +44,11 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
     }, [empUUID, newEmployee])
 
 
+    if (loading) {
+        return (
+            <Loading hCenter vCenter />
+        )
+    }
     if (error) {
         return (
             <div>
@@ -47,9 +57,22 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
         )
     }
 
-    const updateEmployee = submitEmployeeForm.bind(null, newEmployee)
+
+    const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+        e.preventDefault();
+
+        setLoading(true)
+
+        async function submit() {
+            await submitEmployeeForm(newEmployee, new FormData(e.currentTarget));
+            setLoading(false)
+        }
+        submit()
+
+    };
+
     return (
-        <form className="grid grid-cols-2" action={updateEmployee}>
+        <form className="grid grid-cols-2" onSubmit={handleSubmit}>
 
             <div className="card max-w-md">
 

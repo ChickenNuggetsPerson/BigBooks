@@ -10,6 +10,7 @@ import AnimateChildren from "../Decorative/AnimateChildren";
 import NumberInput from "../Forms/NumberInput";
 import { Divider } from "../Forms/Divider";
 import { FilingTypes } from "@/database/Taxes/FilingTypes";
+import Loading from "@/app/Loading";
 
 
 const SalaryOptions = [
@@ -40,10 +41,13 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
 
     const [props, setProps] = useState(getEmptyDispEmployee())
     const [error, setError] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const [section, setSection] = useState("")
 
     useEffect(() => {
+
+        setLoading(true)
         async function load() {
 
             const employee = await getEmployeeProps(empUUID, false)
@@ -54,6 +58,8 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
                 setError(true)
                 setSection("")
             }
+
+            setLoading(false)
 
         }
         load()
@@ -70,11 +76,31 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
         )
     }
 
+    if (loading) {
+        return (
+            <Loading hCenter vCenter />
+        )
+    }
+
     function onSalaryTypeChange(val: string) { setSection(val) }
+
+
+    const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+        e.preventDefault();
+
+        setLoading(true)
+
+        async function submit() {
+            await submitEmployeeSalaryForm(new FormData(e.currentTarget));
+            setLoading(false)
+        }
+        submit()
+
+    };
 
     return (
 
-        <form className="grid grid-cols-2" action={submitEmployeeSalaryForm}>
+        <form className="grid grid-cols-2" onSubmit={handleSubmit}>
 
             <div className="max-w-md card">
                 <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">Edit Employee Pay</h5>

@@ -72,7 +72,6 @@ export default function PaystubForm({ empUUID, periodUUID, cb }: PaystubFormProp
     }
 
 
-
     const [grossEarnings, setGrossEarnings] = useState(0)
     const [totalTaxes, setTotalTaxes] = useState(0)
     const [otherItems, setOtherItems] = useState(0)

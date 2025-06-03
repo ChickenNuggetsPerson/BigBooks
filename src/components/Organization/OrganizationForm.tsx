@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation"
 import LargeTextInput from "../Forms/LargeTextInput"
 import SelectInput from "../Forms/SelectInput"
 import DateInput from "../Forms/DateInput"
+import Loading from "@/app/Loading"
 
 
 
@@ -34,10 +35,12 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
 
     const [props, setProps] = useState(getEmptyDispOrganization())
     const [error, setError] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const newOrganization = (orgUUID == "new")
 
     useEffect(() => {
+        setLoading(true)
         async function load() {
 
             if (!newOrganization) {
@@ -48,6 +51,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
                     setError(true)
                 }
             }
+            setLoading(false)
         }
         load()
     }, [orgUUID, newOrganization])
@@ -58,6 +62,12 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
             <div>
                 Error Fetching Employee
             </div>
+        )
+    }
+
+    if (loading) {
+        return (
+            <Loading vCenter hCenter/>
         )
     }
 
@@ -76,6 +86,8 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
 
+        setLoading(true)
+
         async function submit() {
             try {
                 const result = await submitOrganizationForm(newOrganization, new FormData(e.currentTarget));
@@ -90,6 +102,8 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
             } catch (err) {
                 alert(err)
             }
+
+            setLoading(false)
         }
         submit()
 
