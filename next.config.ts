@@ -1,7 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+module.exports = {
+  experimental: {
+    swcPlugins: [["superjson-next", { router: "APP" }]],
+  },
 };
-
-export default nextConfig;

@@ -3,10 +3,10 @@
 
 import TextInput from "../Forms/TextInput";
 import { useEffect, useState } from "react";
-import { getEmptyDispUser } from "@/database/models/DisplayModels";
 import getUser from "@/actions/user/getUser";
 import editUser from "@/actions/user/editUser";
 import Link from "next/link";
+import { Prisma } from "@/database/generated/prisma";
 
 
 
@@ -15,12 +15,14 @@ interface EditUserFormProps {
 }
 export default function EditUserForm({ userID } : EditUserFormProps) {
 
-    const [userProps, setUserProps] = useState(getEmptyDispUser())
+    const [userProps, setUserProps] = useState({} as Prisma.UserGetPayload<{ include: { memberships: true } }>)
 
     useEffect(() => {
         async function load() {
             const props = await getUser(userID ?? "")
-            setUserProps(props)
+            if (props) {
+                setUserProps(props)
+            }
         }
 
         load()

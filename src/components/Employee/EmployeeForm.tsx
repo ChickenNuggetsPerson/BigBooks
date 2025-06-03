@@ -5,10 +5,10 @@ import getEmployeeProps from "@/actions/employee/getEmployeeProps";
 import submitEmployeeForm from "@/actions/employee/submitEmployeeForm"
 import { useCompany } from "@/app/CompanyContext";
 import TextInput, { InputMasks } from "@/components/Forms/TextInput";
-import { getEmptyDispEmployee } from "@/database/models/DisplayModels";
 import { useEffect, useState } from "react";
 import LargeTextInput from "../Forms/LargeTextInput";
 import Loading from "@/app/Loading";
+import { Employee } from "@/database/generated/prisma";
 
 
 
@@ -16,7 +16,7 @@ interface EmployeeFormProps { empUUID: string }
 export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
 
     const { context } = useCompany()
-    const [props, setProps] = useState(getEmptyDispEmployee())
+    const [props, setProps] = useState({} as Employee)
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(true)
 

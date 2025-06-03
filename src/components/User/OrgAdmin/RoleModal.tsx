@@ -6,14 +6,14 @@ import editUserRole from "@/actions/user/roles/editUserRole"
 import { DispRole, RoleTypes } from "@/auth/roles/Roles"
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
 import SelectInput from "@/components/Forms/SelectInput"
-import { DispUser } from "@/database/models/DisplayModels"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { getRoleDescription, selectableRoles } from "./RoleModalProps"
+import { User } from "@/database/generated/prisma"
 
 
 
-export default function RoleModal({ role, user, orgUUID, orgName }: { role: DispRole | null, user: DispUser, orgUUID: string, orgName: string }) {
+export default function RoleModal({ role, user, orgUUID, orgName }: { role: DispRole | null, user: User, orgUUID: string, orgName: string }) {
 
     const { popModal } = useModalManager()
     const [selectedRole, setRole] = useState(role?.type ?? RoleTypes.Error)

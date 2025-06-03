@@ -1,15 +1,15 @@
 'use client'
 
-import { DispEmployee } from "@/database/models/DisplayModels"
 import EditableDiv from "../Decorative/EditableDiv"
 import { Divider } from "../Forms/Divider"
 import ClickableDiv from "../Decorative/ClickableDiv"
 import toast from "react-hot-toast"
+import { Employee } from "@/database/generated/prisma"
 
 
 
 
-export default function EmployeeCard({ employee }: { employee: DispEmployee }) {
+export default function EmployeeCard({ employee }: { employee: Employee }) {
 
 
     return (

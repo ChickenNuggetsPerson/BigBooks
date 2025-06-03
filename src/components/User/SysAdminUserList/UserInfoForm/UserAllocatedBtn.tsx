@@ -2,7 +2,7 @@
 
 import setUserAllocatedOrgs from "@/actions/user/setUserAllocatedOrgs";
 import NumberInput from "@/components/Forms/NumberInput";
-import { DispUser } from "@/database/models/DisplayModels";
+import { User } from "@/database/generated/prisma/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 
 
 
-export default function UserAllocatedBtn({ user } : { user: DispUser }) {
+export default function UserAllocatedBtn({ user } : { user: User }) {
 
     const [amt, setAmt] = useState(0)
     useEffect(() => {

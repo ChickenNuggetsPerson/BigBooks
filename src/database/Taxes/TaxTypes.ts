@@ -1,5 +1,5 @@
 import { PercentOf } from "@/functions/PercentStr"
-import { DispEmployee, DispOrganization, DispPaystub, getEmptyDispPaystub } from "../models/DisplayModels"
+import { DispEmployee, DispOrganization, DispPaystub, getEmptyDispPaystub } from "../models/DisplayModels/DispEmployee"
 import { getEmptyPaystubHourly } from "../models/SchemaJSON"
 
 

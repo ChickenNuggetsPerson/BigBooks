@@ -3,17 +3,17 @@
 
 import { useEffect, useState } from "react";
 import OrganizationCard from "./OrganizationCard";
-import { DispOrganization } from "@/database/models/DisplayModels";
 import getOrgList from "@/actions/organization/getOrgList";
 import CheckboxInput from "../Forms/CheckboxInput";
+import { Organization } from "@/database/generated/prisma";
 
 
 
 
 export default function OrganizationList() {
 
-    const [orgs, setOrgs] = useState([] as DispOrganization[])
-    const [filteredList, setFilteredList] = useState([] as DispOrganization[])
+    const [orgs, setOrgs] = useState([] as Organization[])
+    const [filteredList, setFilteredList] = useState([] as Organization[])
     const [showDeleted, setShowDeleted] = useState(false)
 
     useEffect(() => {

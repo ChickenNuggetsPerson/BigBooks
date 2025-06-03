@@ -3,7 +3,6 @@
 import { redirectIfInvalidSession } from "@/auth/auth"
 import { RoleTypes } from "@/auth/roles/Roles"
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
-import { getDispPaystub } from "@/database/models/DisplayModels"
 import { prisma } from "@/database/prisma"
 
 
@@ -18,12 +17,7 @@ export default async function getPaystubById(stubID: string) {
         where: {
             uuid: stubID
         },
-        include: { payperiod: true }
     })
 
-    if (stub) {
-        return getDispPaystub(stub, stub.payperiod)
-    }
-
-    return undefined
+    return stub
 }

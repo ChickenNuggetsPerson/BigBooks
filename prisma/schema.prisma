@@ -16,131 +16,173 @@ datasource db {
 
 
 
-
 model User {
-  uuid          String      @id @default(uuid()) @unique
-  isActive      Boolean
+  uuid     String  @id @unique @default(uuid())
+  isActive Boolean
 
-  firstName     String
-  lastName      String
+  firstName String
+  lastName  String
 
-  email         String
-  
-  username      String      @unique
-  passHash      String      @unique
+  email String
 
-  memberships   Role[]
+  username String @unique
+  passHash String @unique
+
+  memberships Role[]
 
   allocatedOrganizations Int @default(0)
 }
 
 model RegistrationCode {
-  uuid          String      @id @default(uuid()) @unique
-  expires       DateTime
+  uuid    String   @id @unique @default(uuid())
+  expires DateTime
 }
 
 model InviteCode {
-  uuid          String      @id @default(uuid()) @unique
-  
+  uuid String @id @unique @default(uuid())
+
   organization   Organization @relation(fields: [organizationId], references: [uuid])
   organizationId String
 
-  role          String
+  role String
 
-  expires       DateTime
+  expires DateTime
 }
 
-
-
 model Role {
-  uuid           String        @id @default(uuid())
-  user           User          @relation(fields: [userId], references: [uuid])
-  userId         String
+  uuid   String @id @default(uuid())
+  user   User   @relation(fields: [userId], references: [uuid])
+  userId String
 
-  organization   Organization  @relation(fields: [organizationId], references: [uuid])
+  organization   Organization @relation(fields: [organizationId], references: [uuid])
   organizationId String
 
-  role           String        @default("")
-  joinedAt       DateTime      @default(now())
+  role     String   @default("")
+  joinedAt DateTime @default(now())
 
   @@unique([userId, organizationId]) // Prevents duplicate entries
 }
 
-
-
-
 model Organization {
-  uuid           String     @id @default(uuid()) @unique
-  name           String
-  notes          String     @default("")
-  address        String     @default("")
-  isDeleted      Boolean    @default(false)
-  periodsPerYear Int        @default(26)
-  periodsRefDate DateTime
+  uuid      String  @id @unique @default(uuid())
+  name      String
+  notes     String  @default("")
+  address   String  @default("")
+  isDeleted Boolean @default(false)
 
-  employees      Employee[]
-  payperiods     Payperiod[]
+  employees     Employee[]
+  payrollGroups PayrollGroup[]
 
-  inviteCodes    InviteCode[]
-  memberships    Role[]
+  inviteCodes InviteCode[]
+  memberships Role[]
 }
 
 model Employee {
-  uuid          String     @id @default(uuid()) @unique
-  firstName     String     @default("")
-  middleName    String     @default("")
-  lastName      String     @default("")
-  notes         String     @default("")
-  address       String     @default("")
-  email         String     @default("")
-  phoneNumber   String     @default("")
-  ssn           String     @default("")
-  isSalary      Boolean    @default(true)
-  salary        Decimal    @default(0)
-  hourlyRates   Json
-  filingStatus  String     @default("Single")
-  dependants    Int        @default(0)
-  isDeleted     Boolean    @default(false)
+  uuid         String  @id @unique @default(uuid())
+  firstName    String  @default("")
+  middleName   String  @default("")
+  lastName     String  @default("")
+  notes        String  @default("")
+  address      String  @default("")
+  email        String  @default("")
+  phoneNumber  String  @default("")
+  ssn          String  @default("")
+
+  filingStatus String  @default("Single")
+  dependants   Int     @default(0)
+  isDeleted    Boolean @default(false)
 
   organization   Organization @relation(fields: [organizationId], references: [uuid])
   organizationId String
 
-  payStubs       PayStub[]
+  compensations EmployeeCompensation[]
+  payStubs      PayStub[]
 }
 
-model Payperiod {
-  uuid              String     @id @default(uuid()) @unique
-  periodStart       DateTime
-  periodEnd         DateTime
-  includedEmployees Json
+model PayrollGroup {
+  uuid         String   @id @unique @default(uuid())
+  name         String
+  description  String
+  payFrequency Int      @default(14) // e.g. days
+  payRefDate   DateTime
 
   organization   Organization @relation(fields: [organizationId], references: [uuid])
   organizationId String
 
-  payStubs       PayStub[]
+  compensations EmployeeCompensation[]
 }
+
+model EmployeeCompensation {
+  uuid       String   @id @default(uuid())
+  employee   Employee @relation(fields: [employeeId], references: [uuid])
+  employeeId String
+
+  payrollGroup   PayrollGroup @relation(fields: [payrollGroupId], references: [uuid])
+  payrollGroupId String
+
+  // If isSalary=true, use salaryAmount; otherwise, use hourlyRates JSON (or child table)
+  isSalary     Boolean  @default(true)
+  salaryAmount Decimal? // e.g. 52000.00 if they’re salaried
+  hourlyRates  HourlyRate[]
+
+  @@unique([employeeId, payrollGroupId]) // no duplicate “employee‐group” rows
+}
+
+model HourlyRate {
+  uuid        String   @id @unique @default(uuid())
+
+  name        String
+  rate        Decimal
+  canOvertime Boolean
+
+  compensation EmployeeCompensation @relation(fields: [compensationId], references: [uuid])
+  compensationId String
+}
+
 
 model PayStub {
-  uuid         String     @id @default(uuid()) @unique
-  hourly       Json
-  salary       Decimal    @default(0)
-  commission   Decimal    @default(0)
-  bonus        Decimal    @default(0)
+  uuid        String   @id @unique @default(uuid())
+  payDate     DateTime
+  periodStart DateTime
+  periodEnd   DateTime
 
-  federalRate  Decimal    @default(0)
-  federalAmt   Decimal    @default(0)
-  stateRate    Decimal    @default(0)
-  stateAmt     Decimal    @default(0)
-  mediRate     Decimal    @default(0)
-  mediAmt      Decimal    @default(0)
-  socialRate   Decimal    @default(0)
-  socialAmt    Decimal    @default(0)
+  // Totals or summaries (computed at generation time)
+  grossEarnings   Decimal @default(0) // sum of all PayStubEarning.amount
+  totalDeductions Decimal @default(0) // sum of all PayStubDeduction.amount
+  netPay          Decimal @default(0) // grossEarnings − totalDeductions
 
-  otherItems   Json
+  // Link back to the employee
+  employee   Employee @relation(fields: [employeeId], references: [uuid])
+  employeeId String
 
-  employee     Employee  @relation(fields: [employeeId], references: [uuid])
-  employeeId   String
+  // Children:
+  earnings   PayStubEarning[]
+  deductions PayStubDeduction[]
+}
 
-  payperiod    Payperiod @relation(fields: [payperiodId], references: [uuid])
-  payperiodId  String
+/// “Any quarter‐hour, salary, bonus, or commission that made up this stub’s gross pay”
+model PayStubEarning {
+  id        String  @id @default(uuid())
+  payStub   PayStub @relation(fields: [payStubId], references: [uuid])
+  payStubId String
+
+  // A small “enum” or string tag so we know if it’s “salary portion” vs “hourly/OT” vs “commission”
+  type        String // e.g. "Salary", "Hourly-Regular", "Hourly-OT", "Commission", "Bonus"
+  description String? // optional human‐readable note, e.g. “Overtime – 5 hrs @ $30”
+  amount      Decimal // e.g. 150.00
+
+  hours       Decimal? // e.g. 5.0
+  rate        Decimal? // e.g. 30.0
+}
+
+/// “Federal tax, state tax, Social Security, 401k, health insurance premium, etc.”
+model PayStubDeduction {
+  id        String  @id @default(uuid())
+  payStub   PayStub @relation(fields: [payStubId], references: [uuid])
+  payStubId String
+
+  type        String // e.g. "Federal-Tax", "State-Tax", "SocialSecurity", "401k", "Health-Insurance"
+  description String? // optional note, e.g. “Fed Tax – Single, 2 Dependents”
+  amount      Decimal // e.g. 75.00
+  rate        Decimal? // e.g. 0.062 (for Social Security, you might store the rate)
 }

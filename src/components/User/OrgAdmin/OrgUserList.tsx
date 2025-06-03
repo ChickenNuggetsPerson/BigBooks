@@ -1,21 +1,21 @@
 'use client'
 
 import { useCompany } from "@/app/CompanyContext";
-import { DispUser } from "@/database/models/DisplayModels";
 import OrgUserCard from "./OrgUserCard";
 import TextInput from "@/components/Forms/TextInput";
 import { useEffect, useState } from "react";
+import { Prisma } from "@/database/generated/prisma";
 
 
 
 
 export function OrgUserList({
     users
-}: { users: DispUser[] }) {
+}: { users: Prisma.UserGetPayload<{ include: { memberships: true } }>[] }) {
 
     const { context } = useCompany()
     const [search, setSearch] = useState("")
-    const [dispUsers, setDispUsers] = useState([] as DispUser[])
+    const [dispUsers, setDispUsers] = useState([] as Prisma.UserGetPayload<{ include: { memberships: true } }>[])
 
     useEffect(() => {
 

@@ -44,7 +44,6 @@ export default async function submitEmployeeForm(newEmployee: boolean, formData:
                     email: email,
                     phoneNumber: phoneNumber,
                     isDeleted: false,
-                    hourlyRates: [],
                     organizationId: orgUUID,
                 }
             })

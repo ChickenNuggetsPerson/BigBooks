@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import { hashPassword, signSession, verifySession } from './encryption';
 import { prisma } from '@/database/prisma';
 import bcrypt from 'bcryptjs';
-import { getDispUser, getEmptyDispUser } from '@/database/models/DisplayModels';
+import { Prisma } from '@/database/generated/prisma';
 
 
 
@@ -122,17 +122,25 @@ export async function getUserFromSession() {
     if (!session) { return null }
 
     if (session.isAdmin) { // Make a disp user for the admin
-        const dispUser = getEmptyDispUser()
-        dispUser.firstName = "SYSTEM"
-        dispUser.lastName = "ADMIN"
+        const dispUser : Prisma.UserGetPayload<{ include: { memberships: true } }> = {
+            uuid: '',
+            isActive: false,
+            firstName: 'SYSTEM',
+            lastName: 'ADMIN',
+            email: '',
+            username: '',
+            passHash: '',
+            allocatedOrganizations: 0,
+            memberships: []
+        }
         return dispUser
     }
 
-    const user = await prisma.user.findUnique({ where: { uuid: session.userID, isActive: true } })
+    const user = await prisma.user.findUnique({ where: { uuid: session.userID, isActive: true }, include: { memberships: true } })
     if (user) {
-        return await getDispUser(user)
+        user.passHash = "" // Don't send around them the password hash
     }
-    return null
+    return user
 }
 
 export async function getSession(): Promise<Session | null> {

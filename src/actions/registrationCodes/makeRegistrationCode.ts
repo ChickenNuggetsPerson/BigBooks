@@ -2,6 +2,7 @@
 
 import { getSession } from "@/auth/auth"
 import { prisma } from "@/database/prisma"
+import { addDays } from "@/functions/Date"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
@@ -19,7 +20,7 @@ export default async function makeRegistrationCode() {
 
     if (!session.isAdmin) { return }
 
-    const expires = (new Date()).addDays(2) // Code lasts for 2 days
+    const expires = addDays(new Date(), 2) // Code lasts for 2 days
 
     await prisma.registrationCode.create({ data: { expires: expires } })
 

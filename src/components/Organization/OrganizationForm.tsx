@@ -2,7 +2,6 @@
 
 import submitOrganizationForm from "@/actions/organization/submitOrganizationForm"
 import TextInput from "../Forms/TextInput"
-import { getEmptyDispOrganization } from "@/database/models/DisplayModels"
 import { useEffect, useState } from "react"
 import getOrgDetails from "@/actions/organization/getOrgDetails"
 import Link from "next/link"
@@ -10,22 +9,9 @@ import deactivateOrganization from "@/actions/organization/deactivateOrg"
 import { useCompany } from "@/app/CompanyContext"
 import { useRouter } from "next/navigation"
 import LargeTextInput from "../Forms/LargeTextInput"
-import SelectInput from "../Forms/SelectInput"
-import DateInput from "../Forms/DateInput"
 import Loading from "@/app/Loading"
+import { Organization } from "@/database/generated/prisma"
 
-
-
-const PeriodsPerYearOptions = [
-    {
-        label: "Weekly",
-        id: "52"
-    },
-    {
-        label: "Bi-Weekly",
-        id: "26"
-    }
-]
 
 interface OrganizationFormProps { orgUUID: string }
 export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
@@ -33,7 +19,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
     const { setContext } = useCompany()
     const router = useRouter()
 
-    const [props, setProps] = useState(getEmptyDispOrganization())
+    const [props, setProps] = useState({} as Organization)
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -45,7 +31,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
 
             if (!newOrganization) {
                 const organization = await getOrgDetails(orgUUID)
-                if (organization) { // Employee exists
+                if (organization) {
                     setProps(organization)
                 } else {
                     setError(true)
@@ -74,7 +60,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
     function cancelURL(isNew: boolean) {
         const url = "/organization/overview"
         if (isNew) {
-            return "/user/users"
+            return "/user"
         }
 
         return url
@@ -115,9 +101,6 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
             <TextInput id={"name"} label={"Name:"} val={props.name} />
             <TextInput id={"address"} label={"Address"} val={props.address} />
             <LargeTextInput id={"notes"} label={"Notes"} val={props.notes} />
-
-            <SelectInput id={"periodsPerYear"} label={"Pay Periods Per Year:"} val={String(props.periodsPerYear)} options={PeriodsPerYearOptions} />
-            <DateInput id={"periodsRefDate"} label={"Ref Date:"} val={props.periodsRefDate} disabled={false} />
 
             <TextInput id={"uuid"} label={"Org UUID"} val={props.uuid} disabled={true} />
 

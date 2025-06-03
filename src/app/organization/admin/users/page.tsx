@@ -5,8 +5,6 @@ import AnimateChildren from "@/components/Decorative/AnimateChildren"
 import OrgInviteCodeCard from "@/components/User/OrgAdmin/OrgInviteCodeCard"
 import OrgUserCreateInviteButton from "@/components/User/OrgAdmin/OrgUserCreateInviteButton"
 import { OrgUserList } from "@/components/User/OrgAdmin/OrgUserList"
-import { DispUser, getDispUser } from "@/database/models/DisplayModels"
-
 
 
 
@@ -18,15 +16,10 @@ export default async function AdminUserPage() {
     const users = await getOrgUsers(session.orgUUID)
     const codes = await getInviteCodes()
 
-    const dispUsers = [] as DispUser[]
-    for (let i = 0; i < users.length; i++) {
-        dispUsers.push(await getDispUser(users[i]))
-    }
-
     return (
         <AnimateChildren className="grid grid-cols-2 gap-4">
 
-            <OrgUserList users={dispUsers} />
+            <OrgUserList users={users} />
 
             <div className="card max-w-80 relative">
                 <div className="absolute right-5 top-5">

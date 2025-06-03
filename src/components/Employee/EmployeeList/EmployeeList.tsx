@@ -2,7 +2,6 @@
 
 import getEmployeeList from "@/actions/employee/getEmployeeList";
 import { useCompany } from "@/app/CompanyContext";
-import { DispEmployee } from "@/database/models/DisplayModels";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import AnimateChildren from "../../Decorative/AnimateChildren";
@@ -14,13 +13,14 @@ import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight } from "lucide-react";
 import NumericText from "@/components/Decorative/NumericText/NumericText";
 import { limitString } from "@/functions/StringFunctions";
 import Loading from "@/app/Loading";
+import { Employee } from "@/database/generated/prisma";
 
 
 
 interface EmployeeListProps {
     selectable?: boolean
     selected?: string[]
-    clickCB?: (emp: DispEmployee) => void
+    clickCB?: (emp: Employee) => void
     searchable?: boolean
     pageination?: boolean
     pageCount?: number
@@ -36,7 +36,7 @@ export default function EmployeeList({
 
     const { context } = useCompany()
 
-    const [list, setList] = useState([] as DispEmployee[])
+    const [list, setList] = useState([] as Employee[])
 
     const [search, setSearch] = useState("")
     const [filter, setFilter] = useState("firstName")

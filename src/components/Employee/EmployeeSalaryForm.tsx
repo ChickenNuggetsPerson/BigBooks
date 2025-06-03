@@ -2,27 +2,15 @@
 
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
 import submitEmployeeSalaryForm from "@/actions/employee/submitEmployeeSalaryFrom";
-import TextInput from "@/components/Forms/TextInput";
-import { DispEmployee, getEmptyDispEmployee } from "@/database/models/DisplayModels";
 import { useEffect, useState } from "react";
 import SelectInput from "../Forms/SelectInput";
-import AnimateChildren from "../Decorative/AnimateChildren";
 import NumberInput from "../Forms/NumberInput";
 import { Divider } from "../Forms/Divider";
 import { FilingTypes } from "@/database/Taxes/FilingTypes";
 import Loading from "@/app/Loading";
+import { Employee } from "@/database/generated/prisma";
+import TextInput from "../Forms/TextInput";
 
-
-const SalaryOptions = [
-    {
-        label: "Salary",
-        id: "salary"
-    },
-    {
-        label: "Hourly",
-        id: "hourly"
-    }
-]
 
 const FilingOptions = [
     {
@@ -39,11 +27,9 @@ const FilingOptions = [
 interface EmployeeSalaryFormProps { empUUID: string }
 export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps) {
 
-    const [props, setProps] = useState(getEmptyDispEmployee())
+    const [props, setProps] = useState({} as Employee)
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(true)
-
-    const [section, setSection] = useState("")
 
     useEffect(() => {
 
@@ -53,10 +39,9 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
             const employee = await getEmployeeProps(empUUID, false)
             if (employee) { // Employee exists
                 setProps(employee)
-                setSection(SalaryOptions[employee.isSalary ? 0 : 1].id)
+
             } else {
                 setError(true)
-                setSection("")
             }
 
             setLoading(false)
@@ -81,9 +66,6 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
             <Loading hCenter vCenter />
         )
     }
-
-    function onSalaryTypeChange(val: string) { setSection(val) }
-
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
@@ -114,62 +96,20 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
                     </div>
                 </div>
 
-                <SelectInput id={"isSalary"} label={"Pay Type"} val={SalaryOptions[props.isSalary ? 0 : 1].id} options={SalaryOptions} changeCB={onSalaryTypeChange} />
+                <TextInput id="uuid" val={empUUID} label="Employee UUID" disabled/>
 
                 <button type="submit" className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>
             </div>
 
             <div className="max-w-md card">
-                <div className="mb-10">
-                    {section == SalaryOptions[0].id && <AnimateChildren x={0} y={-10}> <SalarySection d={props} /> </AnimateChildren>}
-                    {section == SalaryOptions[1].id && <AnimateChildren x={0} y={-10}> <HourlySection d={props} /> </AnimateChildren>}
-                </div>
+                <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">Compensation Groups</h5>
+                <Divider />
 
-                <TextInput id={"uuid"} label={"Emp UUID"} val={props.uuid} disabled />
+                Under Construction...
             </div>
+
         </form>
 
     )
 }
 
-
-
-interface SectionProps { d: DispEmployee }
-function SalarySection({ d }: SectionProps) {
-    return (
-        <div className="card">
-            <div className="mt-3">
-                <NumberInput id={"salary"} label={"Annual Salary"} val={d.salary} placeholder={""} disabled={false} />
-            </div>
-        </div>
-    )
-}
-
-
-function HourlySection({ d }: SectionProps) {
-    const [rates, setRate] = useState(d.hourlyRates)
-
-    function addRate() {
-        setRate([...rates, { name: "", rate: 0 }])
-    }
-
-    function removeRate(i: number) {
-        setRate(rates.filter((r, index) => { return index != i }))
-    }
-
-    return (
-        <div>
-            {rates.map((r, i) => (
-                <div key={i} className="card w-full flex flex-row justify-between">
-                    <TextInput id={i + "-name"} label={"Name"} val={r.name} placeholder={""} disabled={false} />
-                    <NumberInput id={i + "-rate"} label={"$ / hr"} val={r.rate} placeholder={""} disabled={false} />
-
-                    <button type="button" onClick={() => { removeRate(i) }} className="accent-button m-2">X</button>
-                </div>
-            ))}
-
-            <button type="button" onClick={addRate} className="primary-button m-2">+</button>
-        </div>
-    )
-
-}

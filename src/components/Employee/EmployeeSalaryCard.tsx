@@ -1,14 +1,14 @@
-import { DispEmployee } from "@/database/models/DisplayModels";
 import EditableDiv from "../Decorative/EditableDiv";
 import { HourlyRateStr, MoneyToStr } from "@/functions/MoneyStr";
 import { Divider } from "../Forms/Divider";
 import { CardProp } from "./EmployeeCard";
+import { Employee } from "@/database/generated/prisma";
 
 
 
 
 
-export default function EmployeeSalaryCard({ employee }: { employee: DispEmployee }) {
+export default function EmployeeSalaryCard({ employee }: { employee: Employee }) {
 
     return (
 
@@ -23,8 +23,7 @@ export default function EmployeeSalaryCard({ employee }: { employee: DispEmploye
 
             <Divider />
 
-            {employee.isSalary && <SalaryRate salary={employee.salary} />}
-            {!employee.isSalary && <HourlyRates rates={employee?.hourlyRates ?? []} />}
+
 
         </EditableDiv>
 

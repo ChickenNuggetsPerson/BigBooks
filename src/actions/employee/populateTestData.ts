@@ -31,10 +31,7 @@ export default async function populateTestData() {
                     phoneNumber: user.phone || '',
                     ssn: user.ssn || '',
                     address: user.address ? `${user.address.address}, ${user.address.city}, ${user.address.stateCode} ${user.address.postalCode}` : '',
-                    hourlyRates: [{ name: "Regular", rate: Math.floor(Math.random() * 40) }], 
                     organizationId: session.orgUUID,
-                    salary: Math.floor(Math.random() * 100000),
-                    isSalary: Math.floor(Math.random() * 100) % 2 == 0,
                     dependants: Math.floor(Math.random() * 5)
                 },
             });

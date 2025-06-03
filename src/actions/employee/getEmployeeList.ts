@@ -3,7 +3,6 @@
 import { redirectIfInvalidSession } from "@/auth/auth";
 import { RoleTypes } from "@/auth/roles/Roles";
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
-import { getDispEmployee, getEmptyDispEmployee } from "@/database/models/DisplayModels"
 import { prisma } from "@/database/prisma";
 
 
@@ -26,14 +25,17 @@ export default async function getEmployeeList(orgUUID: string, filter: FilterOpt
             where: { uuid: orgUUID },
             include: {
                 employees: true
-            }
+            },
         })
 
-        if (!organization) { return [getEmptyDispEmployee("Error")] }
+        if (!organization) { return [] }
 
         let list = organization.employees
-            .map((e) => getDispEmployee(e, true))
-            .sort((a, b) => a.lastName.toLowerCase().localeCompare(b.lastName.toLowerCase()));
+
+        // Strip SSNs from payload
+        for (let i = 0; i < list.length; i++) {
+            list[i].ssn = ""
+        }
 
         if (filter == FilterOption.Deactivated) {
             list = list.filter((e) => e.isDeleted === true)
@@ -46,6 +48,6 @@ export default async function getEmployeeList(orgUUID: string, filter: FilterOpt
 
     } catch (err) {
         console.error(err)
-        return [getEmptyDispEmployee("Error")]
+        return []
     }
 }

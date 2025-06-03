@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
- * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+ * Prisma Client JS version: 6.9.0
+ * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
-  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
+  client: "6.9.0",
+  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -156,9 +156,7 @@ exports.Prisma.OrganizationScalarFieldEnum = {
   name: 'name',
   notes: 'notes',
   address: 'address',
-  isDeleted: 'isDeleted',
-  periodsPerYear: 'periodsPerYear',
-  periodsRefDate: 'periodsRefDate'
+  isDeleted: 'isDeleted'
 };
 
 exports.Prisma.EmployeeScalarFieldEnum = {
@@ -171,40 +169,65 @@ exports.Prisma.EmployeeScalarFieldEnum = {
   email: 'email',
   phoneNumber: 'phoneNumber',
   ssn: 'ssn',
-  isSalary: 'isSalary',
-  salary: 'salary',
-  hourlyRates: 'hourlyRates',
   filingStatus: 'filingStatus',
   dependants: 'dependants',
   isDeleted: 'isDeleted',
   organizationId: 'organizationId'
 };
 
-exports.Prisma.PayperiodScalarFieldEnum = {
+exports.Prisma.PayrollGroupScalarFieldEnum = {
   uuid: 'uuid',
-  periodStart: 'periodStart',
-  periodEnd: 'periodEnd',
-  includedEmployees: 'includedEmployees',
+  name: 'name',
+  description: 'description',
+  payFrequency: 'payFrequency',
+  payRefDate: 'payRefDate',
   organizationId: 'organizationId'
+};
+
+exports.Prisma.EmployeeCompensationScalarFieldEnum = {
+  uuid: 'uuid',
+  employeeId: 'employeeId',
+  payrollGroupId: 'payrollGroupId',
+  isSalary: 'isSalary',
+  salaryAmount: 'salaryAmount'
+};
+
+exports.Prisma.HourlyRateScalarFieldEnum = {
+  uuid: 'uuid',
+  name: 'name',
+  rate: 'rate',
+  canOvertime: 'canOvertime',
+  compensationId: 'compensationId'
 };
 
 exports.Prisma.PayStubScalarFieldEnum = {
   uuid: 'uuid',
-  hourly: 'hourly',
-  salary: 'salary',
-  commission: 'commission',
-  bonus: 'bonus',
-  federalRate: 'federalRate',
-  federalAmt: 'federalAmt',
-  stateRate: 'stateRate',
-  stateAmt: 'stateAmt',
-  mediRate: 'mediRate',
-  mediAmt: 'mediAmt',
-  socialRate: 'socialRate',
-  socialAmt: 'socialAmt',
-  otherItems: 'otherItems',
-  employeeId: 'employeeId',
-  payperiodId: 'payperiodId'
+  payDate: 'payDate',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  grossEarnings: 'grossEarnings',
+  totalDeductions: 'totalDeductions',
+  netPay: 'netPay',
+  employeeId: 'employeeId'
+};
+
+exports.Prisma.PayStubEarningScalarFieldEnum = {
+  id: 'id',
+  payStubId: 'payStubId',
+  type: 'type',
+  description: 'description',
+  amount: 'amount',
+  hours: 'hours',
+  rate: 'rate'
+};
+
+exports.Prisma.PayStubDeductionScalarFieldEnum = {
+  id: 'id',
+  payStubId: 'payStubId',
+  type: 'type',
+  description: 'description',
+  amount: 'amount',
+  rate: 'rate'
 };
 
 exports.Prisma.SortOrder = {
@@ -212,19 +235,14 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.JsonNullValueInput = {
-  JsonNull: Prisma.JsonNull
-};
-
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
 
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 
@@ -235,8 +253,12 @@ exports.Prisma.ModelName = {
   Role: 'Role',
   Organization: 'Organization',
   Employee: 'Employee',
-  Payperiod: 'Payperiod',
-  PayStub: 'PayStub'
+  PayrollGroup: 'PayrollGroup',
+  EmployeeCompensation: 'EmployeeCompensation',
+  HourlyRate: 'HourlyRate',
+  PayStub: 'PayStub',
+  PayStubEarning: 'PayStubEarning',
+  PayStubDeduction: 'PayStubDeduction'
 };
 
 /**

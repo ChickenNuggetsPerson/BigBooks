@@ -4,20 +4,19 @@ import { UserRoleIcon } from "../UserRoleIcon";
 import ClickableDiv from "@/components/Decorative/ClickableDiv";
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
 import RoleModal from "./RoleModal";
-import { getIDFromRoleType, getRoleFromID, RoleTypes } from "@/auth/roles/Roles";
 import { useCompany } from "@/app/CompanyContext";
-import { DispUser } from "@/database/models/DisplayModels";
+import { Prisma } from "@/database/generated/prisma";
+import { getRoleFromID, RoleTypes } from "@/auth/roles/Roles";
 
 
 
 
-export default function OrgUserCard({ user }: { user: DispUser }) {
+export default function OrgUserCard({ user }: { user: Prisma.UserGetPayload<{ include: { memberships: true }}> }) {
 
     const { addModal } = useModalManager()
     const { context } = useCompany()
 
-    const roleType = user.memberships.find((r) => r.orgUUID == context?.companyUUID)?.type ?? RoleTypes.Error
-    const role = getRoleFromID(getIDFromRoleType(roleType))
+    const role = getRoleFromID(user.memberships.find((r) => r.organizationId == context?.companyUUID)?.role ?? "")
 
     function pressed() {
         if (role.type == RoleTypes.Error) { return }

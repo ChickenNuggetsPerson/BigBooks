@@ -4,6 +4,7 @@ import getOrgRole from "@/auth/roles/getOrgRole";
 import { Role_Admin } from "@/auth/roles/Roles";
 import AdminCard from "@/components/admin/AdminCard";
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
+import { prisma } from "@/database/prisma";
 
 
 
@@ -14,6 +15,13 @@ export default async function Overview() {
     const session = await getSession()
     const role = await getOrgRole()
     const details = await getOrgDetails(session?.orgUUID ?? " ")
+    const employeeCount = await prisma.employee.count({ where: { organizationId: session?.orgUUID } })
+
+    if (!details) {
+        return <div>
+            Error Fetching Details...
+        </div>
+    }
 
     return (
 
@@ -36,7 +44,7 @@ export default async function Overview() {
             <div className="card max-w-sm">
                 <h5 className="mb-2 text-2xl font-normal text-gray-700 ">Organization Statistics:</h5>
 
-                <h5 className="font-normal text-gray-700">Total Employees: {details.employeeCount}</h5>
+                <h5 className="font-normal text-gray-700">Total Employees: {employeeCount}</h5>
             </div>
 
             {role.level >= Role_Admin.level && <AdminCard />}

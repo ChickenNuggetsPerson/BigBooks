@@ -3,13 +3,13 @@
 
 import { DispRole } from "@/auth/roles/Roles";
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
-import { DispOrganization, DispUser } from "@/database/models/DisplayModels";
 import RoleModal from "../../OrgAdmin/RoleModal";
+import { Organization, User } from "@/database/generated/prisma";
 
 
 
 
-export default function IncludedOrgCard({ role, org, user }: { role: DispRole, org: DispOrganization, user: DispUser }) {
+export default function IncludedOrgCard({ role, org, user }: { role: DispRole, org: Organization, user: User }) {
 
     const { addModal } = useModalManager()
 

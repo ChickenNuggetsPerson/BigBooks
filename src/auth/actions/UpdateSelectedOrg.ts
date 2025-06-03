@@ -17,7 +17,7 @@ export default async function UpdateSelectedOrg(orgUUID: string) {
 
     let contains = false
     user.memberships.forEach((role) => {
-        if (role.orgUUID == orgUUID) {
+        if (role.organizationId == orgUUID) {
             contains = true
         }
     })

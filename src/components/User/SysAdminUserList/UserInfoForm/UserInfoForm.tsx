@@ -2,9 +2,11 @@ import getOrgList from "@/actions/organization/getOrgList"
 import UserActiveBtn from "../UserActiveBtn"
 import getUser from "@/actions/user/getUser"
 import UnincludedOrgCard from "./UnincludedOrgCard"
-import { DispOrganization, getEmptyDispOrganization } from "@/database/models/DisplayModels"
 import IncludedOrgCard from "./IncludedOrgCard"
 import UserAllocatedBtn from "./UserAllocatedBtn"
+import { Organization } from "@/database/generated/prisma"
+import Error from "next/error"
+import { getRoleFromID } from "@/auth/roles/Roles"
 
 
 
@@ -15,11 +17,19 @@ export default async function UserInfoForm({ userID }: { userID: string }) {
     const orgs = await getOrgList(true)
     const user = await getUser(userID)
 
-    const orgsNotIncluded = [] as DispOrganization[]
+    if (!user) {
+        return (
+            <div>
+                User does not exist...
+            </div>
+        )
+    }
+
+    const orgsNotIncluded = [] as Organization[]
 
     orgs.forEach((org) => { // Make array of organizations not included in the user's memberships 
         for (let i = 0; i < user.memberships.length; i++) {
-            if (user.memberships[i].orgUUID == org.uuid) {
+            if (user.memberships[i].organizationId == org.uuid) {
                 return
             }
         }
@@ -33,7 +43,7 @@ export default async function UserInfoForm({ userID }: { userID: string }) {
             }
         }
 
-        return getEmptyDispOrganization()
+        throw new Error({ statusCode: 0 })
     }
 
     return (
@@ -70,7 +80,7 @@ export default async function UserInfoForm({ userID }: { userID: string }) {
 
                         <div>
                             {user.memberships.map((role) => (
-                                <IncludedOrgCard role={role} org={getOrg(role.orgUUID)} key={role.userUUID + role.orgUUID} user={user} />
+                                <IncludedOrgCard role={getRoleFromID(role.role)} org={getOrg(role.organizationId)} key={role.userId + role.organizationId} user={user} />
                             ))}
 
                         </div>

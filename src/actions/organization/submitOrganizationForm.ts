@@ -18,9 +18,6 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
     const notes = formData.get("notes") as string
     const address = formData.get("address") as string
 
-    const periodsPerYear = Number(formData.get("periodsPerYear") as string)
-    const periodsRefDate = new Date(formData.get("periodsRefDate") as string)
-
     let returnUUID = ""
     let returnNAME = ""
 
@@ -39,9 +36,7 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
                 name: name,
                 notes: notes,
                 address: address,
-                isDeleted: false,
-                periodsPerYear: periodsPerYear,
-                periodsRefDate: periodsRefDate
+                isDeleted: false
             }
         })
 
@@ -76,9 +71,7 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
                 data: {
                     name: name,
                     notes: notes,
-                    address: address,
-                    periodsPerYear: periodsPerYear,
-                    periodsRefDate: periodsRefDate
+                    address: address
                 }
             })
 
