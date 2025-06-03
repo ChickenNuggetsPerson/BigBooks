@@ -5,7 +5,6 @@ import UnincludedOrgCard from "./UnincludedOrgCard"
 import IncludedOrgCard from "./IncludedOrgCard"
 import UserAllocatedBtn from "./UserAllocatedBtn"
 import { Organization } from "@/database/generated/prisma"
-import Error from "next/error"
 import { getRoleFromID } from "@/auth/roles/Roles"
 
 
@@ -43,7 +42,7 @@ export default async function UserInfoForm({ userID }: { userID: string }) {
             }
         }
 
-        throw new Error({ statusCode: 0 })
+        throw new Error("Error Fetching Organization")
     }
 
     return (
