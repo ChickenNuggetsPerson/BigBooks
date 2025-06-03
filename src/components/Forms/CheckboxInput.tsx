@@ -1,22 +1,32 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 
 
 
 interface CheckboxInputProps {
-    id: string
-    label: string
-    val: boolean
-    disabled: boolean
-    changeCB: (val: boolean) => void
+    id?: string
+    label?: string
+    val?: boolean
+    disabled?: boolean
+    changeCB?: (val: boolean) => void
 }
 
-export default function CheckboxInput({ id, label, val, disabled, changeCB }: CheckboxInputProps) {
+export default function CheckboxInput({ 
+    id = "", 
+    label = "",
+    val = false, 
+    disabled = false, 
+    changeCB = () => {}
+}: CheckboxInputProps) {
 
-    const [selected, setSelected] = useState(val)
+    const [selected, setSelected] = useState(false)
+
+    useEffect(() => {
+        setSelected(val)
+    }, [val])
 
     function clicked() {
         setSelected(!selected)

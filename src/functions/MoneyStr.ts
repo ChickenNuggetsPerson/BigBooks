@@ -1,10 +1,6 @@
 
 
 
-
-
-
-
 export function MoneyToStr(money: number) {
 
     const str = (m: number) => {

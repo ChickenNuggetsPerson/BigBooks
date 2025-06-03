@@ -3,7 +3,19 @@
 
 
 
-export default function NumberInput({ id, label, val, placeholder, disabled }: { id: string, label: string, val: number, placeholder: string, disabled: boolean }) {
+export default function NumberInput({ 
+    id = "", 
+    label = "", 
+    val = 0, 
+    placeholder = "", 
+    disabled = false 
+}: { 
+    id?: string, 
+    label?: string, 
+    val?: number, 
+    placeholder?: string, 
+    disabled?: boolean 
+}) {
     return (
         <div className={"relative z-0 w-full mb-5 group " + (disabled ? "opacity-50" : "")}>
             <input type="number" name={id} id={id} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder={placeholder} defaultValue={val} readOnly={disabled} step="any"/>

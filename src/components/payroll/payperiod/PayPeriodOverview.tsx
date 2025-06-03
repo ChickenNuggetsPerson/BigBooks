@@ -9,11 +9,11 @@ import getCurrentPayperiod from "@/actions/payperiod/getPayperiodByDate";
 import PayPeriodList from "./PayPeriodList";
 import getPayperiodByUUID from "@/actions/payperiod/getPayperiodByUUID";
 import ProgressBar from "../../Decorative/ProgressBar/ProgressPannel";
-import EmployeeList from "@/components/Employee/EmployeeList";
 import setPayperiodIncludes from "@/actions/payperiod/setPayperiodIncludes";
 import EditPaystubScreen from "../paystub/EditPaystubScreen";
 import getEmployeeList from "@/actions/employee/getEmployeeList";
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
+import SelectableEmployeeList from "@/components/Employee/EmployeeList/SelectableEmployeeList";
 
 
 
@@ -87,7 +87,7 @@ export default function PayPeriodOverview() {
                 <div className="m-5"></div>
 
                 {step == 0 && <>
-                    <EmployeeList employeePage={false} selectCB={(selected) => { updateIncluded(selected); }} preSelected={period.includedEmployees} />
+                    <SelectableEmployeeList selectCB={(selected) => { updateIncluded(selected); }} preSelected={period.includedEmployees} />
                 </>}
 
                 {step == 1 && <>
