@@ -33,8 +33,8 @@ export default async function EmployeeView({ params }: { params: Promise<{ emplo
     return (
         <div className="">
 
-            <Link href={isNew ? "/organization/employee" : `/organization/employee/${employeeUUID}`} style={{ position: 'absolute' }} className="text-black font-medium text-lg w-full sm:w-auto px-5 py-2.5 text-center">
-                <MoveLeft />
+            <Link href={isNew ? "/organization/employee" : `/organization/employee/${employeeUUID}`} >
+                <MoveLeft/>
             </Link>
 
             <AnimateChildren x={0} y={-100} className="mx-20">

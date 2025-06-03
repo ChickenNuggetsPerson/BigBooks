@@ -28,8 +28,8 @@ export default async function EmployeeView({
 
         <div>
 
-            <Link href={`/organization/employee`} style={{ position: 'absolute' }} className="text-black font-medium text-lg w-full sm:w-auto px-5 py-2.5 text-center" >
-                <MoveLeft size={20}/>
+            <Link href={`/organization/employee`} >
+                <MoveLeft/>
             </Link>
 
             <AnimateChildren y={-100} className="flex flex-col lg:flex-row gap-6 justify-center px-10 py-20">
