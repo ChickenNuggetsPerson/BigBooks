@@ -55,7 +55,7 @@ export default async function UserPage() {
 
                 {session?.isAdmin &&
                     <Link href={"/user/users"} className="secondary-button mt-2">
-                        Employees
+                        Users
                     </Link>
                 }
             </div>
