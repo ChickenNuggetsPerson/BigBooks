@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.0.5](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v1.0.4...v1.0.5) (2025-06-03)
+
+
+### Features
+
+* Added CollapsibleDiv to some menus ([6911eb2](https://github.com/ChickenNuggetsPerson/BigBooks/commit/6911eb2e2bee07d6da6d7ce2d33a15df3854ddb9))
+* Added ping pong page ([b6109c7](https://github.com/ChickenNuggetsPerson/BigBooks/commit/b6109c7acee44cb73e46f9b327ad2786dad303c0))
+* New Employee list ([23a3942](https://github.com/ChickenNuggetsPerson/BigBooks/commit/23a394261c996c3e8ba89b6de8a6bc3d91b7bc3b))
+
+
+### Bug Fixes
+
+* Added Loading screens to forms ([32c7ed0](https://github.com/ChickenNuggetsPerson/BigBooks/commit/32c7ed003725d199c9e1cea8953157188c88f5ac))
+* Fixed Loading animations ([bcd3ede](https://github.com/ChickenNuggetsPerson/BigBooks/commit/bcd3edeb650cdc62f8c67f4161a6fdaedcc73d1f))
+* Layout change to employee salary card ([5148b54](https://github.com/ChickenNuggetsPerson/BigBooks/commit/5148b54d37a46bc103e2b50c07437addcf58647d))
+* Reduced clutter with form inputs in code ([ae932aa](https://github.com/ChickenNuggetsPerson/BigBooks/commit/ae932aa84e9ba648d2336954e58e50a469e566f4))
+* Updated back arrows ([ce995ba](https://github.com/ChickenNuggetsPerson/BigBooks/commit/ce995ba598932dd7fe9099775b8cace72cac6083))
+* Updated back arrows in employee pages ([3f83242](https://github.com/ChickenNuggetsPerson/BigBooks/commit/3f83242cc658613a15507cff4b8bc643d3cf6570))
+* Updated employee salary page layout ([0b2e9b0](https://github.com/ChickenNuggetsPerson/BigBooks/commit/0b2e9b06bf251e648c9dca26b0422f6ff33328d6))
+
+
+### Miscellaneous Chores
+
+* release 1.0.5 ([b340890](https://github.com/ChickenNuggetsPerson/BigBooks/commit/b3408900947441dce351b5594dc42096dc89c6e0))
+
 ## [1.0.4](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v1.0.3...v1.0.4) (2025-05-31)
 
 
