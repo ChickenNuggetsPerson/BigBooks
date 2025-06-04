@@ -43,7 +43,7 @@ export default function EmployeeList({
     const [showDeact, setShowDeact] = useState(2)
 
     const [columnFilters, setColumnFilters] = useState([] as ColumnFilter[])
-    
+
     const [loading, setLoading] = useState(false)
 
 
@@ -87,7 +87,7 @@ export default function EmployeeList({
     })
 
     useEffect(() => { // Fetch data
-        
+
         setLoading(true)
         async function load() {
             // 1 For All, 2 For Visable, 3 for Deactivated
@@ -104,7 +104,7 @@ export default function EmployeeList({
     }, [filter, search])
 
     useEffect(() => {
-        table.getColumn("firstName")?.toggleSorting(false)
+        table.getColumn("lastName")?.toggleSorting(false)
         table.setPageSize(pageCount)
     }, [pageCount, table])
 
@@ -156,10 +156,14 @@ export default function EmployeeList({
                                     <div className="flex flex-row justify-center select-none">
 
                                         {header.column.columnDef.header?.toString()}
-                                        {{
-                                            asc: <ArrowUp />,
-                                            desc: <ArrowDown />,
-                                        }[header.column.getIsSorted() as SortDirection]}
+
+                                        <div className="scale-70">
+                                            {{
+                                                asc: <ArrowUp />,
+                                                desc: <ArrowDown />,
+                                            }[header.column.getIsSorted() as SortDirection]}
+                                        </div>
+
                                     </div>
                                 </th>
                             ))}
@@ -173,7 +177,7 @@ export default function EmployeeList({
                             <motion.tr
                                 key={row.id}
 
-                                initial={{ opacity: 1, height: 0, fontSize: 0, borderWidth: "0px"}}
+                                initial={{ opacity: 1, height: 0, fontSize: 0, borderWidth: "0px" }}
                                 animate={{ opacity: 1, height: 40, fontSize: "15px", borderWidth: "1px" }}
                                 exit={{ opacity: 1, height: 0, fontSize: 0, border: 0, borderColor: "white" }}
 
@@ -204,7 +208,7 @@ export default function EmployeeList({
 
             </table>
 
-            {loading && <Loading hCenter/>}
+            {loading && <Loading hCenter />}
 
         </AnimateChildren>
     )
