@@ -2054,10 +2054,14 @@ export namespace Prisma {
 
   export type PayrollGroupCountOutputType = {
     compensations: number
+    defaultEarnings: number
+    defaultDeductions: number
   }
 
   export type PayrollGroupCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     compensations?: boolean | PayrollGroupCountOutputTypeCountCompensationsArgs
+    defaultEarnings?: boolean | PayrollGroupCountOutputTypeCountDefaultEarningsArgs
+    defaultDeductions?: boolean | PayrollGroupCountOutputTypeCountDefaultDeductionsArgs
   }
 
   // Custom InputTypes
@@ -2076,6 +2080,20 @@ export namespace Prisma {
    */
   export type PayrollGroupCountOutputTypeCountCompensationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EmployeeCompensationWhereInput
+  }
+
+  /**
+   * PayrollGroupCountOutputType without action
+   */
+  export type PayrollGroupCountOutputTypeCountDefaultEarningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PayStubEarningWhereInput
+  }
+
+  /**
+   * PayrollGroupCountOutputType without action
+   */
+  export type PayrollGroupCountOutputTypeCountDefaultDeductionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PayStubDeductionWhereInput
   }
 
 
@@ -9092,6 +9110,8 @@ export namespace Prisma {
     organizationId?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     compensations?: boolean | PayrollGroup$compensationsArgs<ExtArgs>
+    defaultEarnings?: boolean | PayrollGroup$defaultEarningsArgs<ExtArgs>
+    defaultDeductions?: boolean | PayrollGroup$defaultDeductionsArgs<ExtArgs>
     _count?: boolean | PayrollGroupCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payrollGroup"]>
 
@@ -9128,6 +9148,8 @@ export namespace Prisma {
   export type PayrollGroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     compensations?: boolean | PayrollGroup$compensationsArgs<ExtArgs>
+    defaultEarnings?: boolean | PayrollGroup$defaultEarningsArgs<ExtArgs>
+    defaultDeductions?: boolean | PayrollGroup$defaultDeductionsArgs<ExtArgs>
     _count?: boolean | PayrollGroupCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PayrollGroupIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9142,6 +9164,8 @@ export namespace Prisma {
     objects: {
       organization: Prisma.$OrganizationPayload<ExtArgs>
       compensations: Prisma.$EmployeeCompensationPayload<ExtArgs>[]
+      defaultEarnings: Prisma.$PayStubEarningPayload<ExtArgs>[]
+      defaultDeductions: Prisma.$PayStubDeductionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       uuid: string
@@ -9546,6 +9570,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     compensations<T extends PayrollGroup$compensationsArgs<ExtArgs> = {}>(args?: Subset<T, PayrollGroup$compensationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeCompensationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    defaultEarnings<T extends PayrollGroup$defaultEarningsArgs<ExtArgs> = {}>(args?: Subset<T, PayrollGroup$defaultEarningsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayStubEarningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    defaultDeductions<T extends PayrollGroup$defaultDeductionsArgs<ExtArgs> = {}>(args?: Subset<T, PayrollGroup$defaultDeductionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayStubDeductionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9998,6 +10024,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EmployeeCompensationScalarFieldEnum | EmployeeCompensationScalarFieldEnum[]
+  }
+
+  /**
+   * PayrollGroup.defaultEarnings
+   */
+  export type PayrollGroup$defaultEarningsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayStubEarning
+     */
+    select?: PayStubEarningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayStubEarning
+     */
+    omit?: PayStubEarningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayStubEarningInclude<ExtArgs> | null
+    where?: PayStubEarningWhereInput
+    orderBy?: PayStubEarningOrderByWithRelationInput | PayStubEarningOrderByWithRelationInput[]
+    cursor?: PayStubEarningWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PayStubEarningScalarFieldEnum | PayStubEarningScalarFieldEnum[]
+  }
+
+  /**
+   * PayrollGroup.defaultDeductions
+   */
+  export type PayrollGroup$defaultDeductionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayStubDeduction
+     */
+    select?: PayStubDeductionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayStubDeduction
+     */
+    omit?: PayStubDeductionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayStubDeductionInclude<ExtArgs> | null
+    where?: PayStubDeductionWhereInput
+    orderBy?: PayStubDeductionOrderByWithRelationInput | PayStubDeductionOrderByWithRelationInput[]
+    cursor?: PayStubDeductionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PayStubDeductionScalarFieldEnum | PayStubDeductionScalarFieldEnum[]
   }
 
   /**
@@ -13467,6 +13541,7 @@ export namespace Prisma {
     payStubId: string | null
     isDefault: boolean | null
     organizationId: string | null
+    payrollGroupId: string | null
     employeeId: string | null
     type: $Enums.PayStubItemType | null
     name: string | null
@@ -13481,6 +13556,7 @@ export namespace Prisma {
     payStubId: string | null
     isDefault: boolean | null
     organizationId: string | null
+    payrollGroupId: string | null
     employeeId: string | null
     type: $Enums.PayStubItemType | null
     name: string | null
@@ -13495,6 +13571,7 @@ export namespace Prisma {
     payStubId: number
     isDefault: number
     organizationId: number
+    payrollGroupId: number
     employeeId: number
     type: number
     name: number
@@ -13523,6 +13600,7 @@ export namespace Prisma {
     payStubId?: true
     isDefault?: true
     organizationId?: true
+    payrollGroupId?: true
     employeeId?: true
     type?: true
     name?: true
@@ -13537,6 +13615,7 @@ export namespace Prisma {
     payStubId?: true
     isDefault?: true
     organizationId?: true
+    payrollGroupId?: true
     employeeId?: true
     type?: true
     name?: true
@@ -13551,6 +13630,7 @@ export namespace Prisma {
     payStubId?: true
     isDefault?: true
     organizationId?: true
+    payrollGroupId?: true
     employeeId?: true
     type?: true
     name?: true
@@ -13652,6 +13732,7 @@ export namespace Prisma {
     payStubId: string | null
     isDefault: boolean
     organizationId: string | null
+    payrollGroupId: string | null
     employeeId: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -13685,6 +13766,7 @@ export namespace Prisma {
     payStubId?: boolean
     isDefault?: boolean
     organizationId?: boolean
+    payrollGroupId?: boolean
     employeeId?: boolean
     type?: boolean
     name?: boolean
@@ -13694,6 +13776,7 @@ export namespace Prisma {
     rate?: boolean
     payStub?: boolean | PayStubEarning$payStubArgs<ExtArgs>
     organization?: boolean | PayStubEarning$organizationArgs<ExtArgs>
+    payrollGroup?: boolean | PayStubEarning$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayStubEarning$employeeArgs<ExtArgs>
   }, ExtArgs["result"]["payStubEarning"]>
 
@@ -13702,6 +13785,7 @@ export namespace Prisma {
     payStubId?: boolean
     isDefault?: boolean
     organizationId?: boolean
+    payrollGroupId?: boolean
     employeeId?: boolean
     type?: boolean
     name?: boolean
@@ -13711,6 +13795,7 @@ export namespace Prisma {
     rate?: boolean
     payStub?: boolean | PayStubEarning$payStubArgs<ExtArgs>
     organization?: boolean | PayStubEarning$organizationArgs<ExtArgs>
+    payrollGroup?: boolean | PayStubEarning$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayStubEarning$employeeArgs<ExtArgs>
   }, ExtArgs["result"]["payStubEarning"]>
 
@@ -13719,6 +13804,7 @@ export namespace Prisma {
     payStubId?: boolean
     isDefault?: boolean
     organizationId?: boolean
+    payrollGroupId?: boolean
     employeeId?: boolean
     type?: boolean
     name?: boolean
@@ -13728,6 +13814,7 @@ export namespace Prisma {
     rate?: boolean
     payStub?: boolean | PayStubEarning$payStubArgs<ExtArgs>
     organization?: boolean | PayStubEarning$organizationArgs<ExtArgs>
+    payrollGroup?: boolean | PayStubEarning$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayStubEarning$employeeArgs<ExtArgs>
   }, ExtArgs["result"]["payStubEarning"]>
 
@@ -13736,6 +13823,7 @@ export namespace Prisma {
     payStubId?: boolean
     isDefault?: boolean
     organizationId?: boolean
+    payrollGroupId?: boolean
     employeeId?: boolean
     type?: boolean
     name?: boolean
@@ -13745,20 +13833,23 @@ export namespace Prisma {
     rate?: boolean
   }
 
-  export type PayStubEarningOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "payStubId" | "isDefault" | "organizationId" | "employeeId" | "type" | "name" | "description" | "amount" | "hours" | "rate", ExtArgs["result"]["payStubEarning"]>
+  export type PayStubEarningOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "payStubId" | "isDefault" | "organizationId" | "payrollGroupId" | "employeeId" | "type" | "name" | "description" | "amount" | "hours" | "rate", ExtArgs["result"]["payStubEarning"]>
   export type PayStubEarningInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubEarning$payStubArgs<ExtArgs>
     organization?: boolean | PayStubEarning$organizationArgs<ExtArgs>
+    payrollGroup?: boolean | PayStubEarning$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayStubEarning$employeeArgs<ExtArgs>
   }
   export type PayStubEarningIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubEarning$payStubArgs<ExtArgs>
     organization?: boolean | PayStubEarning$organizationArgs<ExtArgs>
+    payrollGroup?: boolean | PayStubEarning$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayStubEarning$employeeArgs<ExtArgs>
   }
   export type PayStubEarningIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubEarning$payStubArgs<ExtArgs>
     organization?: boolean | PayStubEarning$organizationArgs<ExtArgs>
+    payrollGroup?: boolean | PayStubEarning$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayStubEarning$employeeArgs<ExtArgs>
   }
 
@@ -13767,6 +13858,7 @@ export namespace Prisma {
     objects: {
       payStub: Prisma.$PayStubPayload<ExtArgs> | null
       organization: Prisma.$OrganizationPayload<ExtArgs> | null
+      payrollGroup: Prisma.$PayrollGroupPayload<ExtArgs> | null
       employee: Prisma.$EmployeePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -13774,6 +13866,7 @@ export namespace Prisma {
       payStubId: string | null
       isDefault: boolean
       organizationId: string | null
+      payrollGroupId: string | null
       employeeId: string | null
       type: $Enums.PayStubItemType
       name: string
@@ -14177,6 +14270,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     payStub<T extends PayStubEarning$payStubArgs<ExtArgs> = {}>(args?: Subset<T, PayStubEarning$payStubArgs<ExtArgs>>): Prisma__PayStubClient<$Result.GetResult<Prisma.$PayStubPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     organization<T extends PayStubEarning$organizationArgs<ExtArgs> = {}>(args?: Subset<T, PayStubEarning$organizationArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    payrollGroup<T extends PayStubEarning$payrollGroupArgs<ExtArgs> = {}>(args?: Subset<T, PayStubEarning$payrollGroupArgs<ExtArgs>>): Prisma__PayrollGroupClient<$Result.GetResult<Prisma.$PayrollGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     employee<T extends PayStubEarning$employeeArgs<ExtArgs> = {}>(args?: Subset<T, PayStubEarning$employeeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -14211,6 +14305,7 @@ export namespace Prisma {
     readonly payStubId: FieldRef<"PayStubEarning", 'String'>
     readonly isDefault: FieldRef<"PayStubEarning", 'Boolean'>
     readonly organizationId: FieldRef<"PayStubEarning", 'String'>
+    readonly payrollGroupId: FieldRef<"PayStubEarning", 'String'>
     readonly employeeId: FieldRef<"PayStubEarning", 'String'>
     readonly type: FieldRef<"PayStubEarning", 'PayStubItemType'>
     readonly name: FieldRef<"PayStubEarning", 'String'>
@@ -14652,6 +14747,25 @@ export namespace Prisma {
   }
 
   /**
+   * PayStubEarning.payrollGroup
+   */
+  export type PayStubEarning$payrollGroupArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayrollGroup
+     */
+    select?: PayrollGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayrollGroup
+     */
+    omit?: PayrollGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayrollGroupInclude<ExtArgs> | null
+    where?: PayrollGroupWhereInput
+  }
+
+  /**
    * PayStubEarning.employee
    */
   export type PayStubEarning$employeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14716,6 +14830,7 @@ export namespace Prisma {
     payStubId: string | null
     isDefault: boolean | null
     organizationId: string | null
+    payrollGroupId: string | null
     employeeId: string | null
     type: $Enums.PayStubItemType | null
     name: string | null
@@ -14729,6 +14844,7 @@ export namespace Prisma {
     payStubId: string | null
     isDefault: boolean | null
     organizationId: string | null
+    payrollGroupId: string | null
     employeeId: string | null
     type: $Enums.PayStubItemType | null
     name: string | null
@@ -14742,6 +14858,7 @@ export namespace Prisma {
     payStubId: number
     isDefault: number
     organizationId: number
+    payrollGroupId: number
     employeeId: number
     type: number
     name: number
@@ -14767,6 +14884,7 @@ export namespace Prisma {
     payStubId?: true
     isDefault?: true
     organizationId?: true
+    payrollGroupId?: true
     employeeId?: true
     type?: true
     name?: true
@@ -14780,6 +14898,7 @@ export namespace Prisma {
     payStubId?: true
     isDefault?: true
     organizationId?: true
+    payrollGroupId?: true
     employeeId?: true
     type?: true
     name?: true
@@ -14793,6 +14912,7 @@ export namespace Prisma {
     payStubId?: true
     isDefault?: true
     organizationId?: true
+    payrollGroupId?: true
     employeeId?: true
     type?: true
     name?: true
@@ -14893,6 +15013,7 @@ export namespace Prisma {
     payStubId: string
     isDefault: boolean
     organizationId: string | null
+    payrollGroupId: string | null
     employeeId: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -14925,6 +15046,7 @@ export namespace Prisma {
     payStubId?: boolean
     isDefault?: boolean
     organizationId?: boolean
+    payrollGroupId?: boolean
     employeeId?: boolean
     type?: boolean
     name?: boolean
@@ -14933,6 +15055,7 @@ export namespace Prisma {
     rate?: boolean
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     organization?: boolean | PayStubDeduction$organizationArgs<ExtArgs>
+    payrollGroup?: boolean | PayStubDeduction$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayStubDeduction$employeeArgs<ExtArgs>
   }, ExtArgs["result"]["payStubDeduction"]>
 
@@ -14941,6 +15064,7 @@ export namespace Prisma {
     payStubId?: boolean
     isDefault?: boolean
     organizationId?: boolean
+    payrollGroupId?: boolean
     employeeId?: boolean
     type?: boolean
     name?: boolean
@@ -14949,6 +15073,7 @@ export namespace Prisma {
     rate?: boolean
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     organization?: boolean | PayStubDeduction$organizationArgs<ExtArgs>
+    payrollGroup?: boolean | PayStubDeduction$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayStubDeduction$employeeArgs<ExtArgs>
   }, ExtArgs["result"]["payStubDeduction"]>
 
@@ -14957,6 +15082,7 @@ export namespace Prisma {
     payStubId?: boolean
     isDefault?: boolean
     organizationId?: boolean
+    payrollGroupId?: boolean
     employeeId?: boolean
     type?: boolean
     name?: boolean
@@ -14965,6 +15091,7 @@ export namespace Prisma {
     rate?: boolean
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     organization?: boolean | PayStubDeduction$organizationArgs<ExtArgs>
+    payrollGroup?: boolean | PayStubDeduction$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayStubDeduction$employeeArgs<ExtArgs>
   }, ExtArgs["result"]["payStubDeduction"]>
 
@@ -14973,6 +15100,7 @@ export namespace Prisma {
     payStubId?: boolean
     isDefault?: boolean
     organizationId?: boolean
+    payrollGroupId?: boolean
     employeeId?: boolean
     type?: boolean
     name?: boolean
@@ -14981,20 +15109,23 @@ export namespace Prisma {
     rate?: boolean
   }
 
-  export type PayStubDeductionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "payStubId" | "isDefault" | "organizationId" | "employeeId" | "type" | "name" | "description" | "amount" | "rate", ExtArgs["result"]["payStubDeduction"]>
+  export type PayStubDeductionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "payStubId" | "isDefault" | "organizationId" | "payrollGroupId" | "employeeId" | "type" | "name" | "description" | "amount" | "rate", ExtArgs["result"]["payStubDeduction"]>
   export type PayStubDeductionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     organization?: boolean | PayStubDeduction$organizationArgs<ExtArgs>
+    payrollGroup?: boolean | PayStubDeduction$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayStubDeduction$employeeArgs<ExtArgs>
   }
   export type PayStubDeductionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     organization?: boolean | PayStubDeduction$organizationArgs<ExtArgs>
+    payrollGroup?: boolean | PayStubDeduction$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayStubDeduction$employeeArgs<ExtArgs>
   }
   export type PayStubDeductionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     organization?: boolean | PayStubDeduction$organizationArgs<ExtArgs>
+    payrollGroup?: boolean | PayStubDeduction$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayStubDeduction$employeeArgs<ExtArgs>
   }
 
@@ -15003,6 +15134,7 @@ export namespace Prisma {
     objects: {
       payStub: Prisma.$PayStubPayload<ExtArgs>
       organization: Prisma.$OrganizationPayload<ExtArgs> | null
+      payrollGroup: Prisma.$PayrollGroupPayload<ExtArgs> | null
       employee: Prisma.$EmployeePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -15010,6 +15142,7 @@ export namespace Prisma {
       payStubId: string
       isDefault: boolean
       organizationId: string | null
+      payrollGroupId: string | null
       employeeId: string | null
       type: $Enums.PayStubItemType
       name: string
@@ -15412,6 +15545,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     payStub<T extends PayStubDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PayStubDefaultArgs<ExtArgs>>): Prisma__PayStubClient<$Result.GetResult<Prisma.$PayStubPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     organization<T extends PayStubDeduction$organizationArgs<ExtArgs> = {}>(args?: Subset<T, PayStubDeduction$organizationArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    payrollGroup<T extends PayStubDeduction$payrollGroupArgs<ExtArgs> = {}>(args?: Subset<T, PayStubDeduction$payrollGroupArgs<ExtArgs>>): Prisma__PayrollGroupClient<$Result.GetResult<Prisma.$PayrollGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     employee<T extends PayStubDeduction$employeeArgs<ExtArgs> = {}>(args?: Subset<T, PayStubDeduction$employeeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -15446,6 +15580,7 @@ export namespace Prisma {
     readonly payStubId: FieldRef<"PayStubDeduction", 'String'>
     readonly isDefault: FieldRef<"PayStubDeduction", 'Boolean'>
     readonly organizationId: FieldRef<"PayStubDeduction", 'String'>
+    readonly payrollGroupId: FieldRef<"PayStubDeduction", 'String'>
     readonly employeeId: FieldRef<"PayStubDeduction", 'String'>
     readonly type: FieldRef<"PayStubDeduction", 'PayStubItemType'>
     readonly name: FieldRef<"PayStubDeduction", 'String'>
@@ -15867,6 +16002,25 @@ export namespace Prisma {
   }
 
   /**
+   * PayStubDeduction.payrollGroup
+   */
+  export type PayStubDeduction$payrollGroupArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayrollGroup
+     */
+    select?: PayrollGroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayrollGroup
+     */
+    omit?: PayrollGroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayrollGroupInclude<ExtArgs> | null
+    where?: PayrollGroupWhereInput
+  }
+
+  /**
    * PayStubDeduction.employee
    */
   export type PayStubDeduction$employeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16044,6 +16198,7 @@ export namespace Prisma {
     payStubId: 'payStubId',
     isDefault: 'isDefault',
     organizationId: 'organizationId',
+    payrollGroupId: 'payrollGroupId',
     employeeId: 'employeeId',
     type: 'type',
     name: 'name',
@@ -16061,6 +16216,7 @@ export namespace Prisma {
     payStubId: 'payStubId',
     isDefault: 'isDefault',
     organizationId: 'organizationId',
+    payrollGroupId: 'payrollGroupId',
     employeeId: 'employeeId',
     type: 'type',
     name: 'name',
@@ -16604,6 +16760,8 @@ export namespace Prisma {
     organizationId?: StringFilter<"PayrollGroup"> | string
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     compensations?: EmployeeCompensationListRelationFilter
+    defaultEarnings?: PayStubEarningListRelationFilter
+    defaultDeductions?: PayStubDeductionListRelationFilter
   }
 
   export type PayrollGroupOrderByWithRelationInput = {
@@ -16615,6 +16773,8 @@ export namespace Prisma {
     organizationId?: SortOrder
     organization?: OrganizationOrderByWithRelationInput
     compensations?: EmployeeCompensationOrderByRelationAggregateInput
+    defaultEarnings?: PayStubEarningOrderByRelationAggregateInput
+    defaultDeductions?: PayStubDeductionOrderByRelationAggregateInput
   }
 
   export type PayrollGroupWhereUniqueInput = Prisma.AtLeast<{
@@ -16629,6 +16789,8 @@ export namespace Prisma {
     organizationId?: StringFilter<"PayrollGroup"> | string
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     compensations?: EmployeeCompensationListRelationFilter
+    defaultEarnings?: PayStubEarningListRelationFilter
+    defaultDeductions?: PayStubDeductionListRelationFilter
   }, "uuid" | "uuid">
 
   export type PayrollGroupOrderByWithAggregationInput = {
@@ -16864,6 +17026,7 @@ export namespace Prisma {
     payStubId?: StringNullableFilter<"PayStubEarning"> | string | null
     isDefault?: BoolFilter<"PayStubEarning"> | boolean
     organizationId?: StringNullableFilter<"PayStubEarning"> | string | null
+    payrollGroupId?: StringNullableFilter<"PayStubEarning"> | string | null
     employeeId?: StringNullableFilter<"PayStubEarning"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubEarning"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubEarning"> | string
@@ -16873,6 +17036,7 @@ export namespace Prisma {
     rate?: DecimalNullableFilter<"PayStubEarning"> | Decimal | DecimalJsLike | number | string | null
     payStub?: XOR<PayStubNullableScalarRelationFilter, PayStubWhereInput> | null
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
+    payrollGroup?: XOR<PayrollGroupNullableScalarRelationFilter, PayrollGroupWhereInput> | null
     employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
   }
 
@@ -16881,6 +17045,7 @@ export namespace Prisma {
     payStubId?: SortOrderInput | SortOrder
     isDefault?: SortOrder
     organizationId?: SortOrderInput | SortOrder
+    payrollGroupId?: SortOrderInput | SortOrder
     employeeId?: SortOrderInput | SortOrder
     type?: SortOrder
     name?: SortOrder
@@ -16890,6 +17055,7 @@ export namespace Prisma {
     rate?: SortOrderInput | SortOrder
     payStub?: PayStubOrderByWithRelationInput
     organization?: OrganizationOrderByWithRelationInput
+    payrollGroup?: PayrollGroupOrderByWithRelationInput
     employee?: EmployeeOrderByWithRelationInput
   }
 
@@ -16901,6 +17067,7 @@ export namespace Prisma {
     payStubId?: StringNullableFilter<"PayStubEarning"> | string | null
     isDefault?: BoolFilter<"PayStubEarning"> | boolean
     organizationId?: StringNullableFilter<"PayStubEarning"> | string | null
+    payrollGroupId?: StringNullableFilter<"PayStubEarning"> | string | null
     employeeId?: StringNullableFilter<"PayStubEarning"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubEarning"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubEarning"> | string
@@ -16910,6 +17077,7 @@ export namespace Prisma {
     rate?: DecimalNullableFilter<"PayStubEarning"> | Decimal | DecimalJsLike | number | string | null
     payStub?: XOR<PayStubNullableScalarRelationFilter, PayStubWhereInput> | null
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
+    payrollGroup?: XOR<PayrollGroupNullableScalarRelationFilter, PayrollGroupWhereInput> | null
     employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
   }, "id">
 
@@ -16918,6 +17086,7 @@ export namespace Prisma {
     payStubId?: SortOrderInput | SortOrder
     isDefault?: SortOrder
     organizationId?: SortOrderInput | SortOrder
+    payrollGroupId?: SortOrderInput | SortOrder
     employeeId?: SortOrderInput | SortOrder
     type?: SortOrder
     name?: SortOrder
@@ -16940,6 +17109,7 @@ export namespace Prisma {
     payStubId?: StringNullableWithAggregatesFilter<"PayStubEarning"> | string | null
     isDefault?: BoolWithAggregatesFilter<"PayStubEarning"> | boolean
     organizationId?: StringNullableWithAggregatesFilter<"PayStubEarning"> | string | null
+    payrollGroupId?: StringNullableWithAggregatesFilter<"PayStubEarning"> | string | null
     employeeId?: StringNullableWithAggregatesFilter<"PayStubEarning"> | string | null
     type?: EnumPayStubItemTypeWithAggregatesFilter<"PayStubEarning"> | $Enums.PayStubItemType
     name?: StringWithAggregatesFilter<"PayStubEarning"> | string
@@ -16957,6 +17127,7 @@ export namespace Prisma {
     payStubId?: StringFilter<"PayStubDeduction"> | string
     isDefault?: BoolFilter<"PayStubDeduction"> | boolean
     organizationId?: StringNullableFilter<"PayStubDeduction"> | string | null
+    payrollGroupId?: StringNullableFilter<"PayStubDeduction"> | string | null
     employeeId?: StringNullableFilter<"PayStubDeduction"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubDeduction"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubDeduction"> | string
@@ -16965,6 +17136,7 @@ export namespace Prisma {
     rate?: DecimalNullableFilter<"PayStubDeduction"> | Decimal | DecimalJsLike | number | string | null
     payStub?: XOR<PayStubScalarRelationFilter, PayStubWhereInput>
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
+    payrollGroup?: XOR<PayrollGroupNullableScalarRelationFilter, PayrollGroupWhereInput> | null
     employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
   }
 
@@ -16973,6 +17145,7 @@ export namespace Prisma {
     payStubId?: SortOrder
     isDefault?: SortOrder
     organizationId?: SortOrderInput | SortOrder
+    payrollGroupId?: SortOrderInput | SortOrder
     employeeId?: SortOrderInput | SortOrder
     type?: SortOrder
     name?: SortOrder
@@ -16981,6 +17154,7 @@ export namespace Prisma {
     rate?: SortOrderInput | SortOrder
     payStub?: PayStubOrderByWithRelationInput
     organization?: OrganizationOrderByWithRelationInput
+    payrollGroup?: PayrollGroupOrderByWithRelationInput
     employee?: EmployeeOrderByWithRelationInput
   }
 
@@ -16992,6 +17166,7 @@ export namespace Prisma {
     payStubId?: StringFilter<"PayStubDeduction"> | string
     isDefault?: BoolFilter<"PayStubDeduction"> | boolean
     organizationId?: StringNullableFilter<"PayStubDeduction"> | string | null
+    payrollGroupId?: StringNullableFilter<"PayStubDeduction"> | string | null
     employeeId?: StringNullableFilter<"PayStubDeduction"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubDeduction"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubDeduction"> | string
@@ -17000,6 +17175,7 @@ export namespace Prisma {
     rate?: DecimalNullableFilter<"PayStubDeduction"> | Decimal | DecimalJsLike | number | string | null
     payStub?: XOR<PayStubScalarRelationFilter, PayStubWhereInput>
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
+    payrollGroup?: XOR<PayrollGroupNullableScalarRelationFilter, PayrollGroupWhereInput> | null
     employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
   }, "id">
 
@@ -17008,6 +17184,7 @@ export namespace Prisma {
     payStubId?: SortOrder
     isDefault?: SortOrder
     organizationId?: SortOrderInput | SortOrder
+    payrollGroupId?: SortOrderInput | SortOrder
     employeeId?: SortOrderInput | SortOrder
     type?: SortOrder
     name?: SortOrder
@@ -17029,6 +17206,7 @@ export namespace Prisma {
     payStubId?: StringWithAggregatesFilter<"PayStubDeduction"> | string
     isDefault?: BoolWithAggregatesFilter<"PayStubDeduction"> | boolean
     organizationId?: StringNullableWithAggregatesFilter<"PayStubDeduction"> | string | null
+    payrollGroupId?: StringNullableWithAggregatesFilter<"PayStubDeduction"> | string | null
     employeeId?: StringNullableWithAggregatesFilter<"PayStubDeduction"> | string | null
     type?: EnumPayStubItemTypeWithAggregatesFilter<"PayStubDeduction"> | $Enums.PayStubItemType
     name?: StringWithAggregatesFilter<"PayStubDeduction"> | string
@@ -17470,6 +17648,8 @@ export namespace Prisma {
     payRefDate: Date | string
     organization: OrganizationCreateNestedOneWithoutPayrollGroupsInput
     compensations?: EmployeeCompensationCreateNestedManyWithoutPayrollGroupInput
+    defaultEarnings?: PayStubEarningCreateNestedManyWithoutPayrollGroupInput
+    defaultDeductions?: PayStubDeductionCreateNestedManyWithoutPayrollGroupInput
   }
 
   export type PayrollGroupUncheckedCreateInput = {
@@ -17480,6 +17660,8 @@ export namespace Prisma {
     payRefDate: Date | string
     organizationId: string
     compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutPayrollGroupInput
+    defaultEarnings?: PayStubEarningUncheckedCreateNestedManyWithoutPayrollGroupInput
+    defaultDeductions?: PayStubDeductionUncheckedCreateNestedManyWithoutPayrollGroupInput
   }
 
   export type PayrollGroupUpdateInput = {
@@ -17490,6 +17672,8 @@ export namespace Prisma {
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutPayrollGroupsNestedInput
     compensations?: EmployeeCompensationUpdateManyWithoutPayrollGroupNestedInput
+    defaultEarnings?: PayStubEarningUpdateManyWithoutPayrollGroupNestedInput
+    defaultDeductions?: PayStubDeductionUpdateManyWithoutPayrollGroupNestedInput
   }
 
   export type PayrollGroupUncheckedUpdateInput = {
@@ -17500,6 +17684,8 @@ export namespace Prisma {
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     organizationId?: StringFieldUpdateOperationsInput | string
     compensations?: EmployeeCompensationUncheckedUpdateManyWithoutPayrollGroupNestedInput
+    defaultEarnings?: PayStubEarningUncheckedUpdateManyWithoutPayrollGroupNestedInput
+    defaultDeductions?: PayStubDeductionUncheckedUpdateManyWithoutPayrollGroupNestedInput
   }
 
   export type PayrollGroupCreateManyInput = {
@@ -17736,6 +17922,7 @@ export namespace Prisma {
     rate?: Decimal | DecimalJsLike | number | string | null
     payStub?: PayStubCreateNestedOneWithoutEarningsInput
     organization?: OrganizationCreateNestedOneWithoutDefaultEarningsInput
+    payrollGroup?: PayrollGroupCreateNestedOneWithoutDefaultEarningsInput
     employee?: EmployeeCreateNestedOneWithoutDefaultEarningsInput
   }
 
@@ -17744,6 +17931,7 @@ export namespace Prisma {
     payStubId?: string | null
     isDefault?: boolean
     organizationId?: string | null
+    payrollGroupId?: string | null
     employeeId?: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -17764,6 +17952,7 @@ export namespace Prisma {
     rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payStub?: PayStubUpdateOneWithoutEarningsNestedInput
     organization?: OrganizationUpdateOneWithoutDefaultEarningsNestedInput
+    payrollGroup?: PayrollGroupUpdateOneWithoutDefaultEarningsNestedInput
     employee?: EmployeeUpdateOneWithoutDefaultEarningsNestedInput
   }
 
@@ -17772,6 +17961,7 @@ export namespace Prisma {
     payStubId?: NullableStringFieldUpdateOperationsInput | string | null
     isDefault?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
@@ -17786,6 +17976,7 @@ export namespace Prisma {
     payStubId?: string | null
     isDefault?: boolean
     organizationId?: string | null
+    payrollGroupId?: string | null
     employeeId?: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -17811,6 +18002,7 @@ export namespace Prisma {
     payStubId?: NullableStringFieldUpdateOperationsInput | string | null
     isDefault?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
@@ -17830,6 +18022,7 @@ export namespace Prisma {
     rate?: Decimal | DecimalJsLike | number | string | null
     payStub: PayStubCreateNestedOneWithoutDeductionsInput
     organization?: OrganizationCreateNestedOneWithoutDefaultDeductionsInput
+    payrollGroup?: PayrollGroupCreateNestedOneWithoutDefaultDeductionsInput
     employee?: EmployeeCreateNestedOneWithoutDefaultDeductionsInput
   }
 
@@ -17838,6 +18031,7 @@ export namespace Prisma {
     payStubId: string
     isDefault?: boolean
     organizationId?: string | null
+    payrollGroupId?: string | null
     employeeId?: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -17856,6 +18050,7 @@ export namespace Prisma {
     rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payStub?: PayStubUpdateOneRequiredWithoutDeductionsNestedInput
     organization?: OrganizationUpdateOneWithoutDefaultDeductionsNestedInput
+    payrollGroup?: PayrollGroupUpdateOneWithoutDefaultDeductionsNestedInput
     employee?: EmployeeUpdateOneWithoutDefaultDeductionsNestedInput
   }
 
@@ -17864,6 +18059,7 @@ export namespace Prisma {
     payStubId?: StringFieldUpdateOperationsInput | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
@@ -17877,6 +18073,7 @@ export namespace Prisma {
     payStubId: string
     isDefault?: boolean
     organizationId?: string | null
+    payrollGroupId?: string | null
     employeeId?: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -17900,6 +18097,7 @@ export namespace Prisma {
     payStubId?: StringFieldUpdateOperationsInput | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
@@ -18547,6 +18745,11 @@ export namespace Prisma {
     isNot?: OrganizationWhereInput | null
   }
 
+  export type PayrollGroupNullableScalarRelationFilter = {
+    is?: PayrollGroupWhereInput | null
+    isNot?: PayrollGroupWhereInput | null
+  }
+
   export type EmployeeNullableScalarRelationFilter = {
     is?: EmployeeWhereInput | null
     isNot?: EmployeeWhereInput | null
@@ -18557,6 +18760,7 @@ export namespace Prisma {
     payStubId?: SortOrder
     isDefault?: SortOrder
     organizationId?: SortOrder
+    payrollGroupId?: SortOrder
     employeeId?: SortOrder
     type?: SortOrder
     name?: SortOrder
@@ -18577,6 +18781,7 @@ export namespace Prisma {
     payStubId?: SortOrder
     isDefault?: SortOrder
     organizationId?: SortOrder
+    payrollGroupId?: SortOrder
     employeeId?: SortOrder
     type?: SortOrder
     name?: SortOrder
@@ -18591,6 +18796,7 @@ export namespace Prisma {
     payStubId?: SortOrder
     isDefault?: SortOrder
     organizationId?: SortOrder
+    payrollGroupId?: SortOrder
     employeeId?: SortOrder
     type?: SortOrder
     name?: SortOrder
@@ -18644,6 +18850,7 @@ export namespace Prisma {
     payStubId?: SortOrder
     isDefault?: SortOrder
     organizationId?: SortOrder
+    payrollGroupId?: SortOrder
     employeeId?: SortOrder
     type?: SortOrder
     name?: SortOrder
@@ -18662,6 +18869,7 @@ export namespace Prisma {
     payStubId?: SortOrder
     isDefault?: SortOrder
     organizationId?: SortOrder
+    payrollGroupId?: SortOrder
     employeeId?: SortOrder
     type?: SortOrder
     name?: SortOrder
@@ -18675,6 +18883,7 @@ export namespace Prisma {
     payStubId?: SortOrder
     isDefault?: SortOrder
     organizationId?: SortOrder
+    payrollGroupId?: SortOrder
     employeeId?: SortOrder
     type?: SortOrder
     name?: SortOrder
@@ -19239,11 +19448,39 @@ export namespace Prisma {
     connect?: EmployeeCompensationWhereUniqueInput | EmployeeCompensationWhereUniqueInput[]
   }
 
+  export type PayStubEarningCreateNestedManyWithoutPayrollGroupInput = {
+    create?: XOR<PayStubEarningCreateWithoutPayrollGroupInput, PayStubEarningUncheckedCreateWithoutPayrollGroupInput> | PayStubEarningCreateWithoutPayrollGroupInput[] | PayStubEarningUncheckedCreateWithoutPayrollGroupInput[]
+    connectOrCreate?: PayStubEarningCreateOrConnectWithoutPayrollGroupInput | PayStubEarningCreateOrConnectWithoutPayrollGroupInput[]
+    createMany?: PayStubEarningCreateManyPayrollGroupInputEnvelope
+    connect?: PayStubEarningWhereUniqueInput | PayStubEarningWhereUniqueInput[]
+  }
+
+  export type PayStubDeductionCreateNestedManyWithoutPayrollGroupInput = {
+    create?: XOR<PayStubDeductionCreateWithoutPayrollGroupInput, PayStubDeductionUncheckedCreateWithoutPayrollGroupInput> | PayStubDeductionCreateWithoutPayrollGroupInput[] | PayStubDeductionUncheckedCreateWithoutPayrollGroupInput[]
+    connectOrCreate?: PayStubDeductionCreateOrConnectWithoutPayrollGroupInput | PayStubDeductionCreateOrConnectWithoutPayrollGroupInput[]
+    createMany?: PayStubDeductionCreateManyPayrollGroupInputEnvelope
+    connect?: PayStubDeductionWhereUniqueInput | PayStubDeductionWhereUniqueInput[]
+  }
+
   export type EmployeeCompensationUncheckedCreateNestedManyWithoutPayrollGroupInput = {
     create?: XOR<EmployeeCompensationCreateWithoutPayrollGroupInput, EmployeeCompensationUncheckedCreateWithoutPayrollGroupInput> | EmployeeCompensationCreateWithoutPayrollGroupInput[] | EmployeeCompensationUncheckedCreateWithoutPayrollGroupInput[]
     connectOrCreate?: EmployeeCompensationCreateOrConnectWithoutPayrollGroupInput | EmployeeCompensationCreateOrConnectWithoutPayrollGroupInput[]
     createMany?: EmployeeCompensationCreateManyPayrollGroupInputEnvelope
     connect?: EmployeeCompensationWhereUniqueInput | EmployeeCompensationWhereUniqueInput[]
+  }
+
+  export type PayStubEarningUncheckedCreateNestedManyWithoutPayrollGroupInput = {
+    create?: XOR<PayStubEarningCreateWithoutPayrollGroupInput, PayStubEarningUncheckedCreateWithoutPayrollGroupInput> | PayStubEarningCreateWithoutPayrollGroupInput[] | PayStubEarningUncheckedCreateWithoutPayrollGroupInput[]
+    connectOrCreate?: PayStubEarningCreateOrConnectWithoutPayrollGroupInput | PayStubEarningCreateOrConnectWithoutPayrollGroupInput[]
+    createMany?: PayStubEarningCreateManyPayrollGroupInputEnvelope
+    connect?: PayStubEarningWhereUniqueInput | PayStubEarningWhereUniqueInput[]
+  }
+
+  export type PayStubDeductionUncheckedCreateNestedManyWithoutPayrollGroupInput = {
+    create?: XOR<PayStubDeductionCreateWithoutPayrollGroupInput, PayStubDeductionUncheckedCreateWithoutPayrollGroupInput> | PayStubDeductionCreateWithoutPayrollGroupInput[] | PayStubDeductionUncheckedCreateWithoutPayrollGroupInput[]
+    connectOrCreate?: PayStubDeductionCreateOrConnectWithoutPayrollGroupInput | PayStubDeductionCreateOrConnectWithoutPayrollGroupInput[]
+    createMany?: PayStubDeductionCreateManyPayrollGroupInputEnvelope
+    connect?: PayStubDeductionWhereUniqueInput | PayStubDeductionWhereUniqueInput[]
   }
 
   export type OrganizationUpdateOneRequiredWithoutPayrollGroupsNestedInput = {
@@ -19268,6 +19505,34 @@ export namespace Prisma {
     deleteMany?: EmployeeCompensationScalarWhereInput | EmployeeCompensationScalarWhereInput[]
   }
 
+  export type PayStubEarningUpdateManyWithoutPayrollGroupNestedInput = {
+    create?: XOR<PayStubEarningCreateWithoutPayrollGroupInput, PayStubEarningUncheckedCreateWithoutPayrollGroupInput> | PayStubEarningCreateWithoutPayrollGroupInput[] | PayStubEarningUncheckedCreateWithoutPayrollGroupInput[]
+    connectOrCreate?: PayStubEarningCreateOrConnectWithoutPayrollGroupInput | PayStubEarningCreateOrConnectWithoutPayrollGroupInput[]
+    upsert?: PayStubEarningUpsertWithWhereUniqueWithoutPayrollGroupInput | PayStubEarningUpsertWithWhereUniqueWithoutPayrollGroupInput[]
+    createMany?: PayStubEarningCreateManyPayrollGroupInputEnvelope
+    set?: PayStubEarningWhereUniqueInput | PayStubEarningWhereUniqueInput[]
+    disconnect?: PayStubEarningWhereUniqueInput | PayStubEarningWhereUniqueInput[]
+    delete?: PayStubEarningWhereUniqueInput | PayStubEarningWhereUniqueInput[]
+    connect?: PayStubEarningWhereUniqueInput | PayStubEarningWhereUniqueInput[]
+    update?: PayStubEarningUpdateWithWhereUniqueWithoutPayrollGroupInput | PayStubEarningUpdateWithWhereUniqueWithoutPayrollGroupInput[]
+    updateMany?: PayStubEarningUpdateManyWithWhereWithoutPayrollGroupInput | PayStubEarningUpdateManyWithWhereWithoutPayrollGroupInput[]
+    deleteMany?: PayStubEarningScalarWhereInput | PayStubEarningScalarWhereInput[]
+  }
+
+  export type PayStubDeductionUpdateManyWithoutPayrollGroupNestedInput = {
+    create?: XOR<PayStubDeductionCreateWithoutPayrollGroupInput, PayStubDeductionUncheckedCreateWithoutPayrollGroupInput> | PayStubDeductionCreateWithoutPayrollGroupInput[] | PayStubDeductionUncheckedCreateWithoutPayrollGroupInput[]
+    connectOrCreate?: PayStubDeductionCreateOrConnectWithoutPayrollGroupInput | PayStubDeductionCreateOrConnectWithoutPayrollGroupInput[]
+    upsert?: PayStubDeductionUpsertWithWhereUniqueWithoutPayrollGroupInput | PayStubDeductionUpsertWithWhereUniqueWithoutPayrollGroupInput[]
+    createMany?: PayStubDeductionCreateManyPayrollGroupInputEnvelope
+    set?: PayStubDeductionWhereUniqueInput | PayStubDeductionWhereUniqueInput[]
+    disconnect?: PayStubDeductionWhereUniqueInput | PayStubDeductionWhereUniqueInput[]
+    delete?: PayStubDeductionWhereUniqueInput | PayStubDeductionWhereUniqueInput[]
+    connect?: PayStubDeductionWhereUniqueInput | PayStubDeductionWhereUniqueInput[]
+    update?: PayStubDeductionUpdateWithWhereUniqueWithoutPayrollGroupInput | PayStubDeductionUpdateWithWhereUniqueWithoutPayrollGroupInput[]
+    updateMany?: PayStubDeductionUpdateManyWithWhereWithoutPayrollGroupInput | PayStubDeductionUpdateManyWithWhereWithoutPayrollGroupInput[]
+    deleteMany?: PayStubDeductionScalarWhereInput | PayStubDeductionScalarWhereInput[]
+  }
+
   export type EmployeeCompensationUncheckedUpdateManyWithoutPayrollGroupNestedInput = {
     create?: XOR<EmployeeCompensationCreateWithoutPayrollGroupInput, EmployeeCompensationUncheckedCreateWithoutPayrollGroupInput> | EmployeeCompensationCreateWithoutPayrollGroupInput[] | EmployeeCompensationUncheckedCreateWithoutPayrollGroupInput[]
     connectOrCreate?: EmployeeCompensationCreateOrConnectWithoutPayrollGroupInput | EmployeeCompensationCreateOrConnectWithoutPayrollGroupInput[]
@@ -19280,6 +19545,34 @@ export namespace Prisma {
     update?: EmployeeCompensationUpdateWithWhereUniqueWithoutPayrollGroupInput | EmployeeCompensationUpdateWithWhereUniqueWithoutPayrollGroupInput[]
     updateMany?: EmployeeCompensationUpdateManyWithWhereWithoutPayrollGroupInput | EmployeeCompensationUpdateManyWithWhereWithoutPayrollGroupInput[]
     deleteMany?: EmployeeCompensationScalarWhereInput | EmployeeCompensationScalarWhereInput[]
+  }
+
+  export type PayStubEarningUncheckedUpdateManyWithoutPayrollGroupNestedInput = {
+    create?: XOR<PayStubEarningCreateWithoutPayrollGroupInput, PayStubEarningUncheckedCreateWithoutPayrollGroupInput> | PayStubEarningCreateWithoutPayrollGroupInput[] | PayStubEarningUncheckedCreateWithoutPayrollGroupInput[]
+    connectOrCreate?: PayStubEarningCreateOrConnectWithoutPayrollGroupInput | PayStubEarningCreateOrConnectWithoutPayrollGroupInput[]
+    upsert?: PayStubEarningUpsertWithWhereUniqueWithoutPayrollGroupInput | PayStubEarningUpsertWithWhereUniqueWithoutPayrollGroupInput[]
+    createMany?: PayStubEarningCreateManyPayrollGroupInputEnvelope
+    set?: PayStubEarningWhereUniqueInput | PayStubEarningWhereUniqueInput[]
+    disconnect?: PayStubEarningWhereUniqueInput | PayStubEarningWhereUniqueInput[]
+    delete?: PayStubEarningWhereUniqueInput | PayStubEarningWhereUniqueInput[]
+    connect?: PayStubEarningWhereUniqueInput | PayStubEarningWhereUniqueInput[]
+    update?: PayStubEarningUpdateWithWhereUniqueWithoutPayrollGroupInput | PayStubEarningUpdateWithWhereUniqueWithoutPayrollGroupInput[]
+    updateMany?: PayStubEarningUpdateManyWithWhereWithoutPayrollGroupInput | PayStubEarningUpdateManyWithWhereWithoutPayrollGroupInput[]
+    deleteMany?: PayStubEarningScalarWhereInput | PayStubEarningScalarWhereInput[]
+  }
+
+  export type PayStubDeductionUncheckedUpdateManyWithoutPayrollGroupNestedInput = {
+    create?: XOR<PayStubDeductionCreateWithoutPayrollGroupInput, PayStubDeductionUncheckedCreateWithoutPayrollGroupInput> | PayStubDeductionCreateWithoutPayrollGroupInput[] | PayStubDeductionUncheckedCreateWithoutPayrollGroupInput[]
+    connectOrCreate?: PayStubDeductionCreateOrConnectWithoutPayrollGroupInput | PayStubDeductionCreateOrConnectWithoutPayrollGroupInput[]
+    upsert?: PayStubDeductionUpsertWithWhereUniqueWithoutPayrollGroupInput | PayStubDeductionUpsertWithWhereUniqueWithoutPayrollGroupInput[]
+    createMany?: PayStubDeductionCreateManyPayrollGroupInputEnvelope
+    set?: PayStubDeductionWhereUniqueInput | PayStubDeductionWhereUniqueInput[]
+    disconnect?: PayStubDeductionWhereUniqueInput | PayStubDeductionWhereUniqueInput[]
+    delete?: PayStubDeductionWhereUniqueInput | PayStubDeductionWhereUniqueInput[]
+    connect?: PayStubDeductionWhereUniqueInput | PayStubDeductionWhereUniqueInput[]
+    update?: PayStubDeductionUpdateWithWhereUniqueWithoutPayrollGroupInput | PayStubDeductionUpdateWithWhereUniqueWithoutPayrollGroupInput[]
+    updateMany?: PayStubDeductionUpdateManyWithWhereWithoutPayrollGroupInput | PayStubDeductionUpdateManyWithWhereWithoutPayrollGroupInput[]
+    deleteMany?: PayStubDeductionScalarWhereInput | PayStubDeductionScalarWhereInput[]
   }
 
   export type EmployeeCreateNestedOneWithoutCompensationsInput = {
@@ -19492,6 +19785,12 @@ export namespace Prisma {
     connect?: OrganizationWhereUniqueInput
   }
 
+  export type PayrollGroupCreateNestedOneWithoutDefaultEarningsInput = {
+    create?: XOR<PayrollGroupCreateWithoutDefaultEarningsInput, PayrollGroupUncheckedCreateWithoutDefaultEarningsInput>
+    connectOrCreate?: PayrollGroupCreateOrConnectWithoutDefaultEarningsInput
+    connect?: PayrollGroupWhereUniqueInput
+  }
+
   export type EmployeeCreateNestedOneWithoutDefaultEarningsInput = {
     create?: XOR<EmployeeCreateWithoutDefaultEarningsInput, EmployeeUncheckedCreateWithoutDefaultEarningsInput>
     connectOrCreate?: EmployeeCreateOrConnectWithoutDefaultEarningsInput
@@ -19526,6 +19825,16 @@ export namespace Prisma {
     update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutDefaultEarningsInput, OrganizationUpdateWithoutDefaultEarningsInput>, OrganizationUncheckedUpdateWithoutDefaultEarningsInput>
   }
 
+  export type PayrollGroupUpdateOneWithoutDefaultEarningsNestedInput = {
+    create?: XOR<PayrollGroupCreateWithoutDefaultEarningsInput, PayrollGroupUncheckedCreateWithoutDefaultEarningsInput>
+    connectOrCreate?: PayrollGroupCreateOrConnectWithoutDefaultEarningsInput
+    upsert?: PayrollGroupUpsertWithoutDefaultEarningsInput
+    disconnect?: PayrollGroupWhereInput | boolean
+    delete?: PayrollGroupWhereInput | boolean
+    connect?: PayrollGroupWhereUniqueInput
+    update?: XOR<XOR<PayrollGroupUpdateToOneWithWhereWithoutDefaultEarningsInput, PayrollGroupUpdateWithoutDefaultEarningsInput>, PayrollGroupUncheckedUpdateWithoutDefaultEarningsInput>
+  }
+
   export type EmployeeUpdateOneWithoutDefaultEarningsNestedInput = {
     create?: XOR<EmployeeCreateWithoutDefaultEarningsInput, EmployeeUncheckedCreateWithoutDefaultEarningsInput>
     connectOrCreate?: EmployeeCreateOrConnectWithoutDefaultEarningsInput
@@ -19546,6 +19855,12 @@ export namespace Prisma {
     create?: XOR<OrganizationCreateWithoutDefaultDeductionsInput, OrganizationUncheckedCreateWithoutDefaultDeductionsInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutDefaultDeductionsInput
     connect?: OrganizationWhereUniqueInput
+  }
+
+  export type PayrollGroupCreateNestedOneWithoutDefaultDeductionsInput = {
+    create?: XOR<PayrollGroupCreateWithoutDefaultDeductionsInput, PayrollGroupUncheckedCreateWithoutDefaultDeductionsInput>
+    connectOrCreate?: PayrollGroupCreateOrConnectWithoutDefaultDeductionsInput
+    connect?: PayrollGroupWhereUniqueInput
   }
 
   export type EmployeeCreateNestedOneWithoutDefaultDeductionsInput = {
@@ -19570,6 +19885,16 @@ export namespace Prisma {
     delete?: OrganizationWhereInput | boolean
     connect?: OrganizationWhereUniqueInput
     update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutDefaultDeductionsInput, OrganizationUpdateWithoutDefaultDeductionsInput>, OrganizationUncheckedUpdateWithoutDefaultDeductionsInput>
+  }
+
+  export type PayrollGroupUpdateOneWithoutDefaultDeductionsNestedInput = {
+    create?: XOR<PayrollGroupCreateWithoutDefaultDeductionsInput, PayrollGroupUncheckedCreateWithoutDefaultDeductionsInput>
+    connectOrCreate?: PayrollGroupCreateOrConnectWithoutDefaultDeductionsInput
+    upsert?: PayrollGroupUpsertWithoutDefaultDeductionsInput
+    disconnect?: PayrollGroupWhereInput | boolean
+    delete?: PayrollGroupWhereInput | boolean
+    connect?: PayrollGroupWhereUniqueInput
+    update?: XOR<XOR<PayrollGroupUpdateToOneWithWhereWithoutDefaultDeductionsInput, PayrollGroupUpdateWithoutDefaultDeductionsInput>, PayrollGroupUncheckedUpdateWithoutDefaultDeductionsInput>
   }
 
   export type EmployeeUpdateOneWithoutDefaultDeductionsNestedInput = {
@@ -20104,6 +20429,8 @@ export namespace Prisma {
     payFrequency?: number
     payRefDate: Date | string
     compensations?: EmployeeCompensationCreateNestedManyWithoutPayrollGroupInput
+    defaultEarnings?: PayStubEarningCreateNestedManyWithoutPayrollGroupInput
+    defaultDeductions?: PayStubDeductionCreateNestedManyWithoutPayrollGroupInput
   }
 
   export type PayrollGroupUncheckedCreateWithoutOrganizationInput = {
@@ -20113,6 +20440,8 @@ export namespace Prisma {
     payFrequency?: number
     payRefDate: Date | string
     compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutPayrollGroupInput
+    defaultEarnings?: PayStubEarningUncheckedCreateNestedManyWithoutPayrollGroupInput
+    defaultDeductions?: PayStubDeductionUncheckedCreateNestedManyWithoutPayrollGroupInput
   }
 
   export type PayrollGroupCreateOrConnectWithoutOrganizationInput = {
@@ -20181,6 +20510,7 @@ export namespace Prisma {
     hours?: Decimal | DecimalJsLike | number | string | null
     rate?: Decimal | DecimalJsLike | number | string | null
     payStub?: PayStubCreateNestedOneWithoutEarningsInput
+    payrollGroup?: PayrollGroupCreateNestedOneWithoutDefaultEarningsInput
     employee?: EmployeeCreateNestedOneWithoutDefaultEarningsInput
   }
 
@@ -20188,6 +20518,7 @@ export namespace Prisma {
     id?: string
     payStubId?: string | null
     isDefault?: boolean
+    payrollGroupId?: string | null
     employeeId?: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -20216,6 +20547,7 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     rate?: Decimal | DecimalJsLike | number | string | null
     payStub: PayStubCreateNestedOneWithoutDeductionsInput
+    payrollGroup?: PayrollGroupCreateNestedOneWithoutDefaultDeductionsInput
     employee?: EmployeeCreateNestedOneWithoutDefaultDeductionsInput
   }
 
@@ -20223,6 +20555,7 @@ export namespace Prisma {
     id?: string
     payStubId: string
     isDefault?: boolean
+    payrollGroupId?: string | null
     employeeId?: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -20370,6 +20703,7 @@ export namespace Prisma {
     payStubId?: StringNullableFilter<"PayStubEarning"> | string | null
     isDefault?: BoolFilter<"PayStubEarning"> | boolean
     organizationId?: StringNullableFilter<"PayStubEarning"> | string | null
+    payrollGroupId?: StringNullableFilter<"PayStubEarning"> | string | null
     employeeId?: StringNullableFilter<"PayStubEarning"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubEarning"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubEarning"> | string
@@ -20403,6 +20737,7 @@ export namespace Prisma {
     payStubId?: StringFilter<"PayStubDeduction"> | string
     isDefault?: BoolFilter<"PayStubDeduction"> | boolean
     organizationId?: StringNullableFilter<"PayStubDeduction"> | string | null
+    payrollGroupId?: StringNullableFilter<"PayStubDeduction"> | string | null
     employeeId?: StringNullableFilter<"PayStubDeduction"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubDeduction"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubDeduction"> | string
@@ -20513,6 +20848,7 @@ export namespace Prisma {
     rate?: Decimal | DecimalJsLike | number | string | null
     payStub?: PayStubCreateNestedOneWithoutEarningsInput
     organization?: OrganizationCreateNestedOneWithoutDefaultEarningsInput
+    payrollGroup?: PayrollGroupCreateNestedOneWithoutDefaultEarningsInput
   }
 
   export type PayStubEarningUncheckedCreateWithoutEmployeeInput = {
@@ -20520,6 +20856,7 @@ export namespace Prisma {
     payStubId?: string | null
     isDefault?: boolean
     organizationId?: string | null
+    payrollGroupId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -20548,6 +20885,7 @@ export namespace Prisma {
     rate?: Decimal | DecimalJsLike | number | string | null
     payStub: PayStubCreateNestedOneWithoutDeductionsInput
     organization?: OrganizationCreateNestedOneWithoutDefaultDeductionsInput
+    payrollGroup?: PayrollGroupCreateNestedOneWithoutDefaultDeductionsInput
   }
 
   export type PayStubDeductionUncheckedCreateWithoutEmployeeInput = {
@@ -20555,6 +20893,7 @@ export namespace Prisma {
     payStubId: string
     isDefault?: boolean
     organizationId?: string | null
+    payrollGroupId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -20755,6 +21094,80 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PayStubEarningCreateWithoutPayrollGroupInput = {
+    id?: string
+    isDefault?: boolean
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+    payStub?: PayStubCreateNestedOneWithoutEarningsInput
+    organization?: OrganizationCreateNestedOneWithoutDefaultEarningsInput
+    employee?: EmployeeCreateNestedOneWithoutDefaultEarningsInput
+  }
+
+  export type PayStubEarningUncheckedCreateWithoutPayrollGroupInput = {
+    id?: string
+    payStubId?: string | null
+    isDefault?: boolean
+    organizationId?: string | null
+    employeeId?: string | null
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type PayStubEarningCreateOrConnectWithoutPayrollGroupInput = {
+    where: PayStubEarningWhereUniqueInput
+    create: XOR<PayStubEarningCreateWithoutPayrollGroupInput, PayStubEarningUncheckedCreateWithoutPayrollGroupInput>
+  }
+
+  export type PayStubEarningCreateManyPayrollGroupInputEnvelope = {
+    data: PayStubEarningCreateManyPayrollGroupInput | PayStubEarningCreateManyPayrollGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PayStubDeductionCreateWithoutPayrollGroupInput = {
+    id?: string
+    isDefault?: boolean
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    rate?: Decimal | DecimalJsLike | number | string | null
+    payStub: PayStubCreateNestedOneWithoutDeductionsInput
+    organization?: OrganizationCreateNestedOneWithoutDefaultDeductionsInput
+    employee?: EmployeeCreateNestedOneWithoutDefaultDeductionsInput
+  }
+
+  export type PayStubDeductionUncheckedCreateWithoutPayrollGroupInput = {
+    id?: string
+    payStubId: string
+    isDefault?: boolean
+    organizationId?: string | null
+    employeeId?: string | null
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    rate?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type PayStubDeductionCreateOrConnectWithoutPayrollGroupInput = {
+    where: PayStubDeductionWhereUniqueInput
+    create: XOR<PayStubDeductionCreateWithoutPayrollGroupInput, PayStubDeductionUncheckedCreateWithoutPayrollGroupInput>
+  }
+
+  export type PayStubDeductionCreateManyPayrollGroupInputEnvelope = {
+    data: PayStubDeductionCreateManyPayrollGroupInput | PayStubDeductionCreateManyPayrollGroupInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrganizationUpsertWithoutPayrollGroupsInput = {
     update: XOR<OrganizationUpdateWithoutPayrollGroupsInput, OrganizationUncheckedUpdateWithoutPayrollGroupsInput>
     create: XOR<OrganizationCreateWithoutPayrollGroupsInput, OrganizationUncheckedCreateWithoutPayrollGroupsInput>
@@ -20808,6 +21221,38 @@ export namespace Prisma {
     data: XOR<EmployeeCompensationUpdateManyMutationInput, EmployeeCompensationUncheckedUpdateManyWithoutPayrollGroupInput>
   }
 
+  export type PayStubEarningUpsertWithWhereUniqueWithoutPayrollGroupInput = {
+    where: PayStubEarningWhereUniqueInput
+    update: XOR<PayStubEarningUpdateWithoutPayrollGroupInput, PayStubEarningUncheckedUpdateWithoutPayrollGroupInput>
+    create: XOR<PayStubEarningCreateWithoutPayrollGroupInput, PayStubEarningUncheckedCreateWithoutPayrollGroupInput>
+  }
+
+  export type PayStubEarningUpdateWithWhereUniqueWithoutPayrollGroupInput = {
+    where: PayStubEarningWhereUniqueInput
+    data: XOR<PayStubEarningUpdateWithoutPayrollGroupInput, PayStubEarningUncheckedUpdateWithoutPayrollGroupInput>
+  }
+
+  export type PayStubEarningUpdateManyWithWhereWithoutPayrollGroupInput = {
+    where: PayStubEarningScalarWhereInput
+    data: XOR<PayStubEarningUpdateManyMutationInput, PayStubEarningUncheckedUpdateManyWithoutPayrollGroupInput>
+  }
+
+  export type PayStubDeductionUpsertWithWhereUniqueWithoutPayrollGroupInput = {
+    where: PayStubDeductionWhereUniqueInput
+    update: XOR<PayStubDeductionUpdateWithoutPayrollGroupInput, PayStubDeductionUncheckedUpdateWithoutPayrollGroupInput>
+    create: XOR<PayStubDeductionCreateWithoutPayrollGroupInput, PayStubDeductionUncheckedCreateWithoutPayrollGroupInput>
+  }
+
+  export type PayStubDeductionUpdateWithWhereUniqueWithoutPayrollGroupInput = {
+    where: PayStubDeductionWhereUniqueInput
+    data: XOR<PayStubDeductionUpdateWithoutPayrollGroupInput, PayStubDeductionUncheckedUpdateWithoutPayrollGroupInput>
+  }
+
+  export type PayStubDeductionUpdateManyWithWhereWithoutPayrollGroupInput = {
+    where: PayStubDeductionScalarWhereInput
+    data: XOR<PayStubDeductionUpdateManyMutationInput, PayStubDeductionUncheckedUpdateManyWithoutPayrollGroupInput>
+  }
+
   export type EmployeeCreateWithoutCompensationsInput = {
     uuid?: string
     firstName?: string
@@ -20858,6 +21303,8 @@ export namespace Prisma {
     payFrequency?: number
     payRefDate: Date | string
     organization: OrganizationCreateNestedOneWithoutPayrollGroupsInput
+    defaultEarnings?: PayStubEarningCreateNestedManyWithoutPayrollGroupInput
+    defaultDeductions?: PayStubDeductionCreateNestedManyWithoutPayrollGroupInput
   }
 
   export type PayrollGroupUncheckedCreateWithoutCompensationsInput = {
@@ -20867,6 +21314,8 @@ export namespace Prisma {
     payFrequency?: number
     payRefDate: Date | string
     organizationId: string
+    defaultEarnings?: PayStubEarningUncheckedCreateNestedManyWithoutPayrollGroupInput
+    defaultDeductions?: PayStubDeductionUncheckedCreateNestedManyWithoutPayrollGroupInput
   }
 
   export type PayrollGroupCreateOrConnectWithoutCompensationsInput = {
@@ -20965,6 +21414,8 @@ export namespace Prisma {
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutPayrollGroupsNestedInput
+    defaultEarnings?: PayStubEarningUpdateManyWithoutPayrollGroupNestedInput
+    defaultDeductions?: PayStubDeductionUpdateManyWithoutPayrollGroupNestedInput
   }
 
   export type PayrollGroupUncheckedUpdateWithoutCompensationsInput = {
@@ -20974,6 +21425,8 @@ export namespace Prisma {
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     organizationId?: StringFieldUpdateOperationsInput | string
+    defaultEarnings?: PayStubEarningUncheckedUpdateManyWithoutPayrollGroupNestedInput
+    defaultDeductions?: PayStubDeductionUncheckedUpdateManyWithoutPayrollGroupNestedInput
   }
 
   export type HourlyRateUpsertWithWhereUniqueWithoutCompensationInput = {
@@ -21104,6 +21557,7 @@ export namespace Prisma {
     hours?: Decimal | DecimalJsLike | number | string | null
     rate?: Decimal | DecimalJsLike | number | string | null
     organization?: OrganizationCreateNestedOneWithoutDefaultEarningsInput
+    payrollGroup?: PayrollGroupCreateNestedOneWithoutDefaultEarningsInput
     employee?: EmployeeCreateNestedOneWithoutDefaultEarningsInput
   }
 
@@ -21111,6 +21565,7 @@ export namespace Prisma {
     id?: string
     isDefault?: boolean
     organizationId?: string | null
+    payrollGroupId?: string | null
     employeeId?: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -21139,6 +21594,7 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     rate?: Decimal | DecimalJsLike | number | string | null
     organization?: OrganizationCreateNestedOneWithoutDefaultDeductionsInput
+    payrollGroup?: PayrollGroupCreateNestedOneWithoutDefaultDeductionsInput
     employee?: EmployeeCreateNestedOneWithoutDefaultDeductionsInput
   }
 
@@ -21146,6 +21602,7 @@ export namespace Prisma {
     id?: string
     isDefault?: boolean
     organizationId?: string | null
+    payrollGroupId?: string | null
     employeeId?: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -21305,6 +21762,33 @@ export namespace Prisma {
     create: XOR<OrganizationCreateWithoutDefaultEarningsInput, OrganizationUncheckedCreateWithoutDefaultEarningsInput>
   }
 
+  export type PayrollGroupCreateWithoutDefaultEarningsInput = {
+    uuid?: string
+    name: string
+    description: string
+    payFrequency?: number
+    payRefDate: Date | string
+    organization: OrganizationCreateNestedOneWithoutPayrollGroupsInput
+    compensations?: EmployeeCompensationCreateNestedManyWithoutPayrollGroupInput
+    defaultDeductions?: PayStubDeductionCreateNestedManyWithoutPayrollGroupInput
+  }
+
+  export type PayrollGroupUncheckedCreateWithoutDefaultEarningsInput = {
+    uuid?: string
+    name: string
+    description: string
+    payFrequency?: number
+    payRefDate: Date | string
+    organizationId: string
+    compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutPayrollGroupInput
+    defaultDeductions?: PayStubDeductionUncheckedCreateNestedManyWithoutPayrollGroupInput
+  }
+
+  export type PayrollGroupCreateOrConnectWithoutDefaultEarningsInput = {
+    where: PayrollGroupWhereUniqueInput
+    create: XOR<PayrollGroupCreateWithoutDefaultEarningsInput, PayrollGroupUncheckedCreateWithoutDefaultEarningsInput>
+  }
+
   export type EmployeeCreateWithoutDefaultEarningsInput = {
     uuid?: string
     firstName?: string
@@ -21420,6 +21904,39 @@ export namespace Prisma {
     defaultDeductions?: PayStubDeductionUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
+  export type PayrollGroupUpsertWithoutDefaultEarningsInput = {
+    update: XOR<PayrollGroupUpdateWithoutDefaultEarningsInput, PayrollGroupUncheckedUpdateWithoutDefaultEarningsInput>
+    create: XOR<PayrollGroupCreateWithoutDefaultEarningsInput, PayrollGroupUncheckedCreateWithoutDefaultEarningsInput>
+    where?: PayrollGroupWhereInput
+  }
+
+  export type PayrollGroupUpdateToOneWithWhereWithoutDefaultEarningsInput = {
+    where?: PayrollGroupWhereInput
+    data: XOR<PayrollGroupUpdateWithoutDefaultEarningsInput, PayrollGroupUncheckedUpdateWithoutDefaultEarningsInput>
+  }
+
+  export type PayrollGroupUpdateWithoutDefaultEarningsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    payFrequency?: IntFieldUpdateOperationsInput | number
+    payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutPayrollGroupsNestedInput
+    compensations?: EmployeeCompensationUpdateManyWithoutPayrollGroupNestedInput
+    defaultDeductions?: PayStubDeductionUpdateManyWithoutPayrollGroupNestedInput
+  }
+
+  export type PayrollGroupUncheckedUpdateWithoutDefaultEarningsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    payFrequency?: IntFieldUpdateOperationsInput | number
+    payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    compensations?: EmployeeCompensationUncheckedUpdateManyWithoutPayrollGroupNestedInput
+    defaultDeductions?: PayStubDeductionUncheckedUpdateManyWithoutPayrollGroupNestedInput
+  }
+
   export type EmployeeUpsertWithoutDefaultEarningsInput = {
     update: XOR<EmployeeUpdateWithoutDefaultEarningsInput, EmployeeUncheckedUpdateWithoutDefaultEarningsInput>
     create: XOR<EmployeeCreateWithoutDefaultEarningsInput, EmployeeUncheckedCreateWithoutDefaultEarningsInput>
@@ -21527,6 +22044,33 @@ export namespace Prisma {
   export type OrganizationCreateOrConnectWithoutDefaultDeductionsInput = {
     where: OrganizationWhereUniqueInput
     create: XOR<OrganizationCreateWithoutDefaultDeductionsInput, OrganizationUncheckedCreateWithoutDefaultDeductionsInput>
+  }
+
+  export type PayrollGroupCreateWithoutDefaultDeductionsInput = {
+    uuid?: string
+    name: string
+    description: string
+    payFrequency?: number
+    payRefDate: Date | string
+    organization: OrganizationCreateNestedOneWithoutPayrollGroupsInput
+    compensations?: EmployeeCompensationCreateNestedManyWithoutPayrollGroupInput
+    defaultEarnings?: PayStubEarningCreateNestedManyWithoutPayrollGroupInput
+  }
+
+  export type PayrollGroupUncheckedCreateWithoutDefaultDeductionsInput = {
+    uuid?: string
+    name: string
+    description: string
+    payFrequency?: number
+    payRefDate: Date | string
+    organizationId: string
+    compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutPayrollGroupInput
+    defaultEarnings?: PayStubEarningUncheckedCreateNestedManyWithoutPayrollGroupInput
+  }
+
+  export type PayrollGroupCreateOrConnectWithoutDefaultDeductionsInput = {
+    where: PayrollGroupWhereUniqueInput
+    create: XOR<PayrollGroupCreateWithoutDefaultDeductionsInput, PayrollGroupUncheckedCreateWithoutDefaultDeductionsInput>
   }
 
   export type EmployeeCreateWithoutDefaultDeductionsInput = {
@@ -21642,6 +22186,39 @@ export namespace Prisma {
     inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
     defaultEarnings?: PayStubEarningUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type PayrollGroupUpsertWithoutDefaultDeductionsInput = {
+    update: XOR<PayrollGroupUpdateWithoutDefaultDeductionsInput, PayrollGroupUncheckedUpdateWithoutDefaultDeductionsInput>
+    create: XOR<PayrollGroupCreateWithoutDefaultDeductionsInput, PayrollGroupUncheckedCreateWithoutDefaultDeductionsInput>
+    where?: PayrollGroupWhereInput
+  }
+
+  export type PayrollGroupUpdateToOneWithWhereWithoutDefaultDeductionsInput = {
+    where?: PayrollGroupWhereInput
+    data: XOR<PayrollGroupUpdateWithoutDefaultDeductionsInput, PayrollGroupUncheckedUpdateWithoutDefaultDeductionsInput>
+  }
+
+  export type PayrollGroupUpdateWithoutDefaultDeductionsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    payFrequency?: IntFieldUpdateOperationsInput | number
+    payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutPayrollGroupsNestedInput
+    compensations?: EmployeeCompensationUpdateManyWithoutPayrollGroupNestedInput
+    defaultEarnings?: PayStubEarningUpdateManyWithoutPayrollGroupNestedInput
+  }
+
+  export type PayrollGroupUncheckedUpdateWithoutDefaultDeductionsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    payFrequency?: IntFieldUpdateOperationsInput | number
+    payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    compensations?: EmployeeCompensationUncheckedUpdateManyWithoutPayrollGroupNestedInput
+    defaultEarnings?: PayStubEarningUncheckedUpdateManyWithoutPayrollGroupNestedInput
   }
 
   export type EmployeeUpsertWithoutDefaultDeductionsInput = {
@@ -21761,6 +22338,7 @@ export namespace Prisma {
     id?: string
     payStubId?: string | null
     isDefault?: boolean
+    payrollGroupId?: string | null
     employeeId?: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -21774,6 +22352,7 @@ export namespace Prisma {
     id?: string
     payStubId: string
     isDefault?: boolean
+    payrollGroupId?: string | null
     employeeId?: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -21842,6 +22421,8 @@ export namespace Prisma {
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     compensations?: EmployeeCompensationUpdateManyWithoutPayrollGroupNestedInput
+    defaultEarnings?: PayStubEarningUpdateManyWithoutPayrollGroupNestedInput
+    defaultDeductions?: PayStubDeductionUpdateManyWithoutPayrollGroupNestedInput
   }
 
   export type PayrollGroupUncheckedUpdateWithoutOrganizationInput = {
@@ -21851,6 +22432,8 @@ export namespace Prisma {
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     compensations?: EmployeeCompensationUncheckedUpdateManyWithoutPayrollGroupNestedInput
+    defaultEarnings?: PayStubEarningUncheckedUpdateManyWithoutPayrollGroupNestedInput
+    defaultDeductions?: PayStubDeductionUncheckedUpdateManyWithoutPayrollGroupNestedInput
   }
 
   export type PayrollGroupUncheckedUpdateManyWithoutOrganizationInput = {
@@ -21910,6 +22493,7 @@ export namespace Prisma {
     hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payStub?: PayStubUpdateOneWithoutEarningsNestedInput
+    payrollGroup?: PayrollGroupUpdateOneWithoutDefaultEarningsNestedInput
     employee?: EmployeeUpdateOneWithoutDefaultEarningsNestedInput
   }
 
@@ -21917,6 +22501,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     payStubId?: NullableStringFieldUpdateOperationsInput | string | null
     isDefault?: BoolFieldUpdateOperationsInput | boolean
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
@@ -21930,6 +22515,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     payStubId?: NullableStringFieldUpdateOperationsInput | string | null
     isDefault?: BoolFieldUpdateOperationsInput | boolean
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
@@ -21948,6 +22534,7 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payStub?: PayStubUpdateOneRequiredWithoutDeductionsNestedInput
+    payrollGroup?: PayrollGroupUpdateOneWithoutDefaultDeductionsNestedInput
     employee?: EmployeeUpdateOneWithoutDefaultDeductionsNestedInput
   }
 
@@ -21955,6 +22542,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     payStubId?: StringFieldUpdateOperationsInput | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
@@ -21967,6 +22555,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     payStubId?: StringFieldUpdateOperationsInput | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
@@ -21997,6 +22586,7 @@ export namespace Prisma {
     payStubId?: string | null
     isDefault?: boolean
     organizationId?: string | null
+    payrollGroupId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -22010,6 +22600,7 @@ export namespace Prisma {
     payStubId: string
     isDefault?: boolean
     organizationId?: string | null
+    payrollGroupId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -22085,6 +22676,7 @@ export namespace Prisma {
     rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payStub?: PayStubUpdateOneWithoutEarningsNestedInput
     organization?: OrganizationUpdateOneWithoutDefaultEarningsNestedInput
+    payrollGroup?: PayrollGroupUpdateOneWithoutDefaultEarningsNestedInput
   }
 
   export type PayStubEarningUncheckedUpdateWithoutEmployeeInput = {
@@ -22092,6 +22684,7 @@ export namespace Prisma {
     payStubId?: NullableStringFieldUpdateOperationsInput | string | null
     isDefault?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22105,6 +22698,7 @@ export namespace Prisma {
     payStubId?: NullableStringFieldUpdateOperationsInput | string | null
     isDefault?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22123,6 +22717,7 @@ export namespace Prisma {
     rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payStub?: PayStubUpdateOneRequiredWithoutDeductionsNestedInput
     organization?: OrganizationUpdateOneWithoutDefaultDeductionsNestedInput
+    payrollGroup?: PayrollGroupUpdateOneWithoutDefaultDeductionsNestedInput
   }
 
   export type PayStubDeductionUncheckedUpdateWithoutEmployeeInput = {
@@ -22130,6 +22725,7 @@ export namespace Prisma {
     payStubId?: StringFieldUpdateOperationsInput | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22142,6 +22738,7 @@ export namespace Prisma {
     payStubId?: StringFieldUpdateOperationsInput | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22154,6 +22751,33 @@ export namespace Prisma {
     employeeId: string
     isSalary?: boolean
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type PayStubEarningCreateManyPayrollGroupInput = {
+    id?: string
+    payStubId?: string | null
+    isDefault?: boolean
+    organizationId?: string | null
+    employeeId?: string | null
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type PayStubDeductionCreateManyPayrollGroupInput = {
+    id?: string
+    payStubId: string
+    isDefault?: boolean
+    organizationId?: string | null
+    employeeId?: string | null
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    rate?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type EmployeeCompensationUpdateWithoutPayrollGroupInput = {
@@ -22177,6 +22801,87 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type PayStubEarningUpdateWithoutPayrollGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payStub?: PayStubUpdateOneWithoutEarningsNestedInput
+    organization?: OrganizationUpdateOneWithoutDefaultEarningsNestedInput
+    employee?: EmployeeUpdateOneWithoutDefaultEarningsNestedInput
+  }
+
+  export type PayStubEarningUncheckedUpdateWithoutPayrollGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    payStubId?: NullableStringFieldUpdateOperationsInput | string | null
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type PayStubEarningUncheckedUpdateManyWithoutPayrollGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    payStubId?: NullableStringFieldUpdateOperationsInput | string | null
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type PayStubDeductionUpdateWithoutPayrollGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payStub?: PayStubUpdateOneRequiredWithoutDeductionsNestedInput
+    organization?: OrganizationUpdateOneWithoutDefaultDeductionsNestedInput
+    employee?: EmployeeUpdateOneWithoutDefaultDeductionsNestedInput
+  }
+
+  export type PayStubDeductionUncheckedUpdateWithoutPayrollGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    payStubId?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type PayStubDeductionUncheckedUpdateManyWithoutPayrollGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    payStubId?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type HourlyRateCreateManyCompensationInput = {
@@ -22211,6 +22916,7 @@ export namespace Prisma {
     id?: string
     isDefault?: boolean
     organizationId?: string | null
+    payrollGroupId?: string | null
     employeeId?: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -22224,6 +22930,7 @@ export namespace Prisma {
     id?: string
     isDefault?: boolean
     organizationId?: string | null
+    payrollGroupId?: string | null
     employeeId?: string | null
     type: $Enums.PayStubItemType
     name: string
@@ -22242,6 +22949,7 @@ export namespace Prisma {
     hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     organization?: OrganizationUpdateOneWithoutDefaultEarningsNestedInput
+    payrollGroup?: PayrollGroupUpdateOneWithoutDefaultEarningsNestedInput
     employee?: EmployeeUpdateOneWithoutDefaultEarningsNestedInput
   }
 
@@ -22249,6 +22957,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
@@ -22262,6 +22971,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
@@ -22280,6 +22990,7 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     organization?: OrganizationUpdateOneWithoutDefaultDeductionsNestedInput
+    payrollGroup?: PayrollGroupUpdateOneWithoutDefaultDeductionsNestedInput
     employee?: EmployeeUpdateOneWithoutDefaultDeductionsNestedInput
   }
 
@@ -22287,6 +22998,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
@@ -22299,6 +23011,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
     employeeId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string

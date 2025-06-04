@@ -115,6 +115,9 @@ model PayrollGroup {
   organizationId String
 
   compensations EmployeeCompensation[]
+
+  defaultEarnings   PayStubEarning[]
+  defaultDeductions PayStubDeduction[]
 }
 
 model EmployeeCompensation {
@@ -177,6 +180,8 @@ model PayStubEarning {
   isDefault      Boolean       @default(false)
   organization   Organization? @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
   organizationId String?
+  payrollGroup   PayrollGroup? @relation(fields: [payrollGroupId], references: [uuid], onDelete: Cascade)
+  payrollGroupId String?
   employee       Employee?     @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
   employeeId     String?
 
@@ -198,6 +203,8 @@ model PayStubDeduction {
   isDefault      Boolean       @default(false)
   organization   Organization? @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
   organizationId String?
+  payrollGroup   PayrollGroup? @relation(fields: [payrollGroupId], references: [uuid], onDelete: Cascade)
+  payrollGroupId String?
   employee       Employee?     @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
   employeeId     String?
 
