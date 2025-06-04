@@ -82,9 +82,9 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
 
     return (
 
-        <form className="grid grid-cols-2" onSubmit={handleSubmit}>
+        <form className="flex flex-row w-full justify-center gap-10" onSubmit={handleSubmit}>
 
-            <div className="max-w-md card">
+            <div className="w-sm card h-fit">
                 <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">Edit Employee Pay</h5>
                 <Divider />
                 <h6 className="mb-5 text-2xl tracking-tight text-gray-400">{`${props.firstName} ${props.lastName}`}</h6>
@@ -101,7 +101,7 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
                 <button type="submit" className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>
             </div>
 
-            <div className="max-w-md card">
+            <div className="w-sm card h-fit">
                 <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">Compensation Groups</h5>
                 <Divider />
 

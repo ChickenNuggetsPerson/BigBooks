@@ -28,7 +28,7 @@ export default async function EmployeeView({
                 <MoveLeft/>
             </Link>
 
-            <AnimateChildren y={-100} className="flex flex-col lg:flex-row gap-6 justify-center px-10 py-20">
+            <AnimateChildren y={-100} className="flex flex-row gap-6 justify-center px-10">
                 <EmployeeCard employee={employee} />
                 <div>
                     <EmployeeSalaryCard employee={employee} />

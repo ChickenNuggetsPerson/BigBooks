@@ -7,12 +7,12 @@ import { useModalManager } from "./ModalContext";
 export interface ModalProps {
     title: string,
     required: boolean
-    component: ReactNode
+    component: (push : (modal: ModalProps) => void, pop: () => void) => ReactNode
 }
 
 export default function Modal({ modal }: { modal: ModalProps }) {
 
-    const { popModal } = useModalManager()
+    const { addModal, popModal } = useModalManager()
 
     return (
         <div className="card min-w-md">
@@ -38,7 +38,7 @@ export default function Modal({ modal }: { modal: ModalProps }) {
 
             <div className="h-px bg-accent mb-3" ></div>
 
-            {modal.component}
+            {modal.component(addModal, popModal)}
 
         </div>
     )

@@ -72,9 +72,9 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
     };
 
     return (
-        <form className="grid grid-cols-2" onSubmit={handleSubmit}>
+        <form className="flex flex-row w-full justify-center gap-10" onSubmit={handleSubmit}>
 
-            <div className="card max-w-md">
+            <div className="w-md card h-fit">
 
                 <div className="flex flex-row justify-between">
                     <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">{newEmployee ? "Create Employee:" : "Edit Employee:"}</h5>
@@ -90,7 +90,7 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
                 <button type="submit" className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>
             </div>
 
-            <div className="card max-w-md">
+            <div className="w-sm card h-fit">
 
                 <TextInput id={"email"} label={"Email"} val={props.email} />
                 <TextInput id={"phoneNumber"} label={"Phone Number"} val={props.phoneNumber} mask={InputMasks.PHONE}/>

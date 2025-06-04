@@ -52,17 +52,20 @@
 }
 
 .primary-button {
-  @apply text-white bg-primary hover:bg-primary-up focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
+  @apply text-white bg-primary hover:bg-primary-up focus:ring-4 font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center 
 }
 
 .secondary-button {
-  @apply text-white bg-secondary hover:bg-secondary-up focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
+  @apply text-white bg-secondary hover:bg-secondary-up focus:ring-4 font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
 }
 
 .accent-button {
-  @apply text-white bg-accent hover:bg-accent-up focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
+  @apply text-white bg-accent hover:bg-accent-up focus:ring-4 font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
 }
 
+.danger-button {
+  @apply text-white bg-rose-600 hover:bg-rose-500 focus:ring-4 font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
+}
 
 
 .prevent-select {

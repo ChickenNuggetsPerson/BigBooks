@@ -16,6 +16,11 @@ export default async function getOrgPayrollGroups() {
     const session = await getSession()
     if (!session) { return [] }
 
-    const groups = await prisma.payrollGroup.findMany({ where: { organizationId: session.orgUUID } })
+    const groups = await prisma.payrollGroup.findMany({ 
+        where: { organizationId: session.orgUUID },
+        orderBy: [
+            { name: "asc" }
+        ]
+    })
     return groups
 }

@@ -6,8 +6,6 @@ import Modal, { ModalProps } from './Modal';
 import { AnimatePresence, motion } from 'framer-motion';
 
 
-
-
 export default function ModalContainer({ children }: { children: React.ReactNode }) {
 
     const [modals, setModals] = useState([] as ModalProps[])
@@ -16,8 +14,12 @@ export default function ModalContainer({ children }: { children: React.ReactNode
         setModals([...modals, modal])
     }
     function popModal() {
-        if (modals.length == 0) { return }
         if (modals[modals.length - 1].required) { return }
+        forcePopModal()
+    }
+
+    function forcePopModal() {
+        if (modals.length == 0) { return }
 
         const m = [...modals]
         m.splice(m.length - 1, 1)
@@ -25,7 +27,7 @@ export default function ModalContainer({ children }: { children: React.ReactNode
     }
 
     return (
-        <ModalContext addModal={addModal} popModal={popModal} >
+        <ModalContext addModal={addModal} popModal={forcePopModal} >
 
             <AnimatePresence>
                 {modals.length !== 0 &&

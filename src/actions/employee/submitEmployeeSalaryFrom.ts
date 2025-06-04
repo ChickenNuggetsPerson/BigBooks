@@ -32,7 +32,7 @@ export default async function submitEmployeeSalaryForm(formData: FormData) {
     const filing = formData.get("filing") as string
     const dependants = Number(formData.get("dependants") as string)
 
-    console.log(formData)
+    // console.log(formData)
 
     try {
 

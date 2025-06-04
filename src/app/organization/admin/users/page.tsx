@@ -1,17 +1,22 @@
 import getOrgUsers from "@/actions/user/getOrgUsers"
 import getInviteCodes from "@/actions/user/inviteCodes/getInviteCodes"
 import { getSession } from "@/auth/auth"
+import { RoleTypes } from "@/auth/roles/Roles"
+import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import AnimateChildren from "@/components/Decorative/AnimateChildren"
 import OrgInviteCodeCard from "@/components/User/OrgAdmin/OrgInviteCodeCard"
 import OrgUserCreateInviteButton from "@/components/User/OrgAdmin/OrgUserCreateInviteButton"
 import { OrgUserList } from "@/components/User/OrgAdmin/OrgUserList"
 
 
+export const dynamic = 'force-dynamic'
 
 export default async function AdminUserPage() {
 
     const session = await getSession()
     if (!session) { return <div></div> }
+
+    await throwIfInsufficientPerms(RoleTypes.Admin)
 
     const users = await getOrgUsers(session.orgUUID)
     const codes = await getInviteCodes()

@@ -22,7 +22,7 @@ export function useChangeSelectedOrg() { // Turn this into a react hook
         
         setContext(generateCompanyContext(uuid, name));
         
-        router.push(`/organization`);
-        router.refresh(); // Optional if needed
+        router.push(`/organization/overview`);
+        router.refresh(); 
     };
 }

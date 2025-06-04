@@ -7,17 +7,24 @@ import { Pencil } from "lucide-react";
 
 
 type EditableDivProps = React.HTMLAttributes<HTMLDivElement> & {
-    url: string
+    url: string,
+    enabled?: boolean
 }
 
 
 const EditableDiv = React.forwardRef<HTMLDivElement, EditableDivProps>(
-    ({ url, children, ...rest }, ref) => {
+    ({ url, enabled = true, children, ...rest }, ref) => {
 
 
         const [hover, setHover] = useState(false)
-        function onHover() { setHover(true) }
-        function onAway() { setHover(false) }
+        function onHover() { 
+            if (!enabled) { return }
+            setHover(true) 
+        }
+        function onAway() { 
+            if (!enabled) { return }
+            setHover(false) 
+        }
 
 
         return (
