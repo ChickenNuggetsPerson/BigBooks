@@ -17,7 +17,7 @@ export default function UnincludedOrgCard({ org, user }: { org: Organization, us
         addModal({
             title: "Add Permissions:",
             required: false,
-            component: <RoleModal role={null} user={user} orgUUID={org.uuid} orgName={org.name} />
+            component: () => <RoleModal role={null} user={user} orgUUID={org.uuid} orgName={org.name} />
         })
     }
 

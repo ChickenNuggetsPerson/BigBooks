@@ -23,7 +23,7 @@ export default function OrgUserCreateInviteButton() {
         addModal({
             title: "Create Invite Link",
             required: false,
-            component: <CreateInviteForm />
+            component: () => <CreateInviteForm />
         })
     }
 

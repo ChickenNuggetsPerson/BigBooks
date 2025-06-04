@@ -24,7 +24,7 @@ export default function OrgUserCard({ user }: { user: Prisma.UserGetPayload<{ in
         addModal({
             title: "Edit Permissions:",
             required: false,
-            component: <RoleModal role={role} user={user} orgUUID={context?.companyUUID ?? ""} orgName={context?.companyName ?? ""} />
+            component: () => <RoleModal role={role} user={user} orgUUID={context?.companyUUID ?? ""} orgName={context?.companyName ?? ""} />
         })
     }
 

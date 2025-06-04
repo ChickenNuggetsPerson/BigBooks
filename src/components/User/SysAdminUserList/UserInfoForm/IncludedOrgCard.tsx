@@ -17,7 +17,7 @@ export default function IncludedOrgCard({ role, org, user }: { role: DispRole, o
         addModal({
             title: "Edit Permissions:",
             required: false,
-            component: <RoleModal role={role} user={user} orgUUID={org.uuid} orgName={org.name}/>
+            component: () => <RoleModal role={role} user={user} orgUUID={org.uuid} orgName={org.name}/>
         })
     }
 
