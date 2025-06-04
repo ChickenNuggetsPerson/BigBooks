@@ -77,8 +77,7 @@ model Organization {
   inviteCodes InviteCode[]
   memberships Role[]
 
-  defaultEarnings PayStubEarning[]
-  defaultDeductions PayStubDeduction[]
+  defaultPayrollItems PayStubItem[]
 }
 
 model Employee {
@@ -102,8 +101,7 @@ model Employee {
   compensations EmployeeCompensation[]
   payStubs      PayStub[]
 
-  defaultEarnings PayStubEarning[]
-  defaultDeductions PayStubDeduction[]
+  defaultPayrollItems PayStubItem[]
 }
 
 model PayrollGroup {
@@ -118,8 +116,7 @@ model PayrollGroup {
 
   compensations EmployeeCompensation[]
 
-  defaultEarnings PayStubEarning[]
-  defaultDeductions PayStubDeduction[]
+  defaultPayrollItems PayStubItem[]
 }
 
 model EmployeeCompensation {
@@ -164,8 +161,7 @@ model PayStub {
   employeeId String
 
   // Children:
-  earnings   PayStubEarning[]
-  deductions PayStubDeduction[]
+  items   PayStubItem[]
 }
 
 enum PayStubItemType {
@@ -174,8 +170,8 @@ enum PayStubItemType {
   Other
 }
 
-model PayStubEarning {
-  id        String    @id @default(uuid())
+model PayStubItem {
+  uuid        String    @id @default(uuid())
   
   payStub        PayStub?  @relation(fields: [payStubId], references: [uuid], onDelete: Cascade)
   payStubId      String?
@@ -190,31 +186,10 @@ model PayStubEarning {
 
   type        PayStubItemType 
   name        String
-  description String? 
-  amount      Decimal 
+  description String?  
 
   hours       Decimal? 
-  rate        Decimal? 
-}
-
-model PayStubDeduction {
-  id        String  @id @default(uuid())
-
-  payStub   PayStub @relation(fields: [payStubId], references: [uuid], onDelete: Cascade)
-  payStubId String
-
-  isDefault   Boolean  @default(false)
-  organization   Organization? @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
-  organizationId String?
-  payrollGroup   PayrollGroup? @relation(fields: [payrollGroupId], references: [uuid], onDelete: Cascade)
-  payrollGroupId String?
-  employee      Employee? @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
-  employeeId    String?
-
-  type        PayStubItemType 
-  name        String
-  
-  description String? 
-  amount      Decimal 
-  rate        Decimal? 
+  rate        Decimal?
+  percent     Decimal? 
+  amount      Decimal
 }

@@ -211,8 +211,8 @@ exports.Prisma.PayStubScalarFieldEnum = {
   employeeId: 'employeeId'
 };
 
-exports.Prisma.PayStubEarningScalarFieldEnum = {
-  id: 'id',
+exports.Prisma.PayStubItemScalarFieldEnum = {
+  uuid: 'uuid',
   payStubId: 'payStubId',
   isDefault: 'isDefault',
   organizationId: 'organizationId',
@@ -221,23 +221,10 @@ exports.Prisma.PayStubEarningScalarFieldEnum = {
   type: 'type',
   name: 'name',
   description: 'description',
-  amount: 'amount',
   hours: 'hours',
-  rate: 'rate'
-};
-
-exports.Prisma.PayStubDeductionScalarFieldEnum = {
-  id: 'id',
-  payStubId: 'payStubId',
-  isDefault: 'isDefault',
-  organizationId: 'organizationId',
-  payrollGroupId: 'payrollGroupId',
-  employeeId: 'employeeId',
-  type: 'type',
-  name: 'name',
-  description: 'description',
-  amount: 'amount',
-  rate: 'rate'
+  rate: 'rate',
+  percent: 'percent',
+  amount: 'amount'
 };
 
 exports.Prisma.SortOrder = {
@@ -271,8 +258,7 @@ exports.Prisma.ModelName = {
   EmployeeCompensation: 'EmployeeCompensation',
   HourlyRate: 'HourlyRate',
   PayStub: 'PayStub',
-  PayStubEarning: 'PayStubEarning',
-  PayStubDeduction: 'PayStubDeduction'
+  PayStubItem: 'PayStubItem'
 };
 
 /**
