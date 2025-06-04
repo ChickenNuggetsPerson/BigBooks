@@ -5,6 +5,7 @@ env:
 on:
   release:
     types: [published]
+  workflow_dispatch:
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
