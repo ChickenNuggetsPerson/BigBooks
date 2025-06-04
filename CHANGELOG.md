@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.2](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.1.1...v0.1.2) (2025-06-04)
+
+
+### Bug Fixes
+
+* removed more useless code ([e5a54ca](https://github.com/ChickenNuggetsPerson/BigBooks/commit/e5a54ca161b27cb5215fc584aaaeffa12fab4c53))
+
+
+### Miscellaneous Chores
+
+* release 0.1.2 ([6520d17](https://github.com/ChickenNuggetsPerson/BigBooks/commit/6520d1704c54f8923407d2ad53c74931b2fc2598))
+
 ## [0.1.1](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.1.0...v0.1.1) (2025-06-04)
 
 
