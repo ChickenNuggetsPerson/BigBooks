@@ -104,7 +104,6 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
                     {!newEmployee && <button type="button" onClick={deactivate} className="mx-5 accent-button max-h-10">{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
                 </div>
 
-
                 <TextInput id={"firstName"} label={"First Name"} val={props.firstName} />
                 <TextInput id={"middleName"} label={"Middle Name"} val={props.middleName} />
                 <TextInput id={"lastName"} label={"Last Name"} val={props.lastName} />
