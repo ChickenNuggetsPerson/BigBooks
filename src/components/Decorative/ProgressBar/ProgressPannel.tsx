@@ -20,7 +20,7 @@ export default function ProgressBar({ steps, currentStep, changeCB }: ProgressBa
         return `0 ${size * (steps.length - (currentStep + 1))}% 0 ${currentStep * size}%`
     }
 
-    const transition = "clip-path .4s ease-out"
+    const transition = "clip-path .2s ease-out"
 
     return (
         <div className="flex flex-row justify-center">
