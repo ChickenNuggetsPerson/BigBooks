@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.1.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.0.7...v0.1.0) (2025-06-04)
+
+
+### Features
+
+* Added payroll groups UI elements ([8022b20](https://github.com/ChickenNuggetsPerson/BigBooks/commit/8022b20d925272e076940c7000b2bf52b60affa8))
+* Added toast notifications to most forms ([b2653f4](https://github.com/ChickenNuggetsPerson/BigBooks/commit/b2653f4af14a09461e5ee28ad23065287005db76))
+* Reworked data sereralization between client and server. ([c9bb526](https://github.com/ChickenNuggetsPerson/BigBooks/commit/c9bb526b8851110043ebbab69469d478b124ed01))
+* Reworked database schema to accomodate new payroll structure. ( Check previous commit) ([71edbf6](https://github.com/ChickenNuggetsPerson/BigBooks/commit/71edbf65bf0018fc2cdb6b75c4cee2f2c6371e36))
+
+
+### Bug Fixes
+
+* Changes to employee page sorting ([aadf12c](https://github.com/ChickenNuggetsPerson/BigBooks/commit/aadf12cabad61b5aa322098beb6ae76e26ce134e))
+* Color and speed changes to progress bar. ([687978d](https://github.com/ChickenNuggetsPerson/BigBooks/commit/687978d1d11c918b0f722e3438101e4c80dc4ae9))
+* Fixed bug in SysAdmin User Page ([203b5e9](https://github.com/ChickenNuggetsPerson/BigBooks/commit/203b5e934916944f3d2cc401332a99a1d2df4902))
+* Fixed Modal close functions ([beee284](https://github.com/ChickenNuggetsPerson/BigBooks/commit/beee284b84fa39152dc149796df8fb8ef92ad9bc))
+* Fixed organization list width ([3d79ce0](https://github.com/ChickenNuggetsPerson/BigBooks/commit/3d79ce0ac3b2ade83f6ea3f7bbab25bf08cff374))
+* Organization form now formats address correctly. ([951197f](https://github.com/ChickenNuggetsPerson/BigBooks/commit/951197f229627c634c4b824f2ee7e740fbc0d074))
+
 ## [0.0.7](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.0.6...v0.0.7) (2025-06-03)
 
 
