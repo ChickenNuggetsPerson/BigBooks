@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation"
 import LargeTextInput from "../Forms/LargeTextInput"
 import Loading from "@/app/Loading"
 import { Organization } from "@/database/generated/prisma"
+import toast from "react-hot-toast"
 
 
 interface OrganizationFormProps { orgUUID: string }
@@ -69,10 +70,8 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
 
-        setLoading(true)
-
-        async function submit() {
-            try {
+        toast.promise(
+            async () => {
                 const result = await submitOrganizationForm(newOrganization, new FormData(e.currentTarget));
                 setContext({ companyUUID: result.companyUUID, companyName: result.companyName });
 
@@ -81,15 +80,13 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
                 } else {
                     router.push("/organization")
                 }
-
-            } catch (err) {
-                console.log(err)
+            },
+            {
+                loading: "Saving Organization Details",
+                success: "Details Saved",
+                error: "Error Saving Organization Details"
             }
-
-            setLoading(false)
-        }
-        submit()
-
+        )
     };
 
     return (
