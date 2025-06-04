@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { getRoleDescription, selectableRoles } from "./RoleModalProps"
 import { User } from "@/database/generated/prisma"
+import toast from "react-hot-toast"
 
 
 
@@ -20,27 +21,41 @@ export default function RoleModal({ role, user, orgUUID, orgName }: { role: Disp
 
     const isNew = role == null
 
-    
+
     const router = useRouter()
 
-    async function save() {
-        if (selectedRole == RoleTypes.Error) {
-            return
-        }
-
-        if (isNew) {
-            await createUserRole(user.uuid, orgUUID, selectedRole)
-        } else {
-            await editUserRole(user.uuid, orgUUID, selectedRole)
-        }
-
+    function save() {
+        toast.promise(
+            async () => {
+                if (selectedRole == RoleTypes.Error) { return }
+                if (isNew) {
+                    await createUserRole(user.uuid, orgUUID, selectedRole)
+                } else {
+                    await editUserRole(user.uuid, orgUUID, selectedRole)
+                }
+                router.refresh()
+            },
+            {
+                loading: "Updating",
+                success: "Updated Permissions",
+                error: "Error Updating Permissions"
+            }
+        )
         popModal()
-        router.refresh()
     }
-    async function remove() {
-        await deleteUserRole(user.uuid, orgUUID)
+    function remove() {
+        toast.promise(
+            async () => {
+                await deleteUserRole(user.uuid, orgUUID)
+                router.refresh()
+            },
+            {
+                loading: "Removing",
+                success: `Removed ${user.firstName} from ${orgName}`,
+                error: "Error encountered in removing user"
+            }
+        )
         popModal()
-        router.refresh()
     }
 
     return (

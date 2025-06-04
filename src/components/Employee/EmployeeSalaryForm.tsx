@@ -10,6 +10,8 @@ import { FilingTypes } from "@/database/Taxes/FilingTypes";
 import Loading from "@/app/Loading";
 import { Employee } from "@/database/generated/prisma";
 import TextInput from "../Forms/TextInput";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 
 const FilingOptions = [
@@ -27,6 +29,7 @@ const FilingOptions = [
 interface EmployeeSalaryFormProps { empUUID: string }
 export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps) {
 
+    const router = useRouter()
     const [props, setProps] = useState({} as Employee)
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(true)
@@ -70,13 +73,17 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
 
-        setLoading(true)
-
-        async function submit() {
-            await submitEmployeeSalaryForm(new FormData(e.currentTarget));
-            setLoading(false)
-        }
-        submit()
+        toast.promise(
+            async () => {
+                const uuid = await submitEmployeeSalaryForm(new FormData(e.currentTarget))
+                router.push(`/organization/employee/${uuid}`)
+            },
+            {
+                loading: "Submitting Form",
+                success: "Pay Information Saved",
+                error: "Error Saving Information"
+            }
+        )
 
     };
 

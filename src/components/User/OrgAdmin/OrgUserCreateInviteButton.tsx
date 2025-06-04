@@ -8,6 +8,7 @@ import SelectInput from "@/components/Forms/SelectInput"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { getRoleDescription, selectableRoles } from "./RoleModalProps"
+import toast from "react-hot-toast"
 
 
 
@@ -41,12 +42,20 @@ function CreateInviteForm() {
 
     const router = useRouter()
 
-    async function save() {
-
-        await makeInviteCode(selectedRole)
+    function save() {
+        toast.promise(
+            async () => {
+                await makeInviteCode(selectedRole)
+                router.refresh()
+            },
+            {
+                loading: "Creating Invite",
+                success: "Invite Code Created",
+                error: "Error in creating invite code"
+            }
+        )
 
         popModal()
-        router.refresh()
     }
 
     return (

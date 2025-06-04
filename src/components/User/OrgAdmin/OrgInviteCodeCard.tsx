@@ -6,7 +6,7 @@ import { getRoleFromID } from "@/auth/roles/Roles";
 import ClickableDiv from "@/components/Decorative/ClickableDiv";
 import deleteInviteCode from "@/actions/user/inviteCodes/deleteInviteCode";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 
 
@@ -16,9 +16,18 @@ export default function OrgInviteCodeCard({ code }: { code: InviteCode }) {
 
     const router = useRouter()
 
-    async function del() {
-        await deleteInviteCode(code.uuid)
-        router.refresh()
+    function del() {
+        toast.promise(
+            async () => {
+                await deleteInviteCode(code.uuid)
+                router.refresh()
+            },
+            {
+                loading: "Deleting Code",
+                success: "Invite Code Deleted",
+                error: "Error Deleting Invite Code"
+            }
+        )
     }
 
     function getURL() {
@@ -27,8 +36,7 @@ export default function OrgInviteCodeCard({ code }: { code: InviteCode }) {
 
     return (
         <div className="flex flex-row gap-4">
-            <Toaster />
-            <ClickableDiv 
+            <ClickableDiv
                 className="card flex flex-row justify-between select-none w-60"
                 onClick={() => {
                     navigator.clipboard.writeText(getURL())

@@ -5,7 +5,6 @@ import { RoleTypes } from "@/auth/roles/Roles"
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
 
 
 export default async function submitEmployeeForm(newEmployee: boolean, formData: FormData) {
@@ -14,7 +13,7 @@ export default async function submitEmployeeForm(newEmployee: boolean, formData:
     await throwIfInsufficientPerms(RoleTypes.Editor)
 
     const orgUUID = formData.get("orgUUID") as string
-    const uuid = formData.get("uuid") as string
+    let uuid = formData.get("uuid") as string
 
     const firstName = formData.get("firstName") as string
     const middleName = formData.get("middleName") as string
@@ -27,13 +26,10 @@ export default async function submitEmployeeForm(newEmployee: boolean, formData:
     const address = formData.get("address") as string
     const ssn = formData.get("ssn") as string
 
-
-    // console.log(formData)
-
     if (newEmployee) {
         try {
 
-            await prisma.employee.create({
+            const u = await prisma.employee.create({
                 data: {
                     firstName: firstName,
                     middleName: middleName,
@@ -47,6 +43,8 @@ export default async function submitEmployeeForm(newEmployee: boolean, formData:
                     organizationId: orgUUID,
                 }
             })
+            
+            uuid = u.uuid
 
         } catch (err) { console.log(err) }
     } else {
@@ -72,5 +70,6 @@ export default async function submitEmployeeForm(newEmployee: boolean, formData:
 
     revalidatePath(`/organization/employee`)
     revalidatePath(`/organization/employee/${uuid}`)
-    redirect(`/organization/employee/${uuid}`)
+
+    return uuid
 }

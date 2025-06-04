@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import LargeTextInput from "../Forms/LargeTextInput";
 import Loading from "@/app/Loading";
 import { Employee } from "@/database/generated/prisma";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 
 
@@ -16,6 +18,7 @@ interface EmployeeFormProps { empUUID: string }
 export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
 
     const { context } = useCompany()
+    const router = useRouter()
     const [props, setProps] = useState({} as Employee)
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(true)
@@ -57,19 +60,39 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
         )
     }
 
-
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
 
-        setLoading(true)
-
-        async function submit() {
-            await submitEmployeeForm(newEmployee, new FormData(e.currentTarget));
-            setLoading(false)
-        }
-        submit()
-
+        toast.promise(
+            async () => {
+                const uuid = await submitEmployeeForm(newEmployee, new FormData(e.currentTarget))
+                router.push(`/organization/employee/${uuid}`)
+            },
+            {
+                loading: "Submitting Form",
+                success: "Employee Saved",
+                error: "Error Saving Information"
+            }
+        )
     };
+
+    function deactivate() {
+        toast.promise(
+            async () => {
+                await deactivateEmployee(props.uuid, !props.isDeleted)
+                router.push(`/organization/employee/${props.uuid}`)
+            },
+            !props.isDeleted ? {
+                loading: "Deactivating Employee",
+                success: `Deactivated ${props.firstName}`,
+                error: "Error Deactivating Employee"
+            } : {
+                loading: "Activating Employee",
+                success: `Activated ${props.firstName}`,
+                error: "Error Activating Employee"
+            }
+        )
+    }
 
     return (
         <form className="flex flex-row w-full justify-center gap-10" onSubmit={handleSubmit}>
@@ -78,7 +101,7 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
 
                 <div className="flex flex-row justify-between">
                     <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">{newEmployee ? "Create Employee:" : "Edit Employee:"}</h5>
-                    {!newEmployee && <button onClick={() => { deactivateEmployee(props.uuid, !props.isDeleted) }} className="mx-5 accent-button max-h-10">{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
+                    {!newEmployee && <button type="button" onClick={deactivate} className="mx-5 accent-button max-h-10">{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
                 </div>
 
 
@@ -93,9 +116,9 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
             <div className="w-sm card h-fit">
 
                 <TextInput id={"email"} label={"Email"} val={props.email} />
-                <TextInput id={"phoneNumber"} label={"Phone Number"} val={props.phoneNumber} mask={InputMasks.PHONE}/>
+                <TextInput id={"phoneNumber"} label={"Phone Number"} val={props.phoneNumber} mask={InputMasks.PHONE} />
                 <LargeTextInput id={"address"} label={"Address"} val={props.address} />
-                <TextInput id={"ssn"} label={"SSN"} val={props.ssn} mask={InputMasks.SSN}/>
+                <TextInput id={"ssn"} label={"SSN"} val={props.ssn} mask={InputMasks.SSN} />
 
                 <TextInput id={"orgUUID"} label={"Org UUID"} val={context?.companyUUID ?? ""} disabled={true} />
                 <TextInput id={"uuid"} label={"Emp UUID"} val={props.uuid} disabled={true} />
