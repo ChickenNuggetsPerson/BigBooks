@@ -178,9 +178,9 @@ model PayStubEarning {
   payStubId      String?
 
   isDefault   Boolean  @default(false)
-  organization   Organization? @relation(fields: [organizationId], references: [uuid])
+  organization   Organization? @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
   organizationId String?
-  employee      Employee? @relation(fields: [employeeId], references: [uuid])
+  employee      Employee? @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
   employeeId    String?
 
   type        PayStubItemType 
@@ -199,9 +199,9 @@ model PayStubDeduction {
   payStubId String
 
   isDefault   Boolean  @default(false)
-  organization   Organization? @relation(fields: [organizationId], references: [uuid])
+  organization   Organization? @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
   organizationId String?
-  employee      Employee? @relation(fields: [employeeId], references: [uuid])
+  employee      Employee? @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
   employeeId    String?
 
   type        PayStubItemType 
