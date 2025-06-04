@@ -214,7 +214,11 @@ exports.Prisma.PayStubScalarFieldEnum = {
 exports.Prisma.PayStubEarningScalarFieldEnum = {
   id: 'id',
   payStubId: 'payStubId',
+  isDefault: 'isDefault',
+  organizationId: 'organizationId',
+  employeeId: 'employeeId',
   type: 'type',
+  name: 'name',
   description: 'description',
   amount: 'amount',
   hours: 'hours',
@@ -224,7 +228,11 @@ exports.Prisma.PayStubEarningScalarFieldEnum = {
 exports.Prisma.PayStubDeductionScalarFieldEnum = {
   id: 'id',
   payStubId: 'payStubId',
+  isDefault: 'isDefault',
+  organizationId: 'organizationId',
+  employeeId: 'employeeId',
   type: 'type',
+  name: 'name',
   description: 'description',
   amount: 'amount',
   rate: 'rate'
@@ -244,7 +252,11 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.PayStubItemType = exports.$Enums.PayStubItemType = {
+  Earning: 'Earning',
+  Tax: 'Tax',
+  Other: 'Other'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
