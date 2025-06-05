@@ -10,7 +10,7 @@ import EditableDiv from "@/components/Decorative/EditableDiv";
 import { CardProp } from "@/components/Employee/EmployeeCard";
 import { Divider } from "@/components/Forms/Divider";
 import { prisma } from "@/database/prisma";
-import { nextOccurence } from "@/functions/Date";
+import { nextOccurence } from "@/utils/functions/Date";
 
 export const dynamic = 'force-dynamic'
 

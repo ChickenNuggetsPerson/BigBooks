@@ -5,7 +5,7 @@ import { redirectIfInvalidSession } from "@/auth/auth"
 import { RoleTypes } from "@/auth/roles/Roles"
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { prisma } from "@/database/prisma"
-import { hideSSN } from "@/functions/SSNStr"
+import { hideSSN } from "@/utils/functions/SSNStr"
 
 
 

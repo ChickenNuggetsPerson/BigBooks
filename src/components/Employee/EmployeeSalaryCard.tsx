@@ -1,5 +1,5 @@
 import EditableDiv from "../Decorative/EditableDiv";
-import { HourlyRateStr, MoneyToStr } from "@/functions/MoneyStr";
+import { HourlyRateStr, MoneyToStr } from "@/utils/functions/MoneyStr";
 import { Divider } from "../Forms/Divider";
 import { CardProp } from "./EmployeeCard";
 import { Employee } from "@/database/generated/prisma";

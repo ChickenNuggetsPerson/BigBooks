@@ -1,5 +1,5 @@
 'use client'
-import { appVersion } from "@/functions/version";
+import { appVersion } from "@/utils/functions/version";
 import Link from "next/link";
 import { useEffect } from "react";
 import toast from "react-hot-toast";

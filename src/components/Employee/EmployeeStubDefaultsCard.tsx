@@ -3,8 +3,8 @@
 import { AbsMaxPeriodTypes, Employee } from "@/database/generated/prisma";
 import EditableDiv from "../Decorative/EditableDiv";
 import { Divider } from "../Forms/Divider";
-import { MoneyToStr } from "@/functions/MoneyStr";
-import { percentToStr } from "@/functions/PercentStr";
+import { MoneyToStr } from "@/utils/functions/MoneyStr";
+import { percentToStr } from "@/utils/functions/PercentStr";
 import getPayrollItems from "@/actions/paystub/payrollItems/getPayrollItems";
 import CollapsibleDiv from "../Decorative/CollapsibleDiv";
 import { CardProp } from "./EmployeeCard";

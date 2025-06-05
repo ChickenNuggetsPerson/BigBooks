@@ -2,7 +2,7 @@
 
 import { getSession } from "@/auth/auth"
 import { prisma } from "@/database/prisma"
-import { addDays } from "@/functions/Date"
+import { addDays } from "@/utils/functions/Date"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 

@@ -15,9 +15,9 @@ import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import PaystubDefaultsForm from "../payrollItems/PayrollItemsForm";
 import { CardProp } from "@/components/Employee/EmployeeCard";
-import { nextOccurence } from "@/functions/Date";
+import { nextOccurence } from "@/utils/functions/Date";
+import Link from "next/link";
 
 
 
@@ -41,7 +41,7 @@ export default function PayrollGroupAminList({ groups }: { groups: PayrollGroup[
     }
 
     function saved() {
-        // setSelected(undefined)
+        setSelected(undefined)
     }
 
     return (
@@ -202,50 +202,51 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
 
 
     return (
-        <>
-            <motion.div
-                className="card w-md h-fit"
+        <motion.div
+            className="card w-md h-fit"
 
-                initial={{ opacity: 0, y: -20 }}
-                exit={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-            >
-
-                {selected.uuid !== "" &&
-                    <div className="relative">
-                        <div className="absolute right-0">
-                            <Trash2 onClick={clickedDelete} className="mt-2 mr-5" />
-                        </div>
-                    </div>
-                }
-
-                <div className="font-semibold text-xl pb-1">
-                    <NumericText val={selected.name == "" ? "." : selected.name} spacing={-2} animDelta={0} expand={false} />
-                </div>
-                <Divider />
-
-                <div className="h-2"></div>
-
-                <TextInput id="name" label="Name" val={selected.name} onChange={nameUpdated} />
-                <LargeTextInput label="Description" val={selected.description} onChange={descUpdated} />
-
-                {selected.payRefDate && selected.payFrequency &&
-                    <CardProp label={"Next Occurence:"} val={nextOccurence(selected.payRefDate, selected.payFrequency).toLocaleDateString()} />
-                }
-
-                <div className="flex flex-row gap-4 mt-5">
-                    <DateInput label="Reference Date" val={selected.payRefDate} onChange={refDateUpdated} />
-                    <NumberInput label="Days Between Pay" val={selected.payFrequency} changeCB={frequencyUpdated} />
-                </div>
-
-                <button onClick={saveButton} className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>
-
-            </motion.div>
+            initial={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+        >
 
             {selected.uuid !== "" &&
-                <PaystubDefaultsForm group groupUUID={selected.uuid} />
+                <div className="relative">
+                    <div className="absolute right-0">
+                        <Trash2 onClick={clickedDelete} className="mt-2 mr-5" />
+                    </div>
+                </div>
             }
 
-        </>
+            <div className="font-semibold text-xl pb-1">
+                <NumericText val={selected.name == "" ? "." : selected.name} spacing={-2} animDelta={0} expand={false} />
+            </div>
+            <Divider />
+
+            <div className="h-2"></div>
+
+            <div className="flex flex-row justify-between">
+                <div className="w-3/5">
+                    <TextInput id="name" label="Name" val={selected.name} onChange={nameUpdated} />
+                </div>
+                <Link href={`/organization/admin/groups/${selected.uuid}`} className="accent-button h-fit">
+                    Payroll Items
+                </Link>
+            </div>
+
+            <LargeTextInput label="Description" val={selected.description} onChange={descUpdated} />
+
+            {selected.payRefDate && selected.payFrequency &&
+                <CardProp label={"Next Occurence:"} val={nextOccurence(selected.payRefDate, selected.payFrequency).toLocaleDateString()} />
+            }
+
+            <div className="flex flex-row gap-4 mt-5">
+                <DateInput label="Reference Date" val={selected.payRefDate} onChange={refDateUpdated} />
+                <NumberInput label="Days Between Pay" val={selected.payFrequency} changeCB={frequencyUpdated} />
+            </div>
+
+            <button onClick={saveButton} className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>
+
+        </motion.div>
     )
 }

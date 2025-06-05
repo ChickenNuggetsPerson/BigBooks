@@ -16,7 +16,6 @@ export default async function EmployeeView({ params }: { params: Promise<{ emplo
 
     try {
         await throwIfInsufficientPerms(RoleTypes.Editor)
-
     } catch {
 
         return (

@@ -1,4 +1,4 @@
-import { appVersion } from "@/functions/version"
+import { appVersion } from "@/utils/functions/version"
 
 
 

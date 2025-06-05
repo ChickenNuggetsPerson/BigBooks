@@ -4,7 +4,7 @@ import { getSession } from "@/auth/auth";
 import { getIDFromRoleType, RoleTypes } from "@/auth/roles/Roles";
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
 import { prisma } from "@/database/prisma";
-import { addDays } from "@/functions/Date";
+import { addDays } from "@/utils/functions/Date";
 
 
 

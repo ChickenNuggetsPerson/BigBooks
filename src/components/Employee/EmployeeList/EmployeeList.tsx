@@ -11,7 +11,7 @@ import TextInput from "@/components/Forms/TextInput";
 import SelectInput from "@/components/Forms/SelectInput";
 import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight } from "lucide-react";
 import NumericText from "@/components/Decorative/NumericText/NumericText";
-import { limitString } from "@/functions/StringFunctions";
+import { limitString } from "@/utils/functions/StringFunctions";
 import Loading from "@/app/Loading";
 import { Employee } from "@/database/generated/prisma";
 

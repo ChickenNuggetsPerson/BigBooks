@@ -11,7 +11,7 @@ import { randomUUID } from "crypto"
 export default async function upsertPayrollItems(paystubItem: PayrollItem) {
 
     // TODO: Handle permissions
-    console.log(paystubItem)
+    // console.log(paystubItem)
 
     // Check to make sure the earnings object is configured correctly
     // Specifically the relations
