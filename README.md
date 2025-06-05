@@ -4,6 +4,7 @@
 
 A full stack accounting / payroll software built with [NEXT.js](https://nextjs.org/)
 - Icon Library: https://lucide.dev/
+- UI Library: https://mui.com/material-ui/getting-started/installation/
 
 ## To-Do List
 - [X] Remove payperiod table

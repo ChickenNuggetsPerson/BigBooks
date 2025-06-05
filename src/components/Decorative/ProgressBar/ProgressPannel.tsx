@@ -24,7 +24,7 @@ export default function ProgressBar({ steps, currentStep, changeCB }: ProgressBa
 
     return (
         <div className="flex flex-row justify-center">
-            <div className="relative flex overflow-hidden rounded-xl border border-gray-300 shadow-sm max-w-200 w-full">
+            <div className="relative flex overflow-hidden rounded-xl border border-gray-300 shadow-sm w-full">
                 {/* Background Layer */}
 
                 <div
