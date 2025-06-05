@@ -1,6 +1,7 @@
 'use client'
 
 import ProgressBar from "@/components/Decorative/ProgressBar/ProgressPannel";
+import SelectableEmployeeList from "@/components/Employee/EmployeeList/SelectableEmployeeList";
 import { useState } from "react";
 
 
@@ -16,7 +17,7 @@ export default function Payroll() {
         <div>
             <ProgressBar steps={["Configure", "Select Employees", "Enter Payroll", "Review"]} currentStep={viewState} changeCB={(index) => setViewState(index)} />
 
-
+            {viewState == 1 && <SelectableEmployeeList selectCB={() => {}} preSelected={[]} /> }
         </div>
     );
 }
