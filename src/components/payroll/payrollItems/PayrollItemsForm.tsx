@@ -1,9 +1,8 @@
 'use client'
 
 import { Divider } from "@/components/Forms/Divider"
-import { PayStubItem, PayStubItemType } from "@/database/generated/prisma"
+import { AbsMaxPeriodTypes, PayrollItem, PayStubItemType } from "@/database/generated/prisma"
 import { useEffect, useState } from "react"
-import getPaystubItems from "@/actions/paystub/items/getPaystubItems"
 import { useCompany } from "@/app/CompanyContext"
 import SelectInput from "@/components/Forms/SelectInput"
 import { Info, Save, Trash2, X } from "lucide-react"
@@ -12,17 +11,18 @@ import LargeTextInput from "@/components/Forms/LargeTextInput"
 
 import { SuperJSON } from "superjson"
 import toast from "react-hot-toast"
-import upsertPaystubItem from "@/actions/paystub/items/upsertPaystubItem"
 import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv"
 import { Decimal } from "@/database/generated/prisma/runtime/index-browser"
-import deletePaystubItem from "@/actions/paystub/items/deletePaystubItem"
 import NumberInput from "@/components/Forms/NumberInput"
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
+import getPayrollItems from "@/actions/paystub/payrollItems/getPayrollItems"
+import upsertPayrollItems from "@/actions/paystub/payrollItems/upsertPayrollItems"
+import deletePayrollItem from "@/actions/paystub/payrollItems/deletePayrollItem"
 
 
 
 
-export default function PaystubDefaultsForm({
+export default function PayrollItemsForm({
     organization = false,
     group = false,
     employee = false,
@@ -37,21 +37,21 @@ export default function PaystubDefaultsForm({
 }) {
 
     const { addModal } = useModalManager()
-    const [defaultItems, setDefaultItems] = useState([] as PayStubItem[])
+    const [defaultItems, setDefaultItems] = useState([] as PayrollItem[])
     const [newItem, setNewItem] = useState(false)
     const { context } = useCompany()
 
     async function loadData() {
-        let items = [] as PayStubItem[]
+        let items = [] as PayrollItem[]
 
         if (organization) {
-            items = await getPaystubItems({ organizationId: context?.companyUUID })
+            items = (await getPayrollItems({ organizationId: context?.companyUUID })).organization
         }
         if (employee) {
-            items = await getPaystubItems({ employeeId: employeeUUID })
+            items = (await getPayrollItems({ employeeId: employeeUUID })).employee
         }
         if (group) {
-            items = await getPaystubItems({ payrollGroupId: groupUUID })
+            items = (await getPayrollItems({ payrollGroupId: groupUUID })).group
         }
         setDefaultItems(items)
         setNewItem(false)
@@ -67,26 +67,20 @@ export default function PaystubDefaultsForm({
     }
 
     function newButtonPressed() {
-        const newItem = {
-            type: PayStubItemType.Other,
-            name: "New Default",
+        setDefaultItems([{
+            name: "New Item",
             uuid: "",
-            isDefault: true,
-            payStubId: null,
+            type: PayStubItemType.Other,
             description: null,
-            
-            hours: null, // Not needed here
-            rate: null,  // Not needed here either
-
             percent: null,
-            amount: new Decimal("0.0"),
-
+            amount: new Decimal(0),
             organizationId: (organization) ? (context?.companyUUID ?? null) : null,
             payrollGroupId: (group) ? groupUUID : null,
-            employeeId:     (employee) ? employeeUUID : null,
-        }
-
-        setDefaultItems([newItem, ...defaultItems])
+            employeeId: (employee) ? employeeUUID : null,
+            
+            absMax: new Decimal(0),
+            absMaxPeriod: AbsMaxPeriodTypes.None
+        }, ...defaultItems])
         setNewItem(true)
     }
 
@@ -135,7 +129,7 @@ function PaystubDefaultItem({
     refresh?: () => void
 }) {
 
-    const origonal = SuperJSON.parse<PayStubItem>(item)
+    const origonal = SuperJSON.parse<PayrollItem>(item)
 
     const [itemState, setItemState] = useState(origonal)
     const [edited, setEdited] = useState(false)
@@ -145,12 +139,14 @@ function PaystubDefaultItem({
         setEdited(JSON.stringify(itemState) !== JSON.stringify(origonal))
     }, [itemState, origonal])
 
-    const options = Object.values(PayStubItemType).map((v) => { return { id: v, label: v } })
+    
+    const typeOptions = Object.values(PayStubItemType).map((v) => { return { id: v, label: v } })
+    const limitOptions = Object.values(AbsMaxPeriodTypes).map((v) => { return { id: v, label: v} })
 
     function saved() {
         toast.promise(
             async () => {
-                await upsertPaystubItem(itemState)
+                await upsertPayrollItems(itemState)
                 refresh()
             },
             {
@@ -164,7 +160,7 @@ function PaystubDefaultItem({
     function deleted() {
         toast.promise(
             async () => {
-                await deletePaystubItem(itemState.uuid)
+                await deletePayrollItem(itemState.uuid)
                 refresh()
             },
             {
@@ -183,9 +179,21 @@ function PaystubDefaultItem({
         <CollapsibleDiv title={origonal.name} className="">
 
             <div className="flex flex-row gap-x-4 mt-2">
-                <SelectInput label="Type" val={itemState.type} options={options} changeCB={(val) => { setItemState({ ...itemState, type: val as PayStubItemType }) }} />
+                <SelectInput label="Type" val={itemState.type} options={typeOptions} changeCB={(val) => { setItemState({ ...itemState, type: val as PayStubItemType }) }} />
                 <div className="pt-5 w-full">
                     <TextInput label="Name" val={itemState.name} onChange={(val) => { setItemState({ ...itemState, name: val }) }} />
+                </div>
+            </div>
+
+            <div className="flex flex-row justify-between gap-4">
+                <NumberInput label="Percent" val={Number(itemState.percent ?? 0) * 100}      changeCB={(val) => { if (val == 0) { setItemState({ ...itemState, percent: null }) } else { setItemState({ ...itemState, percent: new Decimal(val / 100) }) } }} />
+                <NumberInput label="Flat Ammount" val={Number(itemState.amount ?? 0)}  changeCB={(val) => { setItemState({ ...itemState, amount: new Decimal(val) }) }} />
+            </div>
+
+            <div className="flex flex-row gap-x-4">
+                <SelectInput label="Limit Period" val={itemState.absMaxPeriod} options={limitOptions} changeCB={(val) => { setItemState({ ...itemState, absMaxPeriod: val as AbsMaxPeriodTypes }) }} />
+                <div className="pt-5 w-full">
+                    <NumberInput label="Absolute Limit For Period" val={Number(itemState.absMax ?? 0)}  changeCB={(val) => { setItemState({ ...itemState, absMax: new Decimal(val) }) }} />
                 </div>
             </div>
 
@@ -198,11 +206,6 @@ function PaystubDefaultItem({
                     {itemState.uuid !== "" && <Trash2 size={30} onClick={deleted} className="bg-gray-100 rounded-md p-1 hover:bg-gray-200" />}
                     {itemState.uuid === "" && <X size={30} onClick={cancel} className="bg-gray-100 rounded-md p-1 hover:bg-gray-200" />}
                 </div>
-            </div>
-
-            <div className="flex flex-row justify-between gap-4">
-                <NumberInput label="Percent" val={Number(itemState.percent ?? 0) * 100}      changeCB={(val) => { if (val == 0) { setItemState({ ...itemState, percent: null }) } else { setItemState({ ...itemState, percent: new Decimal(val / 100) }) } }} />
-                <NumberInput label="Flat Ammount" val={Number(itemState.amount ?? 0)}  changeCB={(val) => { setItemState({ ...itemState, amount: new Decimal(val) }) }} />
             </div>
 
         </CollapsibleDiv>

@@ -11,7 +11,7 @@ import CollapsibleDiv from "../Decorative/CollapsibleDiv";
 
 export default function AdminCard({ }) {
     return (
-        <CollapsibleDiv title={"Admin Tools:"} className="card max-w-sm">
+        <CollapsibleDiv title={<p className="mb-1 text-2xl font-semibold text-gray-700 select-none">Admin Tools:</p>} className="card max-w-sm">
         
             <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/organization/admin/configure"}>
                 Edit Organization Details

@@ -23,7 +23,7 @@ const AnimateChildren = React.forwardRef<HTMLDivElement, AnimateChildrenProps>(
                         initial={{ opacity: 0, x: x, y: y }}
                         exit={{ opacity: 0, x: x, y: y }}
                         animate={{ opacity: 1, x: 0, y: 0 }}
-                        transition={{ duration: 0.75 + (index * 0.25), type: 'spring' }}
+                        transition={{ duration: 0.75, delay: index * 0.1, type: 'spring' }}
                         key={index}
                     >
                         {child}

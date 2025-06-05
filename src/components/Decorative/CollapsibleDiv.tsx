@@ -5,13 +5,15 @@ import { ChevronDown } from "lucide-react";
 
 
 
-type CollapsibleDivProps = React.HTMLAttributes<HTMLDivElement> & {
-    title?: React.ReactNode
-}
+type CollapsibleDivProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> & {
+    title?: React.ReactNode,
+    arrowSize?: number
+};
+
 
 
 const CollapsibleDiv = React.forwardRef<HTMLDivElement, CollapsibleDivProps>(
-    ({ title, children, ...rest }, ref) => {
+    ({ title, arrowSize = 24, children, ...rest }, ref) => {
 
         const [expanded, setExpanded] = useState(false)
 
@@ -29,21 +31,25 @@ const CollapsibleDiv = React.forwardRef<HTMLDivElement, CollapsibleDivProps>(
                             className="bg-gray-100 rounded-md p-1 hover:bg-gray-200"
                             onClick={() => setExpanded(!expanded)}
                         >
-                            <ChevronDown />
+                            <ChevronDown size={arrowSize} />
                         </motion.div>
                     </div>
                 </div>
 
-                <div className="mb-1 text-2xl font-semibold text-gray-700 select-none">
-                    {title}
-                </div>
+                {title &&
+                    <>
+                        {title}
 
-                <motion.div
-                    animate={{ opacity: expanded ? 1 : 0 }}
-                    transition={{ duration: 0.3 }}
-                >
-                    <div className="bg-accent h-px"></div>
-                </motion.div>
+                        <motion.div
+                            animate={{ opacity: expanded ? 1 : 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="mt-1"
+                        >
+                            <div className="bg-accent h-px"></div>
+                        </motion.div>
+
+                    </>
+                }
 
                 <motion.div
                     initial={{

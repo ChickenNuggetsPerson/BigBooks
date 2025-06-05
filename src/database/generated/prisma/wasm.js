@@ -205,6 +205,7 @@ exports.Prisma.PayStubScalarFieldEnum = {
   payDate: 'payDate',
   periodStart: 'periodStart',
   periodEnd: 'periodEnd',
+  locked: 'locked',
   grossEarnings: 'grossEarnings',
   totalDeductions: 'totalDeductions',
   netPay: 'netPay',
@@ -214,6 +215,7 @@ exports.Prisma.PayStubScalarFieldEnum = {
 exports.Prisma.PayStubItemScalarFieldEnum = {
   uuid: 'uuid',
   payStubId: 'payStubId',
+  payrollItemId: 'payrollItemId',
   type: 'type',
   name: 'name',
   description: 'description',
@@ -232,7 +234,9 @@ exports.Prisma.PayrollItemScalarFieldEnum = {
   name: 'name',
   description: 'description',
   percent: 'percent',
-  amount: 'amount'
+  amount: 'amount',
+  absMaxPeriod: 'absMaxPeriod',
+  absMax: 'absMax'
 };
 
 exports.Prisma.SortOrder = {
@@ -253,6 +257,12 @@ exports.PayStubItemType = exports.$Enums.PayStubItemType = {
   Earning: 'Earning',
   Tax: 'Tax',
   Other: 'Other'
+};
+
+exports.AbsMaxPeriodTypes = exports.$Enums.AbsMaxPeriodTypes = {
+  None: 'None',
+  Month: 'Month',
+  Year: 'Year'
 };
 
 exports.Prisma.ModelName = {

@@ -80,8 +80,8 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
             },
             {
                 loading: "Submitting Form",
-                success: "Pay Information Saved",
-                error: "Error Saving Information"
+                success: "Tax Information Saved",
+                error: "Error Saving Tax Information"
             }
         )
 
@@ -92,7 +92,7 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
         <form className="flex flex-row w-full justify-center gap-10" onSubmit={handleSubmit}>
 
             <div className="w-sm card h-fit">
-                <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">Edit Employee Pay</h5>
+                <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">Edit Tax Information</h5>
                 <Divider />
                 <h6 className="mb-5 text-2xl tracking-tight text-gray-400">{`${props.firstName} ${props.lastName}`}</h6>
 

@@ -149,6 +149,8 @@ model PayStub {
   periodStart DateTime
   periodEnd   DateTime
 
+  locked Boolean @default(false)
+
   // Totals or summaries (computed at generation time)
   grossEarnings   Decimal @default(0) // sum of all PayStubEarning.amount
   totalDeductions Decimal @default(0) // sum of all PayStubDeduction.amount
@@ -173,6 +175,9 @@ model PayStubItem {
   payStub   PayStub @relation(fields: [payStubId], references: [uuid], onDelete: Cascade)
   payStubId String
 
+  payrollItem   PayrollItem? @relation(fields: [payrollItemId], references: [uuid], onDelete: SetNull)
+  payrollItemId String?
+
   type        PayStubItemType
   name        String
   description String?
@@ -181,6 +186,12 @@ model PayStubItem {
   rate    Decimal?
   percent Decimal?
   amount  Decimal
+}
+
+enum AbsMaxPeriodTypes {
+  None
+  Month
+  Year
 }
 
 model PayrollItem {
@@ -199,4 +210,9 @@ model PayrollItem {
 
   percent Decimal?
   amount  Decimal
+
+  absMaxPeriod AbsMaxPeriodTypes @default(None)
+  absMax       Decimal           @default(0)
+
+  PayStubItem PayStubItem[]
 }

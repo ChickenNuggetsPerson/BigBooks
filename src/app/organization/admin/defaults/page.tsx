@@ -1,6 +1,6 @@
 import { RoleTypes } from "@/auth/roles/Roles"
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
-import PaystubDefaultsForm from "@/components/payroll/paystubItems/PaystubDefaultsForm"
+import PaystubDefaultsForm from "@/components/payroll/payrollItems/PayrollItemsForm"
 import { MoveLeft } from "lucide-react"
 import Link from "next/link"
 

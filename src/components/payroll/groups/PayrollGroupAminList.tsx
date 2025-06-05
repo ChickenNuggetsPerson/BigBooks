@@ -15,7 +15,9 @@ import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import PaystubDefaultsForm from "../paystubItems/PaystubDefaultsForm";
+import PaystubDefaultsForm from "../payrollItems/PayrollItemsForm";
+import { CardProp } from "@/components/Employee/EmployeeCard";
+import { nextOccurence } from "@/functions/Date";
 
 
 
@@ -227,7 +229,11 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
                 <TextInput id="name" label="Name" val={selected.name} onChange={nameUpdated} />
                 <LargeTextInput label="Description" val={selected.description} onChange={descUpdated} />
 
-                <div className="flex flex-row gap-4">
+                {selected.payRefDate && selected.payFrequency &&
+                    <CardProp label={"Next Occurence:"} val={nextOccurence(selected.payRefDate, selected.payFrequency).toLocaleDateString()} />
+                }
+
+                <div className="flex flex-row gap-4 mt-5">
                     <DateInput label="Reference Date" val={selected.payRefDate} onChange={refDateUpdated} />
                     <NumberInput label="Days Between Pay" val={selected.payFrequency} changeCB={frequencyUpdated} />
                 </div>

@@ -86,11 +86,24 @@ export namespace $Enums {
 
 export type PayStubItemType = (typeof PayStubItemType)[keyof typeof PayStubItemType]
 
+
+export const AbsMaxPeriodTypes: {
+  None: 'None',
+  Month: 'Month',
+  Year: 'Year'
+};
+
+export type AbsMaxPeriodTypes = (typeof AbsMaxPeriodTypes)[keyof typeof AbsMaxPeriodTypes]
+
 }
 
 export type PayStubItemType = $Enums.PayStubItemType
 
 export const PayStubItemType: typeof $Enums.PayStubItemType
+
+export type AbsMaxPeriodTypes = $Enums.AbsMaxPeriodTypes
+
+export const AbsMaxPeriodTypes: typeof $Enums.AbsMaxPeriodTypes
 
 /**
  * ##  Prisma Client ʲˢ
@@ -2128,6 +2141,37 @@ export namespace Prisma {
    * PayStubCountOutputType without action
    */
   export type PayStubCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PayStubItemWhereInput
+  }
+
+
+  /**
+   * Count Type PayrollItemCountOutputType
+   */
+
+  export type PayrollItemCountOutputType = {
+    PayStubItem: number
+  }
+
+  export type PayrollItemCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    PayStubItem?: boolean | PayrollItemCountOutputTypeCountPayStubItemArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PayrollItemCountOutputType without action
+   */
+  export type PayrollItemCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayrollItemCountOutputType
+     */
+    select?: PayrollItemCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PayrollItemCountOutputType without action
+   */
+  export type PayrollItemCountOutputTypeCountPayStubItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PayStubItemWhereInput
   }
 
@@ -12224,6 +12268,7 @@ export namespace Prisma {
     payDate: Date | null
     periodStart: Date | null
     periodEnd: Date | null
+    locked: boolean | null
     grossEarnings: Decimal | null
     totalDeductions: Decimal | null
     netPay: Decimal | null
@@ -12235,6 +12280,7 @@ export namespace Prisma {
     payDate: Date | null
     periodStart: Date | null
     periodEnd: Date | null
+    locked: boolean | null
     grossEarnings: Decimal | null
     totalDeductions: Decimal | null
     netPay: Decimal | null
@@ -12246,6 +12292,7 @@ export namespace Prisma {
     payDate: number
     periodStart: number
     periodEnd: number
+    locked: number
     grossEarnings: number
     totalDeductions: number
     netPay: number
@@ -12271,6 +12318,7 @@ export namespace Prisma {
     payDate?: true
     periodStart?: true
     periodEnd?: true
+    locked?: true
     grossEarnings?: true
     totalDeductions?: true
     netPay?: true
@@ -12282,6 +12330,7 @@ export namespace Prisma {
     payDate?: true
     periodStart?: true
     periodEnd?: true
+    locked?: true
     grossEarnings?: true
     totalDeductions?: true
     netPay?: true
@@ -12293,6 +12342,7 @@ export namespace Prisma {
     payDate?: true
     periodStart?: true
     periodEnd?: true
+    locked?: true
     grossEarnings?: true
     totalDeductions?: true
     netPay?: true
@@ -12391,6 +12441,7 @@ export namespace Prisma {
     payDate: Date
     periodStart: Date
     periodEnd: Date
+    locked: boolean
     grossEarnings: Decimal
     totalDeductions: Decimal
     netPay: Decimal
@@ -12421,6 +12472,7 @@ export namespace Prisma {
     payDate?: boolean
     periodStart?: boolean
     periodEnd?: boolean
+    locked?: boolean
     grossEarnings?: boolean
     totalDeductions?: boolean
     netPay?: boolean
@@ -12435,6 +12487,7 @@ export namespace Prisma {
     payDate?: boolean
     periodStart?: boolean
     periodEnd?: boolean
+    locked?: boolean
     grossEarnings?: boolean
     totalDeductions?: boolean
     netPay?: boolean
@@ -12447,6 +12500,7 @@ export namespace Prisma {
     payDate?: boolean
     periodStart?: boolean
     periodEnd?: boolean
+    locked?: boolean
     grossEarnings?: boolean
     totalDeductions?: boolean
     netPay?: boolean
@@ -12459,13 +12513,14 @@ export namespace Prisma {
     payDate?: boolean
     periodStart?: boolean
     periodEnd?: boolean
+    locked?: boolean
     grossEarnings?: boolean
     totalDeductions?: boolean
     netPay?: boolean
     employeeId?: boolean
   }
 
-  export type PayStubOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "payDate" | "periodStart" | "periodEnd" | "grossEarnings" | "totalDeductions" | "netPay" | "employeeId", ExtArgs["result"]["payStub"]>
+  export type PayStubOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "payDate" | "periodStart" | "periodEnd" | "locked" | "grossEarnings" | "totalDeductions" | "netPay" | "employeeId", ExtArgs["result"]["payStub"]>
   export type PayStubInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
     items?: boolean | PayStub$itemsArgs<ExtArgs>
@@ -12489,6 +12544,7 @@ export namespace Prisma {
       payDate: Date
       periodStart: Date
       periodEnd: Date
+      locked: boolean
       grossEarnings: Prisma.Decimal
       totalDeductions: Prisma.Decimal
       netPay: Prisma.Decimal
@@ -12922,6 +12978,7 @@ export namespace Prisma {
     readonly payDate: FieldRef<"PayStub", 'DateTime'>
     readonly periodStart: FieldRef<"PayStub", 'DateTime'>
     readonly periodEnd: FieldRef<"PayStub", 'DateTime'>
+    readonly locked: FieldRef<"PayStub", 'Boolean'>
     readonly grossEarnings: FieldRef<"PayStub", 'Decimal'>
     readonly totalDeductions: FieldRef<"PayStub", 'Decimal'>
     readonly netPay: FieldRef<"PayStub", 'Decimal'>
@@ -13393,6 +13450,7 @@ export namespace Prisma {
   export type PayStubItemMinAggregateOutputType = {
     uuid: string | null
     payStubId: string | null
+    payrollItemId: string | null
     type: $Enums.PayStubItemType | null
     name: string | null
     description: string | null
@@ -13405,6 +13463,7 @@ export namespace Prisma {
   export type PayStubItemMaxAggregateOutputType = {
     uuid: string | null
     payStubId: string | null
+    payrollItemId: string | null
     type: $Enums.PayStubItemType | null
     name: string | null
     description: string | null
@@ -13417,6 +13476,7 @@ export namespace Prisma {
   export type PayStubItemCountAggregateOutputType = {
     uuid: number
     payStubId: number
+    payrollItemId: number
     type: number
     name: number
     description: number
@@ -13445,6 +13505,7 @@ export namespace Prisma {
   export type PayStubItemMinAggregateInputType = {
     uuid?: true
     payStubId?: true
+    payrollItemId?: true
     type?: true
     name?: true
     description?: true
@@ -13457,6 +13518,7 @@ export namespace Prisma {
   export type PayStubItemMaxAggregateInputType = {
     uuid?: true
     payStubId?: true
+    payrollItemId?: true
     type?: true
     name?: true
     description?: true
@@ -13469,6 +13531,7 @@ export namespace Prisma {
   export type PayStubItemCountAggregateInputType = {
     uuid?: true
     payStubId?: true
+    payrollItemId?: true
     type?: true
     name?: true
     description?: true
@@ -13568,6 +13631,7 @@ export namespace Prisma {
   export type PayStubItemGroupByOutputType = {
     uuid: string
     payStubId: string
+    payrollItemId: string | null
     type: $Enums.PayStubItemType
     name: string
     description: string | null
@@ -13599,6 +13663,7 @@ export namespace Prisma {
   export type PayStubItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     uuid?: boolean
     payStubId?: boolean
+    payrollItemId?: boolean
     type?: boolean
     name?: boolean
     description?: boolean
@@ -13607,11 +13672,13 @@ export namespace Prisma {
     percent?: boolean
     amount?: boolean
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
+    payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
   }, ExtArgs["result"]["payStubItem"]>
 
   export type PayStubItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     uuid?: boolean
     payStubId?: boolean
+    payrollItemId?: boolean
     type?: boolean
     name?: boolean
     description?: boolean
@@ -13620,11 +13687,13 @@ export namespace Prisma {
     percent?: boolean
     amount?: boolean
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
+    payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
   }, ExtArgs["result"]["payStubItem"]>
 
   export type PayStubItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     uuid?: boolean
     payStubId?: boolean
+    payrollItemId?: boolean
     type?: boolean
     name?: boolean
     description?: boolean
@@ -13633,11 +13702,13 @@ export namespace Prisma {
     percent?: boolean
     amount?: boolean
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
+    payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
   }, ExtArgs["result"]["payStubItem"]>
 
   export type PayStubItemSelectScalar = {
     uuid?: boolean
     payStubId?: boolean
+    payrollItemId?: boolean
     type?: boolean
     name?: boolean
     description?: boolean
@@ -13647,25 +13718,30 @@ export namespace Prisma {
     amount?: boolean
   }
 
-  export type PayStubItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "payStubId" | "type" | "name" | "description" | "hours" | "rate" | "percent" | "amount", ExtArgs["result"]["payStubItem"]>
+  export type PayStubItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "payStubId" | "payrollItemId" | "type" | "name" | "description" | "hours" | "rate" | "percent" | "amount", ExtArgs["result"]["payStubItem"]>
   export type PayStubItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
+    payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
   }
   export type PayStubItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
+    payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
   }
   export type PayStubItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
+    payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
   }
 
   export type $PayStubItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PayStubItem"
     objects: {
       payStub: Prisma.$PayStubPayload<ExtArgs>
+      payrollItem: Prisma.$PayrollItemPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       uuid: string
       payStubId: string
+      payrollItemId: string | null
       type: $Enums.PayStubItemType
       name: string
       description: string | null
@@ -14068,6 +14144,7 @@ export namespace Prisma {
   export interface Prisma__PayStubItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     payStub<T extends PayStubDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PayStubDefaultArgs<ExtArgs>>): Prisma__PayStubClient<$Result.GetResult<Prisma.$PayStubPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    payrollItem<T extends PayStubItem$payrollItemArgs<ExtArgs> = {}>(args?: Subset<T, PayStubItem$payrollItemArgs<ExtArgs>>): Prisma__PayrollItemClient<$Result.GetResult<Prisma.$PayrollItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14099,6 +14176,7 @@ export namespace Prisma {
   interface PayStubItemFieldRefs {
     readonly uuid: FieldRef<"PayStubItem", 'String'>
     readonly payStubId: FieldRef<"PayStubItem", 'String'>
+    readonly payrollItemId: FieldRef<"PayStubItem", 'String'>
     readonly type: FieldRef<"PayStubItem", 'PayStubItemType'>
     readonly name: FieldRef<"PayStubItem", 'String'>
     readonly description: FieldRef<"PayStubItem", 'String'>
@@ -14502,6 +14580,25 @@ export namespace Prisma {
   }
 
   /**
+   * PayStubItem.payrollItem
+   */
+  export type PayStubItem$payrollItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayrollItem
+     */
+    select?: PayrollItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayrollItem
+     */
+    omit?: PayrollItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayrollItemInclude<ExtArgs> | null
+    where?: PayrollItemWhereInput
+  }
+
+  /**
    * PayStubItem without action
    */
   export type PayStubItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14535,11 +14632,13 @@ export namespace Prisma {
   export type PayrollItemAvgAggregateOutputType = {
     percent: Decimal | null
     amount: Decimal | null
+    absMax: Decimal | null
   }
 
   export type PayrollItemSumAggregateOutputType = {
     percent: Decimal | null
     amount: Decimal | null
+    absMax: Decimal | null
   }
 
   export type PayrollItemMinAggregateOutputType = {
@@ -14552,6 +14651,8 @@ export namespace Prisma {
     description: string | null
     percent: Decimal | null
     amount: Decimal | null
+    absMaxPeriod: $Enums.AbsMaxPeriodTypes | null
+    absMax: Decimal | null
   }
 
   export type PayrollItemMaxAggregateOutputType = {
@@ -14564,6 +14665,8 @@ export namespace Prisma {
     description: string | null
     percent: Decimal | null
     amount: Decimal | null
+    absMaxPeriod: $Enums.AbsMaxPeriodTypes | null
+    absMax: Decimal | null
   }
 
   export type PayrollItemCountAggregateOutputType = {
@@ -14576,6 +14679,8 @@ export namespace Prisma {
     description: number
     percent: number
     amount: number
+    absMaxPeriod: number
+    absMax: number
     _all: number
   }
 
@@ -14583,11 +14688,13 @@ export namespace Prisma {
   export type PayrollItemAvgAggregateInputType = {
     percent?: true
     amount?: true
+    absMax?: true
   }
 
   export type PayrollItemSumAggregateInputType = {
     percent?: true
     amount?: true
+    absMax?: true
   }
 
   export type PayrollItemMinAggregateInputType = {
@@ -14600,6 +14707,8 @@ export namespace Prisma {
     description?: true
     percent?: true
     amount?: true
+    absMaxPeriod?: true
+    absMax?: true
   }
 
   export type PayrollItemMaxAggregateInputType = {
@@ -14612,6 +14721,8 @@ export namespace Prisma {
     description?: true
     percent?: true
     amount?: true
+    absMaxPeriod?: true
+    absMax?: true
   }
 
   export type PayrollItemCountAggregateInputType = {
@@ -14624,6 +14735,8 @@ export namespace Prisma {
     description?: true
     percent?: true
     amount?: true
+    absMaxPeriod?: true
+    absMax?: true
     _all?: true
   }
 
@@ -14723,6 +14836,8 @@ export namespace Prisma {
     description: string | null
     percent: Decimal | null
     amount: Decimal
+    absMaxPeriod: $Enums.AbsMaxPeriodTypes
+    absMax: Decimal
     _count: PayrollItemCountAggregateOutputType | null
     _avg: PayrollItemAvgAggregateOutputType | null
     _sum: PayrollItemSumAggregateOutputType | null
@@ -14754,9 +14869,13 @@ export namespace Prisma {
     description?: boolean
     percent?: boolean
     amount?: boolean
+    absMaxPeriod?: boolean
+    absMax?: boolean
     organization?: boolean | PayrollItem$organizationArgs<ExtArgs>
     payrollGroup?: boolean | PayrollItem$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayrollItem$employeeArgs<ExtArgs>
+    PayStubItem?: boolean | PayrollItem$PayStubItemArgs<ExtArgs>
+    _count?: boolean | PayrollItemCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payrollItem"]>
 
   export type PayrollItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -14769,6 +14888,8 @@ export namespace Prisma {
     description?: boolean
     percent?: boolean
     amount?: boolean
+    absMaxPeriod?: boolean
+    absMax?: boolean
     organization?: boolean | PayrollItem$organizationArgs<ExtArgs>
     payrollGroup?: boolean | PayrollItem$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayrollItem$employeeArgs<ExtArgs>
@@ -14784,6 +14905,8 @@ export namespace Prisma {
     description?: boolean
     percent?: boolean
     amount?: boolean
+    absMaxPeriod?: boolean
+    absMax?: boolean
     organization?: boolean | PayrollItem$organizationArgs<ExtArgs>
     payrollGroup?: boolean | PayrollItem$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayrollItem$employeeArgs<ExtArgs>
@@ -14799,13 +14922,17 @@ export namespace Prisma {
     description?: boolean
     percent?: boolean
     amount?: boolean
+    absMaxPeriod?: boolean
+    absMax?: boolean
   }
 
-  export type PayrollItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "organizationId" | "payrollGroupId" | "employeeId" | "type" | "name" | "description" | "percent" | "amount", ExtArgs["result"]["payrollItem"]>
+  export type PayrollItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "organizationId" | "payrollGroupId" | "employeeId" | "type" | "name" | "description" | "percent" | "amount" | "absMaxPeriod" | "absMax", ExtArgs["result"]["payrollItem"]>
   export type PayrollItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | PayrollItem$organizationArgs<ExtArgs>
     payrollGroup?: boolean | PayrollItem$payrollGroupArgs<ExtArgs>
     employee?: boolean | PayrollItem$employeeArgs<ExtArgs>
+    PayStubItem?: boolean | PayrollItem$PayStubItemArgs<ExtArgs>
+    _count?: boolean | PayrollItemCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PayrollItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | PayrollItem$organizationArgs<ExtArgs>
@@ -14824,6 +14951,7 @@ export namespace Prisma {
       organization: Prisma.$OrganizationPayload<ExtArgs> | null
       payrollGroup: Prisma.$PayrollGroupPayload<ExtArgs> | null
       employee: Prisma.$EmployeePayload<ExtArgs> | null
+      PayStubItem: Prisma.$PayStubItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       uuid: string
@@ -14835,6 +14963,8 @@ export namespace Prisma {
       description: string | null
       percent: Prisma.Decimal | null
       amount: Prisma.Decimal
+      absMaxPeriod: $Enums.AbsMaxPeriodTypes
+      absMax: Prisma.Decimal
     }, ExtArgs["result"]["payrollItem"]>
     composites: {}
   }
@@ -15232,6 +15362,7 @@ export namespace Prisma {
     organization<T extends PayrollItem$organizationArgs<ExtArgs> = {}>(args?: Subset<T, PayrollItem$organizationArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     payrollGroup<T extends PayrollItem$payrollGroupArgs<ExtArgs> = {}>(args?: Subset<T, PayrollItem$payrollGroupArgs<ExtArgs>>): Prisma__PayrollGroupClient<$Result.GetResult<Prisma.$PayrollGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     employee<T extends PayrollItem$employeeArgs<ExtArgs> = {}>(args?: Subset<T, PayrollItem$employeeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    PayStubItem<T extends PayrollItem$PayStubItemArgs<ExtArgs> = {}>(args?: Subset<T, PayrollItem$PayStubItemArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayStubItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15270,6 +15401,8 @@ export namespace Prisma {
     readonly description: FieldRef<"PayrollItem", 'String'>
     readonly percent: FieldRef<"PayrollItem", 'Decimal'>
     readonly amount: FieldRef<"PayrollItem", 'Decimal'>
+    readonly absMaxPeriod: FieldRef<"PayrollItem", 'AbsMaxPeriodTypes'>
+    readonly absMax: FieldRef<"PayrollItem", 'Decimal'>
   }
     
 
@@ -15723,6 +15856,30 @@ export namespace Prisma {
   }
 
   /**
+   * PayrollItem.PayStubItem
+   */
+  export type PayrollItem$PayStubItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayStubItem
+     */
+    select?: PayStubItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayStubItem
+     */
+    omit?: PayStubItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayStubItemInclude<ExtArgs> | null
+    where?: PayStubItemWhereInput
+    orderBy?: PayStubItemOrderByWithRelationInput | PayStubItemOrderByWithRelationInput[]
+    cursor?: PayStubItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PayStubItemScalarFieldEnum | PayStubItemScalarFieldEnum[]
+  }
+
+  /**
    * PayrollItem without action
    */
   export type PayrollItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15867,6 +16024,7 @@ export namespace Prisma {
     payDate: 'payDate',
     periodStart: 'periodStart',
     periodEnd: 'periodEnd',
+    locked: 'locked',
     grossEarnings: 'grossEarnings',
     totalDeductions: 'totalDeductions',
     netPay: 'netPay',
@@ -15879,6 +16037,7 @@ export namespace Prisma {
   export const PayStubItemScalarFieldEnum: {
     uuid: 'uuid',
     payStubId: 'payStubId',
+    payrollItemId: 'payrollItemId',
     type: 'type',
     name: 'name',
     description: 'description',
@@ -15900,7 +16059,9 @@ export namespace Prisma {
     name: 'name',
     description: 'description',
     percent: 'percent',
-    amount: 'amount'
+    amount: 'amount',
+    absMaxPeriod: 'absMaxPeriod',
+    absMax: 'absMax'
   };
 
   export type PayrollItemScalarFieldEnum = (typeof PayrollItemScalarFieldEnum)[keyof typeof PayrollItemScalarFieldEnum]
@@ -16009,6 +16170,20 @@ export namespace Prisma {
    * Reference to a field of type 'PayStubItemType[]'
    */
   export type ListEnumPayStubItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PayStubItemType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AbsMaxPeriodTypes'
+   */
+  export type EnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AbsMaxPeriodTypes'>
+    
+
+
+  /**
+   * Reference to a field of type 'AbsMaxPeriodTypes[]'
+   */
+  export type ListEnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AbsMaxPeriodTypes[]'>
     
 
 
@@ -16617,6 +16792,7 @@ export namespace Prisma {
     payDate?: DateTimeFilter<"PayStub"> | Date | string
     periodStart?: DateTimeFilter<"PayStub"> | Date | string
     periodEnd?: DateTimeFilter<"PayStub"> | Date | string
+    locked?: BoolFilter<"PayStub"> | boolean
     grossEarnings?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     totalDeductions?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
@@ -16630,6 +16806,7 @@ export namespace Prisma {
     payDate?: SortOrder
     periodStart?: SortOrder
     periodEnd?: SortOrder
+    locked?: SortOrder
     grossEarnings?: SortOrder
     totalDeductions?: SortOrder
     netPay?: SortOrder
@@ -16646,6 +16823,7 @@ export namespace Prisma {
     payDate?: DateTimeFilter<"PayStub"> | Date | string
     periodStart?: DateTimeFilter<"PayStub"> | Date | string
     periodEnd?: DateTimeFilter<"PayStub"> | Date | string
+    locked?: BoolFilter<"PayStub"> | boolean
     grossEarnings?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     totalDeductions?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
@@ -16659,6 +16837,7 @@ export namespace Prisma {
     payDate?: SortOrder
     periodStart?: SortOrder
     periodEnd?: SortOrder
+    locked?: SortOrder
     grossEarnings?: SortOrder
     totalDeductions?: SortOrder
     netPay?: SortOrder
@@ -16678,6 +16857,7 @@ export namespace Prisma {
     payDate?: DateTimeWithAggregatesFilter<"PayStub"> | Date | string
     periodStart?: DateTimeWithAggregatesFilter<"PayStub"> | Date | string
     periodEnd?: DateTimeWithAggregatesFilter<"PayStub"> | Date | string
+    locked?: BoolWithAggregatesFilter<"PayStub"> | boolean
     grossEarnings?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     totalDeductions?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     netPay?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
@@ -16690,6 +16870,7 @@ export namespace Prisma {
     NOT?: PayStubItemWhereInput | PayStubItemWhereInput[]
     uuid?: StringFilter<"PayStubItem"> | string
     payStubId?: StringFilter<"PayStubItem"> | string
+    payrollItemId?: StringNullableFilter<"PayStubItem"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubItem"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubItem"> | string
     description?: StringNullableFilter<"PayStubItem"> | string | null
@@ -16698,11 +16879,13 @@ export namespace Prisma {
     percent?: DecimalNullableFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string
     payStub?: XOR<PayStubScalarRelationFilter, PayStubWhereInput>
+    payrollItem?: XOR<PayrollItemNullableScalarRelationFilter, PayrollItemWhereInput> | null
   }
 
   export type PayStubItemOrderByWithRelationInput = {
     uuid?: SortOrder
     payStubId?: SortOrder
+    payrollItemId?: SortOrderInput | SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
@@ -16711,6 +16894,7 @@ export namespace Prisma {
     percent?: SortOrderInput | SortOrder
     amount?: SortOrder
     payStub?: PayStubOrderByWithRelationInput
+    payrollItem?: PayrollItemOrderByWithRelationInput
   }
 
   export type PayStubItemWhereUniqueInput = Prisma.AtLeast<{
@@ -16719,6 +16903,7 @@ export namespace Prisma {
     OR?: PayStubItemWhereInput[]
     NOT?: PayStubItemWhereInput | PayStubItemWhereInput[]
     payStubId?: StringFilter<"PayStubItem"> | string
+    payrollItemId?: StringNullableFilter<"PayStubItem"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubItem"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubItem"> | string
     description?: StringNullableFilter<"PayStubItem"> | string | null
@@ -16727,11 +16912,13 @@ export namespace Prisma {
     percent?: DecimalNullableFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string
     payStub?: XOR<PayStubScalarRelationFilter, PayStubWhereInput>
+    payrollItem?: XOR<PayrollItemNullableScalarRelationFilter, PayrollItemWhereInput> | null
   }, "uuid">
 
   export type PayStubItemOrderByWithAggregationInput = {
     uuid?: SortOrder
     payStubId?: SortOrder
+    payrollItemId?: SortOrderInput | SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
@@ -16752,6 +16939,7 @@ export namespace Prisma {
     NOT?: PayStubItemScalarWhereWithAggregatesInput | PayStubItemScalarWhereWithAggregatesInput[]
     uuid?: StringWithAggregatesFilter<"PayStubItem"> | string
     payStubId?: StringWithAggregatesFilter<"PayStubItem"> | string
+    payrollItemId?: StringNullableWithAggregatesFilter<"PayStubItem"> | string | null
     type?: EnumPayStubItemTypeWithAggregatesFilter<"PayStubItem"> | $Enums.PayStubItemType
     name?: StringWithAggregatesFilter<"PayStubItem"> | string
     description?: StringNullableWithAggregatesFilter<"PayStubItem"> | string | null
@@ -16774,9 +16962,12 @@ export namespace Prisma {
     description?: StringNullableFilter<"PayrollItem"> | string | null
     percent?: DecimalNullableFilter<"PayrollItem"> | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFilter<"PayrollItem"> | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFilter<"PayrollItem"> | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFilter<"PayrollItem"> | Decimal | DecimalJsLike | number | string
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
     payrollGroup?: XOR<PayrollGroupNullableScalarRelationFilter, PayrollGroupWhereInput> | null
     employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    PayStubItem?: PayStubItemListRelationFilter
   }
 
   export type PayrollItemOrderByWithRelationInput = {
@@ -16789,9 +16980,12 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     percent?: SortOrderInput | SortOrder
     amount?: SortOrder
+    absMaxPeriod?: SortOrder
+    absMax?: SortOrder
     organization?: OrganizationOrderByWithRelationInput
     payrollGroup?: PayrollGroupOrderByWithRelationInput
     employee?: EmployeeOrderByWithRelationInput
+    PayStubItem?: PayStubItemOrderByRelationAggregateInput
   }
 
   export type PayrollItemWhereUniqueInput = Prisma.AtLeast<{
@@ -16807,9 +17001,12 @@ export namespace Prisma {
     description?: StringNullableFilter<"PayrollItem"> | string | null
     percent?: DecimalNullableFilter<"PayrollItem"> | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFilter<"PayrollItem"> | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFilter<"PayrollItem"> | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFilter<"PayrollItem"> | Decimal | DecimalJsLike | number | string
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
     payrollGroup?: XOR<PayrollGroupNullableScalarRelationFilter, PayrollGroupWhereInput> | null
     employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    PayStubItem?: PayStubItemListRelationFilter
   }, "uuid">
 
   export type PayrollItemOrderByWithAggregationInput = {
@@ -16822,6 +17019,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     percent?: SortOrderInput | SortOrder
     amount?: SortOrder
+    absMaxPeriod?: SortOrder
+    absMax?: SortOrder
     _count?: PayrollItemCountOrderByAggregateInput
     _avg?: PayrollItemAvgOrderByAggregateInput
     _max?: PayrollItemMaxOrderByAggregateInput
@@ -16842,6 +17041,8 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"PayrollItem"> | string | null
     percent?: DecimalNullableWithAggregatesFilter<"PayrollItem"> | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalWithAggregatesFilter<"PayrollItem"> | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesWithAggregatesFilter<"PayrollItem"> | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalWithAggregatesFilter<"PayrollItem"> | Decimal | DecimalJsLike | number | string
   }
 
   export type UserCreateInput = {
@@ -17449,6 +17650,7 @@ export namespace Prisma {
     payDate: Date | string
     periodStart: Date | string
     periodEnd: Date | string
+    locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalDeductions?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
@@ -17461,6 +17663,7 @@ export namespace Prisma {
     payDate: Date | string
     periodStart: Date | string
     periodEnd: Date | string
+    locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalDeductions?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
@@ -17473,6 +17676,7 @@ export namespace Prisma {
     payDate?: DateTimeFieldUpdateOperationsInput | Date | string
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17485,6 +17689,7 @@ export namespace Prisma {
     payDate?: DateTimeFieldUpdateOperationsInput | Date | string
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17497,6 +17702,7 @@ export namespace Prisma {
     payDate: Date | string
     periodStart: Date | string
     periodEnd: Date | string
+    locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalDeductions?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
@@ -17508,6 +17714,7 @@ export namespace Prisma {
     payDate?: DateTimeFieldUpdateOperationsInput | Date | string
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17518,6 +17725,7 @@ export namespace Prisma {
     payDate?: DateTimeFieldUpdateOperationsInput | Date | string
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17534,11 +17742,13 @@ export namespace Prisma {
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
     payStub: PayStubCreateNestedOneWithoutItemsInput
+    payrollItem?: PayrollItemCreateNestedOneWithoutPayStubItemInput
   }
 
   export type PayStubItemUncheckedCreateInput = {
     uuid?: string
     payStubId: string
+    payrollItemId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -17558,11 +17768,13 @@ export namespace Prisma {
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payStub?: PayStubUpdateOneRequiredWithoutItemsNestedInput
+    payrollItem?: PayrollItemUpdateOneWithoutPayStubItemNestedInput
   }
 
   export type PayStubItemUncheckedUpdateInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     payStubId?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17575,6 +17787,7 @@ export namespace Prisma {
   export type PayStubItemCreateManyInput = {
     uuid?: string
     payStubId: string
+    payrollItemId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -17598,6 +17811,7 @@ export namespace Prisma {
   export type PayStubItemUncheckedUpdateManyInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     payStubId?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17614,9 +17828,12 @@ export namespace Prisma {
     description?: string | null
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
     organization?: OrganizationCreateNestedOneWithoutDefaultPayrollItemsInput
     payrollGroup?: PayrollGroupCreateNestedOneWithoutDefaultPayrollItemsInput
     employee?: EmployeeCreateNestedOneWithoutDefaultPayrollItemsInput
+    PayStubItem?: PayStubItemCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemUncheckedCreateInput = {
@@ -17629,6 +17846,9 @@ export namespace Prisma {
     description?: string | null
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
+    PayStubItem?: PayStubItemUncheckedCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemUpdateInput = {
@@ -17638,9 +17858,12 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     organization?: OrganizationUpdateOneWithoutDefaultPayrollItemsNestedInput
     payrollGroup?: PayrollGroupUpdateOneWithoutDefaultPayrollItemsNestedInput
     employee?: EmployeeUpdateOneWithoutDefaultPayrollItemsNestedInput
+    PayStubItem?: PayStubItemUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateInput = {
@@ -17653,6 +17876,9 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    PayStubItem?: PayStubItemUncheckedUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemCreateManyInput = {
@@ -17665,6 +17891,8 @@ export namespace Prisma {
     description?: string | null
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
   }
 
   export type PayrollItemUpdateManyMutationInput = {
@@ -17674,6 +17902,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type PayrollItemUncheckedUpdateManyInput = {
@@ -17686,6 +17916,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -18255,6 +18487,7 @@ export namespace Prisma {
     payDate?: SortOrder
     periodStart?: SortOrder
     periodEnd?: SortOrder
+    locked?: SortOrder
     grossEarnings?: SortOrder
     totalDeductions?: SortOrder
     netPay?: SortOrder
@@ -18272,6 +18505,7 @@ export namespace Prisma {
     payDate?: SortOrder
     periodStart?: SortOrder
     periodEnd?: SortOrder
+    locked?: SortOrder
     grossEarnings?: SortOrder
     totalDeductions?: SortOrder
     netPay?: SortOrder
@@ -18283,6 +18517,7 @@ export namespace Prisma {
     payDate?: SortOrder
     periodStart?: SortOrder
     periodEnd?: SortOrder
+    locked?: SortOrder
     grossEarnings?: SortOrder
     totalDeductions?: SortOrder
     netPay?: SortOrder
@@ -18293,13 +18528,6 @@ export namespace Prisma {
     grossEarnings?: SortOrder
     totalDeductions?: SortOrder
     netPay?: SortOrder
-  }
-
-  export type EnumPayStubItemTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.PayStubItemType | EnumPayStubItemTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumPayStubItemTypeFilter<$PrismaModel> | $Enums.PayStubItemType
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -18317,14 +18545,27 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type EnumPayStubItemTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.PayStubItemType | EnumPayStubItemTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPayStubItemTypeFilter<$PrismaModel> | $Enums.PayStubItemType
+  }
+
   export type PayStubScalarRelationFilter = {
     is?: PayStubWhereInput
     isNot?: PayStubWhereInput
   }
 
+  export type PayrollItemNullableScalarRelationFilter = {
+    is?: PayrollItemWhereInput | null
+    isNot?: PayrollItemWhereInput | null
+  }
+
   export type PayStubItemCountOrderByAggregateInput = {
     uuid?: SortOrder
     payStubId?: SortOrder
+    payrollItemId?: SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrder
@@ -18344,6 +18585,7 @@ export namespace Prisma {
   export type PayStubItemMaxOrderByAggregateInput = {
     uuid?: SortOrder
     payStubId?: SortOrder
+    payrollItemId?: SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrder
@@ -18356,6 +18598,7 @@ export namespace Prisma {
   export type PayStubItemMinOrderByAggregateInput = {
     uuid?: SortOrder
     payStubId?: SortOrder
+    payrollItemId?: SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrder
@@ -18370,16 +18613,6 @@ export namespace Prisma {
     rate?: SortOrder
     percent?: SortOrder
     amount?: SortOrder
-  }
-
-  export type EnumPayStubItemTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PayStubItemType | EnumPayStubItemTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumPayStubItemTypeWithAggregatesFilter<$PrismaModel> | $Enums.PayStubItemType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPayStubItemTypeFilter<$PrismaModel>
-    _max?: NestedEnumPayStubItemTypeFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -18398,6 +18631,23 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumPayStubItemTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PayStubItemType | EnumPayStubItemTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPayStubItemTypeWithAggregatesFilter<$PrismaModel> | $Enums.PayStubItemType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPayStubItemTypeFilter<$PrismaModel>
+    _max?: NestedEnumPayStubItemTypeFilter<$PrismaModel>
+  }
+
+  export type EnumAbsMaxPeriodTypesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AbsMaxPeriodTypes | EnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.AbsMaxPeriodTypes[] | ListEnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AbsMaxPeriodTypes[] | ListEnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumAbsMaxPeriodTypesFilter<$PrismaModel> | $Enums.AbsMaxPeriodTypes
   }
 
   export type OrganizationNullableScalarRelationFilter = {
@@ -18425,11 +18675,14 @@ export namespace Prisma {
     description?: SortOrder
     percent?: SortOrder
     amount?: SortOrder
+    absMaxPeriod?: SortOrder
+    absMax?: SortOrder
   }
 
   export type PayrollItemAvgOrderByAggregateInput = {
     percent?: SortOrder
     amount?: SortOrder
+    absMax?: SortOrder
   }
 
   export type PayrollItemMaxOrderByAggregateInput = {
@@ -18442,6 +18695,8 @@ export namespace Prisma {
     description?: SortOrder
     percent?: SortOrder
     amount?: SortOrder
+    absMaxPeriod?: SortOrder
+    absMax?: SortOrder
   }
 
   export type PayrollItemMinOrderByAggregateInput = {
@@ -18454,11 +18709,24 @@ export namespace Prisma {
     description?: SortOrder
     percent?: SortOrder
     amount?: SortOrder
+    absMaxPeriod?: SortOrder
+    absMax?: SortOrder
   }
 
   export type PayrollItemSumOrderByAggregateInput = {
     percent?: SortOrder
     amount?: SortOrder
+    absMax?: SortOrder
+  }
+
+  export type EnumAbsMaxPeriodTypesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AbsMaxPeriodTypes | EnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.AbsMaxPeriodTypes[] | ListEnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AbsMaxPeriodTypes[] | ListEnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumAbsMaxPeriodTypesWithAggregatesFilter<$PrismaModel> | $Enums.AbsMaxPeriodTypes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAbsMaxPeriodTypesFilter<$PrismaModel>
+    _max?: NestedEnumAbsMaxPeriodTypesFilter<$PrismaModel>
   }
 
   export type RoleCreateNestedManyWithoutUserInput = {
@@ -19175,6 +19443,12 @@ export namespace Prisma {
     connect?: PayStubWhereUniqueInput
   }
 
+  export type PayrollItemCreateNestedOneWithoutPayStubItemInput = {
+    create?: XOR<PayrollItemCreateWithoutPayStubItemInput, PayrollItemUncheckedCreateWithoutPayStubItemInput>
+    connectOrCreate?: PayrollItemCreateOrConnectWithoutPayStubItemInput
+    connect?: PayrollItemWhereUniqueInput
+  }
+
   export type EnumPayStubItemTypeFieldUpdateOperationsInput = {
     set?: $Enums.PayStubItemType
   }
@@ -19189,6 +19463,16 @@ export namespace Prisma {
     upsert?: PayStubUpsertWithoutItemsInput
     connect?: PayStubWhereUniqueInput
     update?: XOR<XOR<PayStubUpdateToOneWithWhereWithoutItemsInput, PayStubUpdateWithoutItemsInput>, PayStubUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type PayrollItemUpdateOneWithoutPayStubItemNestedInput = {
+    create?: XOR<PayrollItemCreateWithoutPayStubItemInput, PayrollItemUncheckedCreateWithoutPayStubItemInput>
+    connectOrCreate?: PayrollItemCreateOrConnectWithoutPayStubItemInput
+    upsert?: PayrollItemUpsertWithoutPayStubItemInput
+    disconnect?: PayrollItemWhereInput | boolean
+    delete?: PayrollItemWhereInput | boolean
+    connect?: PayrollItemWhereUniqueInput
+    update?: XOR<XOR<PayrollItemUpdateToOneWithWhereWithoutPayStubItemInput, PayrollItemUpdateWithoutPayStubItemInput>, PayrollItemUncheckedUpdateWithoutPayStubItemInput>
   }
 
   export type OrganizationCreateNestedOneWithoutDefaultPayrollItemsInput = {
@@ -19207,6 +19491,24 @@ export namespace Prisma {
     create?: XOR<EmployeeCreateWithoutDefaultPayrollItemsInput, EmployeeUncheckedCreateWithoutDefaultPayrollItemsInput>
     connectOrCreate?: EmployeeCreateOrConnectWithoutDefaultPayrollItemsInput
     connect?: EmployeeWhereUniqueInput
+  }
+
+  export type PayStubItemCreateNestedManyWithoutPayrollItemInput = {
+    create?: XOR<PayStubItemCreateWithoutPayrollItemInput, PayStubItemUncheckedCreateWithoutPayrollItemInput> | PayStubItemCreateWithoutPayrollItemInput[] | PayStubItemUncheckedCreateWithoutPayrollItemInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutPayrollItemInput | PayStubItemCreateOrConnectWithoutPayrollItemInput[]
+    createMany?: PayStubItemCreateManyPayrollItemInputEnvelope
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+  }
+
+  export type PayStubItemUncheckedCreateNestedManyWithoutPayrollItemInput = {
+    create?: XOR<PayStubItemCreateWithoutPayrollItemInput, PayStubItemUncheckedCreateWithoutPayrollItemInput> | PayStubItemCreateWithoutPayrollItemInput[] | PayStubItemUncheckedCreateWithoutPayrollItemInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutPayrollItemInput | PayStubItemCreateOrConnectWithoutPayrollItemInput[]
+    createMany?: PayStubItemCreateManyPayrollItemInputEnvelope
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+  }
+
+  export type EnumAbsMaxPeriodTypesFieldUpdateOperationsInput = {
+    set?: $Enums.AbsMaxPeriodTypes
   }
 
   export type OrganizationUpdateOneWithoutDefaultPayrollItemsNestedInput = {
@@ -19237,6 +19539,34 @@ export namespace Prisma {
     delete?: EmployeeWhereInput | boolean
     connect?: EmployeeWhereUniqueInput
     update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutDefaultPayrollItemsInput, EmployeeUpdateWithoutDefaultPayrollItemsInput>, EmployeeUncheckedUpdateWithoutDefaultPayrollItemsInput>
+  }
+
+  export type PayStubItemUpdateManyWithoutPayrollItemNestedInput = {
+    create?: XOR<PayStubItemCreateWithoutPayrollItemInput, PayStubItemUncheckedCreateWithoutPayrollItemInput> | PayStubItemCreateWithoutPayrollItemInput[] | PayStubItemUncheckedCreateWithoutPayrollItemInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutPayrollItemInput | PayStubItemCreateOrConnectWithoutPayrollItemInput[]
+    upsert?: PayStubItemUpsertWithWhereUniqueWithoutPayrollItemInput | PayStubItemUpsertWithWhereUniqueWithoutPayrollItemInput[]
+    createMany?: PayStubItemCreateManyPayrollItemInputEnvelope
+    set?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    disconnect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    delete?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    update?: PayStubItemUpdateWithWhereUniqueWithoutPayrollItemInput | PayStubItemUpdateWithWhereUniqueWithoutPayrollItemInput[]
+    updateMany?: PayStubItemUpdateManyWithWhereWithoutPayrollItemInput | PayStubItemUpdateManyWithWhereWithoutPayrollItemInput[]
+    deleteMany?: PayStubItemScalarWhereInput | PayStubItemScalarWhereInput[]
+  }
+
+  export type PayStubItemUncheckedUpdateManyWithoutPayrollItemNestedInput = {
+    create?: XOR<PayStubItemCreateWithoutPayrollItemInput, PayStubItemUncheckedCreateWithoutPayrollItemInput> | PayStubItemCreateWithoutPayrollItemInput[] | PayStubItemUncheckedCreateWithoutPayrollItemInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutPayrollItemInput | PayStubItemCreateOrConnectWithoutPayrollItemInput[]
+    upsert?: PayStubItemUpsertWithWhereUniqueWithoutPayrollItemInput | PayStubItemUpsertWithWhereUniqueWithoutPayrollItemInput[]
+    createMany?: PayStubItemCreateManyPayrollItemInputEnvelope
+    set?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    disconnect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    delete?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    update?: PayStubItemUpdateWithWhereUniqueWithoutPayrollItemInput | PayStubItemUpdateWithWhereUniqueWithoutPayrollItemInput[]
+    updateMany?: PayStubItemUpdateManyWithWhereWithoutPayrollItemInput | PayStubItemUpdateManyWithWhereWithoutPayrollItemInput[]
+    deleteMany?: PayStubItemScalarWhereInput | PayStubItemScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -19411,13 +19741,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type NestedEnumPayStubItemTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.PayStubItemType | EnumPayStubItemTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumPayStubItemTypeFilter<$PrismaModel> | $Enums.PayStubItemType
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -19432,14 +19755,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedEnumPayStubItemTypeWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedEnumPayStubItemTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.PayStubItemType | EnumPayStubItemTypeFieldRefInput<$PrismaModel>
     in?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumPayStubItemTypeWithAggregatesFilter<$PrismaModel> | $Enums.PayStubItemType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPayStubItemTypeFilter<$PrismaModel>
-    _max?: NestedEnumPayStubItemTypeFilter<$PrismaModel>
+    not?: NestedEnumPayStubItemTypeFilter<$PrismaModel> | $Enums.PayStubItemType
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -19457,6 +19777,33 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPayStubItemTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PayStubItemType | EnumPayStubItemTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPayStubItemTypeWithAggregatesFilter<$PrismaModel> | $Enums.PayStubItemType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPayStubItemTypeFilter<$PrismaModel>
+    _max?: NestedEnumPayStubItemTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAbsMaxPeriodTypesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AbsMaxPeriodTypes | EnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.AbsMaxPeriodTypes[] | ListEnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AbsMaxPeriodTypes[] | ListEnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumAbsMaxPeriodTypesFilter<$PrismaModel> | $Enums.AbsMaxPeriodTypes
+  }
+
+  export type NestedEnumAbsMaxPeriodTypesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AbsMaxPeriodTypes | EnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.AbsMaxPeriodTypes[] | ListEnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AbsMaxPeriodTypes[] | ListEnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumAbsMaxPeriodTypesWithAggregatesFilter<$PrismaModel> | $Enums.AbsMaxPeriodTypes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAbsMaxPeriodTypesFilter<$PrismaModel>
+    _max?: NestedEnumAbsMaxPeriodTypesFilter<$PrismaModel>
   }
 
   export type RoleCreateWithoutUserInput = {
@@ -19827,8 +20174,11 @@ export namespace Prisma {
     description?: string | null
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
     payrollGroup?: PayrollGroupCreateNestedOneWithoutDefaultPayrollItemsInput
     employee?: EmployeeCreateNestedOneWithoutDefaultPayrollItemsInput
+    PayStubItem?: PayStubItemCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemUncheckedCreateWithoutOrganizationInput = {
@@ -19840,6 +20190,9 @@ export namespace Prisma {
     description?: string | null
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
+    PayStubItem?: PayStubItemUncheckedCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemCreateOrConnectWithoutOrganizationInput = {
@@ -19986,6 +20339,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"PayrollItem"> | string | null
     percent?: DecimalNullableFilter<"PayrollItem"> | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFilter<"PayrollItem"> | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFilter<"PayrollItem"> | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFilter<"PayrollItem"> | Decimal | DecimalJsLike | number | string
   }
 
   export type OrganizationCreateWithoutEmployeesInput = {
@@ -20048,6 +20403,7 @@ export namespace Prisma {
     payDate: Date | string
     periodStart: Date | string
     periodEnd: Date | string
+    locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalDeductions?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
@@ -20059,6 +20415,7 @@ export namespace Prisma {
     payDate: Date | string
     periodStart: Date | string
     periodEnd: Date | string
+    locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalDeductions?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
@@ -20082,8 +20439,11 @@ export namespace Prisma {
     description?: string | null
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
     organization?: OrganizationCreateNestedOneWithoutDefaultPayrollItemsInput
     payrollGroup?: PayrollGroupCreateNestedOneWithoutDefaultPayrollItemsInput
+    PayStubItem?: PayStubItemCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemUncheckedCreateWithoutEmployeeInput = {
@@ -20095,6 +20455,9 @@ export namespace Prisma {
     description?: string | null
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
+    PayStubItem?: PayStubItemUncheckedCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemCreateOrConnectWithoutEmployeeInput = {
@@ -20193,6 +20556,7 @@ export namespace Prisma {
     payDate?: DateTimeFilter<"PayStub"> | Date | string
     periodStart?: DateTimeFilter<"PayStub"> | Date | string
     periodEnd?: DateTimeFilter<"PayStub"> | Date | string
+    locked?: BoolFilter<"PayStub"> | boolean
     grossEarnings?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     totalDeductions?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
@@ -20277,8 +20641,11 @@ export namespace Prisma {
     description?: string | null
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
     organization?: OrganizationCreateNestedOneWithoutDefaultPayrollItemsInput
     employee?: EmployeeCreateNestedOneWithoutDefaultPayrollItemsInput
+    PayStubItem?: PayStubItemCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemUncheckedCreateWithoutPayrollGroupInput = {
@@ -20290,6 +20657,9 @@ export namespace Prisma {
     description?: string | null
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
+    PayStubItem?: PayStubItemUncheckedCreateNestedManyWithoutPayrollItemInput
   }
 
   export type PayrollItemCreateOrConnectWithoutPayrollGroupInput = {
@@ -20662,10 +21032,12 @@ export namespace Prisma {
     rate?: Decimal | DecimalJsLike | number | string | null
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
+    payrollItem?: PayrollItemCreateNestedOneWithoutPayStubItemInput
   }
 
   export type PayStubItemUncheckedCreateWithoutPayStubInput = {
     uuid?: string
+    payrollItemId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -20754,6 +21126,7 @@ export namespace Prisma {
     NOT?: PayStubItemScalarWhereInput | PayStubItemScalarWhereInput[]
     uuid?: StringFilter<"PayStubItem"> | string
     payStubId?: StringFilter<"PayStubItem"> | string
+    payrollItemId?: StringNullableFilter<"PayStubItem"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubItem"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubItem"> | string
     description?: StringNullableFilter<"PayStubItem"> | string | null
@@ -20768,6 +21141,7 @@ export namespace Prisma {
     payDate: Date | string
     periodStart: Date | string
     periodEnd: Date | string
+    locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalDeductions?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
@@ -20779,6 +21153,7 @@ export namespace Prisma {
     payDate: Date | string
     periodStart: Date | string
     periodEnd: Date | string
+    locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalDeductions?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
@@ -20788,6 +21163,39 @@ export namespace Prisma {
   export type PayStubCreateOrConnectWithoutItemsInput = {
     where: PayStubWhereUniqueInput
     create: XOR<PayStubCreateWithoutItemsInput, PayStubUncheckedCreateWithoutItemsInput>
+  }
+
+  export type PayrollItemCreateWithoutPayStubItemInput = {
+    uuid?: string
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
+    organization?: OrganizationCreateNestedOneWithoutDefaultPayrollItemsInput
+    payrollGroup?: PayrollGroupCreateNestedOneWithoutDefaultPayrollItemsInput
+    employee?: EmployeeCreateNestedOneWithoutDefaultPayrollItemsInput
+  }
+
+  export type PayrollItemUncheckedCreateWithoutPayStubItemInput = {
+    uuid?: string
+    organizationId?: string | null
+    payrollGroupId?: string | null
+    employeeId?: string | null
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayrollItemCreateOrConnectWithoutPayStubItemInput = {
+    where: PayrollItemWhereUniqueInput
+    create: XOR<PayrollItemCreateWithoutPayStubItemInput, PayrollItemUncheckedCreateWithoutPayStubItemInput>
   }
 
   export type PayStubUpsertWithoutItemsInput = {
@@ -20806,6 +21214,7 @@ export namespace Prisma {
     payDate?: DateTimeFieldUpdateOperationsInput | Date | string
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -20817,10 +21226,50 @@ export namespace Prisma {
     payDate?: DateTimeFieldUpdateOperationsInput | Date | string
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     employeeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PayrollItemUpsertWithoutPayStubItemInput = {
+    update: XOR<PayrollItemUpdateWithoutPayStubItemInput, PayrollItemUncheckedUpdateWithoutPayStubItemInput>
+    create: XOR<PayrollItemCreateWithoutPayStubItemInput, PayrollItemUncheckedCreateWithoutPayStubItemInput>
+    where?: PayrollItemWhereInput
+  }
+
+  export type PayrollItemUpdateToOneWithWhereWithoutPayStubItemInput = {
+    where?: PayrollItemWhereInput
+    data: XOR<PayrollItemUpdateWithoutPayStubItemInput, PayrollItemUncheckedUpdateWithoutPayStubItemInput>
+  }
+
+  export type PayrollItemUpdateWithoutPayStubItemInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    organization?: OrganizationUpdateOneWithoutDefaultPayrollItemsNestedInput
+    payrollGroup?: PayrollGroupUpdateOneWithoutDefaultPayrollItemsNestedInput
+    employee?: EmployeeUpdateOneWithoutDefaultPayrollItemsNestedInput
+  }
+
+  export type PayrollItemUncheckedUpdateWithoutPayStubItemInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    payrollGroupId?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type OrganizationCreateWithoutDefaultPayrollItemsInput = {
@@ -20916,6 +21365,40 @@ export namespace Prisma {
   export type EmployeeCreateOrConnectWithoutDefaultPayrollItemsInput = {
     where: EmployeeWhereUniqueInput
     create: XOR<EmployeeCreateWithoutDefaultPayrollItemsInput, EmployeeUncheckedCreateWithoutDefaultPayrollItemsInput>
+  }
+
+  export type PayStubItemCreateWithoutPayrollItemInput = {
+    uuid?: string
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+    payStub: PayStubCreateNestedOneWithoutItemsInput
+  }
+
+  export type PayStubItemUncheckedCreateWithoutPayrollItemInput = {
+    uuid?: string
+    payStubId: string
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemCreateOrConnectWithoutPayrollItemInput = {
+    where: PayStubItemWhereUniqueInput
+    create: XOR<PayStubItemCreateWithoutPayrollItemInput, PayStubItemUncheckedCreateWithoutPayrollItemInput>
+  }
+
+  export type PayStubItemCreateManyPayrollItemInputEnvelope = {
+    data: PayStubItemCreateManyPayrollItemInput | PayStubItemCreateManyPayrollItemInput[]
+    skipDuplicates?: boolean
   }
 
   export type OrganizationUpsertWithoutDefaultPayrollItemsInput = {
@@ -21031,6 +21514,22 @@ export namespace Prisma {
     payStubs?: PayStubUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
+  export type PayStubItemUpsertWithWhereUniqueWithoutPayrollItemInput = {
+    where: PayStubItemWhereUniqueInput
+    update: XOR<PayStubItemUpdateWithoutPayrollItemInput, PayStubItemUncheckedUpdateWithoutPayrollItemInput>
+    create: XOR<PayStubItemCreateWithoutPayrollItemInput, PayStubItemUncheckedCreateWithoutPayrollItemInput>
+  }
+
+  export type PayStubItemUpdateWithWhereUniqueWithoutPayrollItemInput = {
+    where: PayStubItemWhereUniqueInput
+    data: XOR<PayStubItemUpdateWithoutPayrollItemInput, PayStubItemUncheckedUpdateWithoutPayrollItemInput>
+  }
+
+  export type PayStubItemUpdateManyWithWhereWithoutPayrollItemInput = {
+    where: PayStubItemScalarWhereInput
+    data: XOR<PayStubItemUpdateManyMutationInput, PayStubItemUncheckedUpdateManyWithoutPayrollItemInput>
+  }
+
   export type RoleCreateManyUserInput = {
     uuid?: string
     organizationId: string
@@ -21104,6 +21603,8 @@ export namespace Prisma {
     description?: string | null
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
   }
 
   export type EmployeeUpdateWithoutOrganizationInput = {
@@ -21231,8 +21732,11 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payrollGroup?: PayrollGroupUpdateOneWithoutDefaultPayrollItemsNestedInput
     employee?: EmployeeUpdateOneWithoutDefaultPayrollItemsNestedInput
+    PayStubItem?: PayStubItemUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateWithoutOrganizationInput = {
@@ -21244,6 +21748,9 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    PayStubItem?: PayStubItemUncheckedUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateManyWithoutOrganizationInput = {
@@ -21255,6 +21762,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type EmployeeCompensationCreateManyEmployeeInput = {
@@ -21269,6 +21778,7 @@ export namespace Prisma {
     payDate: Date | string
     periodStart: Date | string
     periodEnd: Date | string
+    locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalDeductions?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
@@ -21283,6 +21793,8 @@ export namespace Prisma {
     description?: string | null
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
   }
 
   export type EmployeeCompensationUpdateWithoutEmployeeInput = {
@@ -21313,6 +21825,7 @@ export namespace Prisma {
     payDate?: DateTimeFieldUpdateOperationsInput | Date | string
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -21324,6 +21837,7 @@ export namespace Prisma {
     payDate?: DateTimeFieldUpdateOperationsInput | Date | string
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -21335,6 +21849,7 @@ export namespace Prisma {
     payDate?: DateTimeFieldUpdateOperationsInput | Date | string
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -21347,8 +21862,11 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     organization?: OrganizationUpdateOneWithoutDefaultPayrollItemsNestedInput
     payrollGroup?: PayrollGroupUpdateOneWithoutDefaultPayrollItemsNestedInput
+    PayStubItem?: PayStubItemUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateWithoutEmployeeInput = {
@@ -21360,6 +21878,9 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    PayStubItem?: PayStubItemUncheckedUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateManyWithoutEmployeeInput = {
@@ -21371,6 +21892,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type EmployeeCompensationCreateManyPayrollGroupInput = {
@@ -21389,6 +21912,8 @@ export namespace Prisma {
     description?: string | null
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: $Enums.AbsMaxPeriodTypes
+    absMax?: Decimal | DecimalJsLike | number | string
   }
 
   export type EmployeeCompensationUpdateWithoutPayrollGroupInput = {
@@ -21421,8 +21946,11 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     organization?: OrganizationUpdateOneWithoutDefaultPayrollItemsNestedInput
     employee?: EmployeeUpdateOneWithoutDefaultPayrollItemsNestedInput
+    PayStubItem?: PayStubItemUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateWithoutPayrollGroupInput = {
@@ -21434,6 +21962,9 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    PayStubItem?: PayStubItemUncheckedUpdateManyWithoutPayrollItemNestedInput
   }
 
   export type PayrollItemUncheckedUpdateManyWithoutPayrollGroupInput = {
@@ -21445,6 +21976,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
+    absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type HourlyRateCreateManyCompensationInput = {
@@ -21477,6 +22010,7 @@ export namespace Prisma {
 
   export type PayStubItemCreateManyPayStubInput = {
     uuid?: string
+    payrollItemId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -21495,10 +22029,12 @@ export namespace Prisma {
     rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payrollItem?: PayrollItemUpdateOneWithoutPayStubItemNestedInput
   }
 
   export type PayStubItemUncheckedUpdateWithoutPayStubInput = {
     uuid?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21510,6 +22046,55 @@ export namespace Prisma {
 
   export type PayStubItemUncheckedUpdateManyWithoutPayStubInput = {
     uuid?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemCreateManyPayrollItemInput = {
+    uuid?: string
+    payStubId: string
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemUpdateWithoutPayrollItemInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payStub?: PayStubUpdateOneRequiredWithoutItemsNestedInput
+  }
+
+  export type PayStubItemUncheckedUpdateWithoutPayrollItemInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    payStubId?: StringFieldUpdateOperationsInput | string
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemUncheckedUpdateManyWithoutPayrollItemInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    payStubId?: StringFieldUpdateOperationsInput | string
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
