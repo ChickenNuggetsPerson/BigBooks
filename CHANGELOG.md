@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.2.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.1.2...v0.2.0) (2025-06-05)
+
+
+### Features
+
+* Added Paystub item default UIs ([43881ab](https://github.com/ChickenNuggetsPerson/BigBooks/commit/43881abc5276e6c3f235f02ef043f4e6d27cd99c))
+* Added Paystub Item server actions ([c0f2394](https://github.com/ChickenNuggetsPerson/BigBooks/commit/c0f239480c8d895c9dc28168aa1483347f236240))
+* Created Employee and Organization default Deductions and Earnings ([aee00ac](https://github.com/ChickenNuggetsPerson/BigBooks/commit/aee00acfef4f1490e9bbd4f2bf9e3cafec208f09))
+* Lots of more ui changes ([11b9867](https://github.com/ChickenNuggetsPerson/BigBooks/commit/11b9867d426542ed1ae0d8f4547531f3348cfc9b))
+* Optimiazed UI for payroll items ([9b8c093](https://github.com/ChickenNuggetsPerson/BigBooks/commit/9b8c09377807e7a61e607c3d10add3ccbc4e1f87))
+
+
+### Bug Fixes
+
+* Added organization form toasts ([5264953](https://github.com/ChickenNuggetsPerson/BigBooks/commit/52649531ad2e2e0346f4cd1d7fa9f1ca34c7767d))
+
 ## [0.1.2](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.1.1...v0.1.2) (2025-06-04)
 
 
