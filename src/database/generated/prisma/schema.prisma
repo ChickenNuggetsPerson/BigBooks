@@ -75,7 +75,7 @@ model Organization {
   inviteCodes InviteCode[]
   memberships Role[]
 
-  defaultPayrollItems PayStubItem[]
+  defaultPayrollItems PayrollItem[]
 }
 
 model Employee {
@@ -99,7 +99,7 @@ model Employee {
   compensations EmployeeCompensation[]
   payStubs      PayStub[]
 
-  defaultPayrollItems PayStubItem[]
+  defaultPayrollItems PayrollItem[]
 }
 
 model PayrollGroup {
@@ -114,7 +114,7 @@ model PayrollGroup {
 
   compensations EmployeeCompensation[]
 
-  defaultPayrollItems PayStubItem[]
+  defaultPayrollItems PayrollItem[]
 }
 
 model EmployeeCompensation {
@@ -170,10 +170,22 @@ enum PayStubItemType {
 model PayStubItem {
   uuid String @id @default(uuid())
 
-  payStub   PayStub? @relation(fields: [payStubId], references: [uuid], onDelete: Cascade)
-  payStubId String?
+  payStub   PayStub @relation(fields: [payStubId], references: [uuid], onDelete: Cascade)
+  payStubId String
 
-  isDefault      Boolean       @default(false)
+  type        PayStubItemType
+  name        String
+  description String?
+
+  hours   Decimal?
+  rate    Decimal?
+  percent Decimal?
+  amount  Decimal
+}
+
+model PayrollItem {
+  uuid String @id @default(uuid())
+
   organization   Organization? @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
   organizationId String?
   payrollGroup   PayrollGroup? @relation(fields: [payrollGroupId], references: [uuid], onDelete: Cascade)
@@ -185,8 +197,6 @@ model PayStubItem {
   name        String
   description String?
 
-  hours   Decimal?
-  rate    Decimal?
   percent Decimal?
   amount  Decimal
 }

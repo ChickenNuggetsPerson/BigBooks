@@ -214,15 +214,23 @@ exports.Prisma.PayStubScalarFieldEnum = {
 exports.Prisma.PayStubItemScalarFieldEnum = {
   uuid: 'uuid',
   payStubId: 'payStubId',
-  isDefault: 'isDefault',
+  type: 'type',
+  name: 'name',
+  description: 'description',
+  hours: 'hours',
+  rate: 'rate',
+  percent: 'percent',
+  amount: 'amount'
+};
+
+exports.Prisma.PayrollItemScalarFieldEnum = {
+  uuid: 'uuid',
   organizationId: 'organizationId',
   payrollGroupId: 'payrollGroupId',
   employeeId: 'employeeId',
   type: 'type',
   name: 'name',
   description: 'description',
-  hours: 'hours',
-  rate: 'rate',
   percent: 'percent',
   amount: 'amount'
 };
@@ -258,7 +266,8 @@ exports.Prisma.ModelName = {
   EmployeeCompensation: 'EmployeeCompensation',
   HourlyRate: 'HourlyRate',
   PayStub: 'PayStub',
-  PayStubItem: 'PayStubItem'
+  PayStubItem: 'PayStubItem',
+  PayrollItem: 'PayrollItem'
 };
 
 /**
