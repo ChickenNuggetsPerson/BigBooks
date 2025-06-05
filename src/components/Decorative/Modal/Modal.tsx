@@ -7,7 +7,7 @@ import { useModalManager } from "./ModalContext";
 export interface ModalProps {
     title: string,
     required: boolean
-    component: (push : (modal: ModalProps) => void, pop: () => void) => ReactNode
+    component: (push: (modal: ModalProps) => void, pop: () => void) => ReactNode
 }
 
 export default function Modal({ modal }: { modal: ModalProps }) {
@@ -32,11 +32,13 @@ export default function Modal({ modal }: { modal: ModalProps }) {
                 </div>
             </div>
 
-            <h1 className="text-2xl font-bold">
-                {modal.title}
-            </h1>
-
-            <div className="h-px bg-accent mb-3" ></div>
+            {modal.title.trim() !== "" &&
+                <>
+                    <h1 className="text-2xl font-bold">
+                        {modal.title}
+                    </h1><div className="h-px bg-accent mb-3"></div>
+                </>
+            }
 
             {modal.component(addModal, popModal)}
 

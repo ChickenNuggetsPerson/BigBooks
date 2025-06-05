@@ -3,7 +3,7 @@
 import Login from "@/auth/actions/Login";
 import { useActionState, useEffect } from "react";
 import TextInput from "../Forms/TextInput";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 
 
@@ -19,7 +19,6 @@ export default function LoginForm() {
 
     return (
         <div>
-            <Toaster />
             <form action={formAction} className="card w-sm">
 
                 <div className="flex flex-row justify-center w-full text-2xl font-bold">

@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react";
 
 
 type CollapsibleDivProps = React.HTMLAttributes<HTMLDivElement> & {
-    title?: string | React.ReactNode
+    title?: React.ReactNode
 }
 
 
@@ -34,7 +34,7 @@ const CollapsibleDiv = React.forwardRef<HTMLDivElement, CollapsibleDivProps>(
                     </div>
                 </div>
 
-                <div className="mb-2 text-2xl font-semibold text-gray-700 select-none">
+                <div className="mb-1 text-2xl font-semibold text-gray-700 select-none">
                     {title}
                 </div>
 
@@ -46,7 +46,10 @@ const CollapsibleDiv = React.forwardRef<HTMLDivElement, CollapsibleDivProps>(
                 </motion.div>
 
                 <motion.div
-                    animate={{ 
+                    initial={{
+                        height: 0
+                    }}
+                    animate={{
                         height: expanded ? "auto" : 0,
                     }}
                     transition={{ duration: 0.3, type: "spring" }}

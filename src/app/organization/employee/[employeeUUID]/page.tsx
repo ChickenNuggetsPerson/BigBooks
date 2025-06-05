@@ -3,6 +3,7 @@ import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import EmployeeCard from "@/components/Employee/EmployeeCard";
 import EmployeeSalaryCard from "@/components/Employee/EmployeeSalaryCard";
 import { EmployeeSelectPaystub } from "@/components/Employee/EmployeeSelectPaystub";
+import EmployeeStubDefaultsCard from "@/components/Employee/EmployeeStubDefaultsCard";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -29,10 +30,13 @@ export default async function EmployeeView({
             </Link>
 
             <AnimateChildren y={-100} className="flex flex-row gap-6 justify-center px-10">
-                <EmployeeCard employee={employee} />
+                <div>
+                    <EmployeeCard employee={employee} />
+                    <EmployeeSelectPaystub empUUID={employee.uuid} />
+                </div>
                 <div>
                     <EmployeeSalaryCard employee={employee} />
-                    <EmployeeSelectPaystub empUUID={employee.uuid} />
+                    <EmployeeStubDefaultsCard employee={employee} />
                 </div>
             </AnimateChildren>
 

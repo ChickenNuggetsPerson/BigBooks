@@ -3,12 +3,6 @@ import makeRegistrationCode from "@/actions/registrationCodes/makeRegistrationCo
 import TextInput from "../../Forms/TextInput"
 import CodeDeleteButton from "./CodeDeleteButton"
 import CodeCopyButton from "./CodeCopyButton"
-import { Toaster } from "react-hot-toast"
-
-
-
-
-
 
 
 
@@ -21,8 +15,6 @@ export async function RegistrationCodeList() {
 
     return (
         <div className="card w-170">
-            <div><Toaster /></div>
-
             <button onClick={makeRegistrationCode} className="primary-button">New Code</button>
 
             <div className="h-px bg-accent mt-2 mb-4"></div>

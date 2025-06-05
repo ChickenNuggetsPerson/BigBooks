@@ -2,7 +2,7 @@
 import { appVersion } from "@/functions/version";
 import Link from "next/link";
 import { useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 
 
@@ -28,7 +28,6 @@ export default function DevLink() {
 
     return (
         <>
-            <Toaster />
             <div style={{ position: "fixed", bottom: "10px", right: "10px" }} >
                 <Link href={"/info"} target="_blank" className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center pb-2">
                     © Hayden Steele

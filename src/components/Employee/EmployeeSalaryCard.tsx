@@ -14,16 +14,12 @@ export default function EmployeeSalaryCard({ employee }: { employee: Employee })
 
         <EditableDiv url={`/organization/employee/${employee.uuid}/editSalary`} className="w-xs card mb-5">
 
-            <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">Employee Pay</h5>
+            <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">Tax Details</h5>
 
             <Divider />
 
             <CardProp label="Status:" val={employee.filingStatus}/>
             <CardProp label="Dependants:" val={String(employee.dependants)}/>
-
-            <Divider />
-
-
 
         </EditableDiv>
 

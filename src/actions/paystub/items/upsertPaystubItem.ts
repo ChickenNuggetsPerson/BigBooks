@@ -8,49 +8,49 @@ import { randomUUID } from "crypto"
 
 
 
-export default async function upsertPaystubItem(earnings: PayStubItem) {
+export default async function upsertPaystubItem(paystubItem: PayStubItem) {
 
     // TODO: Handle permissions
-
+    console.log(paystubItem)
 
     // Check to make sure the earnings object is configured correctly
     // Specifically the relations
-    if (earnings.isDefault) {
+    if (paystubItem.isDefault) {
         let nullCount = 0
-        if (earnings.organizationId == null) { nullCount ++ }
-        if (earnings.payrollGroupId == null) { nullCount ++ }
-        if (earnings.employeeId     == null) { nullCount ++ }
+        if (paystubItem.organizationId == null) { nullCount ++ }
+        if (paystubItem.payrollGroupId == null) { nullCount ++ }
+        if (paystubItem.employeeId     == null) { nullCount ++ }
 
-        if (nullCount !== 2 || earnings.payStubId !== null) { throw new Error("Not Linked correctly") }
+        if (nullCount !== 2 || paystubItem.payStubId !== null) { throw new Error("Not Linked correctly") }
 
-        if (earnings.organizationId) {
-            await prisma.organization.findUniqueOrThrow({ where: { uuid: earnings.organizationId } })
+        if (paystubItem.organizationId) {
+            await prisma.organization.findUniqueOrThrow({ where: { uuid: paystubItem.organizationId } })
         }
-        if (earnings.payrollGroupId) {
-            await prisma.payrollGroup.findUniqueOrThrow({ where: { uuid: earnings.payrollGroupId } })
+        if (paystubItem.payrollGroupId) {
+            await prisma.payrollGroup.findUniqueOrThrow({ where: { uuid: paystubItem.payrollGroupId } })
         }
-        if (earnings.employeeId) {
-            await prisma.employee.findUniqueOrThrow({ where: { uuid: earnings.employeeId } })
+        if (paystubItem.employeeId) {
+            await prisma.employee.findUniqueOrThrow({ where: { uuid: paystubItem.employeeId } })
         }
 
-        if (earnings.payStubId !== null) { throw new Error("Linked to Paystub") }
+        if (paystubItem.payStubId !== null) { throw new Error("Linked to Paystub") }
 
     } else {
-        if (earnings.payStubId === null) { throw new Error("Not Linked to Paystub") }
+        if (paystubItem.payStubId === null) { throw new Error("Not Linked to Paystub") }
 
-        if (earnings.payStubId) {
-            await prisma.payStub.findUniqueOrThrow({ where: { uuid: earnings.payStubId } })
+        if (paystubItem.payStubId) {
+            await prisma.payStub.findUniqueOrThrow({ where: { uuid: paystubItem.payStubId } })
         }
     }
 
-    const currentEearning = await prisma.payStubItem.findUnique({ where: { uuid: earnings.uuid } })
+    const currentEearning = await prisma.payStubItem.findUnique({ where: { uuid: paystubItem.uuid } })
     if (!currentEearning) {
-        earnings.uuid = randomUUID()
+        paystubItem.uuid = randomUUID()
     }
 
     await prisma.payStubItem.upsert({
-        where: { uuid: earnings.uuid },
-        create: earnings, 
-        update: earnings
+        where: { uuid: paystubItem.uuid },
+        create: paystubItem, 
+        update: paystubItem
     })
 }

@@ -15,6 +15,7 @@ import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import PaystubDefaultsForm from "../paystubItems/PaystubDefaultsForm";
 
 
 
@@ -38,11 +39,11 @@ export default function PayrollGroupAminList({ groups }: { groups: PayrollGroup[
     }
 
     function saved() {
-        setSelected(undefined)
+        // setSelected(undefined)
     }
 
     return (
-        <div className="flex flex-row w-full gap-10 justify-center">
+        <div className="flex flex-row w-full gap-10 justify-center pr-30">
 
             <div className="card w-60 h-fit">
                 <h5 className="mb-2 text-xl font-semibold text-gray-700 ">Payroll Groups:</h5>
@@ -144,7 +145,7 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
 
                     <h1 className="text-xl font-semibold">Are you really sure you want to delete this payroll group?</h1>
                     <br></br>
-                    <p>By deleting this group, you will also delete all associated employee compensation entries.</p>
+                    <p>By deleting this group, you will also delete all associated employee compensation entries and paystub item defaults.</p>
                     <br></br>
                     <p>This action CANNOT BE UNDONE.</p>
 
@@ -166,7 +167,7 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
             component: (push, pop) => (
                 <div className="max-w-md">
 
-                    <h1 className="text-xl font-normal">By pressing yes, you agree to the consequences of deleting this group.</h1>
+                    <p>By pressing yes, you agree to the consequences of deleting this group.</p>
 
                     <Divider />
 
@@ -197,38 +198,48 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
         )
     }
 
-    return (
-        <motion.div
-            className="card w-md h-fit"
 
-            initial={{ opacity: 0, y: -20 }}
-            exit={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-        >
+    return (
+        <>
+            <motion.div
+                className="card w-md h-fit"
+
+                initial={{ opacity: 0, y: -20 }}
+                exit={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+            >
+
+                {selected.uuid !== "" &&
+                    <div className="relative">
+                        <div className="absolute right-0">
+                            <Trash2 onClick={clickedDelete} className="mt-2 mr-5" />
+                        </div>
+                    </div>
+                }
+
+                <div className="font-semibold text-xl pb-1">
+                    <NumericText val={selected.name == "" ? "." : selected.name} spacing={-2} animDelta={0} expand={false} />
+                </div>
+                <Divider />
+
+                <div className="h-2"></div>
+
+                <TextInput id="name" label="Name" val={selected.name} onChange={nameUpdated} />
+                <LargeTextInput label="Description" val={selected.description} onChange={descUpdated} />
+
+                <div className="flex flex-row gap-4">
+                    <DateInput label="Reference Date" val={selected.payRefDate} onChange={refDateUpdated} />
+                    <NumberInput label="Days Between Pay" val={selected.payFrequency} changeCB={frequencyUpdated} />
+                </div>
+
+                <button onClick={saveButton} className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>
+
+            </motion.div>
 
             {selected.uuid !== "" &&
-                <div className="relative">
-                    <div className="absolute right-0">
-                        <Trash2 onClick={clickedDelete} />
-                    </div>
-                </div>
+                <PaystubDefaultsForm group groupUUID={selected.uuid} />
             }
 
-            <div className="font-semibold text-xl">
-                <NumericText val={selected.name} spacing={-2} animDelta={0} expand={false} />
-            </div>
-            <Divider />
-
-            <div className="h-2"></div>
-
-            <TextInput id="name" label="Name" val={selected.name} onChange={nameUpdated} />
-            <LargeTextInput label="Description" val={selected.description} onChange={descUpdated} />
-
-            <NumberInput label="Days Between Pay" val={selected.payFrequency} changeCB={frequencyUpdated} />
-            <DateInput label="Reference Date" val={selected.payRefDate} onChange={refDateUpdated} />
-
-            <button onClick={saveButton} className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>
-
-        </motion.div>
+        </>
     )
 }
