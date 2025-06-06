@@ -31,7 +31,7 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
 
             emps = emps.map((employee => {
                 return {
-                    groups: employee.compensations.map((comp) => grps.find(v => v.uuid == comp.payrollGroupId)?.name),
+                    groups: employee.compensations.map((comp) => grps.find(v => v.uuid == comp.payrollGroupId)?.name).join(", "),
                     ...employee
                 }
             }))
@@ -45,7 +45,7 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
         { field: 'firstName', headerName: 'First', width: 100 },
         { field: 'lastName', headerName: 'Last', width: 100 },
         { field: 'email', headerName: 'Email', width: 200 },
-        { field: 'groups', headerName: 'Group', width: 100 },
+        { field: 'groups', headerName: 'Group', width: 300 },
     ]
 
 
