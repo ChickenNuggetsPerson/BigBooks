@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.4.0...v0.4.1) (2025-06-06)
+
+
+### Bug Fixes
+
+* Updated info notes on payroll items. ([81da455](https://github.com/ChickenNuggetsPerson/BigBooks/commit/81da455881713180992685e39652a095b5cd2a1c))
+
 ## [0.4.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.3.0...v0.4.0) (2025-06-06)
 
 
