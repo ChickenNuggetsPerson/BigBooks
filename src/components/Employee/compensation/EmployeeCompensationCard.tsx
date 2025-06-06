@@ -16,7 +16,7 @@ export default async function EmployeeCompensationCard({ employee }: { employee:
     const comps = deserializeData(await getEmployeeCompensations(employee.uuid))
 
     return (
-        <EditableDiv className="card" url={`/organization/employee/${employee.uuid}/editComps`}>
+        <EditableDiv className="card w-xs" url={`/organization/employee/${employee.uuid}/editComps`}>
             <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">Compensations</h5>
             <Divider />
 
@@ -25,6 +25,8 @@ export default async function EmployeeCompensationCard({ employee }: { employee:
             {comps.map((item) => (
                 <CollapsibleDiv key={item.uuid} arrowSize={15} className="select-none" title={<p className="">{`Group: ${item.payrollGroup.name}`}</p>}>
                     <div className="pl-2 pt-1 pb-4">
+
+                        {item.description && <p style={{ fontSize: 15, marginTop: 10 }} className="bg-gray-50 p-2 rounded-sm mb-1 max-h-20 overflow-y-scroll" >{item.description}</p>}
 
                         {item.isSalary &&
                             <div className=" w-full">
@@ -45,8 +47,6 @@ export default async function EmployeeCompensationCard({ employee }: { employee:
                                 ))}
                             </div>
                         }
-
-                        {item.description && <p style={{ fontSize: 15, marginTop: 10 }} >{`Notes: ${item.description}`}</p>}
                     </div>
                 </CollapsibleDiv>
             ))}

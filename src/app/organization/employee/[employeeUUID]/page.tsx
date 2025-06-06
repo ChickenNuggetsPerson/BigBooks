@@ -30,16 +30,17 @@ export default async function EmployeeView({
                 <MoveLeft/>
             </Link>
 
-            <AnimateChildren y={-100} className="flex flex-row gap-6 justify-center px-10">
+            <AnimateChildren y={-100} className="flex flex-row justify-center gap-6">
                 <div>
                     <EmployeeCard employee={employee} />
-                    <EmployeeCompensationCard employee={employee}/>
                     <EmployeeSelectPaystub empUUID={employee.uuid} />
                 </div>
                 <div>
                     <EmployeeTaxCard employee={employee} />
                     <EmployeeStubDefaultsCard employee={employee} />
                 </div>
+
+                <EmployeeCompensationCard employee={employee}/>
             </AnimateChildren>
 
         </div>

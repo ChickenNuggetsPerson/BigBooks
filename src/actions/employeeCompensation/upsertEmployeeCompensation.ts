@@ -5,12 +5,15 @@ import { RoleTypes } from "@/auth/roles/Roles";
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
 import { Prisma } from "@/database/generated/prisma";
 import { prisma } from "@/database/prisma";
+import { deserializeData, SerializationResult } from "@/utils/serialization";
 import { randomUUID } from "crypto";
 
 
+type CompData = SerializationResult<Prisma.EmployeeCompensationGetPayload<{ include: { hourlyRates: true } }>>
 
+export default async function upsertEmployeeCompensation(data: CompData) {
 
-export default async function upsertEmployeeCompensation(compData: Prisma.EmployeeCompensationGetPayload<{ include: { hourlyRates: true } }>) {
+    const compData = deserializeData(data)
 
     await throwIfInsufficientPerms(RoleTypes.Editor)
     const session = await getSession()
