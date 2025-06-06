@@ -1,7 +1,8 @@
+import getEmployeeProps from "@/actions/employee/getEmployeeProps";
 import { RoleTypes } from "@/auth/roles/Roles";
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
-import EmployeeSalaryForm from "@/components/Employee/EmployeeSalaryForm";
+import EmployeeCompensationForm from "@/components/Employee/compensation/EmployeeCompensationForm";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -12,9 +13,7 @@ export default async function EmployeeSalaryPage({ params }: { params: Promise<{
     const { employeeUUID } = await params
 
     try {
-
         await throwIfInsufficientPerms(RoleTypes.Editor)
-
     } catch {
         return (
             <div className="items-center min-h-screen p-8 pb-20 gap-16">
@@ -24,6 +23,18 @@ export default async function EmployeeSalaryPage({ params }: { params: Promise<{
             </div>
         )
     }
+
+    const employee = await getEmployeeProps(employeeUUID, true)
+    if (!employee) {
+        return (
+            <div className="items-center min-h-screen p-8 pb-20 gap-16">
+                <div className="card max-w-sm">
+                    Invalid Employee
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="">
 
@@ -33,7 +44,7 @@ export default async function EmployeeSalaryPage({ params }: { params: Promise<{
 
             <AnimateChildren y={-100} className="mx-20">
 
-                <EmployeeSalaryForm empUUID={employeeUUID}></EmployeeSalaryForm>
+                <EmployeeCompensationForm employee={employee}/>
 
             </AnimateChildren>
         </div>

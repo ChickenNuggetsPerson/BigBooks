@@ -69,7 +69,7 @@ export function CardProp({ label, val }: { label: string, val: string }) {
     return (
         <ClickableDiv className="flex flex-row gap-2 select-none" onClick={clicked}>
             <p>{label}</p>
-            <p className="font-semibold font-mono" style={{ fontSize: 15 }}>{val}</p>
+            <p className="font-semibold font-mono" style={{ fontSize: 15, paddingTop: 2 }}>{val}</p>
         </ClickableDiv>
     )
 }

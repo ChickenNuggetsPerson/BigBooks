@@ -24,7 +24,8 @@ export default async function upsertEmployeeCompensation(compData: Prisma.Employ
             where: { uuid: c.uuid },
             data: {
                 isSalary: compData.isSalary,
-                salaryAmount: compData.salaryAmount
+                salaryAmount: compData.salaryAmount,
+                description: compData.description
             }
         })
 
@@ -65,7 +66,8 @@ export default async function upsertEmployeeCompensation(compData: Prisma.Employ
                 employeeId: compData.employeeId,
                 payrollGroupId: compData.payrollGroupId,
                 isSalary: compData.isSalary,
-                salaryAmount: compData.salaryAmount
+                salaryAmount: compData.salaryAmount,
+                description: compData.description
             }
         })
 

@@ -1,18 +1,18 @@
-import EditableDiv from "../Decorative/EditableDiv";
+import EditableDiv from "../../Decorative/EditableDiv";
 import { HourlyRateStr, MoneyToStr } from "@/utils/functions/MoneyStr";
-import { Divider } from "../Forms/Divider";
-import { CardProp } from "./EmployeeCard";
+import { Divider } from "../../Forms/Divider";
+import { CardProp } from "../EmployeeCard";
 import { Employee } from "@/database/generated/prisma";
 
 
 
 
 
-export default function EmployeeSalaryCard({ employee }: { employee: Employee }) {
+export default function EmployeeTaxCard({ employee }: { employee: Employee }) {
 
     return (
 
-        <EditableDiv url={`/organization/employee/${employee.uuid}/editSalary`} className="w-xs card mb-5">
+        <EditableDiv url={`/organization/employee/${employee.uuid}/editTaxes`} className="w-xs card mb-5">
 
             <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">Tax Details</h5>
 

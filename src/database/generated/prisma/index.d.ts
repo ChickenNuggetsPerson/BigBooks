@@ -10056,6 +10056,7 @@ export namespace Prisma {
     payrollGroupId: string | null
     isSalary: boolean | null
     salaryAmount: Decimal | null
+    description: string | null
   }
 
   export type EmployeeCompensationMaxAggregateOutputType = {
@@ -10064,6 +10065,7 @@ export namespace Prisma {
     payrollGroupId: string | null
     isSalary: boolean | null
     salaryAmount: Decimal | null
+    description: string | null
   }
 
   export type EmployeeCompensationCountAggregateOutputType = {
@@ -10072,6 +10074,7 @@ export namespace Prisma {
     payrollGroupId: number
     isSalary: number
     salaryAmount: number
+    description: number
     _all: number
   }
 
@@ -10090,6 +10093,7 @@ export namespace Prisma {
     payrollGroupId?: true
     isSalary?: true
     salaryAmount?: true
+    description?: true
   }
 
   export type EmployeeCompensationMaxAggregateInputType = {
@@ -10098,6 +10102,7 @@ export namespace Prisma {
     payrollGroupId?: true
     isSalary?: true
     salaryAmount?: true
+    description?: true
   }
 
   export type EmployeeCompensationCountAggregateInputType = {
@@ -10106,6 +10111,7 @@ export namespace Prisma {
     payrollGroupId?: true
     isSalary?: true
     salaryAmount?: true
+    description?: true
     _all?: true
   }
 
@@ -10201,6 +10207,7 @@ export namespace Prisma {
     payrollGroupId: string
     isSalary: boolean
     salaryAmount: Decimal | null
+    description: string | null
     _count: EmployeeCompensationCountAggregateOutputType | null
     _avg: EmployeeCompensationAvgAggregateOutputType | null
     _sum: EmployeeCompensationSumAggregateOutputType | null
@@ -10228,6 +10235,7 @@ export namespace Prisma {
     payrollGroupId?: boolean
     isSalary?: boolean
     salaryAmount?: boolean
+    description?: boolean
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
     payrollGroup?: boolean | PayrollGroupDefaultArgs<ExtArgs>
     hourlyRates?: boolean | EmployeeCompensation$hourlyRatesArgs<ExtArgs>
@@ -10240,6 +10248,7 @@ export namespace Prisma {
     payrollGroupId?: boolean
     isSalary?: boolean
     salaryAmount?: boolean
+    description?: boolean
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
     payrollGroup?: boolean | PayrollGroupDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employeeCompensation"]>
@@ -10250,6 +10259,7 @@ export namespace Prisma {
     payrollGroupId?: boolean
     isSalary?: boolean
     salaryAmount?: boolean
+    description?: boolean
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
     payrollGroup?: boolean | PayrollGroupDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employeeCompensation"]>
@@ -10260,9 +10270,10 @@ export namespace Prisma {
     payrollGroupId?: boolean
     isSalary?: boolean
     salaryAmount?: boolean
+    description?: boolean
   }
 
-  export type EmployeeCompensationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "employeeId" | "payrollGroupId" | "isSalary" | "salaryAmount", ExtArgs["result"]["employeeCompensation"]>
+  export type EmployeeCompensationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "employeeId" | "payrollGroupId" | "isSalary" | "salaryAmount" | "description", ExtArgs["result"]["employeeCompensation"]>
   export type EmployeeCompensationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
     payrollGroup?: boolean | PayrollGroupDefaultArgs<ExtArgs>
@@ -10291,6 +10302,7 @@ export namespace Prisma {
       payrollGroupId: string
       isSalary: boolean
       salaryAmount: Prisma.Decimal | null
+      description: string | null
     }, ExtArgs["result"]["employeeCompensation"]>
     composites: {}
   }
@@ -10722,6 +10734,7 @@ export namespace Prisma {
     readonly payrollGroupId: FieldRef<"EmployeeCompensation", 'String'>
     readonly isSalary: FieldRef<"EmployeeCompensation", 'Boolean'>
     readonly salaryAmount: FieldRef<"EmployeeCompensation", 'Decimal'>
+    readonly description: FieldRef<"EmployeeCompensation", 'String'>
   }
     
 
@@ -16016,7 +16029,8 @@ export namespace Prisma {
     employeeId: 'employeeId',
     payrollGroupId: 'payrollGroupId',
     isSalary: 'isSalary',
-    salaryAmount: 'salaryAmount'
+    salaryAmount: 'salaryAmount',
+    description: 'description'
   };
 
   export type EmployeeCompensationScalarFieldEnum = (typeof EmployeeCompensationScalarFieldEnum)[keyof typeof EmployeeCompensationScalarFieldEnum]
@@ -16691,6 +16705,7 @@ export namespace Prisma {
     payrollGroupId?: StringFilter<"EmployeeCompensation"> | string
     isSalary?: BoolFilter<"EmployeeCompensation"> | boolean
     salaryAmount?: DecimalNullableFilter<"EmployeeCompensation"> | Decimal | DecimalJsLike | number | string | null
+    description?: StringNullableFilter<"EmployeeCompensation"> | string | null
     employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
     payrollGroup?: XOR<PayrollGroupScalarRelationFilter, PayrollGroupWhereInput>
     hourlyRates?: HourlyRateListRelationFilter
@@ -16702,6 +16717,7 @@ export namespace Prisma {
     payrollGroupId?: SortOrder
     isSalary?: SortOrder
     salaryAmount?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     employee?: EmployeeOrderByWithRelationInput
     payrollGroup?: PayrollGroupOrderByWithRelationInput
     hourlyRates?: HourlyRateOrderByRelationAggregateInput
@@ -16717,6 +16733,7 @@ export namespace Prisma {
     payrollGroupId?: StringFilter<"EmployeeCompensation"> | string
     isSalary?: BoolFilter<"EmployeeCompensation"> | boolean
     salaryAmount?: DecimalNullableFilter<"EmployeeCompensation"> | Decimal | DecimalJsLike | number | string | null
+    description?: StringNullableFilter<"EmployeeCompensation"> | string | null
     employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
     payrollGroup?: XOR<PayrollGroupScalarRelationFilter, PayrollGroupWhereInput>
     hourlyRates?: HourlyRateListRelationFilter
@@ -16728,6 +16745,7 @@ export namespace Prisma {
     payrollGroupId?: SortOrder
     isSalary?: SortOrder
     salaryAmount?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     _count?: EmployeeCompensationCountOrderByAggregateInput
     _avg?: EmployeeCompensationAvgOrderByAggregateInput
     _max?: EmployeeCompensationMaxOrderByAggregateInput
@@ -16744,6 +16762,7 @@ export namespace Prisma {
     payrollGroupId?: StringWithAggregatesFilter<"EmployeeCompensation"> | string
     isSalary?: BoolWithAggregatesFilter<"EmployeeCompensation"> | boolean
     salaryAmount?: DecimalNullableWithAggregatesFilter<"EmployeeCompensation"> | Decimal | DecimalJsLike | number | string | null
+    description?: StringNullableWithAggregatesFilter<"EmployeeCompensation"> | string | null
   }
 
   export type HourlyRateWhereInput = {
@@ -17562,6 +17581,7 @@ export namespace Prisma {
     uuid?: string
     isSalary?: boolean
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
     employee: EmployeeCreateNestedOneWithoutCompensationsInput
     payrollGroup: PayrollGroupCreateNestedOneWithoutCompensationsInput
     hourlyRates?: HourlyRateCreateNestedManyWithoutCompensationInput
@@ -17573,6 +17593,7 @@ export namespace Prisma {
     payrollGroupId: string
     isSalary?: boolean
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
     hourlyRates?: HourlyRateUncheckedCreateNestedManyWithoutCompensationInput
   }
 
@@ -17580,6 +17601,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     employee?: EmployeeUpdateOneRequiredWithoutCompensationsNestedInput
     payrollGroup?: PayrollGroupUpdateOneRequiredWithoutCompensationsNestedInput
     hourlyRates?: HourlyRateUpdateManyWithoutCompensationNestedInput
@@ -17591,6 +17613,7 @@ export namespace Prisma {
     payrollGroupId?: StringFieldUpdateOperationsInput | string
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRates?: HourlyRateUncheckedUpdateManyWithoutCompensationNestedInput
   }
 
@@ -17600,12 +17623,14 @@ export namespace Prisma {
     payrollGroupId: string
     isSalary?: boolean
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
   }
 
   export type EmployeeCompensationUpdateManyMutationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EmployeeCompensationUncheckedUpdateManyInput = {
@@ -17614,6 +17639,7 @@ export namespace Prisma {
     payrollGroupId?: StringFieldUpdateOperationsInput | string
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type HourlyRateCreateInput = {
@@ -18359,6 +18385,21 @@ export namespace Prisma {
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type EmployeeScalarRelationFilter = {
     is?: EmployeeWhereInput
     isNot?: EmployeeWhereInput
@@ -18395,6 +18436,7 @@ export namespace Prisma {
     payrollGroupId?: SortOrder
     isSalary?: SortOrder
     salaryAmount?: SortOrder
+    description?: SortOrder
   }
 
   export type EmployeeCompensationAvgOrderByAggregateInput = {
@@ -18407,6 +18449,7 @@ export namespace Prisma {
     payrollGroupId?: SortOrder
     isSalary?: SortOrder
     salaryAmount?: SortOrder
+    description?: SortOrder
   }
 
   export type EmployeeCompensationMinOrderByAggregateInput = {
@@ -18415,6 +18458,7 @@ export namespace Prisma {
     payrollGroupId?: SortOrder
     isSalary?: SortOrder
     salaryAmount?: SortOrder
+    description?: SortOrder
   }
 
   export type EmployeeCompensationSumOrderByAggregateInput = {
@@ -18435,6 +18479,24 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -18559,21 +18621,6 @@ export namespace Prisma {
     netPay?: SortOrder
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type EnumPayStubItemTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.PayStubItemType | EnumPayStubItemTypeFieldRefInput<$PrismaModel>
     in?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
@@ -18642,24 +18689,6 @@ export namespace Prisma {
     rate?: SortOrder
     percent?: SortOrder
     amount?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumPayStubItemTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -19344,6 +19373,10 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type EmployeeUpdateOneRequiredWithoutCompensationsNestedInput = {
     create?: XOR<EmployeeCreateWithoutCompensationsInput, EmployeeUncheckedCreateWithoutCompensationsInput>
     connectOrCreate?: EmployeeCreateOrConnectWithoutCompensationsInput
@@ -19480,10 +19513,6 @@ export namespace Prisma {
 
   export type EnumPayStubItemTypeFieldUpdateOperationsInput = {
     set?: $Enums.PayStubItemType
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type PayStubUpdateOneRequiredWithoutItemsNestedInput = {
@@ -19716,6 +19745,20 @@ export namespace Prisma {
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
@@ -19741,6 +19784,23 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedDecimalFilter<$PrismaModel = never> = {
@@ -19770,42 +19830,11 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedEnumPayStubItemTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.PayStubItemType | EnumPayStubItemTypeFieldRefInput<$PrismaModel>
     in?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.PayStubItemType[] | ListEnumPayStubItemTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumPayStubItemTypeFilter<$PrismaModel> | $Enums.PayStubItemType
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumPayStubItemTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -20408,6 +20437,7 @@ export namespace Prisma {
     uuid?: string
     isSalary?: boolean
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
     payrollGroup: PayrollGroupCreateNestedOneWithoutCompensationsInput
     hourlyRates?: HourlyRateCreateNestedManyWithoutCompensationInput
   }
@@ -20417,6 +20447,7 @@ export namespace Prisma {
     payrollGroupId: string
     isSalary?: boolean
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
     hourlyRates?: HourlyRateUncheckedCreateNestedManyWithoutCompensationInput
   }
 
@@ -20562,6 +20593,7 @@ export namespace Prisma {
     payrollGroupId?: StringFilter<"EmployeeCompensation"> | string
     isSalary?: BoolFilter<"EmployeeCompensation"> | boolean
     salaryAmount?: DecimalNullableFilter<"EmployeeCompensation"> | Decimal | DecimalJsLike | number | string | null
+    description?: StringNullableFilter<"EmployeeCompensation"> | string | null
   }
 
   export type PayStubUpsertWithWhereUniqueWithoutEmployeeInput = {
@@ -20644,6 +20676,7 @@ export namespace Prisma {
     uuid?: string
     isSalary?: boolean
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
     employee: EmployeeCreateNestedOneWithoutCompensationsInput
     hourlyRates?: HourlyRateCreateNestedManyWithoutCompensationInput
   }
@@ -20653,6 +20686,7 @@ export namespace Prisma {
     employeeId: string
     isSalary?: boolean
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
     hourlyRates?: HourlyRateUncheckedCreateNestedManyWithoutCompensationInput
   }
 
@@ -20974,6 +21008,7 @@ export namespace Prisma {
     uuid?: string
     isSalary?: boolean
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
     employee: EmployeeCreateNestedOneWithoutCompensationsInput
     payrollGroup: PayrollGroupCreateNestedOneWithoutCompensationsInput
   }
@@ -20984,6 +21019,7 @@ export namespace Prisma {
     payrollGroupId: string
     isSalary?: boolean
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
   }
 
   export type EmployeeCompensationCreateOrConnectWithoutHourlyRatesInput = {
@@ -21006,6 +21042,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     employee?: EmployeeUpdateOneRequiredWithoutCompensationsNestedInput
     payrollGroup?: PayrollGroupUpdateOneRequiredWithoutCompensationsNestedInput
   }
@@ -21016,6 +21053,7 @@ export namespace Prisma {
     payrollGroupId?: StringFieldUpdateOperationsInput | string
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EmployeeCreateWithoutPayStubsInput = {
@@ -21815,6 +21853,7 @@ export namespace Prisma {
     payrollGroupId: string
     isSalary?: boolean
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
   }
 
   export type PayStubCreateManyEmployeeInput = {
@@ -21845,6 +21884,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     payrollGroup?: PayrollGroupUpdateOneRequiredWithoutCompensationsNestedInput
     hourlyRates?: HourlyRateUpdateManyWithoutCompensationNestedInput
   }
@@ -21854,6 +21894,7 @@ export namespace Prisma {
     payrollGroupId?: StringFieldUpdateOperationsInput | string
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRates?: HourlyRateUncheckedUpdateManyWithoutCompensationNestedInput
   }
 
@@ -21862,6 +21903,7 @@ export namespace Prisma {
     payrollGroupId?: StringFieldUpdateOperationsInput | string
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PayStubUpdateWithoutEmployeeInput = {
@@ -21945,6 +21987,7 @@ export namespace Prisma {
     employeeId: string
     isSalary?: boolean
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
   }
 
   export type PayrollItemCreateManyPayrollGroupInput = {
@@ -21964,6 +22007,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     employee?: EmployeeUpdateOneRequiredWithoutCompensationsNestedInput
     hourlyRates?: HourlyRateUpdateManyWithoutCompensationNestedInput
   }
@@ -21973,6 +22017,7 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRates?: HourlyRateUncheckedUpdateManyWithoutCompensationNestedInput
   }
 
@@ -21981,6 +22026,7 @@ export namespace Prisma {
     employeeId?: StringFieldUpdateOperationsInput | string
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PayrollItemUpdateWithoutPayrollGroupInput = {

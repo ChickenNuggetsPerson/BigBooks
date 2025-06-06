@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { FormControl, InputLabel, Select, MenuItem, Autocomplete, TextField } from "@mui/material";
+import { InputLabel, Select, MenuItem, Autocomplete, TextField, FormControl } from "@mui/material";
 
 
 
@@ -51,27 +51,31 @@ export default function SelectInput({
 
     if (searchable) {
         return (
-            <Autocomplete
-                disablePortal
-                options={ops}
-                sx={{ minWidth: 150 }}
+            <div>
+                <input type="hidden" name={id} id={id} value={selected?.id} readOnly={true} ></input>
+                <Autocomplete
+                    disablePortal
+                    options={ops}
+                    sx={{ minWidth: 150 }}
 
-                id={id}
-                value={selected}
-                onChange={(e, v) => { onPress(v?.id ?? "") }}
-                disabled={disabled}
-                disableClearable
-                renderInput={(params) => <TextField {...params} label={label} />}
-            />
+                    id={id}
+                    value={selected}
+                    onChange={(e, v) => { onPress(v?.id ?? "") }}
+                    disabled={disabled}
+                    disableClearable
+                    renderInput={(params) => <TextField {...params} label={label} />}
+                />
+            </div>
         )
     }
 
     return (
         <FormControl sx={{ minWidth: 150 }}>
+            <input type="hidden" name={id} id={id} value={selected?.id} readOnly={true} ></input>
             <InputLabel id="">{label}</InputLabel>
             <Select
                 labelId=""
-                id={id}
+                // id={id}
                 value={selected.id}
                 label={label}
                 onChange={(e) => { onPress(e.target.value) }}

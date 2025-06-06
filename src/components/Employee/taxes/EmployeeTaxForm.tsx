@@ -3,13 +3,13 @@
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
 import submitEmployeeSalaryForm from "@/actions/employee/submitEmployeeSalaryFrom";
 import { useEffect, useState } from "react";
-import SelectInput from "../Forms/SelectInput";
-import NumberInput from "../Forms/NumberInput";
-import { Divider } from "../Forms/Divider";
+import SelectInput from "../../Forms/SelectInput";
+import NumberInput from "../../Forms/NumberInput";
+import { Divider } from "../../Forms/Divider";
 import { FilingTypes } from "@/database/Taxes/FilingTypes";
 import Loading from "@/app/Loading";
 import { Employee } from "@/database/generated/prisma";
-import TextInput from "../Forms/TextInput";
+import TextInput from "../../Forms/TextInput";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -26,8 +26,8 @@ const FilingOptions = [
 ]
 
 
-interface EmployeeSalaryFormProps { empUUID: string }
-export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps) {
+interface EmployeeTaxFormProps { empUUID: string }
+export default function EmployeeTaxForm({ empUUID }: EmployeeTaxFormProps) {
 
     const router = useRouter()
     const [props, setProps] = useState({} as Employee)
@@ -87,7 +87,6 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
 
     };
 
-    // TODO: This form does not work with new select and number inputs.
     return (
 
         <form className="flex flex-row w-full justify-center gap-10" onSubmit={handleSubmit}>
@@ -97,23 +96,14 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
                 <Divider />
                 <h6 className="mb-5 text-2xl tracking-tight text-gray-400">{`${props.firstName} ${props.lastName}`}</h6>
 
-                <div className="flex flex-row gap-4">
+                <div className="flex flex-row gap-4 mb-3">
                     <SelectInput id={"filing"} label={"Filing Status"} val={props.filingStatus} options={FilingOptions} />
-                    <div className="mt-8 w-full">
-                        <NumberInput id={"dependants"} label={"# of Dependants"} val={props.dependants} />
-                    </div>
+                    <NumberInput id={"dependants"} label={"# of Dependants"} val={props.dependants} />
                 </div>
 
-                <TextInput id="uuid" val={empUUID} label="Employee UUID" disabled/>
+                <TextInput id="uuid" val={empUUID} label="Employee UUID" disabled />
 
                 <button type="submit" className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>
-            </div>
-
-            <div className="w-sm card h-fit">
-                <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">Compensation Groups</h5>
-                <Divider />
-
-                Under Construction...
             </div>
 
         </form>

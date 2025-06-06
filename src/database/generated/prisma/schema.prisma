@@ -131,6 +131,8 @@ model EmployeeCompensation {
   salaryAmount Decimal?
   hourlyRates  HourlyRate[]
 
+  description String?
+
   @@unique([employeeId, payrollGroupId]) // no duplicate “employee‐group” rows
 }
 

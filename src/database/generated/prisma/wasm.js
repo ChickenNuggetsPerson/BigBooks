@@ -190,7 +190,8 @@ exports.Prisma.EmployeeCompensationScalarFieldEnum = {
   employeeId: 'employeeId',
   payrollGroupId: 'payrollGroupId',
   isSalary: 'isSalary',
-  salaryAmount: 'salaryAmount'
+  salaryAmount: 'salaryAmount',
+  description: 'description'
 };
 
 exports.Prisma.HourlyRateScalarFieldEnum = {

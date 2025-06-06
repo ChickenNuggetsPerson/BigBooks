@@ -18,17 +18,13 @@ export default async function submitEmployeeSalaryForm(formData: FormData) {
     const filing = formData.get("filing") as string
     const dependants = Number(formData.get("dependants") as string)
 
-    try {
-
-        await prisma.employee.update({
-            where: { uuid: uuid },
-            data: {
-                filingStatus: filing,
-                dependants: dependants
-            }
-        })
-
-    } catch (err) { console.log(err) }
+    await prisma.employee.update({
+        where: { uuid: uuid },
+        data: {
+            filingStatus: filing,
+            dependants: dependants
+        }
+    })
 
     revalidatePath(`/organization/employee`)
     revalidatePath(`/organization/employee/${uuid}`)
