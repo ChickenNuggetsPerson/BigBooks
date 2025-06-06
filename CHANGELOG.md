@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.3.0...v0.4.0) (2025-06-06)
+
+
+### Features
+
+* Added compensation forms for employees ([f4d05fc](https://github.com/ChickenNuggetsPerson/BigBooks/commit/f4d05fc15fd17e9cac653d3facab2f459a0d3349))
+* Added employee compensation card to main page ([c5174e2](https://github.com/ChickenNuggetsPerson/BigBooks/commit/c5174e2c5f462ac8623c9dce4e8997256a89de58))
+
 ## [0.3.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.2.0...v0.3.0) (2025-06-06)
 
 
