@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.2.0...v0.3.0) (2025-06-06)
+
+
+### Features
+
+* Added Configure and Select Employee tabs to payroll ([15ae136](https://github.com/ChickenNuggetsPerson/BigBooks/commit/15ae1366a1ef89e365b67e7e0db8e786d03d75b0))
+* Added new components library ([2716fb2](https://github.com/ChickenNuggetsPerson/BigBooks/commit/2716fb26afa4f82a497698e9ab92f17369b7d939))
+* Created new employee list for selection page ([f650212](https://github.com/ChickenNuggetsPerson/BigBooks/commit/f650212daf837c69e38ef93403d144f2a86ee33f))
+
+
+### Bug Fixes
+
+* Misc Changes ([121730b](https://github.com/ChickenNuggetsPerson/BigBooks/commit/121730b599c037ee9a3f652712ac8c11a389b4da))
+
 ## [0.2.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.1.2...v0.2.0) (2025-06-05)
 
 
