@@ -87,6 +87,7 @@ export default function EmployeeSalaryForm({ empUUID }: EmployeeSalaryFormProps)
 
     };
 
+    // TODO: This form does not work with new select and number inputs.
     return (
 
         <form className="flex flex-row w-full justify-center gap-10" onSubmit={handleSubmit}>
