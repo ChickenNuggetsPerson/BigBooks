@@ -79,7 +79,7 @@ export default function PayrollItemFormCard({ item }: { item: PayrollItem }) {
             <div className="flex flex-row gap-x-4">
                 <SelectInput label="Limit Period" val={itemState.absMaxPeriod} options={limitOptions} changeCB={(val) => { setItemState({ ...itemState, absMaxPeriod: val as AbsMaxPeriodTypes }) }} />
                 <div className="pt-5 w-full">
-                    <NumberInput label="Absolute Limit For Period" val={Number(itemState.absMax ?? 0)} changeCB={(val) => { setItemState({ ...itemState, absMax: new Decimal(val) }) }} />
+                    <NumberInput label="Limit For Period" val={Number(itemState.absMax ?? 0)} changeCB={(val) => { setItemState({ ...itemState, absMax: new Decimal(Math.abs(val)) }) }} />
                 </div>
             </div>
 

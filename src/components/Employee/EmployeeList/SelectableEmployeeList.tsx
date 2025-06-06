@@ -7,7 +7,7 @@ import { useCompany } from "@/app/CompanyContext"
 import { ColumnsPanelTrigger, DataGrid, FilterPanelTrigger, GridColDef, GridRowSelectionModel, QuickFilter, QuickFilterClear, QuickFilterControl, QuickFilterTrigger, Toolbar, ToolbarButton } from '@mui/x-data-grid';
 import getEmployeeListWithComps from "@/actions/employee/getEmployeeListWithComps"
 import getOrgPayrollGroups from "@/actions/payrollGroup/getOrgPayrollGroups"
-import { ArrowLeft, Search, X } from "lucide-react"
+import { Search, Trash2, X } from "lucide-react"
 import { deserializeData } from "@/utils/serialization"
 import { Divider } from "@/components/Forms/Divider"
 import toast from "react-hot-toast"
@@ -147,11 +147,11 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
                             {[...selected].map((uuid => {
 
                                 const employee = employees.find((e) => e.uuid == uuid)
-                                if (!employee) { return <></> }
+                                if (!employee) { return <div key={uuid}></div> }
 
                                 return (
                                     <div key={uuid} className="flex flex-row w-full pb-1">
-                                        <ArrowLeft className="mr-2" onClick={() => {removeEmployee(employee)}}/>
+                                        <Trash2 className="mr-2" onClick={() => {removeEmployee(employee)}}/>
                                         {`${employee?.firstName} ${employee?.lastName}`}
                                     </div>
                                 )
