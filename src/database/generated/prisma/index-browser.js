@@ -181,6 +181,7 @@ exports.Prisma.PayrollGroupScalarFieldEnum = {
   description: 'description',
   payFrequency: 'payFrequency',
   payRefDate: 'payRefDate',
+  periodRefDate: 'periodRefDate',
   organizationId: 'organizationId'
 };
 

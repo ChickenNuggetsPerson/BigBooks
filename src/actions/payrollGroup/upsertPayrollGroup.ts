@@ -24,6 +24,7 @@ export default async function upsertPayrollGroup(group: PayrollGroup) {
                 description: group.description,
                 payFrequency: group.payFrequency,
                 payRefDate: group.payRefDate,
+                periodRefDate: group.periodRefDate,
                 organizationId: session.orgUUID
             }
         })
@@ -34,6 +35,7 @@ export default async function upsertPayrollGroup(group: PayrollGroup) {
                 description: group.description,
                 payFrequency: group.payFrequency,
                 payRefDate: group.payRefDate,
+                periodRefDate: group.periodRefDate,
                 organizationId: session.orgUUID
             }
         })

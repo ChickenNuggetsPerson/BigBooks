@@ -103,11 +103,13 @@ model Employee {
 }
 
 model PayrollGroup {
-  uuid         String   @id @unique @default(uuid())
-  name         String
-  description  String
-  payFrequency Int      @default(14) // e.g. days
-  payRefDate   DateTime
+  uuid        String @id @unique @default(uuid())
+  name        String
+  description String
+
+  payFrequency  Int      @default(14) // e.g. days
+  payRefDate    DateTime @default(now())
+  periodRefDate DateTime @default(now())
 
   organization   Organization @relation(fields: [organizationId], references: [uuid])
   organizationId String

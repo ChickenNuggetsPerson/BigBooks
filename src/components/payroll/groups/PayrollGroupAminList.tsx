@@ -35,6 +35,7 @@ export default function PayrollGroupAminList({ groups }: { groups: PayrollGroup[
             description: "",
             payFrequency: 14,
             payRefDate: new Date(),
+            periodRefDate: new Date(),
             uuid: "",
             organizationId: "" // Server action handles this
         })
@@ -116,6 +117,12 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
         if (!selected) { return }
         const copy = structuredClone(selected)
         copy.payRefDate = val
+        setSelected(copy)
+    }
+    function periodRefDate(val: Date) {
+        if (!selected) { return }
+        const copy = structuredClone(selected)
+        copy.periodRefDate = val
         setSelected(copy)
     }
 
@@ -237,12 +244,16 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
             <LargeTextInput label="Description" val={selected.description} onChange={descUpdated} />
 
             {selected.payRefDate && selected.payFrequency &&
-                <CardProp label={"Next Occurence:"} val={nextOccurence(selected.payRefDate, selected.payFrequency).toLocaleDateString()} />
+                <>
+                    <CardProp label={"Next Period End:"} val={nextOccurence(selected.periodRefDate, selected.payFrequency).toLocaleDateString()} />
+                    <CardProp label={"Next Paydate:"} val={nextOccurence(selected.payRefDate, selected.payFrequency).toLocaleDateString()} />
+                </>
             }
 
             <div className="flex flex-row gap-4 mt-5">
-                <DateInput label="Reference Date" val={selected.payRefDate} onChange={refDateUpdated} />
                 <NumberInput label="Days Between Pay" val={selected.payFrequency} changeCB={frequencyUpdated} />
+                <DateInput label="Pay Date" val={selected.payRefDate} onChange={refDateUpdated} />
+                <DateInput label="Period End" val={selected.periodRefDate} onChange={periodRefDate} />
             </div>
 
             <button onClick={saveButton} className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>

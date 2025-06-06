@@ -8880,6 +8880,7 @@ export namespace Prisma {
     description: string | null
     payFrequency: number | null
     payRefDate: Date | null
+    periodRefDate: Date | null
     organizationId: string | null
   }
 
@@ -8889,6 +8890,7 @@ export namespace Prisma {
     description: string | null
     payFrequency: number | null
     payRefDate: Date | null
+    periodRefDate: Date | null
     organizationId: string | null
   }
 
@@ -8898,6 +8900,7 @@ export namespace Prisma {
     description: number
     payFrequency: number
     payRefDate: number
+    periodRefDate: number
     organizationId: number
     _all: number
   }
@@ -8917,6 +8920,7 @@ export namespace Prisma {
     description?: true
     payFrequency?: true
     payRefDate?: true
+    periodRefDate?: true
     organizationId?: true
   }
 
@@ -8926,6 +8930,7 @@ export namespace Prisma {
     description?: true
     payFrequency?: true
     payRefDate?: true
+    periodRefDate?: true
     organizationId?: true
   }
 
@@ -8935,6 +8940,7 @@ export namespace Prisma {
     description?: true
     payFrequency?: true
     payRefDate?: true
+    periodRefDate?: true
     organizationId?: true
     _all?: true
   }
@@ -9031,6 +9037,7 @@ export namespace Prisma {
     description: string
     payFrequency: number
     payRefDate: Date
+    periodRefDate: Date
     organizationId: string
     _count: PayrollGroupCountAggregateOutputType | null
     _avg: PayrollGroupAvgAggregateOutputType | null
@@ -9059,6 +9066,7 @@ export namespace Prisma {
     description?: boolean
     payFrequency?: boolean
     payRefDate?: boolean
+    periodRefDate?: boolean
     organizationId?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     compensations?: boolean | PayrollGroup$compensationsArgs<ExtArgs>
@@ -9072,6 +9080,7 @@ export namespace Prisma {
     description?: boolean
     payFrequency?: boolean
     payRefDate?: boolean
+    periodRefDate?: boolean
     organizationId?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payrollGroup"]>
@@ -9082,6 +9091,7 @@ export namespace Prisma {
     description?: boolean
     payFrequency?: boolean
     payRefDate?: boolean
+    periodRefDate?: boolean
     organizationId?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["payrollGroup"]>
@@ -9092,10 +9102,11 @@ export namespace Prisma {
     description?: boolean
     payFrequency?: boolean
     payRefDate?: boolean
+    periodRefDate?: boolean
     organizationId?: boolean
   }
 
-  export type PayrollGroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "name" | "description" | "payFrequency" | "payRefDate" | "organizationId", ExtArgs["result"]["payrollGroup"]>
+  export type PayrollGroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "name" | "description" | "payFrequency" | "payRefDate" | "periodRefDate" | "organizationId", ExtArgs["result"]["payrollGroup"]>
   export type PayrollGroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     compensations?: boolean | PayrollGroup$compensationsArgs<ExtArgs>
@@ -9122,6 +9133,7 @@ export namespace Prisma {
       description: string
       payFrequency: number
       payRefDate: Date
+      periodRefDate: Date
       organizationId: string
     }, ExtArgs["result"]["payrollGroup"]>
     composites: {}
@@ -9554,6 +9566,7 @@ export namespace Prisma {
     readonly description: FieldRef<"PayrollGroup", 'String'>
     readonly payFrequency: FieldRef<"PayrollGroup", 'Int'>
     readonly payRefDate: FieldRef<"PayrollGroup", 'DateTime'>
+    readonly periodRefDate: FieldRef<"PayrollGroup", 'DateTime'>
     readonly organizationId: FieldRef<"PayrollGroup", 'String'>
   }
     
@@ -15991,6 +16004,7 @@ export namespace Prisma {
     description: 'description',
     payFrequency: 'payFrequency',
     payRefDate: 'payRefDate',
+    periodRefDate: 'periodRefDate',
     organizationId: 'organizationId'
   };
 
@@ -16604,6 +16618,7 @@ export namespace Prisma {
     description?: StringFilter<"PayrollGroup"> | string
     payFrequency?: IntFilter<"PayrollGroup"> | number
     payRefDate?: DateTimeFilter<"PayrollGroup"> | Date | string
+    periodRefDate?: DateTimeFilter<"PayrollGroup"> | Date | string
     organizationId?: StringFilter<"PayrollGroup"> | string
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     compensations?: EmployeeCompensationListRelationFilter
@@ -16616,6 +16631,7 @@ export namespace Prisma {
     description?: SortOrder
     payFrequency?: SortOrder
     payRefDate?: SortOrder
+    periodRefDate?: SortOrder
     organizationId?: SortOrder
     organization?: OrganizationOrderByWithRelationInput
     compensations?: EmployeeCompensationOrderByRelationAggregateInput
@@ -16631,6 +16647,7 @@ export namespace Prisma {
     description?: StringFilter<"PayrollGroup"> | string
     payFrequency?: IntFilter<"PayrollGroup"> | number
     payRefDate?: DateTimeFilter<"PayrollGroup"> | Date | string
+    periodRefDate?: DateTimeFilter<"PayrollGroup"> | Date | string
     organizationId?: StringFilter<"PayrollGroup"> | string
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     compensations?: EmployeeCompensationListRelationFilter
@@ -16643,6 +16660,7 @@ export namespace Prisma {
     description?: SortOrder
     payFrequency?: SortOrder
     payRefDate?: SortOrder
+    periodRefDate?: SortOrder
     organizationId?: SortOrder
     _count?: PayrollGroupCountOrderByAggregateInput
     _avg?: PayrollGroupAvgOrderByAggregateInput
@@ -16660,6 +16678,7 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"PayrollGroup"> | string
     payFrequency?: IntWithAggregatesFilter<"PayrollGroup"> | number
     payRefDate?: DateTimeWithAggregatesFilter<"PayrollGroup"> | Date | string
+    periodRefDate?: DateTimeWithAggregatesFilter<"PayrollGroup"> | Date | string
     organizationId?: StringWithAggregatesFilter<"PayrollGroup"> | string
   }
 
@@ -17467,7 +17486,8 @@ export namespace Prisma {
     name: string
     description: string
     payFrequency?: number
-    payRefDate: Date | string
+    payRefDate?: Date | string
+    periodRefDate?: Date | string
     organization: OrganizationCreateNestedOneWithoutPayrollGroupsInput
     compensations?: EmployeeCompensationCreateNestedManyWithoutPayrollGroupInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutPayrollGroupInput
@@ -17478,7 +17498,8 @@ export namespace Prisma {
     name: string
     description: string
     payFrequency?: number
-    payRefDate: Date | string
+    payRefDate?: Date | string
+    periodRefDate?: Date | string
     organizationId: string
     compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutPayrollGroupInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutPayrollGroupInput
@@ -17490,6 +17511,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutPayrollGroupsNestedInput
     compensations?: EmployeeCompensationUpdateManyWithoutPayrollGroupNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutPayrollGroupNestedInput
@@ -17501,6 +17523,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     organizationId?: StringFieldUpdateOperationsInput | string
     compensations?: EmployeeCompensationUncheckedUpdateManyWithoutPayrollGroupNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutPayrollGroupNestedInput
@@ -17511,7 +17534,8 @@ export namespace Prisma {
     name: string
     description: string
     payFrequency?: number
-    payRefDate: Date | string
+    payRefDate?: Date | string
+    periodRefDate?: Date | string
     organizationId: string
   }
 
@@ -17521,6 +17545,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PayrollGroupUncheckedUpdateManyInput = {
@@ -17529,6 +17554,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     organizationId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -18290,6 +18316,7 @@ export namespace Prisma {
     description?: SortOrder
     payFrequency?: SortOrder
     payRefDate?: SortOrder
+    periodRefDate?: SortOrder
     organizationId?: SortOrder
   }
 
@@ -18303,6 +18330,7 @@ export namespace Prisma {
     description?: SortOrder
     payFrequency?: SortOrder
     payRefDate?: SortOrder
+    periodRefDate?: SortOrder
     organizationId?: SortOrder
   }
 
@@ -18312,6 +18340,7 @@ export namespace Prisma {
     description?: SortOrder
     payFrequency?: SortOrder
     payRefDate?: SortOrder
+    periodRefDate?: SortOrder
     organizationId?: SortOrder
   }
 
@@ -20096,7 +20125,8 @@ export namespace Prisma {
     name: string
     description: string
     payFrequency?: number
-    payRefDate: Date | string
+    payRefDate?: Date | string
+    periodRefDate?: Date | string
     compensations?: EmployeeCompensationCreateNestedManyWithoutPayrollGroupInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutPayrollGroupInput
   }
@@ -20106,7 +20136,8 @@ export namespace Prisma {
     name: string
     description: string
     payFrequency?: number
-    payRefDate: Date | string
+    payRefDate?: Date | string
+    periodRefDate?: Date | string
     compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutPayrollGroupInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutPayrollGroupInput
   }
@@ -20265,6 +20296,7 @@ export namespace Prisma {
     description?: StringFilter<"PayrollGroup"> | string
     payFrequency?: IntFilter<"PayrollGroup"> | number
     payRefDate?: DateTimeFilter<"PayrollGroup"> | Date | string
+    periodRefDate?: DateTimeFilter<"PayrollGroup"> | Date | string
     organizationId?: StringFilter<"PayrollGroup"> | string
   }
 
@@ -20785,7 +20817,8 @@ export namespace Prisma {
     name: string
     description: string
     payFrequency?: number
-    payRefDate: Date | string
+    payRefDate?: Date | string
+    periodRefDate?: Date | string
     organization: OrganizationCreateNestedOneWithoutPayrollGroupsInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutPayrollGroupInput
   }
@@ -20795,7 +20828,8 @@ export namespace Prisma {
     name: string
     description: string
     payFrequency?: number
-    payRefDate: Date | string
+    payRefDate?: Date | string
+    periodRefDate?: Date | string
     organizationId: string
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutPayrollGroupInput
   }
@@ -20893,6 +20927,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutPayrollGroupsNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutPayrollGroupNestedInput
   }
@@ -20903,6 +20938,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     organizationId?: StringFieldUpdateOperationsInput | string
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutPayrollGroupNestedInput
   }
@@ -21306,7 +21342,8 @@ export namespace Prisma {
     name: string
     description: string
     payFrequency?: number
-    payRefDate: Date | string
+    payRefDate?: Date | string
+    periodRefDate?: Date | string
     organization: OrganizationCreateNestedOneWithoutPayrollGroupsInput
     compensations?: EmployeeCompensationCreateNestedManyWithoutPayrollGroupInput
   }
@@ -21316,7 +21353,8 @@ export namespace Prisma {
     name: string
     description: string
     payFrequency?: number
-    payRefDate: Date | string
+    payRefDate?: Date | string
+    periodRefDate?: Date | string
     organizationId: string
     compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutPayrollGroupInput
   }
@@ -21453,6 +21491,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutPayrollGroupsNestedInput
     compensations?: EmployeeCompensationUpdateManyWithoutPayrollGroupNestedInput
   }
@@ -21463,6 +21502,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     organizationId?: StringFieldUpdateOperationsInput | string
     compensations?: EmployeeCompensationUncheckedUpdateManyWithoutPayrollGroupNestedInput
   }
@@ -21578,7 +21618,8 @@ export namespace Prisma {
     name: string
     description: string
     payFrequency?: number
-    payRefDate: Date | string
+    payRefDate?: Date | string
+    periodRefDate?: Date | string
   }
 
   export type InviteCodeCreateManyOrganizationInput = {
@@ -21664,6 +21705,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     compensations?: EmployeeCompensationUpdateManyWithoutPayrollGroupNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutPayrollGroupNestedInput
   }
@@ -21674,6 +21716,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
     compensations?: EmployeeCompensationUncheckedUpdateManyWithoutPayrollGroupNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutPayrollGroupNestedInput
   }
@@ -21684,6 +21727,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     payFrequency?: IntFieldUpdateOperationsInput | number
     payRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    periodRefDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InviteCodeUpdateWithoutOrganizationInput = {
