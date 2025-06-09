@@ -4,6 +4,8 @@ import { useCompany } from "@/app/CompanyContext";
 import ProgressBar from "@/components/Decorative/ProgressBar/ProgressPannel";
 import SelectableEmployeeList from "@/components/Employee/EmployeeList/SelectableEmployeeList";
 import PayrollInportGroupForm from "@/components/payroll/PayrollInportGroupForm";
+import HorzScrollSelect from "@/components/payroll/paystub/HorzScrollSelect";
+import PaystubEditForm from "@/components/payroll/paystub/PaystubEditForm";
 import { useEffect, useState } from "react";
 import SuperJSON from "superjson";
 
@@ -14,7 +16,8 @@ type PayrollState = {
     lastSaved: Date,
     orgUUID: string,
     page: number,
-    selectedEmployees: string[],
+    selectedEmployees: { id: string, label: string }[],
+    selectIndex: number,
     period: {
         start: Date,
         end: Date,
@@ -27,6 +30,7 @@ const DefaultState: PayrollState = {
     orgUUID: "",
     page: 0,
     selectedEmployees: [],
+    selectIndex: 0,
     period: {
         start: new Date(),
         end: new Date(),
@@ -59,7 +63,7 @@ export default function Payroll() {
                     setPayrollState(data) // Session less than 1 day old
                     return
                 }
-                
+
             }
         }
         setPayrollState({ ...DefaultState, orgUUID: context.companyUUID })
@@ -67,7 +71,7 @@ export default function Payroll() {
 
     useEffect(() => {
         if (typeof window !== "undefined" && payrollState) {
-            localStorage.setItem("PayrollState", SuperJSON.stringify({...payrollState, lastSaved: new Date()}))
+            localStorage.setItem("PayrollState", SuperJSON.stringify({ ...payrollState, lastSaved: new Date() }))
         }
     }, [payrollState])
 
@@ -77,16 +81,28 @@ export default function Payroll() {
         <div>
             <ProgressBar steps={["Configure", "Select Employees", "Enter Payroll", "Review"]} currentStep={payrollState.page} changeCB={(index) => setPayrollState({ ...payrollState, page: index })} />
 
+            <div className="h-4"></div>
+
             {payrollState.page == 0 &&
-                <div className="pt-4">
-                    <PayrollInportGroupForm initialPeriod={payrollState.period} changeCB={(data) => { setPayrollState({ ...payrollState, period: data, page: 1 }) }} />
-                </div>
+                <PayrollInportGroupForm initialPeriod={payrollState.period} changeCB={(data) => { setPayrollState({ ...payrollState, period: data, page: 1 }) }} />
             }
 
             {payrollState.page == 1 &&
-                <div className="pt-4">
-                    <SelectableEmployeeList selectCB={(selected) => { setPayrollState({ ...payrollState, selectedEmployees: selected }) }} preSelected={payrollState.selectedEmployees} />
-                </div>
+                <SelectableEmployeeList selectCB={(selected) => { setPayrollState({ ...payrollState, selectedEmployees: selected }) }} preSelected={payrollState.selectedEmployees} />
+            }
+
+            {payrollState.page == 2 &&
+                <>
+                    <HorzScrollSelect selected={payrollState.selectIndex} options={payrollState.selectedEmployees.map(e => e.label)} changeCB={(val) => setPayrollState({ ...payrollState, selectIndex: val })} />
+                    <div className="h-5"></div>
+                    <PaystubEditForm 
+                        key={payrollState.selectedEmployees[payrollState.selectIndex].id}
+                        empUUID={payrollState.selectedEmployees[payrollState.selectIndex].id} 
+                        stubStart={payrollState.period.start}
+                        stubEnd={payrollState.period.end}
+                        stubPaydate={payrollState.period.pay}
+                    />
+                </>
             }
         </div>
     );

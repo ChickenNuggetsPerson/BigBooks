@@ -16,7 +16,3 @@ export function percentToStr(percent: Percent) {
 
     return percent.toLocaleString() + " %"
 }
-
-export function PercentOf(amt: number, p: Percent) {
-    return Math.round(amt * p) / 100
-}

@@ -434,6 +434,10 @@ export declare namespace Decimal {
         modulo?: Modulo;
         defaults?: boolean;
     }
+
+    export function multiply(): Decimal {
+        throw new Error("Function not implemented.");
+    }
 }
 
 export declare class Decimal {

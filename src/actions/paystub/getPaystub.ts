@@ -7,9 +7,14 @@ import { serializeData } from "@/utils/serialization"
 
 
 
-export default async function getEmployeePaystubs(uuid: string) {
+
+export default async function getPaystub(stubUUID: string) {
+
     await throwIfInsufficientPerms(RoleTypes.Viewer)
 
-    return serializeData(await prisma.payStub.findMany({ where: { employeeId: uuid } }))
+    return serializeData(await prisma.payStub.findUnique({
+        where: { uuid: stubUUID },
+        include: { items: true }
+    }))
     
 }

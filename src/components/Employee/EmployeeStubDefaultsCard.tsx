@@ -5,9 +5,10 @@ import EditableDiv from "../Decorative/EditableDiv";
 import { Divider } from "../Forms/Divider";
 import { MoneyToStr } from "@/utils/functions/MoneyStr";
 import { percentToStr } from "@/utils/functions/PercentStr";
-import getPayrollItems from "@/actions/paystub/payrollItems/getPayrollItems";
 import CollapsibleDiv from "../Decorative/CollapsibleDiv";
 import { CardProp } from "./EmployeeCard";
+import getPayrollItems from "@/actions/paystub/payrollItems/getPayrollItems";
+import { deserializeData } from "@/utils/serialization";
 
 
 
@@ -15,7 +16,7 @@ import { CardProp } from "./EmployeeCard";
 
 export default async function EmployeeStubDefaultsCard({ employee }: { employee: Employee }) {
 
-    const defaults = (await getPayrollItems({ employeeId: employee.uuid })).employee
+    const defaults = deserializeData(await getPayrollItems({ employeeId: employee.uuid })).employee
 
     return (
         <EditableDiv url={`/organization/employee/${employee.uuid}/editDefaults`} className="w-xs card mb-5">

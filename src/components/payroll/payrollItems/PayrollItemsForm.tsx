@@ -9,6 +9,7 @@ import { redirect } from "next/navigation"
 import PayrollItemAddBtn from "./PayrollItemAddBtn"
 import PayrollItemInfoBtn from "./PayrollItemInfoBtn"
 import { prisma } from "@/database/prisma"
+import { deserializeData } from "@/utils/serialization"
 
 
 
@@ -36,15 +37,15 @@ export default async function PayrollItemsForm({
     let items = [] as PayrollItem[]
 
     if (organization) {
-        items = (await getPayrollItems({ organizationId: session.orgUUID })).organization
+        items = deserializeData(await getPayrollItems({ organizationId: session.orgUUID })).organization
         name = (await prisma.organization.findUnique({ where: { uuid: session.orgUUID } }))?.name
     }
     if (employee) {
-        items = (await getPayrollItems({ employeeId: employeeUUID })).employee
+        items = deserializeData(await getPayrollItems({ employeeId: employeeUUID })).employee
         name = (await prisma.employee.findUnique({ where: { uuid: employeeUUID } }))?.firstName
     }
     if (group) {
-        items = (await getPayrollItems({ payrollGroupId: groupUUID })).group
+        items = deserializeData(await getPayrollItems({ payrollGroupId: groupUUID })).group
         name = (await prisma.payrollGroup.findUnique({ where: { uuid: groupUUID } }))?.name
     }
 

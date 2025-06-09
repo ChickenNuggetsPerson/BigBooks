@@ -17,12 +17,12 @@ export default function AdminCard({ }) {
                 Edit Organization Details
             </Link>
 
-            <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/organization/admin/groups"}>
-                Payroll Groups
+            <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/organization/admin/defaults"}>
+                Organization Payroll Items
             </Link>
 
-            <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/organization/admin/defaults"}>
-                Payroll Items
+            <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/organization/admin/groups"}>
+                Payroll Groups
             </Link>
 
             <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/organization/admin/users"}>

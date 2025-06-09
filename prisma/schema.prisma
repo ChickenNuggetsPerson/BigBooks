@@ -159,9 +159,10 @@ model PayStub {
   locked      Boolean     @default(false)
 
   // Totals or summaries (computed at generation time)
-  grossEarnings   Decimal @default(0) // sum of all PayStubEarning.amount
-  totalDeductions Decimal @default(0) // sum of all PayStubDeduction.amount
-  netPay          Decimal @default(0) // grossEarnings − totalDeductions
+  grossEarnings   Decimal @default(0) 
+  totalTaxes      Decimal @default(0) 
+  totalExtras     Decimal @default(0) 
+  netPay          Decimal @default(0) 
 
   employee   Employee @relation(fields: [employeeId], references: [uuid])
   employeeId String

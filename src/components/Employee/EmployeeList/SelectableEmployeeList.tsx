@@ -14,7 +14,7 @@ import toast from "react-hot-toast"
 
 
 export default function SelectableEmployeeList({ selectCB, preSelected }: {
-    selectCB: (selected: string[]) => void, preSelected: string[]
+    selectCB: (selected: { id: string, label: string }[]) => void, preSelected: { id: string, label: string }[]
 }) {
 
     const { context } = useCompany()
@@ -50,7 +50,7 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
 
 
     useEffect(() => {
-        setSelected(new Set(preSelected))
+        setSelected(new Set(preSelected.map((p) => p.id)))
     }, [preSelected])
 
     function add() {
@@ -67,7 +67,7 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
             type: "include",
             ids: new Set<string>()
         })
-        selectCB([...newSelection])
+        callCB(newSelection)
         toast.success("Added to Selection")
     }
 
@@ -92,8 +92,17 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
             type: "include",
             ids: new Set<string>()
         })
-        selectCB([...newSelection])
+        callCB(newSelection)
         toast.success(`Removed ${e.firstName}`)
+    }
+
+    function callCB(newSelection: Set<string>) {
+        const arr = [...newSelection].map((sel) => {
+            const emp = employees.find((e) => e.uuid == sel)
+            return { id: sel, label: `${emp?.firstName} ${emp?.lastName}` }
+        })
+        arr.sort((a, b) => a.label.localeCompare(b.label))
+        selectCB(arr)
     }
 
     const canSave = rowSelectionModel.ids.size !== 0
@@ -151,7 +160,7 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
 
                                 return (
                                     <div key={uuid} className="flex flex-row w-full pb-1">
-                                        <Trash2 className="mr-2" onClick={() => {removeEmployee(employee)}}/>
+                                        <Trash2 className="mr-2" onClick={() => { removeEmployee(employee) }} />
                                         {`${employee?.firstName} ${employee?.lastName}`}
                                     </div>
                                 )

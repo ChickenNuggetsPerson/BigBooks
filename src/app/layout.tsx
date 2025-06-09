@@ -5,6 +5,7 @@ import ModalContainer from "@/components/Decorative/Modal/ModalContainer";
 import DevLink from "@/components/aboutModal/DevLink";
 import { Toaster } from "react-hot-toast";
 
+
 export const metadata: Metadata = {
   title: "Big Books",
   description: "",
@@ -21,18 +22,19 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      
+
       <body className={`antialiased text-text`}>
 
         <div style={{ zIndex: 1000000 }}>
           <Toaster />
         </div>
-        
+
         <CompanyProvider>
           <ModalContainer>
             {children}
           </ModalContainer>
         </CompanyProvider>
+
 
         <DevLink />
 

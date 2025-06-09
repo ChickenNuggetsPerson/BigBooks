@@ -47,8 +47,11 @@
 
 
 .card {
-  @apply p-6 bg-card border border-gray-300 rounded-lg shadow;
-  /* shadow-lg */
+  @apply p-6 bg-card border border-gray-300 rounded-lg shadow
+}
+
+.smallCard {
+  @apply p-1 bg-card border border-gray-300 rounded-lg shadow
 }
 
 .primary-button {

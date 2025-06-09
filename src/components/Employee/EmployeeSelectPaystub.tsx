@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import SelectInput from "../Forms/SelectInput";
 import { useRouter } from "next/navigation";
 import getEmployeePaystubs from "@/actions/paystub/getEmployeePaystubs";
+import { deserializeData } from "@/utils/serialization";
 
 
 
@@ -15,7 +16,7 @@ export function EmployeeSelectPaystub({ empUUID }: { empUUID: string }) {
     useEffect(() => {
 
         async function load() {
-            const stubs = await getEmployeePaystubs(empUUID)
+            const stubs = deserializeData( await getEmployeePaystubs(empUUID))
 
             const opt = [] as { id: string, label: string}[]
 

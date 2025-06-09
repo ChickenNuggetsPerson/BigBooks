@@ -12279,13 +12279,15 @@ export namespace Prisma {
 
   export type PayStubAvgAggregateOutputType = {
     grossEarnings: Decimal | null
-    totalDeductions: Decimal | null
+    totalTaxes: Decimal | null
+    totalExtras: Decimal | null
     netPay: Decimal | null
   }
 
   export type PayStubSumAggregateOutputType = {
     grossEarnings: Decimal | null
-    totalDeductions: Decimal | null
+    totalTaxes: Decimal | null
+    totalExtras: Decimal | null
     netPay: Decimal | null
   }
 
@@ -12296,7 +12298,8 @@ export namespace Prisma {
     periodEnd: Date | null
     locked: boolean | null
     grossEarnings: Decimal | null
-    totalDeductions: Decimal | null
+    totalTaxes: Decimal | null
+    totalExtras: Decimal | null
     netPay: Decimal | null
     employeeId: string | null
   }
@@ -12308,7 +12311,8 @@ export namespace Prisma {
     periodEnd: Date | null
     locked: boolean | null
     grossEarnings: Decimal | null
-    totalDeductions: Decimal | null
+    totalTaxes: Decimal | null
+    totalExtras: Decimal | null
     netPay: Decimal | null
     employeeId: string | null
   }
@@ -12320,7 +12324,8 @@ export namespace Prisma {
     periodEnd: number
     locked: number
     grossEarnings: number
-    totalDeductions: number
+    totalTaxes: number
+    totalExtras: number
     netPay: number
     employeeId: number
     _all: number
@@ -12329,13 +12334,15 @@ export namespace Prisma {
 
   export type PayStubAvgAggregateInputType = {
     grossEarnings?: true
-    totalDeductions?: true
+    totalTaxes?: true
+    totalExtras?: true
     netPay?: true
   }
 
   export type PayStubSumAggregateInputType = {
     grossEarnings?: true
-    totalDeductions?: true
+    totalTaxes?: true
+    totalExtras?: true
     netPay?: true
   }
 
@@ -12346,7 +12353,8 @@ export namespace Prisma {
     periodEnd?: true
     locked?: true
     grossEarnings?: true
-    totalDeductions?: true
+    totalTaxes?: true
+    totalExtras?: true
     netPay?: true
     employeeId?: true
   }
@@ -12358,7 +12366,8 @@ export namespace Prisma {
     periodEnd?: true
     locked?: true
     grossEarnings?: true
-    totalDeductions?: true
+    totalTaxes?: true
+    totalExtras?: true
     netPay?: true
     employeeId?: true
   }
@@ -12370,7 +12379,8 @@ export namespace Prisma {
     periodEnd?: true
     locked?: true
     grossEarnings?: true
-    totalDeductions?: true
+    totalTaxes?: true
+    totalExtras?: true
     netPay?: true
     employeeId?: true
     _all?: true
@@ -12469,7 +12479,8 @@ export namespace Prisma {
     periodEnd: Date
     locked: boolean
     grossEarnings: Decimal
-    totalDeductions: Decimal
+    totalTaxes: Decimal
+    totalExtras: Decimal
     netPay: Decimal
     employeeId: string
     _count: PayStubCountAggregateOutputType | null
@@ -12500,7 +12511,8 @@ export namespace Prisma {
     periodEnd?: boolean
     locked?: boolean
     grossEarnings?: boolean
-    totalDeductions?: boolean
+    totalTaxes?: boolean
+    totalExtras?: boolean
     netPay?: boolean
     employeeId?: boolean
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
@@ -12515,7 +12527,8 @@ export namespace Prisma {
     periodEnd?: boolean
     locked?: boolean
     grossEarnings?: boolean
-    totalDeductions?: boolean
+    totalTaxes?: boolean
+    totalExtras?: boolean
     netPay?: boolean
     employeeId?: boolean
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
@@ -12528,7 +12541,8 @@ export namespace Prisma {
     periodEnd?: boolean
     locked?: boolean
     grossEarnings?: boolean
-    totalDeductions?: boolean
+    totalTaxes?: boolean
+    totalExtras?: boolean
     netPay?: boolean
     employeeId?: boolean
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
@@ -12541,12 +12555,13 @@ export namespace Prisma {
     periodEnd?: boolean
     locked?: boolean
     grossEarnings?: boolean
-    totalDeductions?: boolean
+    totalTaxes?: boolean
+    totalExtras?: boolean
     netPay?: boolean
     employeeId?: boolean
   }
 
-  export type PayStubOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "payDate" | "periodStart" | "periodEnd" | "locked" | "grossEarnings" | "totalDeductions" | "netPay" | "employeeId", ExtArgs["result"]["payStub"]>
+  export type PayStubOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "payDate" | "periodStart" | "periodEnd" | "locked" | "grossEarnings" | "totalTaxes" | "totalExtras" | "netPay" | "employeeId", ExtArgs["result"]["payStub"]>
   export type PayStubInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
     items?: boolean | PayStub$itemsArgs<ExtArgs>
@@ -12572,7 +12587,8 @@ export namespace Prisma {
       periodEnd: Date
       locked: boolean
       grossEarnings: Prisma.Decimal
-      totalDeductions: Prisma.Decimal
+      totalTaxes: Prisma.Decimal
+      totalExtras: Prisma.Decimal
       netPay: Prisma.Decimal
       employeeId: string
     }, ExtArgs["result"]["payStub"]>
@@ -13006,7 +13022,8 @@ export namespace Prisma {
     readonly periodEnd: FieldRef<"PayStub", 'DateTime'>
     readonly locked: FieldRef<"PayStub", 'Boolean'>
     readonly grossEarnings: FieldRef<"PayStub", 'Decimal'>
-    readonly totalDeductions: FieldRef<"PayStub", 'Decimal'>
+    readonly totalTaxes: FieldRef<"PayStub", 'Decimal'>
+    readonly totalExtras: FieldRef<"PayStub", 'Decimal'>
     readonly netPay: FieldRef<"PayStub", 'Decimal'>
     readonly employeeId: FieldRef<"PayStub", 'String'>
   }
@@ -16054,7 +16071,8 @@ export namespace Prisma {
     periodEnd: 'periodEnd',
     locked: 'locked',
     grossEarnings: 'grossEarnings',
-    totalDeductions: 'totalDeductions',
+    totalTaxes: 'totalTaxes',
+    totalExtras: 'totalExtras',
     netPay: 'netPay',
     employeeId: 'employeeId'
   };
@@ -16832,7 +16850,8 @@ export namespace Prisma {
     periodEnd?: DateTimeFilter<"PayStub"> | Date | string
     locked?: BoolFilter<"PayStub"> | boolean
     grossEarnings?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
-    totalDeductions?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
+    totalTaxes?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
+    totalExtras?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     employeeId?: StringFilter<"PayStub"> | string
     employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
@@ -16846,7 +16865,8 @@ export namespace Prisma {
     periodEnd?: SortOrder
     locked?: SortOrder
     grossEarnings?: SortOrder
-    totalDeductions?: SortOrder
+    totalTaxes?: SortOrder
+    totalExtras?: SortOrder
     netPay?: SortOrder
     employeeId?: SortOrder
     employee?: EmployeeOrderByWithRelationInput
@@ -16863,7 +16883,8 @@ export namespace Prisma {
     periodEnd?: DateTimeFilter<"PayStub"> | Date | string
     locked?: BoolFilter<"PayStub"> | boolean
     grossEarnings?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
-    totalDeductions?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
+    totalTaxes?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
+    totalExtras?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     employeeId?: StringFilter<"PayStub"> | string
     employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
@@ -16877,7 +16898,8 @@ export namespace Prisma {
     periodEnd?: SortOrder
     locked?: SortOrder
     grossEarnings?: SortOrder
-    totalDeductions?: SortOrder
+    totalTaxes?: SortOrder
+    totalExtras?: SortOrder
     netPay?: SortOrder
     employeeId?: SortOrder
     _count?: PayStubCountOrderByAggregateInput
@@ -16897,7 +16919,8 @@ export namespace Prisma {
     periodEnd?: DateTimeWithAggregatesFilter<"PayStub"> | Date | string
     locked?: BoolWithAggregatesFilter<"PayStub"> | boolean
     grossEarnings?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
-    totalDeductions?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
+    totalTaxes?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
+    totalExtras?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     netPay?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     employeeId?: StringWithAggregatesFilter<"PayStub"> | string
   }
@@ -17704,7 +17727,8 @@ export namespace Prisma {
     periodEnd: Date | string
     locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
-    totalDeductions?: Decimal | DecimalJsLike | number | string
+    totalTaxes?: Decimal | DecimalJsLike | number | string
+    totalExtras?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
     employee: EmployeeCreateNestedOneWithoutPayStubsInput
     items?: PayStubItemCreateNestedManyWithoutPayStubInput
@@ -17717,7 +17741,8 @@ export namespace Prisma {
     periodEnd: Date | string
     locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
-    totalDeductions?: Decimal | DecimalJsLike | number | string
+    totalTaxes?: Decimal | DecimalJsLike | number | string
+    totalExtras?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
     employeeId: string
     items?: PayStubItemUncheckedCreateNestedManyWithoutPayStubInput
@@ -17730,7 +17755,8 @@ export namespace Prisma {
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     employee?: EmployeeUpdateOneRequiredWithoutPayStubsNestedInput
     items?: PayStubItemUpdateManyWithoutPayStubNestedInput
@@ -17743,7 +17769,8 @@ export namespace Prisma {
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     employeeId?: StringFieldUpdateOperationsInput | string
     items?: PayStubItemUncheckedUpdateManyWithoutPayStubNestedInput
@@ -17756,7 +17783,8 @@ export namespace Prisma {
     periodEnd: Date | string
     locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
-    totalDeductions?: Decimal | DecimalJsLike | number | string
+    totalTaxes?: Decimal | DecimalJsLike | number | string
+    totalExtras?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
     employeeId: string
   }
@@ -17768,7 +17796,8 @@ export namespace Prisma {
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
@@ -17779,7 +17808,8 @@ export namespace Prisma {
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     employeeId?: StringFieldUpdateOperationsInput | string
   }
@@ -18580,14 +18610,16 @@ export namespace Prisma {
     periodEnd?: SortOrder
     locked?: SortOrder
     grossEarnings?: SortOrder
-    totalDeductions?: SortOrder
+    totalTaxes?: SortOrder
+    totalExtras?: SortOrder
     netPay?: SortOrder
     employeeId?: SortOrder
   }
 
   export type PayStubAvgOrderByAggregateInput = {
     grossEarnings?: SortOrder
-    totalDeductions?: SortOrder
+    totalTaxes?: SortOrder
+    totalExtras?: SortOrder
     netPay?: SortOrder
   }
 
@@ -18598,7 +18630,8 @@ export namespace Prisma {
     periodEnd?: SortOrder
     locked?: SortOrder
     grossEarnings?: SortOrder
-    totalDeductions?: SortOrder
+    totalTaxes?: SortOrder
+    totalExtras?: SortOrder
     netPay?: SortOrder
     employeeId?: SortOrder
   }
@@ -18610,14 +18643,16 @@ export namespace Prisma {
     periodEnd?: SortOrder
     locked?: SortOrder
     grossEarnings?: SortOrder
-    totalDeductions?: SortOrder
+    totalTaxes?: SortOrder
+    totalExtras?: SortOrder
     netPay?: SortOrder
     employeeId?: SortOrder
   }
 
   export type PayStubSumOrderByAggregateInput = {
     grossEarnings?: SortOrder
-    totalDeductions?: SortOrder
+    totalTaxes?: SortOrder
+    totalExtras?: SortOrder
     netPay?: SortOrder
   }
 
@@ -20468,7 +20503,8 @@ export namespace Prisma {
     periodEnd: Date | string
     locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
-    totalDeductions?: Decimal | DecimalJsLike | number | string
+    totalTaxes?: Decimal | DecimalJsLike | number | string
+    totalExtras?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
     items?: PayStubItemCreateNestedManyWithoutPayStubInput
   }
@@ -20480,7 +20516,8 @@ export namespace Prisma {
     periodEnd: Date | string
     locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
-    totalDeductions?: Decimal | DecimalJsLike | number | string
+    totalTaxes?: Decimal | DecimalJsLike | number | string
+    totalExtras?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
     items?: PayStubItemUncheckedCreateNestedManyWithoutPayStubInput
   }
@@ -20622,7 +20659,8 @@ export namespace Prisma {
     periodEnd?: DateTimeFilter<"PayStub"> | Date | string
     locked?: BoolFilter<"PayStub"> | boolean
     grossEarnings?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
-    totalDeductions?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
+    totalTaxes?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
+    totalExtras?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     employeeId?: StringFilter<"PayStub"> | string
   }
@@ -21217,7 +21255,8 @@ export namespace Prisma {
     periodEnd: Date | string
     locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
-    totalDeductions?: Decimal | DecimalJsLike | number | string
+    totalTaxes?: Decimal | DecimalJsLike | number | string
+    totalExtras?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
     employee: EmployeeCreateNestedOneWithoutPayStubsInput
   }
@@ -21229,7 +21268,8 @@ export namespace Prisma {
     periodEnd: Date | string
     locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
-    totalDeductions?: Decimal | DecimalJsLike | number | string
+    totalTaxes?: Decimal | DecimalJsLike | number | string
+    totalExtras?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
     employeeId: string
   }
@@ -21290,7 +21330,8 @@ export namespace Prisma {
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     employee?: EmployeeUpdateOneRequiredWithoutPayStubsNestedInput
   }
@@ -21302,7 +21343,8 @@ export namespace Prisma {
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     employeeId?: StringFieldUpdateOperationsInput | string
   }
@@ -21863,7 +21905,8 @@ export namespace Prisma {
     periodEnd: Date | string
     locked?: boolean
     grossEarnings?: Decimal | DecimalJsLike | number | string
-    totalDeductions?: Decimal | DecimalJsLike | number | string
+    totalTaxes?: Decimal | DecimalJsLike | number | string
+    totalExtras?: Decimal | DecimalJsLike | number | string
     netPay?: Decimal | DecimalJsLike | number | string
   }
 
@@ -21913,7 +21956,8 @@ export namespace Prisma {
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     items?: PayStubItemUpdateManyWithoutPayStubNestedInput
   }
@@ -21925,7 +21969,8 @@ export namespace Prisma {
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     items?: PayStubItemUncheckedUpdateManyWithoutPayStubNestedInput
   }
@@ -21937,7 +21982,8 @@ export namespace Prisma {
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalDeductions?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     netPay?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 

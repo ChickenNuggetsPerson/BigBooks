@@ -209,7 +209,8 @@ exports.Prisma.PayStubScalarFieldEnum = {
   periodEnd: 'periodEnd',
   locked: 'locked',
   grossEarnings: 'grossEarnings',
-  totalDeductions: 'totalDeductions',
+  totalTaxes: 'totalTaxes',
+  totalExtras: 'totalExtras',
   netPay: 'netPay',
   employeeId: 'employeeId'
 };

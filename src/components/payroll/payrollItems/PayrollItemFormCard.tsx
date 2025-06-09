@@ -64,7 +64,7 @@ export default function PayrollItemFormCard({ item }: { item: PayrollItem }) {
     return (
         <CollapsibleDiv title={<p className="select-none font-semibold text-lg">{item.name}</p>} className="">
 
-            <div className="flex flex-row gap-x-4 mt-2">
+            <div className="flex flex-row gap-x-4 pt-4">
                 <div className="pt-5 w-full">
                     <TextInput label="Name" val={itemState.name} onChange={(val) => { setItemState({ ...itemState, name: val }) }} />
                 </div>

@@ -1,7 +1,10 @@
 'use server'
 
+import { RoleTypes } from "@/auth/roles/Roles"
+import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { PayrollItem } from "@/database/generated/prisma"
 import { prisma } from "@/database/prisma"
+import { serializeData } from "@/utils/serialization"
 
 
 
@@ -14,6 +17,7 @@ type PaystubItemSelector = {
 export default async function getPayrollItems(options: PaystubItemSelector) {
 
     // TODO: Handle permissions
+    await throwIfInsufficientPerms(RoleTypes.Viewer)
 
     const data = {
         organization: [] as PayrollItem[],
@@ -33,5 +37,5 @@ export default async function getPayrollItems(options: PaystubItemSelector) {
         data.employee = await prisma.payrollItem.findMany({ where: { employeeId: options.employeeId } })
     }
 
-    return data
+    return serializeData(data)
 }
