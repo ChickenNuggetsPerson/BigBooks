@@ -18,14 +18,14 @@ export default function EmployeeCard({ employee }: { employee: Employee }) {
             <ClickableDiv 
                 className="w-5/6 mb-2 text-2xl font-bold tracking-tight text-gray-900 select-none"
                 onClick={() => {
-                    navigator.clipboard.writeText(`${employee?.firstName} ${employee?.lastName}`)
+                    navigator.clipboard.writeText(`${employee.firstName} ${employee.lastName}`)
                     toast.success(`Coppied Name`)
                 }}  
-            >{`${employee?.firstName} ${employee?.lastName}`}</ClickableDiv>
+            >{`${employee.firstName} ${employee.lastName}`}</ClickableDiv>
 
             <Divider />
 
-            {employee?.isDeleted && <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900  opacity-50">{"[ Deactivated ]"}</h5>}
+            {employee.isDeleted && <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900  opacity-50">{"[ Deactivated ]"}</h5>}
 
             <ClickableDiv 
                 className="mb-5 mt-2 font-normal text-gray-700 select-none" 
@@ -33,7 +33,11 @@ export default function EmployeeCard({ employee }: { employee: Employee }) {
                     navigator.clipboard.writeText(employee.address)
                     toast.success(`Coppied Address`)
                 }}  
-            >{employee?.address}</ClickableDiv>
+            >
+                <p>
+                    {employee.address}
+                </p>
+            </ClickableDiv>
 
             <CardProp label="Email:" val={employee.email} />
             <CardProp label="Phone:" val={employee.phoneNumber} />
