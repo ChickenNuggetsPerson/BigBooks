@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.5.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.4.0...v0.5.0) (2025-06-09)
+
+
+### Features
+
+* Added paystub form to payroll page. ([ab15dfc](https://github.com/ChickenNuggetsPerson/BigBooks/commit/ab15dfc4dbb40714a5082e88bc041c9038ff712e))
+* Added paystub view page ([65cfd66](https://github.com/ChickenNuggetsPerson/BigBooks/commit/65cfd666aeaaf8362a8d8608ee48aeb1154aca7e))
+
+
+### Bug Fixes
+
+* Changed verbage for some menus ([eb5f019](https://github.com/ChickenNuggetsPerson/BigBooks/commit/eb5f01986b03496c147d9233cbf555199288ddd0))
+* Updated info notes on payroll items. ([81da455](https://github.com/ChickenNuggetsPerson/BigBooks/commit/81da455881713180992685e39652a095b5cd2a1c))
+
 ## [0.4.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.3.0...v0.4.0) (2025-06-06)
 
 
