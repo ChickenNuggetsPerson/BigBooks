@@ -1,5 +1,6 @@
 'use client'
 
+import { Check } from "lucide-react"
 import { useEffect, useState } from "react"
 
 
@@ -39,7 +40,9 @@ export default function CheckboxInput({
             <input type="hidden" name={id} id={id} value={JSON.stringify(selected)} readOnly={true} ></input>
 
             <div className="flex flex-row prevent-select" onClick={() => {clicked()}}>
-                <div className={"w-6 h-6 border border-primary rounded " + (selected ? "bg-primary" : "")} ></div>
+                <div className={"w-7 h-7 border border-primary rounded flex flex-col justify-center " + (selected ? "bg-primary" : "")} >
+                    {selected && <Check stroke="white" className="m-auto" strokeWidth={3}/>}
+                </div>
                 <label htmlFor={id+"-"} className="text-md ml-2">{label}</label>
             </div>
 
