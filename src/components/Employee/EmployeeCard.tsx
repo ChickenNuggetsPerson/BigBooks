@@ -15,24 +15,24 @@ export default function EmployeeCard({ employee }: { employee: Employee }) {
     return (
         <EditableDiv url={`/organization/employee/${employee.uuid}/edit`} className="w-sm card mb-5">
 
-            <ClickableDiv 
+            <ClickableDiv
                 className="w-5/6 mb-2 text-2xl font-bold tracking-tight text-gray-900 select-none"
                 onClick={() => {
                     navigator.clipboard.writeText(`${employee.firstName} ${employee.lastName}`)
                     toast.success(`Coppied Name`)
-                }}  
+                }}
             >{`${employee.firstName} ${employee.lastName}`}</ClickableDiv>
 
             <Divider />
 
             {employee.isDeleted && <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900  opacity-50">{"[ Deactivated ]"}</h5>}
 
-            <ClickableDiv 
-                className="mb-5 mt-2 font-normal text-gray-700 select-none" 
+            <ClickableDiv
+                className="mb-5 mt-2 font-normal text-gray-700 select-none"
                 onClick={() => {
                     navigator.clipboard.writeText(employee.address)
                     toast.success(`Coppied Address`)
-                }}  
+                }}
             >
                 <p>
                     {employee.address}
@@ -71,9 +71,11 @@ export function CardProp({ label, val }: { label: string, val: string }) {
     }
 
     return (
-        <ClickableDiv className="flex flex-row gap-2 select-none" onClick={clicked}>
+        <div className="flex flex-row gap-2 select-none" >
             <p>{label}</p>
-            <p className="font-semibold font-mono" style={{ fontSize: 15, paddingTop: 2 }}>{val}</p>
-        </ClickableDiv>
+            <ClickableDiv onClick={clicked}>
+                <p className="font-semibold font-mono" style={{ fontSize: 15, paddingTop: 2 }}>{val}</p>
+            </ClickableDiv>
+        </div>
     )
 }
