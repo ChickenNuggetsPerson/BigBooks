@@ -104,6 +104,14 @@ export default function Payroll() {
                     />
                 </>
             }
+
+            {payrollState.page == 3 &&
+                <>
+                    <div className="card w-fit">
+                        Review and submit paystubs
+                    </div>
+                </>
+            }
         </div>
     );
 }

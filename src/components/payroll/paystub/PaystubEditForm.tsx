@@ -15,7 +15,7 @@ import { HourlyRateStr, HourStr, MoneyToStr } from "@/utils/functions/MoneyStr"
 import { percentToStr } from "@/utils/functions/PercentStr"
 import { deserializeData, serializeData } from "@/utils/serialization"
 import { GridColDef, DataGrid, GridRenderCellParams, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { Plus, Save, Trash2 } from "lucide-react"
 import React from "react"
 import { useEffect, useState } from "react"
@@ -118,7 +118,12 @@ export default function PaystubEditForm({
             headerName: 'Name',
             editable: true,
             type: 'string',
-            width: 150
+            width: 150,
+            renderCell: (params: GridRenderCellParams<PayStubItem, string>) => (
+                <p
+                    className={params.row.name == "New Item" ? "text-orange-500 font-black" : ""}
+                >{params.row.name}</p>
+            ),
         },
         {
             field: 'type',
@@ -259,6 +264,11 @@ export default function PaystubEditForm({
 
         items = items.filter(i => !shouldSkip(i))
 
+        if (items.length == 0) {
+            toast.success("All Items Already Imported")
+            return
+        }
+
         const newstub = {
             ...paystub,
             items: [...paystub.items, ...items]
@@ -307,7 +317,7 @@ export default function PaystubEditForm({
     }
 
     function restoreDates() {
-        if (stubStart && stubEnd && stubPaydate) {
+        if (hasDates && datesDiffer) {
             setPaystub({
                 ...paystub,
                 periodStart: stubStart,
@@ -323,6 +333,9 @@ export default function PaystubEditForm({
         toast.error(error.message)
     }, []);
 
+    const hasDates = stubStart && stubEnd && stubPaydate
+    const datesDiffer = (paystub.periodStart.toISOString() !== (stubStart?.toISOString() ?? "")) || (paystub.periodEnd.toISOString() !== (stubEnd?.toISOString() ?? "")) || (paystub.payDate.toISOString() !== (stubPaydate?.toISOString() ?? ""))
+
     return (
         <div className="flex flex-row gap-5">
 
@@ -335,11 +348,22 @@ export default function PaystubEditForm({
                         </p>
                     </ClickableDiv>
 
-                    <ClickableDiv onClick={restoreDates}>
-                        <p className="bg-accent rounded-md p-2 hover:bg-accent-up text-white font-bold">
-                            Restore Dates
-                        </p>
-                    </ClickableDiv>
+                    <AnimatePresence>
+                        {hasDates && datesDiffer &&
+                            <motion.div
+                                key={"restoreDates"}
+                                initial={{ opacity: 0, width: 0 }}
+                                exit={{ opacity: 0, width: 0 }}
+                                animate={{ opacity: 1, width: "auto" }}
+                            >
+                                <ClickableDiv onClick={restoreDates}>
+                                    <p className="bg-accent rounded-md p-2 hover:bg-accent-up text-white font-bold overflow-clip text-nowrap">
+                                        Restore Dates
+                                    </p>
+                                </ClickableDiv>
+                            </motion.div>
+                        }
+                    </AnimatePresence>
 
                     <div className="flex flex-row gap-8">
                         <DateInput label="Period Start" val={paystub.periodStart} onChange={(val) => { setPaystub({ ...paystub, periodStart: val }); setEdited(true) }} />
@@ -397,7 +421,7 @@ export default function PaystubEditForm({
 
                 <div className="card h-fit w-3xs select-none">
 
-                    <button onClick={importAll} className="bg-primary p-2 w-full rounded-lg text-white font-bold">Import All</button>
+                    <button onClick={importAll} className="bg-primary p-2 w-full rounded-lg text-white font-bold">Import All Items</button>
                     <Divider />
                     <CollapsibleDiv title="Compensations" arrowSize={14}>
                         {defaults.comps.map(comp => (
