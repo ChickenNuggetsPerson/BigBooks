@@ -10,7 +10,7 @@ export default async function deletePaystub(stubUUID: string) {
     await throwIfInsufficientPerms(RoleTypes.Editor)
     
     const stub = await prisma.payStub.findUniqueOrThrow({ where: { uuid: stubUUID } })
-    if (stub.locked) {
+    if (stub.locked || stub.lockedTime || stub.submittedTime) {
         throw new Error("Paystub is locked")
     }
 

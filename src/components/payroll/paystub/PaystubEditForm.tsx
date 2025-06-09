@@ -1,5 +1,6 @@
 'use client'
 
+import deletePaystub from "@/actions/paystub/deletePaystub"
 import getEmployeeLatestPaystub from "@/actions/paystub/getEmployeeLatestPaystub"
 import getPaystub from "@/actions/paystub/getPaystub"
 import getEmployeePaystubItems from "@/actions/paystub/payrollItems/getEmployeePaystubItems"
@@ -77,6 +78,7 @@ export default function PaystubEditForm({
     stubPaydate?: Date
 }) {
 
+    const { addModal } = useModalManager()
     const [paystub, setPaystub] = useState(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
     const [defaults, setDefaults] = useState({
         defaults: {
@@ -93,17 +95,26 @@ export default function PaystubEditForm({
 
     async function load() {
 
+        setEdited(false)
+
         const d = deserializeData(await getEmployeePaystubItems(empUUID))
         setDefaults(d)
 
         if (stubUUID) {
             const stub = deserializeData(await getPaystub(stubUUID))
-            if (stub) { setPaystub(stub) }
+            if (stub) {
+                setPaystub(stub)
+            } else {
+                setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
+            }
             return
         }
 
         const latest = deserializeData(await getEmployeeLatestPaystub(empUUID))
-        if (!latest) { return }
+        if (!latest) {
+            setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
+            return
+        }
         setPaystub(latest)
 
     }
@@ -287,12 +298,49 @@ export default function PaystubEditForm({
         toast.promise(
             async () => {
                 await upsertEmployeePaystub(serializeData(paystub))
-                setEdited(false)
+                await load()
             },
             {
                 loading: "Saving Paystub",
                 success: "Paystub Saved",
                 error: "Error Saving Paystub"
+            }
+        )
+    }
+
+    function clickedDelete() {
+        addModal({
+            title: `Delete Paystub?`,
+            required: false,
+            component: (push, pop) => (
+                <div className="max-w-md">
+
+                    {/* <p>Are you sure you want to delete this paystub?</p> */}
+
+                    <div className="flex flex-row justify-between mt-5">
+                        <button className="primary-button" onClick={pop}>No, Cancel</button>
+                        <button className="danger-button" onClick={() => {
+                            pop()
+                            deleteStub()
+                        }}>Yes, Delete</button>
+                    </div>
+                </div>
+            )
+        })
+    }
+    function deleteStub() {
+
+        if (paystub.uuid.trim() == "") { return }
+
+        toast.promise(
+            async () => {
+                await deletePaystub(paystub.uuid)
+                await load()
+            },
+            {
+                loading: "Deleting Paystub",
+                success: "Paystub Deleted",
+                error: "Error Deleting Paystub"
             }
         )
     }
@@ -335,7 +383,7 @@ export default function PaystubEditForm({
         }
     }
 
-    const { addModal } = useModalManager()
+
     function lockedBtn() {
         addModal({
             title: "This Paystub Is Locked!",
@@ -390,20 +438,34 @@ export default function PaystubEditForm({
 
                     <div className="flex flex-row gap-8">
                         <DateInput label="Period Start" val={paystub.periodStart} onChange={(val) => { setPaystub({ ...paystub, periodStart: val }); setEdited(true) }} disabled={isLocked} />
-                        <DateInput label="Period End" val={paystub.periodEnd} onChange={(val) => { setPaystub({ ...paystub, periodEnd: val }); setEdited(true) }}       disabled={isLocked} />
-                        <DateInput label="Pay Date" val={paystub.payDate} onChange={(val) => { setPaystub({ ...paystub, payDate: val }); setEdited(true) }}             disabled={isLocked} />
+                        <DateInput label="Period End" val={paystub.periodEnd} onChange={(val) => { setPaystub({ ...paystub, periodEnd: val }); setEdited(true) }} disabled={isLocked} />
+                        <DateInput label="Pay Date" val={paystub.payDate} onChange={(val) => { setPaystub({ ...paystub, payDate: val }); setEdited(true) }} disabled={isLocked} />
                     </div>
 
                     {!isLocked &&
                         <div className="flex flex-row gap-4">
 
-                            <motion.div
-                                animate={{ opacity: edited ? 1 : 0 }}
-                            >
+                            <motion.div animate={{ opacity: edited ? 1 : 0 }} >
                                 <ClickableDiv onClick={save}>
                                     <Save size={40} stroke="white" className="bg-primary rounded-md p-2 hover:bg-primary-up" />
                                 </ClickableDiv>
                             </motion.div>
+
+                            <AnimatePresence>
+                                {paystub.uuid.trim() !== "" &&
+                                    <motion.div
+                                        key={"deletebutton"}
+                                        initial={{ opacity: 0, width: 0 }}
+                                        exit={{ opacity: 0, width: 0 }}
+                                        animate={{ opacity: 1, width: "auto" }}
+                                    >
+                                        <ClickableDiv onClick={clickedDelete}>
+                                            <Trash2 size={40} className="bg-gray-100 rounded-md p-2 hover:bg-gray-200" />
+                                        </ClickableDiv>
+                                    </motion.div>
+                                }
+                            </AnimatePresence>
+
 
                             <ClickableDiv onClick={addNewItem}>
                                 <Plus size={40} className="bg-gray-100 rounded-md p-2 hover:bg-gray-200" />
@@ -516,7 +578,7 @@ export default function PaystubEditForm({
                 </div>
             </div>
 
-        </div>
+        </div >
     )
 }
 
