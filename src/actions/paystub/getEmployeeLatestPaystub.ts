@@ -11,7 +11,7 @@ export default async function getEmployeeLatestPaystub(empUUID: string) {
 
     await throwIfInsufficientPerms(RoleTypes.Editor)
 
-    return serializeData(await prisma.payStub.findFirst({
+    const stub = await prisma.payStub.findFirst({
         where: {
             employeeId: empUUID
         },
@@ -23,5 +23,13 @@ export default async function getEmployeeLatestPaystub(empUUID: string) {
                 payDate: "desc"
             }
         ]
-    }))
+    })
+
+    if (stub) {
+        if (stub.submittedTime) { // If the stub is submitted, return null 
+            return serializeData(null)
+        }
+    }
+
+    return serializeData(stub)
 }
