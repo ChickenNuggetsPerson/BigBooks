@@ -48,7 +48,7 @@ export default function Payroll() {
         if (!context?.companyUUID) return
 
         const str = localStorage.getItem("PayrollState")
-        if (str) {
+        if (str) { // TODO: Make sure the session is of the correct type
             const data = SuperJSON.parse<PayrollState>(str)
             if (data.orgUUID === context.companyUUID) {
 
