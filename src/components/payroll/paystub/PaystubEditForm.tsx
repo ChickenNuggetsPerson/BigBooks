@@ -41,7 +41,9 @@ function getNewPaystub(
         totalTaxes: new Prisma.Decimal(0),
         totalExtras: new Prisma.Decimal(0),
         netPay: new Prisma.Decimal(0),
-        items: []
+        items: [],
+        lockedTime: null,
+        submittedTime: null
     }
 }
 
@@ -136,7 +138,7 @@ export default function PaystubEditForm({
                     options={selectOptions}
                     val={params.value}
                     changeCB={(val) => updateItem({ ...params.row, type: val as PayStubItemType })}
-                    disabled={paystub.locked}
+                    disabled={isLocked}
                 />
             ),
         },
@@ -179,7 +181,7 @@ export default function PaystubEditForm({
             type: 'actions',
             headerName: 'Actions',
             getActions: (params: GridRowParams<PayStubItem>) => [
-                <GridActionsCellItem disabled={paystub.locked} key={params.row.uuid + "-item"} icon={<Trash2 />} onClick={() => deleteItem(params.row)} label="Delete" />
+                <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-item"} icon={<Trash2 />} onClick={() => deleteItem(params.row)} label="Delete" />
             ]
         }
     ]
@@ -204,7 +206,7 @@ export default function PaystubEditForm({
     }
     function addItem(item: PayStubItem) {
 
-        if (paystub.locked) { return }
+        if (isLocked) { return }
         if (shouldSkip(item)) { return }
 
         updateTotals({
@@ -218,7 +220,7 @@ export default function PaystubEditForm({
         const index = items.findIndex(e => e.uuid == item.uuid)
         if (index == -1) { return }
 
-        if (paystub.locked) { return items[index] }
+        if (isLocked) { return items[index] }
 
         if (item.hours) {
             item.hours = new Prisma.Decimal(item.hours)
@@ -350,6 +352,7 @@ export default function PaystubEditForm({
 
     const hasDates = stubStart && stubEnd && stubPaydate
     const datesDiffer = (paystub.periodStart.toISOString() !== (stubStart?.toISOString() ?? "")) || (paystub.periodEnd.toISOString() !== (stubEnd?.toISOString() ?? "")) || (paystub.payDate.toISOString() !== (stubPaydate?.toISOString() ?? ""))
+    const isLocked = (paystub.locked || paystub.lockedTime || paystub.submittedTime) as boolean
 
     return (
         <div className="flex flex-row gap-5">
@@ -357,19 +360,19 @@ export default function PaystubEditForm({
             <div className="w-3/4">
                 <div className="flex flex-row justify-between select-none mb-3">
 
-                    {!paystub.locked &&
+                    {!isLocked &&
                         <ClickableDiv onClick={importTaxes}>
                             <p className="bg-primary rounded-md p-2 hover:bg-primary-up text-white font-bold">
                                 Import Taxes
                             </p>
                         </ClickableDiv>
                     }
-                    {paystub.locked &&
+                    {isLocked &&
                         <div></div>
                     }
 
                     <AnimatePresence>
-                        {hasDates && datesDiffer && !paystub.locked &&
+                        {hasDates && datesDiffer && !isLocked &&
                             <motion.div
                                 key={"restoreDates"}
                                 initial={{ opacity: 0, width: 0 }}
@@ -386,12 +389,12 @@ export default function PaystubEditForm({
                     </AnimatePresence>
 
                     <div className="flex flex-row gap-8">
-                        <DateInput label="Period Start" val={paystub.periodStart} onChange={(val) => { setPaystub({ ...paystub, periodStart: val }); setEdited(true) }} disabled={paystub.locked} />
-                        <DateInput label="Period End" val={paystub.periodEnd} onChange={(val) => { setPaystub({ ...paystub, periodEnd: val }); setEdited(true) }}       disabled={paystub.locked} />
-                        <DateInput label="Pay Date" val={paystub.payDate} onChange={(val) => { setPaystub({ ...paystub, payDate: val }); setEdited(true) }}             disabled={paystub.locked} />
+                        <DateInput label="Period Start" val={paystub.periodStart} onChange={(val) => { setPaystub({ ...paystub, periodStart: val }); setEdited(true) }} disabled={isLocked} />
+                        <DateInput label="Period End" val={paystub.periodEnd} onChange={(val) => { setPaystub({ ...paystub, periodEnd: val }); setEdited(true) }}       disabled={isLocked} />
+                        <DateInput label="Pay Date" val={paystub.payDate} onChange={(val) => { setPaystub({ ...paystub, payDate: val }); setEdited(true) }}             disabled={isLocked} />
                     </div>
 
-                    {!paystub.locked &&
+                    {!isLocked &&
                         <div className="flex flex-row gap-4">
 
                             <motion.div
@@ -409,7 +412,7 @@ export default function PaystubEditForm({
                     }
 
                     <AnimatePresence>
-                        {paystub.locked &&
+                        {isLocked &&
                             <motion.div
                                 key={"locked"}
                                 initial={{ opacity: 0, width: 0 }}
@@ -460,7 +463,7 @@ export default function PaystubEditForm({
 
                 <div className="card h-fit w-3xs select-none">
 
-                    <button disabled={paystub.locked} onClick={importAll} className="bg-primary p-2 w-full rounded-lg text-white font-bold">Import All Items</button>
+                    <button disabled={isLocked} onClick={importAll} className="bg-primary p-2 w-full rounded-lg text-white font-bold">Import All Items</button>
                     <Divider />
                     <CollapsibleDiv title="Compensations" arrowSize={14}>
                         {defaults.comps.map(comp => (

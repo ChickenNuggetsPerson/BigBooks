@@ -158,7 +158,9 @@ model PayStub {
   periodStart DateTime
   periodEnd   DateTime
 
-  locked Boolean @default(false)
+  locked        Boolean   @default(false)
+  lockedTime    DateTime?
+  submittedTime DateTime?
 
   // Totals or summaries (computed at generation time)
   grossEarnings Decimal @default(0)

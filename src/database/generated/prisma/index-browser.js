@@ -208,6 +208,8 @@ exports.Prisma.PayStubScalarFieldEnum = {
   periodStart: 'periodStart',
   periodEnd: 'periodEnd',
   locked: 'locked',
+  lockedTime: 'lockedTime',
+  submittedTime: 'submittedTime',
   grossEarnings: 'grossEarnings',
   totalTaxes: 'totalTaxes',
   totalExtras: 'totalExtras',

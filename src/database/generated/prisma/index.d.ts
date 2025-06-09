@@ -12309,6 +12309,8 @@ export namespace Prisma {
     periodStart: Date | null
     periodEnd: Date | null
     locked: boolean | null
+    lockedTime: Date | null
+    submittedTime: Date | null
     grossEarnings: Decimal | null
     totalTaxes: Decimal | null
     totalExtras: Decimal | null
@@ -12322,6 +12324,8 @@ export namespace Prisma {
     periodStart: Date | null
     periodEnd: Date | null
     locked: boolean | null
+    lockedTime: Date | null
+    submittedTime: Date | null
     grossEarnings: Decimal | null
     totalTaxes: Decimal | null
     totalExtras: Decimal | null
@@ -12335,6 +12339,8 @@ export namespace Prisma {
     periodStart: number
     periodEnd: number
     locked: number
+    lockedTime: number
+    submittedTime: number
     grossEarnings: number
     totalTaxes: number
     totalExtras: number
@@ -12364,6 +12370,8 @@ export namespace Prisma {
     periodStart?: true
     periodEnd?: true
     locked?: true
+    lockedTime?: true
+    submittedTime?: true
     grossEarnings?: true
     totalTaxes?: true
     totalExtras?: true
@@ -12377,6 +12385,8 @@ export namespace Prisma {
     periodStart?: true
     periodEnd?: true
     locked?: true
+    lockedTime?: true
+    submittedTime?: true
     grossEarnings?: true
     totalTaxes?: true
     totalExtras?: true
@@ -12390,6 +12400,8 @@ export namespace Prisma {
     periodStart?: true
     periodEnd?: true
     locked?: true
+    lockedTime?: true
+    submittedTime?: true
     grossEarnings?: true
     totalTaxes?: true
     totalExtras?: true
@@ -12490,6 +12502,8 @@ export namespace Prisma {
     periodStart: Date
     periodEnd: Date
     locked: boolean
+    lockedTime: Date | null
+    submittedTime: Date | null
     grossEarnings: Decimal
     totalTaxes: Decimal
     totalExtras: Decimal
@@ -12522,6 +12536,8 @@ export namespace Prisma {
     periodStart?: boolean
     periodEnd?: boolean
     locked?: boolean
+    lockedTime?: boolean
+    submittedTime?: boolean
     grossEarnings?: boolean
     totalTaxes?: boolean
     totalExtras?: boolean
@@ -12538,6 +12554,8 @@ export namespace Prisma {
     periodStart?: boolean
     periodEnd?: boolean
     locked?: boolean
+    lockedTime?: boolean
+    submittedTime?: boolean
     grossEarnings?: boolean
     totalTaxes?: boolean
     totalExtras?: boolean
@@ -12552,6 +12570,8 @@ export namespace Prisma {
     periodStart?: boolean
     periodEnd?: boolean
     locked?: boolean
+    lockedTime?: boolean
+    submittedTime?: boolean
     grossEarnings?: boolean
     totalTaxes?: boolean
     totalExtras?: boolean
@@ -12566,6 +12586,8 @@ export namespace Prisma {
     periodStart?: boolean
     periodEnd?: boolean
     locked?: boolean
+    lockedTime?: boolean
+    submittedTime?: boolean
     grossEarnings?: boolean
     totalTaxes?: boolean
     totalExtras?: boolean
@@ -12573,7 +12595,7 @@ export namespace Prisma {
     employeeId?: boolean
   }
 
-  export type PayStubOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "payDate" | "periodStart" | "periodEnd" | "locked" | "grossEarnings" | "totalTaxes" | "totalExtras" | "netPay" | "employeeId", ExtArgs["result"]["payStub"]>
+  export type PayStubOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "payDate" | "periodStart" | "periodEnd" | "locked" | "lockedTime" | "submittedTime" | "grossEarnings" | "totalTaxes" | "totalExtras" | "netPay" | "employeeId", ExtArgs["result"]["payStub"]>
   export type PayStubInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
     items?: boolean | PayStub$itemsArgs<ExtArgs>
@@ -12598,6 +12620,8 @@ export namespace Prisma {
       periodStart: Date
       periodEnd: Date
       locked: boolean
+      lockedTime: Date | null
+      submittedTime: Date | null
       grossEarnings: Prisma.Decimal
       totalTaxes: Prisma.Decimal
       totalExtras: Prisma.Decimal
@@ -13033,6 +13057,8 @@ export namespace Prisma {
     readonly periodStart: FieldRef<"PayStub", 'DateTime'>
     readonly periodEnd: FieldRef<"PayStub", 'DateTime'>
     readonly locked: FieldRef<"PayStub", 'Boolean'>
+    readonly lockedTime: FieldRef<"PayStub", 'DateTime'>
+    readonly submittedTime: FieldRef<"PayStub", 'DateTime'>
     readonly grossEarnings: FieldRef<"PayStub", 'Decimal'>
     readonly totalTaxes: FieldRef<"PayStub", 'Decimal'>
     readonly totalExtras: FieldRef<"PayStub", 'Decimal'>
@@ -16082,6 +16108,8 @@ export namespace Prisma {
     periodStart: 'periodStart',
     periodEnd: 'periodEnd',
     locked: 'locked',
+    lockedTime: 'lockedTime',
+    submittedTime: 'submittedTime',
     grossEarnings: 'grossEarnings',
     totalTaxes: 'totalTaxes',
     totalExtras: 'totalExtras',
@@ -16875,6 +16903,8 @@ export namespace Prisma {
     periodStart?: DateTimeFilter<"PayStub"> | Date | string
     periodEnd?: DateTimeFilter<"PayStub"> | Date | string
     locked?: BoolFilter<"PayStub"> | boolean
+    lockedTime?: DateTimeNullableFilter<"PayStub"> | Date | string | null
+    submittedTime?: DateTimeNullableFilter<"PayStub"> | Date | string | null
     grossEarnings?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     totalTaxes?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     totalExtras?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
@@ -16890,6 +16920,8 @@ export namespace Prisma {
     periodStart?: SortOrder
     periodEnd?: SortOrder
     locked?: SortOrder
+    lockedTime?: SortOrderInput | SortOrder
+    submittedTime?: SortOrderInput | SortOrder
     grossEarnings?: SortOrder
     totalTaxes?: SortOrder
     totalExtras?: SortOrder
@@ -16908,6 +16940,8 @@ export namespace Prisma {
     periodStart?: DateTimeFilter<"PayStub"> | Date | string
     periodEnd?: DateTimeFilter<"PayStub"> | Date | string
     locked?: BoolFilter<"PayStub"> | boolean
+    lockedTime?: DateTimeNullableFilter<"PayStub"> | Date | string | null
+    submittedTime?: DateTimeNullableFilter<"PayStub"> | Date | string | null
     grossEarnings?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     totalTaxes?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     totalExtras?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
@@ -16923,6 +16957,8 @@ export namespace Prisma {
     periodStart?: SortOrder
     periodEnd?: SortOrder
     locked?: SortOrder
+    lockedTime?: SortOrderInput | SortOrder
+    submittedTime?: SortOrderInput | SortOrder
     grossEarnings?: SortOrder
     totalTaxes?: SortOrder
     totalExtras?: SortOrder
@@ -16944,6 +16980,8 @@ export namespace Prisma {
     periodStart?: DateTimeWithAggregatesFilter<"PayStub"> | Date | string
     periodEnd?: DateTimeWithAggregatesFilter<"PayStub"> | Date | string
     locked?: BoolWithAggregatesFilter<"PayStub"> | boolean
+    lockedTime?: DateTimeNullableWithAggregatesFilter<"PayStub"> | Date | string | null
+    submittedTime?: DateTimeNullableWithAggregatesFilter<"PayStub"> | Date | string | null
     grossEarnings?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     totalTaxes?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     totalExtras?: DecimalWithAggregatesFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
@@ -17752,6 +17790,8 @@ export namespace Prisma {
     periodStart: Date | string
     periodEnd: Date | string
     locked?: boolean
+    lockedTime?: Date | string | null
+    submittedTime?: Date | string | null
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalTaxes?: Decimal | DecimalJsLike | number | string
     totalExtras?: Decimal | DecimalJsLike | number | string
@@ -17766,6 +17806,8 @@ export namespace Prisma {
     periodStart: Date | string
     periodEnd: Date | string
     locked?: boolean
+    lockedTime?: Date | string | null
+    submittedTime?: Date | string | null
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalTaxes?: Decimal | DecimalJsLike | number | string
     totalExtras?: Decimal | DecimalJsLike | number | string
@@ -17780,6 +17822,8 @@ export namespace Prisma {
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    lockedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    submittedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17794,6 +17838,8 @@ export namespace Prisma {
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    lockedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    submittedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17808,6 +17854,8 @@ export namespace Prisma {
     periodStart: Date | string
     periodEnd: Date | string
     locked?: boolean
+    lockedTime?: Date | string | null
+    submittedTime?: Date | string | null
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalTaxes?: Decimal | DecimalJsLike | number | string
     totalExtras?: Decimal | DecimalJsLike | number | string
@@ -17821,6 +17869,8 @@ export namespace Prisma {
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    lockedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    submittedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17833,6 +17883,8 @@ export namespace Prisma {
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    lockedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    submittedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -18636,6 +18688,17 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type PayStubItemListRelationFilter = {
     every?: PayStubItemWhereInput
     some?: PayStubItemWhereInput
@@ -18652,6 +18715,8 @@ export namespace Prisma {
     periodStart?: SortOrder
     periodEnd?: SortOrder
     locked?: SortOrder
+    lockedTime?: SortOrder
+    submittedTime?: SortOrder
     grossEarnings?: SortOrder
     totalTaxes?: SortOrder
     totalExtras?: SortOrder
@@ -18672,6 +18737,8 @@ export namespace Prisma {
     periodStart?: SortOrder
     periodEnd?: SortOrder
     locked?: SortOrder
+    lockedTime?: SortOrder
+    submittedTime?: SortOrder
     grossEarnings?: SortOrder
     totalTaxes?: SortOrder
     totalExtras?: SortOrder
@@ -18685,6 +18752,8 @@ export namespace Prisma {
     periodStart?: SortOrder
     periodEnd?: SortOrder
     locked?: SortOrder
+    lockedTime?: SortOrder
+    submittedTime?: SortOrder
     grossEarnings?: SortOrder
     totalTaxes?: SortOrder
     totalExtras?: SortOrder
@@ -18697,6 +18766,20 @@ export namespace Prisma {
     totalTaxes?: SortOrder
     totalExtras?: SortOrder
     netPay?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumPayStubItemTypeFilter<$PrismaModel = never> = {
@@ -19545,6 +19628,10 @@ export namespace Prisma {
     connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type EmployeeUpdateOneRequiredWithoutPayStubsNestedInput = {
     create?: XOR<EmployeeCreateWithoutPayStubsInput, EmployeeUncheckedCreateWithoutPayStubsInput>
     connectOrCreate?: EmployeeCreateOrConnectWithoutPayStubsInput
@@ -19927,6 +20014,31 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumPayStubItemTypeFilter<$PrismaModel = never> = {
@@ -20566,6 +20678,8 @@ export namespace Prisma {
     periodStart: Date | string
     periodEnd: Date | string
     locked?: boolean
+    lockedTime?: Date | string | null
+    submittedTime?: Date | string | null
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalTaxes?: Decimal | DecimalJsLike | number | string
     totalExtras?: Decimal | DecimalJsLike | number | string
@@ -20579,6 +20693,8 @@ export namespace Prisma {
     periodStart: Date | string
     periodEnd: Date | string
     locked?: boolean
+    lockedTime?: Date | string | null
+    submittedTime?: Date | string | null
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalTaxes?: Decimal | DecimalJsLike | number | string
     totalExtras?: Decimal | DecimalJsLike | number | string
@@ -20722,6 +20838,8 @@ export namespace Prisma {
     periodStart?: DateTimeFilter<"PayStub"> | Date | string
     periodEnd?: DateTimeFilter<"PayStub"> | Date | string
     locked?: BoolFilter<"PayStub"> | boolean
+    lockedTime?: DateTimeNullableFilter<"PayStub"> | Date | string | null
+    submittedTime?: DateTimeNullableFilter<"PayStub"> | Date | string | null
     grossEarnings?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     totalTaxes?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
     totalExtras?: DecimalFilter<"PayStub"> | Decimal | DecimalJsLike | number | string
@@ -21318,6 +21436,8 @@ export namespace Prisma {
     periodStart: Date | string
     periodEnd: Date | string
     locked?: boolean
+    lockedTime?: Date | string | null
+    submittedTime?: Date | string | null
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalTaxes?: Decimal | DecimalJsLike | number | string
     totalExtras?: Decimal | DecimalJsLike | number | string
@@ -21331,6 +21451,8 @@ export namespace Prisma {
     periodStart: Date | string
     periodEnd: Date | string
     locked?: boolean
+    lockedTime?: Date | string | null
+    submittedTime?: Date | string | null
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalTaxes?: Decimal | DecimalJsLike | number | string
     totalExtras?: Decimal | DecimalJsLike | number | string
@@ -21393,6 +21515,8 @@ export namespace Prisma {
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    lockedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    submittedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -21406,6 +21530,8 @@ export namespace Prisma {
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    lockedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    submittedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -21968,6 +22094,8 @@ export namespace Prisma {
     periodStart: Date | string
     periodEnd: Date | string
     locked?: boolean
+    lockedTime?: Date | string | null
+    submittedTime?: Date | string | null
     grossEarnings?: Decimal | DecimalJsLike | number | string
     totalTaxes?: Decimal | DecimalJsLike | number | string
     totalExtras?: Decimal | DecimalJsLike | number | string
@@ -22019,6 +22147,8 @@ export namespace Prisma {
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    lockedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    submittedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -22032,6 +22162,8 @@ export namespace Prisma {
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    lockedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    submittedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -22045,6 +22177,8 @@ export namespace Prisma {
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
     periodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    lockedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    submittedTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     grossEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalTaxes?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalExtras?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
