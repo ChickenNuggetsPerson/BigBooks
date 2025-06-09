@@ -33,7 +33,7 @@ export function EmployeeSelectPaystub({ empUUID }: { empUUID: string }) {
     
     function onSelect(val: string) {        
         if (val == "select") { return }
-        router.replace(`/organization/employee/${empUUID}/paystub/${val}`)
+        router.replace(`/organization/paystubs/view/${val}`)
     }
 
     return (
