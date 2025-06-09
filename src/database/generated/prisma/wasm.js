@@ -256,6 +256,11 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.FilingTypes = exports.$Enums.FilingTypes = {
+  Single: 'Single',
+  Joint: 'Joint'
+};
+
 exports.PayStubItemType = exports.$Enums.PayStubItemType = {
   Earning: 'Earning',
   Tax: 'Tax',

@@ -78,6 +78,11 @@ model Organization {
   defaultPayrollItems PayrollItem[]
 }
 
+enum FilingTypes {
+  Single
+  Joint
+}
+
 model Employee {
   uuid        String @id @unique @default(uuid())
   firstName   String @default("")
@@ -89,9 +94,9 @@ model Employee {
   phoneNumber String @default("")
   ssn         String @default("")
 
-  filingStatus String  @default("Single")
-  dependants   Int     @default(0)
-  isDeleted    Boolean @default(false)
+  filingStatus FilingTypes @default(Single)
+  dependants   Int         @default(0)
+  isDeleted    Boolean     @default(false)
 
   organization   Organization @relation(fields: [organizationId], references: [uuid])
   organizationId String

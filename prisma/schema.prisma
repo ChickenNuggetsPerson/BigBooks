@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/database/generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../src/database/generated/prisma"
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
@@ -14,8 +14,6 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
-
 
 model User {
   uuid     String  @id @unique @default(uuid())
@@ -80,18 +78,23 @@ model Organization {
   defaultPayrollItems PayrollItem[]
 }
 
-model Employee {
-  uuid         String  @id @unique @default(uuid())
-  firstName    String  @default("")
-  middleName   String  @default("")
-  lastName     String  @default("")
-  notes        String  @default("")
-  address      String  @default("")
-  email        String  @default("")
-  phoneNumber  String  @default("")
-  ssn          String  @default("")
+enum FilingTypes {
+  Single
+  Joint
+}
 
-  filingStatus String  @default("Single")
+model Employee {
+  uuid        String @id @unique @default(uuid())
+  firstName   String @default("")
+  middleName  String @default("")
+  lastName    String @default("")
+  notes       String @default("")
+  address     String @default("")
+  email       String @default("")
+  phoneNumber String @default("")
+  ssn         String @default("")
+
+  filingStatus FilingTypes  @default(Single)
   dependants   Int     @default(0)
   isDeleted    Boolean @default(false)
 
@@ -105,13 +108,13 @@ model Employee {
 }
 
 model PayrollGroup {
-  uuid         String   @id @unique @default(uuid())
-  name         String
-  description  String
+  uuid        String @id @unique @default(uuid())
+  name        String
+  description String
 
-  payFrequency Int      @default(14) // e.g. days
-  payRefDate      DateTime    @default(now())
-  periodRefDate   DateTime    @default(now())
+  payFrequency  Int      @default(14) // e.g. days
+  payRefDate    DateTime @default(now())
+  periodRefDate DateTime @default(now())
 
   organization   Organization @relation(fields: [organizationId], references: [uuid])
   organizationId String
@@ -129,26 +132,25 @@ model EmployeeCompensation {
   payrollGroup   PayrollGroup @relation(fields: [payrollGroupId], references: [uuid])
   payrollGroupId String
 
-  isSalary     Boolean  @default(true)
-  salaryAmount Decimal? 
+  isSalary     Boolean      @default(true)
+  salaryAmount Decimal?
   hourlyRates  HourlyRate[]
 
-  description  String?
+  description String?
 
   @@unique([employeeId, payrollGroupId]) // no duplicate “employee‐group” rows
 }
 
 model HourlyRate {
-  uuid        String   @id @unique @default(uuid())
+  uuid String @id @unique @default(uuid())
 
   name        String
   rate        Decimal
   canOvertime Boolean
 
-  compensation EmployeeCompensation @relation(fields: [compensationId], references: [uuid])
+  compensation   EmployeeCompensation @relation(fields: [compensationId], references: [uuid])
   compensationId String
 }
-
 
 model PayStub {
   uuid        String   @id @unique @default(uuid())
@@ -156,19 +158,19 @@ model PayStub {
   periodStart DateTime
   periodEnd   DateTime
 
-  locked      Boolean     @default(false)
+  locked Boolean @default(false)
 
   // Totals or summaries (computed at generation time)
-  grossEarnings   Decimal @default(0) 
-  totalTaxes      Decimal @default(0) 
-  totalExtras     Decimal @default(0) 
-  netPay          Decimal @default(0) 
+  grossEarnings Decimal @default(0)
+  totalTaxes    Decimal @default(0)
+  totalExtras   Decimal @default(0)
+  netPay        Decimal @default(0)
 
   employee   Employee @relation(fields: [employeeId], references: [uuid])
   employeeId String
 
   // Children:
-  items   PayStubItem[]
+  items PayStubItem[]
 }
 
 enum PayStubItemType {
@@ -178,22 +180,22 @@ enum PayStubItemType {
 }
 
 model PayStubItem {
-  uuid        String    @id @default(uuid())
-  
-  payStub        PayStub  @relation(fields: [payStubId], references: [uuid], onDelete: Cascade)
-  payStubId      String
+  uuid String @id @default(uuid())
 
-  payrollItem    PayrollItem?  @relation(fields: [payrollItemId], references: [uuid], onDelete: SetNull)
-  payrollItemId  String?
+  payStub   PayStub @relation(fields: [payStubId], references: [uuid], onDelete: Cascade)
+  payStubId String
 
-  type        PayStubItemType 
+  payrollItem   PayrollItem? @relation(fields: [payrollItemId], references: [uuid], onDelete: SetNull)
+  payrollItemId String?
+
+  type        PayStubItemType
   name        String
-  description String?  
+  description String?
 
-  hours       Decimal? 
-  rate        Decimal?
-  percent     Decimal? 
-  amount      Decimal
+  hours   Decimal?
+  rate    Decimal?
+  percent Decimal?
+  amount  Decimal
 }
 
 enum AbsMaxPeriodTypes {
@@ -203,25 +205,24 @@ enum AbsMaxPeriodTypes {
 }
 
 model PayrollItem {
-
-  uuid        String    @id @default(uuid())
+  uuid String @id @default(uuid())
 
   organization   Organization? @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
   organizationId String?
   payrollGroup   PayrollGroup? @relation(fields: [payrollGroupId], references: [uuid], onDelete: Cascade)
   payrollGroupId String?
-  employee      Employee? @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
-  employeeId    String?
+  employee       Employee?     @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
+  employeeId     String?
 
-  type        PayStubItemType 
+  type        PayStubItemType
   name        String
-  description String?  
+  description String?
 
-  percent     Decimal? 
-  amount      Decimal
+  percent Decimal?
+  amount  Decimal
 
-  absMaxPeriod AbsMaxPeriodTypes    @default(None)
-  absMax       Decimal              @default(0)
+  absMaxPeriod AbsMaxPeriodTypes @default(None)
+  absMax       Decimal           @default(0)
 
   PayStubItem PayStubItem[]
 }

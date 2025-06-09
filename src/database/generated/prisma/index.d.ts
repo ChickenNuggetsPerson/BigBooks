@@ -78,7 +78,15 @@ export type PayrollItem = $Result.DefaultSelection<Prisma.$PayrollItemPayload>
  * Enums
  */
 export namespace $Enums {
-  export const PayStubItemType: {
+  export const FilingTypes: {
+  Single: 'Single',
+  Joint: 'Joint'
+};
+
+export type FilingTypes = (typeof FilingTypes)[keyof typeof FilingTypes]
+
+
+export const PayStubItemType: {
   Earning: 'Earning',
   Tax: 'Tax',
   Other: 'Other'
@@ -96,6 +104,10 @@ export const AbsMaxPeriodTypes: {
 export type AbsMaxPeriodTypes = (typeof AbsMaxPeriodTypes)[keyof typeof AbsMaxPeriodTypes]
 
 }
+
+export type FilingTypes = $Enums.FilingTypes
+
+export const FilingTypes: typeof $Enums.FilingTypes
 
 export type PayStubItemType = $Enums.PayStubItemType
 
@@ -7602,7 +7614,7 @@ export namespace Prisma {
     email: string | null
     phoneNumber: string | null
     ssn: string | null
-    filingStatus: string | null
+    filingStatus: $Enums.FilingTypes | null
     dependants: number | null
     isDeleted: boolean | null
     organizationId: string | null
@@ -7618,7 +7630,7 @@ export namespace Prisma {
     email: string | null
     phoneNumber: string | null
     ssn: string | null
-    filingStatus: string | null
+    filingStatus: $Enums.FilingTypes | null
     dependants: number | null
     isDeleted: boolean | null
     organizationId: string | null
@@ -7795,7 +7807,7 @@ export namespace Prisma {
     email: string
     phoneNumber: string
     ssn: string
-    filingStatus: string
+    filingStatus: $Enums.FilingTypes
     dependants: number
     isDeleted: boolean
     organizationId: string
@@ -7924,7 +7936,7 @@ export namespace Prisma {
       email: string
       phoneNumber: string
       ssn: string
-      filingStatus: string
+      filingStatus: $Enums.FilingTypes
       dependants: number
       isDeleted: boolean
       organizationId: string
@@ -8364,7 +8376,7 @@ export namespace Prisma {
     readonly email: FieldRef<"Employee", 'String'>
     readonly phoneNumber: FieldRef<"Employee", 'String'>
     readonly ssn: FieldRef<"Employee", 'String'>
-    readonly filingStatus: FieldRef<"Employee", 'String'>
+    readonly filingStatus: FieldRef<"Employee", 'FilingTypes'>
     readonly dependants: FieldRef<"Employee", 'Int'>
     readonly isDeleted: FieldRef<"Employee", 'Boolean'>
     readonly organizationId: FieldRef<"Employee", 'String'>
@@ -16192,6 +16204,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'FilingTypes'
+   */
+  export type EnumFilingTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FilingTypes'>
+    
+
+
+  /**
+   * Reference to a field of type 'FilingTypes[]'
+   */
+  export type ListEnumFilingTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FilingTypes[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Decimal'
    */
   export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
@@ -16548,7 +16574,7 @@ export namespace Prisma {
     email?: StringFilter<"Employee"> | string
     phoneNumber?: StringFilter<"Employee"> | string
     ssn?: StringFilter<"Employee"> | string
-    filingStatus?: StringFilter<"Employee"> | string
+    filingStatus?: EnumFilingTypesFilter<"Employee"> | $Enums.FilingTypes
     dependants?: IntFilter<"Employee"> | number
     isDeleted?: BoolFilter<"Employee"> | boolean
     organizationId?: StringFilter<"Employee"> | string
@@ -16591,7 +16617,7 @@ export namespace Prisma {
     email?: StringFilter<"Employee"> | string
     phoneNumber?: StringFilter<"Employee"> | string
     ssn?: StringFilter<"Employee"> | string
-    filingStatus?: StringFilter<"Employee"> | string
+    filingStatus?: EnumFilingTypesFilter<"Employee"> | $Enums.FilingTypes
     dependants?: IntFilter<"Employee"> | number
     isDeleted?: BoolFilter<"Employee"> | boolean
     organizationId?: StringFilter<"Employee"> | string
@@ -16635,7 +16661,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"Employee"> | string
     phoneNumber?: StringWithAggregatesFilter<"Employee"> | string
     ssn?: StringWithAggregatesFilter<"Employee"> | string
-    filingStatus?: StringWithAggregatesFilter<"Employee"> | string
+    filingStatus?: EnumFilingTypesWithAggregatesFilter<"Employee"> | $Enums.FilingTypes
     dependants?: IntWithAggregatesFilter<"Employee"> | number
     isDeleted?: BoolWithAggregatesFilter<"Employee"> | boolean
     organizationId?: StringWithAggregatesFilter<"Employee"> | string
@@ -17410,7 +17436,7 @@ export namespace Prisma {
     email?: string
     phoneNumber?: string
     ssn?: string
-    filingStatus?: string
+    filingStatus?: $Enums.FilingTypes
     dependants?: number
     isDeleted?: boolean
     organization: OrganizationCreateNestedOneWithoutEmployeesInput
@@ -17429,7 +17455,7 @@ export namespace Prisma {
     email?: string
     phoneNumber?: string
     ssn?: string
-    filingStatus?: string
+    filingStatus?: $Enums.FilingTypes
     dependants?: number
     isDeleted?: boolean
     organizationId: string
@@ -17448,7 +17474,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     ssn?: StringFieldUpdateOperationsInput | string
-    filingStatus?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organization?: OrganizationUpdateOneRequiredWithoutEmployeesNestedInput
@@ -17467,7 +17493,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     ssn?: StringFieldUpdateOperationsInput | string
-    filingStatus?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: StringFieldUpdateOperationsInput | string
@@ -17486,7 +17512,7 @@ export namespace Prisma {
     email?: string
     phoneNumber?: string
     ssn?: string
-    filingStatus?: string
+    filingStatus?: $Enums.FilingTypes
     dependants?: number
     isDeleted?: boolean
     organizationId: string
@@ -17502,7 +17528,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     ssn?: StringFieldUpdateOperationsInput | string
-    filingStatus?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -17517,7 +17543,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     ssn?: StringFieldUpdateOperationsInput | string
-    filingStatus?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: StringFieldUpdateOperationsInput | string
@@ -18290,6 +18316,13 @@ export namespace Prisma {
     isDeleted?: SortOrder
   }
 
+  export type EnumFilingTypesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FilingTypes | EnumFilingTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.FilingTypes[] | ListEnumFilingTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FilingTypes[] | ListEnumFilingTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumFilingTypesFilter<$PrismaModel> | $Enums.FilingTypes
+  }
+
   export type EmployeeCompensationListRelationFilter = {
     every?: EmployeeCompensationWhereInput
     some?: EmployeeCompensationWhereInput
@@ -18364,6 +18397,16 @@ export namespace Prisma {
 
   export type EmployeeSumOrderByAggregateInput = {
     dependants?: SortOrder
+  }
+
+  export type EnumFilingTypesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FilingTypes | EnumFilingTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.FilingTypes[] | ListEnumFilingTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FilingTypes[] | ListEnumFilingTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumFilingTypesWithAggregatesFilter<$PrismaModel> | $Enums.FilingTypes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFilingTypesFilter<$PrismaModel>
+    _max?: NestedEnumFilingTypesFilter<$PrismaModel>
   }
 
   export type PayrollGroupCountOrderByAggregateInput = {
@@ -19184,6 +19227,10 @@ export namespace Prisma {
     connect?: PayrollItemWhereUniqueInput | PayrollItemWhereUniqueInput[]
   }
 
+  export type EnumFilingTypesFieldUpdateOperationsInput = {
+    set?: $Enums.FilingTypes
+  }
+
   export type OrganizationUpdateOneRequiredWithoutEmployeesNestedInput = {
     create?: XOR<OrganizationCreateWithoutEmployeesInput, OrganizationUncheckedCreateWithoutEmployeesInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutEmployeesInput
@@ -19769,6 +19816,23 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumFilingTypesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FilingTypes | EnumFilingTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.FilingTypes[] | ListEnumFilingTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FilingTypes[] | ListEnumFilingTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumFilingTypesFilter<$PrismaModel> | $Enums.FilingTypes
+  }
+
+  export type NestedEnumFilingTypesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FilingTypes | EnumFilingTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.FilingTypes[] | ListEnumFilingTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FilingTypes[] | ListEnumFilingTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumFilingTypesWithAggregatesFilter<$PrismaModel> | $Enums.FilingTypes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFilingTypesFilter<$PrismaModel>
+    _max?: NestedEnumFilingTypesFilter<$PrismaModel>
+  }
+
   export type NestedDecimalNullableFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
@@ -20148,7 +20212,7 @@ export namespace Prisma {
     email?: string
     phoneNumber?: string
     ssn?: string
-    filingStatus?: string
+    filingStatus?: $Enums.FilingTypes
     dependants?: number
     isDeleted?: boolean
     compensations?: EmployeeCompensationCreateNestedManyWithoutEmployeeInput
@@ -20166,7 +20230,7 @@ export namespace Prisma {
     email?: string
     phoneNumber?: string
     ssn?: string
-    filingStatus?: string
+    filingStatus?: $Enums.FilingTypes
     dependants?: number
     isDeleted?: boolean
     compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutEmployeeInput
@@ -20329,7 +20393,7 @@ export namespace Prisma {
     email?: StringFilter<"Employee"> | string
     phoneNumber?: StringFilter<"Employee"> | string
     ssn?: StringFilter<"Employee"> | string
-    filingStatus?: StringFilter<"Employee"> | string
+    filingStatus?: EnumFilingTypesFilter<"Employee"> | $Enums.FilingTypes
     dependants?: IntFilter<"Employee"> | number
     isDeleted?: BoolFilter<"Employee"> | boolean
     organizationId?: StringFilter<"Employee"> | string
@@ -20853,7 +20917,7 @@ export namespace Prisma {
     email?: string
     phoneNumber?: string
     ssn?: string
-    filingStatus?: string
+    filingStatus?: $Enums.FilingTypes
     dependants?: number
     isDeleted?: boolean
     organization: OrganizationCreateNestedOneWithoutEmployeesInput
@@ -20871,7 +20935,7 @@ export namespace Prisma {
     email?: string
     phoneNumber?: string
     ssn?: string
-    filingStatus?: string
+    filingStatus?: $Enums.FilingTypes
     dependants?: number
     isDeleted?: boolean
     organizationId: string
@@ -20956,7 +21020,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     ssn?: StringFieldUpdateOperationsInput | string
-    filingStatus?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organization?: OrganizationUpdateOneRequiredWithoutEmployeesNestedInput
@@ -20974,7 +21038,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     ssn?: StringFieldUpdateOperationsInput | string
-    filingStatus?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: StringFieldUpdateOperationsInput | string
@@ -21104,7 +21168,7 @@ export namespace Prisma {
     email?: string
     phoneNumber?: string
     ssn?: string
-    filingStatus?: string
+    filingStatus?: $Enums.FilingTypes
     dependants?: number
     isDeleted?: boolean
     organization: OrganizationCreateNestedOneWithoutEmployeesInput
@@ -21122,7 +21186,7 @@ export namespace Prisma {
     email?: string
     phoneNumber?: string
     ssn?: string
-    filingStatus?: string
+    filingStatus?: $Enums.FilingTypes
     dependants?: number
     isDeleted?: boolean
     organizationId: string
@@ -21190,7 +21254,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     ssn?: StringFieldUpdateOperationsInput | string
-    filingStatus?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organization?: OrganizationUpdateOneRequiredWithoutEmployeesNestedInput
@@ -21208,7 +21272,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     ssn?: StringFieldUpdateOperationsInput | string
-    filingStatus?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: StringFieldUpdateOperationsInput | string
@@ -21454,7 +21518,7 @@ export namespace Prisma {
     email?: string
     phoneNumber?: string
     ssn?: string
-    filingStatus?: string
+    filingStatus?: $Enums.FilingTypes
     dependants?: number
     isDeleted?: boolean
     organization: OrganizationCreateNestedOneWithoutEmployeesInput
@@ -21472,7 +21536,7 @@ export namespace Prisma {
     email?: string
     phoneNumber?: string
     ssn?: string
-    filingStatus?: string
+    filingStatus?: $Enums.FilingTypes
     dependants?: number
     isDeleted?: boolean
     organizationId: string
@@ -21608,7 +21672,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     ssn?: StringFieldUpdateOperationsInput | string
-    filingStatus?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organization?: OrganizationUpdateOneRequiredWithoutEmployeesNestedInput
@@ -21626,7 +21690,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     ssn?: StringFieldUpdateOperationsInput | string
-    filingStatus?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: StringFieldUpdateOperationsInput | string
@@ -21688,7 +21752,7 @@ export namespace Prisma {
     email?: string
     phoneNumber?: string
     ssn?: string
-    filingStatus?: string
+    filingStatus?: $Enums.FilingTypes
     dependants?: number
     isDeleted?: boolean
   }
@@ -21738,7 +21802,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     ssn?: StringFieldUpdateOperationsInput | string
-    filingStatus?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     compensations?: EmployeeCompensationUpdateManyWithoutEmployeeNestedInput
@@ -21756,7 +21820,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     ssn?: StringFieldUpdateOperationsInput | string
-    filingStatus?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     compensations?: EmployeeCompensationUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -21774,7 +21838,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
     ssn?: StringFieldUpdateOperationsInput | string
-    filingStatus?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
