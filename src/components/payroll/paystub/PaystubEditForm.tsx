@@ -7,6 +7,7 @@ import { updatePaystubTotals } from "@/actions/paystub/PaystubFunctions"
 import upsertEmployeePaystub from "@/actions/paystub/upsertEmployeePaystub"
 import ClickableDiv from "@/components/Decorative/ClickableDiv"
 import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv"
+import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
 import DateInput from "@/components/Forms/DateInput"
 import { Divider } from "@/components/Forms/Divider"
 import SelectInput from "@/components/Forms/SelectInput"
@@ -16,7 +17,7 @@ import { percentToStr } from "@/utils/functions/PercentStr"
 import { deserializeData, serializeData } from "@/utils/serialization"
 import { GridColDef, DataGrid, GridRenderCellParams, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid"
 import { AnimatePresence, motion } from "framer-motion"
-import { Plus, Save, Trash2 } from "lucide-react"
+import { Plus, Save, Trash2, TriangleAlert } from "lucide-react"
 import React from "react"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
@@ -101,7 +102,6 @@ export default function PaystubEditForm({
 
         const latest = deserializeData(await getEmployeeLatestPaystub(empUUID))
         if (!latest) { return }
-        if (latest.locked) { return }
         setPaystub(latest)
 
     }
@@ -136,6 +136,7 @@ export default function PaystubEditForm({
                     options={selectOptions}
                     val={params.value}
                     changeCB={(val) => updateItem({ ...params.row, type: val as PayStubItemType })}
+                    disabled={paystub.locked}
                 />
             ),
         },
@@ -178,7 +179,7 @@ export default function PaystubEditForm({
             type: 'actions',
             headerName: 'Actions',
             getActions: (params: GridRowParams<PayStubItem>) => [
-                <GridActionsCellItem key={params.row.uuid + "-item"} icon={<Trash2 />} onClick={() => deleteItem(params.row)} label="Delete" />
+                <GridActionsCellItem disabled={paystub.locked} key={params.row.uuid + "-item"} icon={<Trash2 />} onClick={() => deleteItem(params.row)} label="Delete" />
             ]
         }
     ]
@@ -203,6 +204,7 @@ export default function PaystubEditForm({
     }
     function addItem(item: PayStubItem) {
 
+        if (paystub.locked) { return }
         if (shouldSkip(item)) { return }
 
         updateTotals({
@@ -215,6 +217,8 @@ export default function PaystubEditForm({
         const items = [...paystub.items]
         const index = items.findIndex(e => e.uuid == item.uuid)
         if (index == -1) { return }
+
+        if (paystub.locked) { return items[index] }
 
         if (item.hours) {
             item.hours = new Prisma.Decimal(item.hours)
@@ -329,6 +333,17 @@ export default function PaystubEditForm({
         }
     }
 
+    const { addModal } = useModalManager()
+    function lockedBtn() {
+        addModal({
+            title: "This Paystub Is Locked!",
+            required: false,
+            component: () => (<div className="w-sm">
+                <p>Paystubs can only be unlocked by System Administrators. If you believe this paystub was locked by accident, please contact a BigBooks Administrator.</p>
+            </div>)
+        })
+    }
+
     const handleProcessRowUpdateError = React.useCallback((error: Error) => {
         toast.error(error.message)
     }, []);
@@ -342,14 +357,19 @@ export default function PaystubEditForm({
             <div className="w-3/4">
                 <div className="flex flex-row justify-between select-none mb-3">
 
-                    <ClickableDiv onClick={importTaxes}>
-                        <p className="bg-primary rounded-md p-2 hover:bg-primary-up text-white font-bold">
-                            Import Taxes
-                        </p>
-                    </ClickableDiv>
+                    {!paystub.locked &&
+                        <ClickableDiv onClick={importTaxes}>
+                            <p className="bg-primary rounded-md p-2 hover:bg-primary-up text-white font-bold">
+                                Import Taxes
+                            </p>
+                        </ClickableDiv>
+                    }
+                    {paystub.locked &&
+                        <div></div>
+                    }
 
                     <AnimatePresence>
-                        {hasDates && datesDiffer &&
+                        {hasDates && datesDiffer && !paystub.locked &&
                             <motion.div
                                 key={"restoreDates"}
                                 initial={{ opacity: 0, width: 0 }}
@@ -366,25 +386,44 @@ export default function PaystubEditForm({
                     </AnimatePresence>
 
                     <div className="flex flex-row gap-8">
-                        <DateInput label="Period Start" val={paystub.periodStart} onChange={(val) => { setPaystub({ ...paystub, periodStart: val }); setEdited(true) }} />
-                        <DateInput label="Period End" val={paystub.periodEnd} onChange={(val) => { setPaystub({ ...paystub, periodEnd: val }); setEdited(true) }} />
-                        <DateInput label="Pay Date" val={paystub.payDate} onChange={(val) => { setPaystub({ ...paystub, payDate: val }); setEdited(true) }} />
+                        <DateInput label="Period Start" val={paystub.periodStart} onChange={(val) => { setPaystub({ ...paystub, periodStart: val }); setEdited(true) }} disabled={paystub.locked} />
+                        <DateInput label="Period End" val={paystub.periodEnd} onChange={(val) => { setPaystub({ ...paystub, periodEnd: val }); setEdited(true) }}       disabled={paystub.locked} />
+                        <DateInput label="Pay Date" val={paystub.payDate} onChange={(val) => { setPaystub({ ...paystub, payDate: val }); setEdited(true) }}             disabled={paystub.locked} />
                     </div>
 
-                    <div className="flex flex-row gap-4">
+                    {!paystub.locked &&
+                        <div className="flex flex-row gap-4">
 
-                        <motion.div
-                            animate={{ opacity: edited ? 1 : 0 }}
-                        >
-                            <ClickableDiv onClick={save}>
-                                <Save size={40} stroke="white" className="bg-primary rounded-md p-2 hover:bg-primary-up" />
+                            <motion.div
+                                animate={{ opacity: edited ? 1 : 0 }}
+                            >
+                                <ClickableDiv onClick={save}>
+                                    <Save size={40} stroke="white" className="bg-primary rounded-md p-2 hover:bg-primary-up" />
+                                </ClickableDiv>
+                            </motion.div>
+
+                            <ClickableDiv onClick={addNewItem}>
+                                <Plus size={40} className="bg-gray-100 rounded-md p-2 hover:bg-gray-200" />
                             </ClickableDiv>
-                        </motion.div>
+                        </div>
+                    }
 
-                        <ClickableDiv onClick={addNewItem}>
-                            <Plus size={40} className="bg-gray-100 rounded-md p-2 hover:bg-gray-200" />
-                        </ClickableDiv>
-                    </div>
+                    <AnimatePresence>
+                        {paystub.locked &&
+                            <motion.div
+                                key={"locked"}
+                                initial={{ opacity: 0, width: 0 }}
+                                exit={{ opacity: 0, width: 0 }}
+                                animate={{ opacity: 1, width: "auto" }}
+                            >
+                                <ClickableDiv onClick={lockedBtn}>
+                                    <p className="bg-orange-400 rounded-md p-2 hover:bg-orange-300 text-white font-bold overflow-clip text-nowrap">
+                                        <TriangleAlert stroke="white" />
+                                    </p>
+                                </ClickableDiv>
+                            </motion.div>
+                        }
+                    </AnimatePresence>
                 </div>
                 <DataGrid
                     rows={paystub.items}
@@ -421,7 +460,7 @@ export default function PaystubEditForm({
 
                 <div className="card h-fit w-3xs select-none">
 
-                    <button onClick={importAll} className="bg-primary p-2 w-full rounded-lg text-white font-bold">Import All Items</button>
+                    <button disabled={paystub.locked} onClick={importAll} className="bg-primary p-2 w-full rounded-lg text-white font-bold">Import All Items</button>
                     <Divider />
                     <CollapsibleDiv title="Compensations" arrowSize={14}>
                         {defaults.comps.map(comp => (
