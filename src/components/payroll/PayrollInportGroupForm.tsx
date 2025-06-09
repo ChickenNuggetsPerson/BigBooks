@@ -27,7 +27,7 @@ export default function PayrollInportGroupForm({ initialPeriod, changeCB }: { in
         }
         load()
     }, [])
-    
+
     const [selectedGroup, setSelectedGroup] = useState("")
     const options = groups.map(group => { return { id: group.uuid, label: group.name } })
 
@@ -67,28 +67,30 @@ export default function PayrollInportGroupForm({ initialPeriod, changeCB }: { in
     return (
         <div className="flex flex-row gap-10">
 
-            <div className="card h-fit">
+            <div className="card h-fit w-xs">
                 <p>Import Dates From:</p>
                 <Divider />
                 <div className="h-2"></div>
-                <SelectInput label="Group" val={selectedGroup} options={options} changeCB={importGroup}/>
+                <SelectInput label="Group" val={selectedGroup} options={options} changeCB={importGroup} />
 
             </div>
 
-            <div className="card h-fit w-2xs">
+            <div className="card h-fit">
 
                 <p className="font-semibold">Payroll Dates:</p>
 
                 <Divider />
                 <div className="h-2"></div>
 
-                <DateInput label="Period Start:"  val={state.start} onChange={(val) => { setState({...state, start: val}) }} />
+                <div className="flex flex-row gap-8">
+                    <DateInput label="Period Start:" val={state.start} onChange={(val) => { setState({ ...state, start: val }) }} />
 
-                <DateInput label="Period End:"    val={state.end}   onChange={(val) => { setState({...state, end: val}) }}   />
+                    <DateInput label="Period End:" val={state.end} onChange={(val) => { setState({ ...state, end: val }) }} />
 
-                <DateInput label="Pay Date:"      val={state.pay}   onChange={(val) => { setState({...state, pay: val}) }}   />
+                    <DateInput label="Pay Date:" val={state.pay} onChange={(val) => { setState({ ...state, pay: val }) }} />
+                </div>
 
-                <button className="primary-button" onClick={save}>Save Dates</button>
+                <button className="primary-button mt-4" onClick={save}>Save Dates</button>
             </div>
 
         </div>
