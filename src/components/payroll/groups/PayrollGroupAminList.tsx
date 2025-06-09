@@ -243,13 +243,15 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
 
             <LargeTextInput label="Description" val={selected.description} onChange={descUpdated} />
 
+            {/* TODO: These Dates aren't calculating correctly */}
             {selected.payRefDate && selected.payFrequency &&
-                <>
+                <> 
                     <CardProp label={"Next Period End:"} val={nextOccurence(selected.periodRefDate, selected.payFrequency).toLocaleDateString()} />
                     <CardProp label={"Next Paydate:"} val={nextOccurence(selected.payRefDate, selected.payFrequency).toLocaleDateString()} />
                 </>
             }
 
+            {/* TODO: Calc Times per year and fix that in the paystub system */}
             <div className="flex flex-row gap-4 mt-5">
                 <NumberInput label="Days Between Pay" val={selected.payFrequency} changeCB={frequencyUpdated} />
                 <DateInput label="Pay Date" val={selected.payRefDate} onChange={refDateUpdated} />
