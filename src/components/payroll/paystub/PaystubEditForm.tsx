@@ -69,13 +69,15 @@ export default function PaystubEditForm({
     stubUUID,
     stubStart,
     stubEnd,
-    stubPaydate
+    stubPaydate,
+    forceLock = false
 }: {
     empUUID: string,
     stubUUID?: string,
     stubStart?: Date,
     stubEnd?: Date,
-    stubPaydate?: Date
+    stubPaydate?: Date,
+    forceLock?: boolean
 }) {
 
     const { addModal } = useModalManager()
@@ -400,7 +402,7 @@ export default function PaystubEditForm({
 
     const hasDates = stubStart && stubEnd && stubPaydate
     const datesDiffer = (paystub.periodStart.toISOString() !== (stubStart?.toISOString() ?? "")) || (paystub.periodEnd.toISOString() !== (stubEnd?.toISOString() ?? "")) || (paystub.payDate.toISOString() !== (stubPaydate?.toISOString() ?? ""))
-    const isLocked = (paystub.locked || paystub.lockedTime || paystub.submittedTime) as boolean
+    const isLocked = (paystub.locked || paystub.lockedTime || paystub.submittedTime || forceLock) as boolean
 
     return (
         <div className="flex flex-row gap-5">
@@ -503,7 +505,7 @@ export default function PaystubEditForm({
 
             {/* Right Side */}
             <div className="flex flex-col gap-4">
-                <div className="card h-fit">
+                <div className="card h-fit w-3xs">
                     <div className="flex flex-row w-full justify-between">
                         <p>Gross:</p>
                         <p className="font-semibold">{MoneyToStr(paystub.grossEarnings.toNumber())}</p>
@@ -523,59 +525,61 @@ export default function PaystubEditForm({
                     </div>
                 </div>
 
-                <div className="card h-fit w-3xs select-none">
+                {!isLocked &&
+                    <div className="card h-fit w-3xs select-none">
 
-                    <button disabled={isLocked} onClick={importAll} className="bg-primary p-2 w-full rounded-lg text-white font-bold">Import All Items</button>
-                    <Divider />
-                    <CollapsibleDiv title="Compensations" arrowSize={14}>
-                        {defaults.comps.map(comp => (
-                            <div key={comp.compName} className="pl-2">
-                                {comp.items.map(item => (
-                                    <DefaultItemCard key={item.uuid} item={item} add={addItem} />
-                                ))}
+                        <button onClick={importAll} className="bg-primary p-2 w-full rounded-lg text-white font-bold">Import All Items</button>
+                        <Divider />
+                        <CollapsibleDiv title="Compensations" arrowSize={14}>
+                            {defaults.comps.map(comp => (
+                                <div key={comp.compName} className="pl-2">
+                                    {comp.items.map(item => (
+                                        <DefaultItemCard key={item.uuid} item={item} add={addItem} />
+                                    ))}
+                                </div>
+                            ))}
+                        </CollapsibleDiv>
+                        <CollapsibleDiv title="Payroll Items" arrowSize={14}>
+                            <div className="pl-2">
+
+
+                                {defaults.defaults.organization.length !== 0 &&
+                                    <CollapsibleDiv title="Organization" arrowSize={10}>
+                                        {defaults.defaults.organization.map(comp => (
+                                            <DefaultItemCard key={comp.uuid} item={comp} add={addItem} />
+                                        ))}
+                                    </CollapsibleDiv>
+                                }
+
+                                {defaults.defaults.group.length !== 0 &&
+                                    <CollapsibleDiv title="Group" arrowSize={10}>
+                                        {defaults.defaults.group.map(group => {
+                                            if (group.items.length == 0) { return <></> }
+                                            return (
+                                                <div key={group.groupName}>
+                                                    <div>{group.groupName}</div>
+                                                    {group.items.map(item => (
+                                                        <DefaultItemCard key={item.uuid} item={item} add={addItem} />
+                                                    ))}
+                                                </div>
+                                            )
+                                        })}
+                                    </CollapsibleDiv>
+                                }
+
+                                {defaults.defaults.employee.length !== 0 &&
+                                    <CollapsibleDiv title="Employee" arrowSize={10}>
+                                        {defaults.defaults.employee.map(comp => (
+                                            <DefaultItemCard key={comp.uuid} item={comp} add={addItem} />
+                                        ))}
+                                    </CollapsibleDiv>
+                                }
+
                             </div>
-                        ))}
-                    </CollapsibleDiv>
-                    <CollapsibleDiv title="Payroll Items" arrowSize={14}>
-                        <div className="pl-2">
 
-
-                            {defaults.defaults.organization.length !== 0 &&
-                                <CollapsibleDiv title="Organization" arrowSize={10}>
-                                    {defaults.defaults.organization.map(comp => (
-                                        <DefaultItemCard key={comp.uuid} item={comp} add={addItem} />
-                                    ))}
-                                </CollapsibleDiv>
-                            }
-
-                            {defaults.defaults.group.length !== 0 &&
-                                <CollapsibleDiv title="Group" arrowSize={10}>
-                                    {defaults.defaults.group.map(group => {
-                                        if (group.items.length == 0) { return <></> }
-                                        return (
-                                            <div key={group.groupName}>
-                                                <div>{group.groupName}</div>
-                                                {group.items.map(item => (
-                                                    <DefaultItemCard key={item.uuid} item={item} add={addItem} />
-                                                ))}
-                                            </div>
-                                        )
-                                    })}
-                                </CollapsibleDiv>
-                            }
-
-                            {defaults.defaults.employee.length !== 0 &&
-                                <CollapsibleDiv title="Employee" arrowSize={10}>
-                                    {defaults.defaults.employee.map(comp => (
-                                        <DefaultItemCard key={comp.uuid} item={comp} add={addItem} />
-                                    ))}
-                                </CollapsibleDiv>
-                            }
-
-                        </div>
-
-                    </CollapsibleDiv>
-                </div>
+                        </CollapsibleDiv>
+                    </div>
+                }
             </div>
 
         </div >

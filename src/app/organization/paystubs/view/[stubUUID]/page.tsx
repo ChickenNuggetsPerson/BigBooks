@@ -1,9 +1,9 @@
-import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { prisma } from "@/database/prisma";
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
 import { RoleTypes } from "@/auth/roles/Roles";
+import PaystubEditForm from "@/components/payroll/paystub/PaystubEditForm";
 
 
 export default async function ViewPaystubPage({
@@ -16,7 +16,10 @@ export default async function ViewPaystubPage({
 
     await throwIfInsufficientPerms(RoleTypes.Viewer)
 
-    const stub = await prisma.payStub.findUnique({ where: { uuid: paystubUUID }, include: { items: true }})
+    const stub = await prisma.payStub.findUnique({ 
+        where: { uuid: paystubUUID }, 
+        select: { uuid: true, employeeId: true }
+    })
 
     if (!stub) {
         return (
@@ -34,16 +37,9 @@ export default async function ViewPaystubPage({
                 <MoveLeft/>
             </Link>
 
-            <AnimateChildren y={-100} className="flex flex-row justify-center gap-6">
-                <div className="card h-fit w-fit">
-                    <p className="font-semibold">Work in Progress Page</p>
+            <div className="h-2"></div>
 
-                    {JSON.stringify(stub, null, 2).split("\n").map((str, i) => (
-                        <p key={i} style={{ textIndent: (str.length - str.trimStart().length) * 10 }} >{str}</p>
-                    ))}
-                </div>
-
-            </AnimateChildren>
+            <PaystubEditForm empUUID={stub.employeeId} stubUUID={stub.uuid} forceLock/>
 
         </div>
 
