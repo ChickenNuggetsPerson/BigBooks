@@ -4,9 +4,9 @@ import EditableDiv from "@/components/Decorative/EditableDiv";
 import { Employee } from "@/database/generated/prisma";
 import { MoneyToStr } from "@/utils/functions/MoneyStr";
 import { deserializeData } from "@/utils/serialization";
-import Divider from "@mui/material/Divider";
-import { CardProp } from "../EmployeeCard";
+import { CardProp } from "@/components/Forms/CardProp";
 import { CornerDownRight, TriangleAlert } from "lucide-react";
+import { Divider } from "@/components/Forms/Divider";
 
 
 
@@ -16,7 +16,7 @@ export default async function EmployeeCompensationCard({ employee }: { employee:
     const comps = deserializeData(await getEmployeeCompensations(employee.uuid))
 
     return (
-        <EditableDiv className="card w-xs" url={`/organization/employee/${employee.uuid}/editComps`}>
+        <EditableDiv className="w-xs h-fit" url={`/organization/employee/${employee.uuid}/editComps`}>
             <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">Compensations</h5>
             <Divider />
 

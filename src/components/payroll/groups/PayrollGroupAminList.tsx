@@ -15,9 +15,9 @@ import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { CardProp } from "@/components/Employee/EmployeeCard";
 import { nextOccurence } from "@/utils/functions/Date";
 import Link from "next/link";
+import { CardProp } from "@/components/Forms/CardProp";
 
 
 

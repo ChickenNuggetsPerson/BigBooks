@@ -1,5 +1,4 @@
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
-import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import EmployeeCard from "@/components/Employee/EmployeeCard";
 import EmployeeTaxCard from "@/components/Employee/taxes/EmployeeTaxCard";
 import { EmployeeSelectPaystub } from "@/components/Employee/EmployeeSelectPaystub";
@@ -7,6 +6,7 @@ import EmployeeStubDefaultsCard from "@/components/Employee/EmployeeStubDefaults
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 import EmployeeCompensationCard from "@/components/Employee/compensation/EmployeeCompensationCard";
+import TabGroup from "@/components/Decorative/TabGroup";
 
 
 export default async function EmployeeView({
@@ -19,34 +19,29 @@ export default async function EmployeeView({
     const employee = await getEmployeeProps(empUUID, true)
 
     if (!employee) {
-        return (<a>Error Loading Details</a>)
+        return <>Invalid Employee</>
     }
 
     return (
-
         <div>
-
-            <Link href={`/organization/employee`} >
+            <Link href={`/organization/employee`}>
                 <MoveLeft />
             </Link>
 
-            <AnimateChildren y={-20} className="flex flex-row justify-center gap-6">
-                <div>
+            <div className="w-full flex flex-row justify-center">
+                <TabGroup tabNames={["Employee", "Taxes", "Comps", "Payroll", "Paystubs"]} className="" horizontal>
                     <EmployeeCard employee={employee} />
-                </div>
-                <div>
                     <EmployeeTaxCard employee={employee} />
-                    <EmployeeStubDefaultsCard employee={employee} />
-                </div>
-
-                <div className="flex flex-col gap-8">
                     <EmployeeCompensationCard employee={employee} />
+                    <EmployeeStubDefaultsCard employee={employee} />
+
                     <EmployeeSelectPaystub empUUID={employee.uuid} />
-                </div>
-            </AnimateChildren>
+                </TabGroup>
+            </div>
 
         </div>
+    );
 
-    )
 }
+
 

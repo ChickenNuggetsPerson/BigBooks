@@ -6,7 +6,7 @@ import { Divider } from "../Forms/Divider";
 import { MoneyToStr } from "@/utils/functions/MoneyStr";
 import { percentToStr } from "@/utils/functions/PercentStr";
 import CollapsibleDiv from "../Decorative/CollapsibleDiv";
-import { CardProp } from "./EmployeeCard";
+import { CardProp } from "@/components/Forms/CardProp";
 import getPayrollItems from "@/actions/paystub/payrollItems/getPayrollItems";
 import { deserializeData } from "@/utils/serialization";
 
@@ -19,7 +19,7 @@ export default async function EmployeeStubDefaultsCard({ employee }: { employee:
     const defaults = deserializeData(await getPayrollItems({ employeeId: employee.uuid })).employee
 
     return (
-        <EditableDiv url={`/organization/employee/${employee.uuid}/editDefaults`} className="w-xs card mb-5">
+        <EditableDiv url={`/organization/employee/${employee.uuid}/editDefaults`} className="w-xs h-fit">
 
             <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">Payroll Items</h5>
             <Divider />

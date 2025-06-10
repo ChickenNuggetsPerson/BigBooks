@@ -7,7 +7,7 @@ import AdminCard from "@/components/admin/AdminCard";
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv";
 import EditableDiv from "@/components/Decorative/EditableDiv";
-import { CardProp } from "@/components/Employee/EmployeeCard";
+import { CardProp } from "@/components/Forms/CardProp";
 import { Divider } from "@/components/Forms/Divider";
 import { prisma } from "@/database/prisma";
 import { nextOccurence } from "@/utils/functions/Date";
@@ -32,7 +32,7 @@ export default async function Overview() {
 
     return (
 
-        <AnimateChildren y={-30} className="flex flex-row w-full justify-center gap-30">
+        <AnimateChildren y={-30} className="flex flex-col lg:flex-row w-full justify-center gap-10 lg:gap-10 pb-50 lg:pb-10">
 
             <div className="flex flex-col gap-10 w-sm">
                 <EditableDiv className="card" url={"/organization/admin/configure"} enabled={role.level >= Role_Admin.level}>

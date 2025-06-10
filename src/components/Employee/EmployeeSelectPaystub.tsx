@@ -5,6 +5,8 @@ import SelectInput from "../Forms/SelectInput";
 import { useRouter } from "next/navigation";
 import getEmployeePaystubs from "@/actions/paystub/getEmployeePaystubs";
 import { deserializeData } from "@/utils/serialization";
+import { CardProp } from "../Forms/CardProp";
+import { Divider } from "../Forms/Divider";
 
 
 
@@ -16,9 +18,9 @@ export function EmployeeSelectPaystub({ empUUID }: { empUUID: string }) {
     useEffect(() => {
 
         async function load() {
-            const stubs = deserializeData( await getEmployeePaystubs(empUUID))
+            const stubs = deserializeData(await getEmployeePaystubs(empUUID))
 
-            const opt = [] as { id: string, label: string}[]
+            const opt = [] as { id: string, label: string }[]
 
             stubs.forEach((stub) => {
                 opt.push({ id: stub.uuid, label: `Ending In: ${stub.periodEnd.toLocaleDateString()}` })
@@ -30,14 +32,21 @@ export function EmployeeSelectPaystub({ empUUID }: { empUUID: string }) {
 
     }, [empUUID])
 
-    
-    function onSelect(val: string) {        
+
+    function onSelect(val: string) {
         if (val == "select") { return }
         router.replace(`/organization/paystubs/view/${val}`)
     }
 
     return (
-        <div className="card">
+        <div className="w-xs h-fit">
+            <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">Paystubs</h5>
+            <Divider />
+
+            <CardProp label="Total Paystubs" val={String(options.length)}/>
+
+            <div className="h-2"></div>
+
             <SelectInput label={"View Paystub"} options={options} changeCB={onSelect} searchable={true} />
         </div>
     )

@@ -5,15 +5,15 @@ import { Divider } from "../Forms/Divider"
 import ClickableDiv from "../Decorative/ClickableDiv"
 import toast from "react-hot-toast"
 import { Employee } from "@/database/generated/prisma"
+import { CardProp } from "../Forms/CardProp"
 
 
 
 
 export default function EmployeeCard({ employee }: { employee: Employee }) {
 
-
     return (
-        <EditableDiv url={`/organization/employee/${employee.uuid}/edit`} className="w-sm card mb-5">
+        <EditableDiv url={`/organization/employee/${employee.uuid}/edit`} className="w-xs h-fit">
 
             <ClickableDiv
                 className="w-5/6 mb-2 text-2xl font-bold tracking-tight text-gray-900 select-none"
@@ -58,24 +58,5 @@ export default function EmployeeCard({ employee }: { employee: Employee }) {
             }
 
         </EditableDiv>
-    )
-}
-
-
-
-export function CardProp({ label, val }: { label: string, val: string }) {
-
-    function clicked() {
-        navigator.clipboard.writeText(val)
-        toast.success(`Coppied ${label.replace(":", "")}`)
-    }
-
-    return (
-        <div className="flex flex-row gap-2 select-none" >
-            <p>{label}</p>
-            <ClickableDiv onClick={clicked}>
-                <p className="font-semibold font-mono" style={{ fontSize: 15, paddingTop: 2 }}>{val}</p>
-            </ClickableDiv>
-        </div>
     )
 }

@@ -1,7 +1,5 @@
 import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
-import { Suspense } from "react";
-import Loading from "../Loading";
 
 export const metadata: Metadata = {
   title: "Big Books",
@@ -19,11 +17,8 @@ export default function OrganizationLayout({
       <Sidebar />
 
       <main>
-        <div className="w-full h-full pt-10 px-4 pl-80">
-
-          <Suspense fallback={<Loading hCenter vCenter />}>
-            {children}
-          </Suspense>
+        <div className="w-full h-full pt-10 px-4 pl-77">
+          {children}
         </div>
 
       </main>
