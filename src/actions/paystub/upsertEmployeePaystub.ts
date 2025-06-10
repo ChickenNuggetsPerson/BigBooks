@@ -21,6 +21,8 @@ export default async function upsertEmployeePaystub(data: SerializationResult<Pa
     let paystub = deserializeData(data)
     const currentStub = await prisma.payStub.findUnique({ where: { uuid: paystub.uuid }, include: { items: true } })
     if (currentStub?.locked) { return }
+    if (currentStub?.lockedTime) { return }
+    if (currentStub?.submittedTime) { return }
 
     // Calc totals 
     paystub = updatePaystubTotals(paystub)
