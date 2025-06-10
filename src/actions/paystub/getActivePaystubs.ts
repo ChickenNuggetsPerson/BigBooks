@@ -26,8 +26,9 @@ export default async function getActivePaystubs() {
                 organizationId: session.orgUUID
             }
         },
-        include: {
-            employee: true
+        select: {
+            employee: true,
+            uuid: true
         },
         orderBy: {
             employee: {

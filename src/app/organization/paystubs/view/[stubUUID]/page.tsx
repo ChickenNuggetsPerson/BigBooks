@@ -3,7 +3,8 @@ import Link from "next/link";
 import { prisma } from "@/database/prisma";
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
 import { RoleTypes } from "@/auth/roles/Roles";
-import PaystubEditForm from "@/components/payroll/paystub/PaystubEditForm";
+import { PaystubCard } from "@/components/payroll/paystub/PaystubCard";
+import { serializeData } from "@/utils/serialization";
 
 
 export default async function ViewPaystubPage({
@@ -18,7 +19,7 @@ export default async function ViewPaystubPage({
 
     const stub = await prisma.payStub.findUnique({ 
         where: { uuid: paystubUUID }, 
-        select: { uuid: true, employeeId: true }
+        include: { employee: true, items: true }
     })
 
     if (!stub) {
@@ -28,6 +29,8 @@ export default async function ViewPaystubPage({
             </div>
         )
     }
+
+    const data = serializeData(stub)
 
     return (
 
@@ -39,7 +42,7 @@ export default async function ViewPaystubPage({
 
             <div className="h-2"></div>
 
-            <PaystubEditForm empUUID={stub.employeeId} stubUUID={stub.uuid} forceLock/>
+            <PaystubCard stub={data}/>
 
         </div>
 
