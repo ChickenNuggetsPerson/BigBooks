@@ -31,7 +31,7 @@ export default async function EmployeeSalaryPage({ params }: { params: Promise<{
                 <MoveLeft/>
             </Link>
 
-            <AnimateChildren y={-100} className="mx-20">
+            <AnimateChildren y={-20} className="mx-20">
 
                 <EmployeeTaxForm empUUID={employeeUUID}></EmployeeTaxForm>
 

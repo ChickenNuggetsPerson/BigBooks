@@ -28,7 +28,7 @@ const CollapsibleDiv = React.forwardRef<HTMLDivElement, CollapsibleDivProps>(
                     <div className="absolute right-0">
                         <motion.div
                             animate={{ rotate: expanded ? 0 : 90 }}
-                            className="bg-gray-100 rounded-md p-1 hover:bg-gray-200"
+                            className="bg-gray-100 icon"
                             onClick={() => setExpanded(!expanded)}
                         >
                             <ChevronDown size={arrowSize} />

@@ -16,9 +16,10 @@ import { PayStubItem, PayStubItemType, Prisma } from "@/database/generated/prism
 import { HourlyRateStr, HourStr, MoneyToStr } from "@/utils/functions/MoneyStr"
 import { percentToStr } from "@/utils/functions/PercentStr"
 import { deserializeData, serializeData } from "@/utils/serialization"
+import { Tooltip } from "@mui/material"
 import { GridColDef, DataGrid, GridRenderCellParams, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid"
 import { AnimatePresence, motion } from "framer-motion"
-import { Plus, Save, Trash2, TriangleAlert } from "lucide-react"
+import { Plus, Save, Trash2, TriangleAlert, X } from "lucide-react"
 import React from "react"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
@@ -91,6 +92,7 @@ export default function PaystubEditForm({
         comps: [] as { compName: string, items: PayStubItem[] }[]
     })
     const [edited, setEdited] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { load() }, [])
@@ -98,6 +100,7 @@ export default function PaystubEditForm({
     async function load() {
 
         setEdited(false)
+        setLoading(true)
 
         const d = deserializeData(await getEmployeePaystubItems(empUUID))
         setDefaults(d)
@@ -109,16 +112,18 @@ export default function PaystubEditForm({
             } else {
                 setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
             }
+            setLoading(false)
             return
         }
 
         const latest = deserializeData(await getEmployeeLatestPaystub(empUUID))
         if (!latest) {
             setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
+            setLoading(false)
             return
         }
         setPaystub(latest)
-
+        setLoading(false)
     }
 
     const selectOptions = [
@@ -187,14 +192,45 @@ export default function PaystubEditForm({
             headerName: 'Amount',
             editable: true,
             type: "number",
-            valueFormatter: (value) => value ? MoneyToStr(value) : null,
+            renderCell: (params: GridRenderCellParams<PayStubItem, string>) => {
+
+                const val = MoneyToStr(params.row.amount.toNumber())
+
+                if (
+                    params.row.amount.greaterThanOrEqualTo(0) 
+                    && params.row.type === PayStubItemType.Tax
+                ) {
+                    return (
+                        <Tooltip title="Generally, tax ammounts shouldn't be positive.">
+                            <p className={"text-orange-500 font-black"}>
+                                {val}
+                            </p>
+                        </Tooltip>
+                    )
+                }
+
+                if (
+                    params.row.amount.equals(0) 
+                    && params.row.type === PayStubItemType.Earning
+                ) {
+                    return (
+                        <Tooltip title="Generally, earning ammounts shouldn't be zero.">
+                            <p className={"text-orange-500 font-black"}>
+                                {val}
+                            </p>
+                        </Tooltip>
+                    )
+                }
+
+                return (<p>{val}</p>)
+            },
         },
         {
             field: 'actions',
             type: 'actions',
             headerName: 'Actions',
             getActions: (params: GridRowParams<PayStubItem>) => [
-                <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-item"} icon={<Trash2 />} onClick={() => deleteItem(params.row)} label="Delete" />
+                <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-item"} icon={<X />} onClick={() => deleteItem(params.row)} label="Delete" />
             ]
         }
     ]
@@ -408,11 +444,11 @@ export default function PaystubEditForm({
         <div className="flex flex-row gap-5">
 
             <div className="w-3/4">
-                <div className="flex flex-row justify-between select-none mb-3">
+                <div className="flex flex-row justify-between select-none mb-3 smallCard" style={{ padding: 10 }}>
 
                     {!isLocked &&
                         <ClickableDiv onClick={importTaxes}>
-                            <p className="bg-primary rounded-md p-2 hover:bg-primary-up text-white font-bold">
+                            <p className="primary-button">
                                 Import Taxes
                             </p>
                         </ClickableDiv>
@@ -430,7 +466,7 @@ export default function PaystubEditForm({
                                 animate={{ opacity: 1, width: "auto" }}
                             >
                                 <ClickableDiv onClick={restoreDates}>
-                                    <p className="bg-accent rounded-md p-2 hover:bg-accent-up text-white font-bold overflow-clip text-nowrap">
+                                    <p className="accent-button overflow-clip text-nowrap">
                                         Restore Dates
                                     </p>
                                 </ClickableDiv>
@@ -438,18 +474,20 @@ export default function PaystubEditForm({
                         }
                     </AnimatePresence>
 
-                    <div className="flex flex-row gap-8">
+                    <div className="flex flex-row gap-8" style={{ transform: `translate(0px, ${forceLock ? 4 : 8}px)` }}>
                         <DateInput label="Period Start" val={paystub.periodStart} onChange={(val) => { setPaystub({ ...paystub, periodStart: val }); setEdited(true) }} disabled={isLocked} />
                         <DateInput label="Period End" val={paystub.periodEnd} onChange={(val) => { setPaystub({ ...paystub, periodEnd: val }); setEdited(true) }} disabled={isLocked} />
                         <DateInput label="Pay Date" val={paystub.payDate} onChange={(val) => { setPaystub({ ...paystub, payDate: val }); setEdited(true) }} disabled={isLocked} />
                     </div>
 
                     {!isLocked &&
-                        <div className="flex flex-row gap-4">
+                        <div className="flex flex-row gap-4 pt-1">
 
                             <motion.div animate={{ opacity: edited ? 1 : 0 }} >
                                 <ClickableDiv onClick={save}>
-                                    <Save size={40} stroke="white" className="bg-primary rounded-md p-2 hover:bg-primary-up" />
+                                    <Tooltip title="Save Paystub">
+                                        <Save size={40} stroke="white" className="bg-primary/80 icon" />
+                                    </Tooltip>
                                 </ClickableDiv>
                             </motion.div>
 
@@ -462,7 +500,9 @@ export default function PaystubEditForm({
                                         animate={{ opacity: 1, width: "auto" }}
                                     >
                                         <ClickableDiv onClick={clickedDelete}>
-                                            <Trash2 size={40} className="bg-gray-100 rounded-md p-2 hover:bg-gray-200" />
+                                            <Tooltip title="Delete Paystub">
+                                                <Trash2 size={38} className="icon" />
+                                            </Tooltip>
                                         </ClickableDiv>
                                     </motion.div>
                                 }
@@ -470,13 +510,15 @@ export default function PaystubEditForm({
 
 
                             <ClickableDiv onClick={addNewItem}>
-                                <Plus size={40} className="bg-gray-100 rounded-md p-2 hover:bg-gray-200" />
+                                <Tooltip title="Add Item to Paystub">
+                                    <Plus size={38} className="icon" />
+                                </Tooltip>
                             </ClickableDiv>
                         </div>
                     }
 
                     <AnimatePresence>
-                        {isLocked &&
+                        {isLocked && !forceLock &&
                             <motion.div
                                 key={"locked"}
                                 initial={{ opacity: 0, width: 0 }}
@@ -491,6 +533,10 @@ export default function PaystubEditForm({
                             </motion.div>
                         }
                     </AnimatePresence>
+
+                    {forceLock &&
+                        <div></div>
+                    }
                 </div>
                 <DataGrid
                     rows={paystub.items}
@@ -499,6 +545,12 @@ export default function PaystubEditForm({
                     processRowUpdate={(updatedRow) => updateItem(updatedRow)}
                     onProcessRowUpdateError={handleProcessRowUpdateError}
                     rowHeight={60}
+                    loading={loading}
+                    slotProps={{
+                        loadingOverlay: {
+                            variant: 'skeleton',
+                        },
+                    }}
                 />
 
             </div>
@@ -528,7 +580,9 @@ export default function PaystubEditForm({
                 {!isLocked &&
                     <div className="card h-fit w-3xs select-none">
 
-                        <button onClick={importAll} className="bg-primary p-2 w-full rounded-lg text-white font-bold">Import All Items</button>
+                        <Tooltip title="Import All Payroll Items">
+                            <button onClick={importAll} className="primary-button w-full">Import All Items</button>
+                        </Tooltip>
                         <Divider />
                         <CollapsibleDiv title="Compensations" arrowSize={14}>
                             {defaults.comps.map(comp => (
@@ -542,38 +596,24 @@ export default function PaystubEditForm({
                         <CollapsibleDiv title="Payroll Items" arrowSize={14}>
                             <div className="pl-2">
 
+                                {defaults.defaults.organization.map(comp => (
+                                    <DefaultItemCard key={comp.uuid} item={comp} add={addItem} />
+                                ))}
 
-                                {defaults.defaults.organization.length !== 0 &&
-                                    <CollapsibleDiv title="Organization" arrowSize={10}>
-                                        {defaults.defaults.organization.map(comp => (
-                                            <DefaultItemCard key={comp.uuid} item={comp} add={addItem} />
-                                        ))}
-                                    </CollapsibleDiv>
-                                }
+                                {defaults.defaults.group.map(group => {
+                                    if (group.items.length == 0) { return <></> }
+                                    return (
+                                        <div key={group.groupName}>
+                                            {group.items.map(item => (
+                                                <DefaultItemCard key={item.uuid} item={item} add={addItem} />
+                                            ))}
+                                        </div>
+                                    )
+                                })}
 
-                                {defaults.defaults.group.length !== 0 &&
-                                    <CollapsibleDiv title="Group" arrowSize={10}>
-                                        {defaults.defaults.group.map(group => {
-                                            if (group.items.length == 0) { return <></> }
-                                            return (
-                                                <div key={group.groupName}>
-                                                    <div>{group.groupName}</div>
-                                                    {group.items.map(item => (
-                                                        <DefaultItemCard key={item.uuid} item={item} add={addItem} />
-                                                    ))}
-                                                </div>
-                                            )
-                                        })}
-                                    </CollapsibleDiv>
-                                }
-
-                                {defaults.defaults.employee.length !== 0 &&
-                                    <CollapsibleDiv title="Employee" arrowSize={10}>
-                                        {defaults.defaults.employee.map(comp => (
-                                            <DefaultItemCard key={comp.uuid} item={comp} add={addItem} />
-                                        ))}
-                                    </CollapsibleDiv>
-                                }
+                                {defaults.defaults.employee.map(comp => (
+                                    <DefaultItemCard key={comp.uuid} item={comp} add={addItem} />
+                                ))}
 
                             </div>
 
@@ -591,9 +631,23 @@ export default function PaystubEditForm({
 
 function DefaultItemCard({ item, add }: { item: PayStubItem, add: (item: PayStubItem) => void }) {
 
+    let str = ""
+
+    if (item.rate) {
+        str += HourlyRateStr(item.rate.toNumber())
+    }
+    if (item.percent) {
+        str += percentToStr(item.percent.toNumber())
+    }
+    if (!item.amount.equals(0)) {
+        str += MoneyToStr(item.amount.toNumber())
+    }
+
     return (
-        <ClickableDiv onClick={() => add(item)} className="w-full flex flex-row justify-between bg-gray-100 hover:bg-gray-200 rounded-sm px-2 mb-2">
-            <button>{`${item.name}`}</button>
+        <ClickableDiv onClick={() => add(item)} >
+            <Tooltip title={str} className="w-full flex flex-row justify-between bg-gray-100 hover:bg-gray-200 rounded-sm px-2 mb-2">
+                <button>{`${item.name}`}</button>
+            </Tooltip>
         </ClickableDiv>
     )
 }

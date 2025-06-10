@@ -46,41 +46,94 @@
 
 
 
-.card {
+/* .card {
   @apply p-6 bg-card border border-gray-300 rounded-lg shadow
+} */
+
+.card {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: calc(var(--spacing) * 6);
 }
 
 .smallCard {
-  @apply p-1 bg-card border border-gray-300 rounded-lg shadow
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: calc(var(--spacing) * 1);
 }
 
+.clearSmallCard {
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: calc(var(--spacing) * 1);
+}
+
+.icon {
+  @apply hover:opacity-60 p-1;
+
+  border-radius: 8px;
+  border: 1px solid rgba(152, 152, 152, 0.3);
+}
+
+
 .primary-button {
-  @apply text-white bg-primary hover:bg-primary-up focus:ring-4 font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center 
+  @apply text-white bg-primary/80 hover:bg-primary-up/80 text-base font-semibold;
+
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: calc(var(--spacing) * 2.5);
 }
 
 .secondary-button {
-  @apply text-white bg-secondary hover:bg-secondary-up focus:ring-4 font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
+  @apply text-white bg-secondary/80 hover:bg-secondary-up/80 text-base font-semibold;
+
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: calc(var(--spacing) * 2.5);
 }
 
 .accent-button {
-  @apply text-white bg-accent hover:bg-accent-up focus:ring-4 font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
+  @apply text-white bg-accent/80 hover:bg-accent-up/80 text-base font-semibold;
+
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: calc(var(--spacing) * 2.5);
 }
 
 .danger-button {
-  @apply text-white bg-rose-600 hover:bg-rose-500 focus:ring-4 font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
+  @apply text-white bg-rose-600/80 hover:bg-rose-500/80 text-base font-semibold;
+
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: calc(var(--spacing) * 2.5);
 }
 
 
 .prevent-select {
   -webkit-user-select: none;
-  /* Safari */
   -ms-user-select: none;
-  /* IE 10 and IE 11 */
   user-select: none;
-  /* Standard syntax */
 }
-
-
-
-
-

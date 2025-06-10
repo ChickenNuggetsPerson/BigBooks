@@ -70,7 +70,7 @@ export default function SelectInput({
     }
 
     return (
-        <FormControl sx={{ minWidth: 150 }}>
+        <FormControl sx={(theme) => ({ minWidth: 150, zIndex: theme.zIndex.drawer + 1 })}>
             <input type="hidden" name={id} id={id} value={selected?.id} readOnly={true} ></input>
             <InputLabel id="">{label}</InputLabel>
             <Select
@@ -81,9 +81,16 @@ export default function SelectInput({
                 onChange={(e) => { onPress(e.target.value) }}
                 autoWidth
                 disabled={disabled}
+                sx={(theme) => ({ minWidth: 150, zIndex: theme.zIndex.drawer + 1  })}
             >
                 {ops.map((o) => (
-                    <MenuItem key={o.id} value={o.id}>{o.label}</MenuItem>
+                    <MenuItem
+                        key={o.id}
+                        value={o.id}
+                        sx={(theme) => ({ minWidth: 150, zIndex: theme.zIndex.drawer + 1  })}
+                    >
+                        {o.label}
+                    </MenuItem>
                 ))}
             </Select>
         </FormControl>

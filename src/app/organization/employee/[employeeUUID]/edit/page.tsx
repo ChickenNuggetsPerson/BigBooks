@@ -36,7 +36,7 @@ export default async function EmployeeView({ params }: { params: Promise<{ emplo
                 <MoveLeft/>
             </Link>
 
-            <AnimateChildren y={-100}>
+            <AnimateChildren y={-20}>
 
                 <EmployeeForm empUUID={employeeUUID}></EmployeeForm>
 

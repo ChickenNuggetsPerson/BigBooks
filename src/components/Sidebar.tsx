@@ -1,12 +1,16 @@
 import Link from "next/link";
 import Logo from "./Decorative/Logo";
-import { House, ScrollText, Users } from "lucide-react";
+import { FileText, House, ScrollText, Users } from "lucide-react";
+import HeaderOrgOptions from "./Header/HeaderOrgOptions";
+import { Suspense } from "react";
+import InteractiveUserIcon from "./User/InteractiveUserIcon";
 
 
 
 enum Page {
     Overview = "overview",
     Employee = "employee",
+    Paystubs = "paystubs",
     Payroll = "payroll"
 }
 
@@ -20,12 +24,9 @@ export default function Sidebar() {
 
 
     return (
-        <div id="hs-application-sidebar" className="
-            w-65 h-full
-            fixed inset-y-0 start-0 z-60
-            bg-white border-e border-gray-200
-        " role="dialog" aria-label="Sidebar">
-            <div className="relative flex flex-col h-full max-h-full">
+        <div className="z-60 w-65 h-fit fixed inset-y-0 m-5">
+
+            <div className="smallCard overflow-clip" style={{ padding: 0 }} >
 
                 <Link href={"/"} >
                     <Logo width={260} rounded={false} />
@@ -33,38 +34,44 @@ export default function Sidebar() {
 
 
                 {/* Divider */}
-                <div className="h-[4] w-full bg-primary opacity-50"></div>
+                <div className="h-2 w-full bg-primary opacity-50"></div>
+
+                <div className="h-4"></div>
 
 
-                {/* Content */}
-                <div className="h-full overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
-                    <nav className="hs-accordion-group p-3 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
-                        <ul className="flex flex-col space-y-1">
+                <ul className="flex flex-col w-full px-2 pb-2 gap-2">
+
+                    <Link className={btnClass} href={href(Page.Overview)}>
+                        <House size={16} />
+                        Dashboard
+                    </Link>
 
 
-                            <Link className={btnClass} href={href(Page.Overview)}>
-                                <House size={16} />
-                                Dashboard
-                            </Link>
+                    <Link className={btnClass} href={href(Page.Employee)}>
+                        <Users size={16} />
+                        Employees
+                    </Link>
 
+                    <Link className={btnClass} href={href(Page.Paystubs)}>
+                        <FileText size={16} />
+                        Paystubs
+                    </Link>
 
-                            <Link className={btnClass} href={href(Page.Employee)}>
-                                <Users size={16} />
-                                Employees
-                            </Link>
+                    <Link className={btnClass} href={href(Page.Payroll)}>
+                        <ScrollText size={16} />
+                        Payroll
+                    </Link>
 
-
-                            <Link className={btnClass} href={href(Page.Payroll)}>
-                                <ScrollText size={16} />
-                                Payroll
-                            </Link>
-
-
-
-                        </ul>
-                    </nav>
-                </div>
+                </ul>
             </div>
+
+            <div className="pt-10 ">
+                <Suspense fallback={<div className="animate-pulse text-2xl font-bold"> Loading... </div>}>
+                    <InteractiveUserIcon />
+                </Suspense>
+            </div>
+
+            <HeaderOrgOptions />
         </div>
     )
 

@@ -54,7 +54,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
 
     if (loading) {
         return (
-            <Loading vCenter hCenter/>
+            <Loading vCenter hCenter />
         )
     }
 
@@ -101,12 +101,17 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
 
             <TextInput id={"uuid"} label={"Org UUID"} val={props.uuid} disabled={true} />
 
-            <button type="submit" className="primary-button">Submit</button>
-            <Link href={cancelURL(newOrganization)} className="mx-5 secondary-button">
-                Cancel
-            </Link>
+            <div className="flex flex-row justify-between">
+                <div className="flex flex-row gap-2">
+                    <button type="submit" className="primary-button">Submit</button>
+                    <Link href={cancelURL(newOrganization)} className="secondary-button">
+                        Cancel
+                    </Link>
+                </div>
 
-            {!newOrganization && <button onClick={() => { deactivateOrganization(props.uuid, !props.isDeleted) }} className="mx-5 accent-button">{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
+                {!newOrganization && <button onClick={() => { deactivateOrganization(props.uuid, !props.isDeleted) }} className="mx-5 accent-button">{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
+
+            </div>
         </form>
     )
 }

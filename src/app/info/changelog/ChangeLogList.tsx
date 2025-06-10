@@ -25,7 +25,7 @@ export default function ChangeLogList({ items }: { items: string[] }) {
 
             <div className="flex flex-row gap-4">
 
-                <SelectInput id={""} label={""} val={String(current)} disabled={false} options={options} changeCB={(val) => { setCurrent(Number(val)) }} searchable={false} />
+                <SelectInput id={""} label={""} val={String(current)} disabled={false} options={options} changeCB={(val) => { setCurrent(Number(val)) }} searchable={true} />
 
                 <div
                     className="markdown-body card w-xl"

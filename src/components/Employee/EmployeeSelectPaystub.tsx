@@ -37,10 +37,8 @@ export function EmployeeSelectPaystub({ empUUID }: { empUUID: string }) {
     }
 
     return (
-        <>
-            {options.length != 0 &&
-                <SelectInput label={"View Paystub"} options={options} changeCB={onSelect} searchable={true} />
-            }
-        </>
+        <div className="card">
+            <SelectInput label={"View Paystub"} options={options} changeCB={onSelect} searchable={true} />
+        </div>
     )
 }

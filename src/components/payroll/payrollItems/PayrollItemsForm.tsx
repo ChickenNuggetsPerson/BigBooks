@@ -67,7 +67,7 @@ export default async function PayrollItemsForm({
                 <PayrollItemAddBtn organization={organization} group={group} employee={employee} employeeUUID={employeeUUID} groupUUID={groupUUID} />
             </div>
 
-            <div className="h-full overflow-y-scroll">
+            <div className="h-screen overflow-y-scroll pt-8 px-10 pb-20">
                 {items.map((item) => (
                     <div key={item.uuid} className="card mb-5">
                         <PayrollItemFormCard  item={item} />

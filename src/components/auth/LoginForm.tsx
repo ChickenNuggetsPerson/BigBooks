@@ -34,7 +34,7 @@ export default function LoginForm() {
                 <TextInput id={"username"} label={"Username:"} val={""} placeholder={""} disabled={false} />
                 <TextInput id={"password"} label={"Password:"} val={""} placeholder={""} disabled={false} obfuscate/>
 
-                <button type="submit" className="w-full bg-primary text-white p-2 rounded-md font-bold">Login</button>
+                <button type="submit" className="w-full primary-button">Login</button>
             </form>
 
         </div>

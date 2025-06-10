@@ -24,7 +24,7 @@ export default function ProgressBar({ steps, currentStep, changeCB }: ProgressBa
 
     return (
         <div className="flex flex-row justify-center">
-            <div className="relative flex overflow-hidden rounded-xl border border-gray-300 shadow-sm w-full">
+            <div className="relative flex overflow-hidden w-full smallCard" style={{ padding: 10 }}>
                 {/* Background Layer */}
 
                 <div
@@ -48,7 +48,7 @@ export default function ProgressBar({ steps, currentStep, changeCB }: ProgressBa
                 {steps.map((step, index) => (
                     <div
                         key={step}
-                        className="select-none text-gray-600 relative z-10 flex-1 px-4 py-3 text-center text-sm font-bold transition-colors duration-200 border-r border-secondary last:border-r-0"
+                        className="select-none text-gray-600 relative z-10 flex-1 text-center text-sm font-bold transition-colors duration-200 border-r border-secondary last:border-r-0"
                         onClick={() => changeCB(index)}
                         style={{
                             color: currentStep == index ? "white" : ""

@@ -23,8 +23,6 @@ import Link from "next/link";
 
 
 
-
-
 export default function PayrollGroupAminList({ groups }: { groups: PayrollGroup[] }) {
 
     const [selected, setSelected] = useState(undefined as PayrollGroup | undefined)
@@ -184,6 +182,7 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
                         <button className="primary-button" onClick={pop}>No, Cancel</button>
                         <button className="danger-button" onClick={() => {
                             pop()
+                            pop()
                             del()
                         }}>Yes, Delete</button>
                     </div>
@@ -220,7 +219,7 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
             {selected.uuid !== "" &&
                 <div className="relative">
                     <div className="absolute right-0">
-                        <Trash2 onClick={clickedDelete} className="mt-2 mr-5" />
+                        <Trash2 size={35} onClick={clickedDelete} className="mt-1 icon" />
                     </div>
                 </div>
             }
@@ -244,21 +243,24 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
             <LargeTextInput label="Description" val={selected.description} onChange={descUpdated} />
 
             {/* TODO: These Dates aren't calculating correctly */}
-            {selected.payRefDate && selected.payFrequency &&
-                <> 
+            <div className="flex flex-row justify-between">
+                <div>
                     <CardProp label={"Next Period End:"} val={nextOccurence(selected.periodRefDate, selected.payFrequency).toLocaleDateString()} />
                     <CardProp label={"Next Paydate:"} val={nextOccurence(selected.payRefDate, selected.payFrequency).toLocaleDateString()} />
-                </>
-            }
+                </div>
+
+                <div className="w-35">
+                    <NumberInput label="Days Between Pay" val={selected.payFrequency} changeCB={frequencyUpdated} />
+                </div>
+            </div>
 
             {/* TODO: Calc Times per year and fix that in the paystub system */}
-            <div className="flex flex-row gap-4 mt-5">
-                <NumberInput label="Days Between Pay" val={selected.payFrequency} changeCB={frequencyUpdated} />
+            <div className="flex flex-row gap-4 py-5">
                 <DateInput label="Pay Date" val={selected.payRefDate} onChange={refDateUpdated} />
                 <DateInput label="Period End" val={selected.periodRefDate} onChange={periodRefDate} />
             </div>
 
-            <button onClick={saveButton} className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>
+            <button onClick={saveButton} className="primary-button w-full">Submit</button>
 
         </motion.div>
     )

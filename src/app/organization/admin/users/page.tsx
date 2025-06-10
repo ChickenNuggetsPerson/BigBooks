@@ -22,7 +22,7 @@ export default async function AdminUserPage() {
     const codes = await getInviteCodes()
 
     return (
-        <AnimateChildren className="grid grid-cols-2 gap-4">
+        <AnimateChildren x={-20} className="grid grid-cols-2 gap-4">
 
             <OrgUserList users={users} />
 

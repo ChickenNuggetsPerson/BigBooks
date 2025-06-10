@@ -35,7 +35,7 @@ const EditableDiv = React.forwardRef<HTMLDivElement, EditableDivProps>(
                 onMouseOver={onHover} onMouseLeave={onAway}
             >
                 <div className="relative">
-                    {hover && <AnimateChildren x={0} y={0}>
+                    {hover && <AnimateChildren>
 
                         <div className="absolute right-0">
                             <Link href={url}>

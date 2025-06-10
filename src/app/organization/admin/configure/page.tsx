@@ -11,7 +11,7 @@ export default function EditPage() {
     const { context } = useCompany()
 
     return (
-        <AnimateChildren x={0} y={-100}>
+        <AnimateChildren x={0} y={-20}>
             <OrganizationForm orgUUID={context?.companyUUID ?? "asdf"} />
         </AnimateChildren>
     )

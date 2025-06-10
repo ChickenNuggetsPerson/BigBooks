@@ -18,5 +18,5 @@ export default function CodeCopyButton({ code }: { code: string }) {
         })
     }
 
-    return (<button onClick={copy} className="primary-button">Copy</button>)
+    return (<button onClick={copy} className="primary-button h-fit">Copy</button>)
 }

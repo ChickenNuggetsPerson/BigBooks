@@ -14,5 +14,5 @@ export default function CodeDeleteButton({ code }: { code: string }) {
         toast.success("Code Deleted")
     }
     
-    return (<p onClick={() => {del()}} className="secondary-button">X</p>)
+    return (<p onClick={() => {del()}} className="secondary-button h-fit">X</p>)
 }

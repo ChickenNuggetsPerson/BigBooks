@@ -55,6 +55,6 @@ export default function PayrollItemAddBtn({
     }
 
     return (
-        <button onClick={clicked} className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">New Item</button>
+        <button onClick={clicked} className="primary-button w-full">New Item</button>
     )
 }

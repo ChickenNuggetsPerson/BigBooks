@@ -1,9 +1,10 @@
 'use client'
 
 import { useCompany } from "@/app/CompanyContext";
-import ProgressBar from "@/components/Decorative/ProgressBar/ProgressPannel";
+import ProgressBar from "@/components/Decorative/ProgressBar/ProgressBar";
 import SelectableEmployeeList from "@/components/Employee/EmployeeList/SelectableEmployeeList";
 import PayrollInportGroupForm from "@/components/payroll/PayrollInportGroupForm";
+import ActivePaystubList from "@/components/payroll/paystub/ActivePaystubList";
 import HorzScrollSelect from "@/components/payroll/paystub/HorzScrollSelect";
 import PaystubEditForm from "@/components/payroll/paystub/PaystubEditForm";
 import { useEffect, useState } from "react";
@@ -91,7 +92,7 @@ export default function Payroll() {
                 <SelectableEmployeeList selectCB={(selected) => { setPayrollState({ ...payrollState, selectedEmployees: selected }) }} preSelected={payrollState.selectedEmployees} />
             }
 
-            {payrollState.page == 2 &&
+            {payrollState.page == 2 && payrollState.selectedEmployees.length > 0 &&
                 <>
                     <HorzScrollSelect selected={payrollState.selectIndex} options={payrollState.selectedEmployees.map(e => e.label)} changeCB={(val) => setPayrollState({ ...payrollState, selectIndex: val })} />
                     <div className="h-5"></div>
@@ -107,9 +108,7 @@ export default function Payroll() {
 
             {payrollState.page == 3 &&
                 <>
-                    <div className="card w-fit">
-                        Review and submit paystubs
-                    </div>
+                    <ActivePaystubList />
                 </>
             }
         </div>

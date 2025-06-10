@@ -1,17 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ModalContext } from './ModalContext';
 import Modal, { ModalProps } from './Modal';
-import { Backdrop } from "@mui/material";
 
 export default function ModalContainer({ children }: { children: React.ReactNode }) {
     const [modals, setModals] = useState<ModalProps[]>([]);
-    const [hasMounted, setHasMounted] = useState(false);
-
-    useEffect(() => {
-        setHasMounted(true);
-    }, []);
 
     function addModal(modal: ModalProps) {
         setModals(prev => [...prev, modal]);
@@ -29,19 +23,23 @@ export default function ModalContainer({ children }: { children: React.ReactNode
 
     return (
         <ModalContext addModal={addModal} popModal={forcePopModal}>
-            {hasMounted && (
-                <Backdrop
-                    sx={(theme) => ({ zIndex: theme.zIndex.drawer + 1 })}
-                    open={modals.length !== 0}
+
+            {modals.map((modal, i) => (
+                <div
+                    key={`Modals-${i}`}
+                    className='fixed top-0 left-0 w-screen h-screen flex flex-col justify-center'
+                    style={{
+                        zIndex: 999 + i * 200,
+                        backgroundColor: "rgba(0.1, 0.1, 0.1, 0.05)",
+                        backdropFilter: "blur(10px)"
+                    }}
                     onClick={popModal}
                 >
-                    {modals.map((modal, i) => (
-                        <div key={`Modals-${i}`} onClick={(e) => e.stopPropagation()}>
-                            <Modal modal={modal} />
-                        </div>
-                    ))}
-                </Backdrop>
-            )}
+                    <div onClick={(e) => e.stopPropagation()} className='mx-auto'>
+                        <Modal modal={modal} />
+                    </div>
+                </div>
+            ))}
 
             {children}
         </ModalContext>

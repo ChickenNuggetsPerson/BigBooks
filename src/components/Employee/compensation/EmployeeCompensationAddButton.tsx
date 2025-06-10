@@ -26,7 +26,7 @@ export default function EmployeeCompensationAddButton({ employee }: { employee: 
     }
 
     return (
-        <button onClick={clicked} className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Add to Group</button>
+        <button onClick={clicked} className="primary-button w-full">Add to Group</button>
     )
 }
 

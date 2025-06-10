@@ -35,7 +35,7 @@ export default async function UserPage() {
 
 
                     {(user.allocatedOrganizations !== 0 || session?.isAdmin) &&
-                        <div className="flex flex-col justify-end h-full">
+                        <div className="flex flex-col justify-end h-full text-center">
                             <Link href={"/user/newOrganization"} className="primary-button">
                                 New Organization
                             </Link>

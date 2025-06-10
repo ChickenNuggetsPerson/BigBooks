@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
 
-      <body className={`antialiased text-text`}>
+      <body className={`antialiased text-text bg-background`}>
 
         <div style={{ zIndex: 1000000 }}>
           <Toaster />

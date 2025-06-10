@@ -16,11 +16,11 @@ export default function Modal({ modal }: { modal: ModalProps }) {
     const { addModal, popModal } = useModalManager()
 
     return (
-        <div className="card min-w-md">
+        <div className="card min-w-md w-fit h-fit">
 
             <div className="relative">
                 <div className="absolute right-0">
-                    <X onClick={popModal} className="cursor-pointer"/>
+                    <X onClick={popModal} className="cursor-pointer" />
                 </div>
             </div>
 
@@ -32,7 +32,11 @@ export default function Modal({ modal }: { modal: ModalProps }) {
                 </>
             }
 
-            {modal.component(addModal, popModal)}
+            <div style={{
+                zIndex: 1000
+            }}>
+                {modal.component(addModal, popModal)}
+            </div>
 
         </div>
     )

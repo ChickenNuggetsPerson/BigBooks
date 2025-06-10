@@ -1,4 +1,3 @@
-import Header from "@/components/Header/Header";
 import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -20,9 +19,7 @@ export default function OrganizationLayout({
       <Sidebar />
 
       <main>
-        <div style={{ height: "calc(100vh - calc(var(--spacing) * 12))" }} className="w-full pt-10 px-4 ps-72 mt-12">
-
-          <Header />
+        <div className="w-full h-full pt-10 px-4 pl-80">
 
           <Suspense fallback={<Loading hCenter vCenter />}>
             {children}

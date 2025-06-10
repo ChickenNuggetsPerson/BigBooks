@@ -11,6 +11,7 @@ export function addDays(date: Date, amt: number) {
 
 export function nextOccurence(refDate: Date, daysPerOccurence: number, now?: Date) {
     if (!now) { now = new Date() }
+    if (!refDate || !daysPerOccurence) { return new Date() }
 
     refDate.setHours(0)
     refDate.setMinutes(0)

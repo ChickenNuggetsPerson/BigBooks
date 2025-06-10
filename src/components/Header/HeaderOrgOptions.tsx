@@ -4,6 +4,7 @@ import { useCompany } from "@/app/CompanyContext"
 import { useState } from "react"
 import AnimateChildren from "../Decorative/AnimateChildren"
 import OrganizationSelectForm from "../Organization/OrganizationSelectForm"
+import { ChevronDown } from "lucide-react"
 
 
 
@@ -19,27 +20,23 @@ export default function HeaderOrgOptions() {
 
     return (
         <>
-            <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                <button className="mt-2 text-xl font-bold tracking-tight text-gray-900 inline-flex hover:opacity-75">
+            <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className="select-none">
+                <button className="text-xl font-semibold tracking-tight text-gray-900 inline-flex hover:opacity-75 smallCard mt-2 w-full justify-between" style={{ paddingRight: 10, paddingLeft: 10 }}>
                     {context?.companyName}
-                    <svg className="w-2.5 h-2.5 ms-3 mt-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
-                    </svg>
+                    <ChevronDown className="pt-2"/>
                 </button>
 
 
                 {menuOpen && <AnimateChildren x={0} y={-10}>
-                    <div className={"bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44"}>
+                    <div className={"smallCard w-44 translate-y-2"}>
 
-                        <ul className="py-2 text-sm text-gray-700 " aria-labelledby="dropdownHoverButton">
+                        <ul className="text-sm text-gray-700 " aria-labelledby="dropdownHoverButton">
 
                             <li>
-                                <a onClick={() => { setSelectOrg(!selectOrg) }} className="block px-4 py-2 hover:bg-gray-100" >
+                                <a onClick={() => { setSelectOrg(!selectOrg) }} className="block px-4 py-2 rounded-lg hover:bg-gray-100" >
                                     Switch Organization
                                 </a>
                             </li>
-
-
 
                         </ul>
                     </div>

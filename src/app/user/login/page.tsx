@@ -17,10 +17,6 @@ export default async function LoginPage() {
     return (
         <AnimateChildren x={0} y={-20}>
 
-            {/* <Link href={"/"} className="fixed top-10 left-10">
-                <MoveLeft color="white" strokeWidth={3} />
-            </Link> */}
-
             <LoginForm />
 
         </AnimateChildren>

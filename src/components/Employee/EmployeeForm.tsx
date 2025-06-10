@@ -101,7 +101,7 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
 
                 <div className="flex flex-row justify-between">
                     <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">{newEmployee ? "Create Employee:" : "Edit Employee:"}</h5>
-                    {!newEmployee && <button type="button" onClick={deactivate} className="mx-5 accent-button max-h-10">{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
+                    {!newEmployee && <button type="button" onClick={deactivate} className="mx-5 accent-button h-fit">{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
                 </div>
 
                 <TextInput id={"firstName"} label={"First Name"} val={props.firstName} />
@@ -109,7 +109,7 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
                 <TextInput id={"lastName"} label={"Last Name"} val={props.lastName} />
                 <LargeTextInput id={"notes"} label={"Notes"} val={props.notes} />
 
-                <button type="submit" className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>
+                <button type="submit" className="primary-button w-full">Submit</button>
             </div>
 
             <div className="w-sm card h-fit">

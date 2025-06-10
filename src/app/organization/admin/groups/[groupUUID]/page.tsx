@@ -40,7 +40,7 @@ export default async function GroupPayrollItemEditPage({
                 <MoveLeft />
             </Link>
 
-            <AnimateChildren y={-100}>
+            <AnimateChildren y={-20}>
 
                 <PayrollItemsForm group groupUUID={groupUUID}/>
 

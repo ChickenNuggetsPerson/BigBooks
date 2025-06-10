@@ -20,10 +20,10 @@ const AnimateChildren = React.forwardRef<HTMLDivElement, AnimateChildrenProps>(
             >
                 {React.Children.map(children, (child, index) => (
                     <motion.div
-                        initial={{ opacity: 0, x: x, y: y }}
-                        exit={{ opacity: 0, x: x, y: y }}
-                        animate={{ opacity: 1, x: 0, y: 0 }}
-                        transition={{ duration: 0.75, delay: index * 0.1, type: 'spring' }}
+                        initial={{ x: x, y: y }}
+                        exit={{ x: x, y: y }}
+                        animate={{ x: 0, y: 0 }}
+                        transition={{ duration: 0.75, delay: index * 0.02, type: 'spring' }}
                         key={index}
                     >
                         {child}
