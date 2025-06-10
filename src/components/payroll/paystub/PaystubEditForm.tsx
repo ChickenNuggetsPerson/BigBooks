@@ -198,7 +198,7 @@ export default function PaystubEditForm({
                 const val = MoneyToStr(amt.toNumber())
 
                 if (
-                    amt.greaterThanOrEqualTo(0) 
+                    amt.greaterThanOrEqualTo(0)
                     && params.row.type === PayStubItemType.Tax
                 ) {
                     return (
@@ -211,7 +211,7 @@ export default function PaystubEditForm({
                 }
 
                 if (
-                    amt.equals(0) 
+                    amt.equals(0)
                     && params.row.type === PayStubItemType.Earning
                 ) {
                     return (
@@ -284,6 +284,7 @@ export default function PaystubEditForm({
             item.percent = new Prisma.Decimal(item.percent)
             if (item.percent.equals(0)) { item.percent = null }
         }
+        item.amount = new Prisma.Decimal(item.amount)
 
         if (item.description) {
             if (item.description.trim() == "") { item.description = null }
