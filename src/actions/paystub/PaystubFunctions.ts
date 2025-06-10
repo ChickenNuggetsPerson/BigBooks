@@ -36,6 +36,9 @@ function updatePaystubItemTotal(item: PayStubItem, gross: Prisma.Decimal) {
     } else if (item.percent) {
         item.amount = new Prisma.Decimal(item.percent).mul(gross)
     }
+
+    item.amount = item.amount.mul(100).floor().div(100)
+
     return item
 }
 

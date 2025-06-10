@@ -142,7 +142,8 @@ function PaystubItemGroupView({ name, items, total }: { name: string, items: Pay
                     <PaystubItemView key={item.uuid} item={item} />
                 ))}
 
-                <div className="col-span-3"></div>
+                <div className="col-span-2"></div>
+                <p>Total:</p>
                 <p>{MoneyToStr(total)}</p>
             </div>
         </div>

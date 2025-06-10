@@ -194,10 +194,11 @@ export default function PaystubEditForm({
             type: "number",
             renderCell: (params: GridRenderCellParams<PayStubItem, string>) => {
 
-                const val = MoneyToStr(params.row.amount.toNumber())
+                const amt = new Prisma.Decimal(params.row.amount)
+                const val = MoneyToStr(amt.toNumber())
 
                 if (
-                    params.row.amount.greaterThanOrEqualTo(0) 
+                    amt.greaterThanOrEqualTo(0) 
                     && params.row.type === PayStubItemType.Tax
                 ) {
                     return (
@@ -210,7 +211,7 @@ export default function PaystubEditForm({
                 }
 
                 if (
-                    params.row.amount.equals(0) 
+                    amt.equals(0) 
                     && params.row.type === PayStubItemType.Earning
                 ) {
                     return (

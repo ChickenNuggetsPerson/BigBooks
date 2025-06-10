@@ -78,6 +78,18 @@ export default function Payroll() {
 
     if (!payrollState) return null
 
+    function editStub(empUUID: string) {
+        if (!payrollState) { return }
+        const index = payrollState.selectedEmployees.findIndex(i => i.id == empUUID)
+        if (index == -1) { return }
+        
+        setPayrollState({
+            ...payrollState,
+            page: 2,
+            selectIndex: index
+        })
+    }
+
     return (
         <div>
             <ProgressBar steps={["Configure", "Select Employees", "Enter Payroll", "Review"]} currentStep={payrollState.page} changeCB={(index) => setPayrollState({ ...payrollState, page: index })} />
@@ -108,7 +120,7 @@ export default function Payroll() {
 
             {payrollState.page == 3 &&
                 <>
-                    <ActivePaystubList />
+                    <ActivePaystubList editStub={editStub}/>
                 </>
             }
         </div>
