@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.6.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.5.0...v0.6.0) (2025-06-10)
+
+
+### Features
+
+* Added delete paystub button to form ([4a5f0c0](https://github.com/ChickenNuggetsPerson/BigBooks/commit/4a5f0c042d85b3062b214e4bbe43b47fa49bc46c))
+* Added functionality to paystub review page. ([926d64a](https://github.com/ChickenNuggetsPerson/BigBooks/commit/926d64af551a63ea1214c18a7e7c26701a89e9d3))
+* Added Paystub lock time and submit time. ([535a79d](https://github.com/ChickenNuggetsPerson/BigBooks/commit/535a79d76b68c2512901d5aad21a15ef6629c236))
+* Fixed checkbox inputs ([97c87a2](https://github.com/ChickenNuggetsPerson/BigBooks/commit/97c87a29e352089b957662cd8a5a8f1d22814e24))
+* Fixes to employee page ([03b993e](https://github.com/ChickenNuggetsPerson/BigBooks/commit/03b993e6a26f993ba7375487820c50e47a9e2897))
+* Paystub form now only fetches unsubmitted stubs ([b64daae](https://github.com/ChickenNuggetsPerson/BigBooks/commit/b64daaea4801b7fa75359edcfafc75d85ed51e2d))
+* Paystub form now respects locked paystubs ([bbd7d5e](https://github.com/ChickenNuggetsPerson/BigBooks/commit/bbd7d5e1b917cbce991ba62b6edf9be48ba770b8))
+* Redesigned the whole UI ([52aeb96](https://github.com/ChickenNuggetsPerson/BigBooks/commit/52aeb96077c374a02180aa69a2d504ea48ccf50f))
+* Started work on payroll review page. ([a040c46](https://github.com/ChickenNuggetsPerson/BigBooks/commit/a040c469af5dc563b747dfa6b4caa6f2e829bd69))
+* Updated paystub page ([29315dd](https://github.com/ChickenNuggetsPerson/BigBooks/commit/29315dd7162dc760ec1b9081d2710e23ebfd01f2))
+
+
+### Bug Fixes
+
+* Cardprop now expands correctly ([77fce78](https://github.com/ChickenNuggetsPerson/BigBooks/commit/77fce789fa74cb9b1ac828565301e72a829708c5))
+* Fixed errors in modal system ([379c68f](https://github.com/ChickenNuggetsPerson/BigBooks/commit/379c68f00f3006ac03f5012cf1b04957f731f2ff))
+* Migrated filing type enum to prisma ([a39d2fe](https://github.com/ChickenNuggetsPerson/BigBooks/commit/a39d2fe78ec3ed481bb33c5572a2a9ed4ffacd23))
+* More protections to paystub form submit. ([0b0a31b](https://github.com/ChickenNuggetsPerson/BigBooks/commit/0b0a31bbd9c710d08a5af8681229255f236cce48))
+
 ## [0.5.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.4.0...v0.5.0) (2025-06-09)
 
 
