@@ -30,4 +30,6 @@ A full stack accounting / payroll software built with [NEXT.js](https://nextjs.o
 
 - [ ] Edit Paystub after it has been locked -> Show warning
 - [ ] Void Paystub feature
+- [ ] Only State unemployment act - Company settings -> payroll settings -> manually put in tax rate and an effective date 
+- [ ] Taxes have a "valid through" date -> Paystubs paydates determine what taxes are used. 
 
