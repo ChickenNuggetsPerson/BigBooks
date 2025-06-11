@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.7.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.6.0...v0.7.0) (2025-06-11)
+
+
+### Features
+
+* Added foundation work for tax calculations. ([c802f23](https://github.com/ChickenNuggetsPerson/BigBooks/commit/c802f23676f5b13537f370ba957b3d35ad6a50de))
+* Reworked employee page. ([8ecf1c0](https://github.com/ChickenNuggetsPerson/BigBooks/commit/8ecf1c053d69e9408a68256afbc108eb32210749))
+
+
+### Bug Fixes
+
+* Fixed issue with duplicate paystubs. ([da3cd20](https://github.com/ChickenNuggetsPerson/BigBooks/commit/da3cd2063cde648eceff24da341a57c3c64c5901))
+* Select Paystub card now only shows complete paystubs. ([91a1381](https://github.com/ChickenNuggetsPerson/BigBooks/commit/91a13817cefbd070724f2ef40c6816ec4c331a63))
+
 ## [0.6.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.5.0...v0.6.0) (2025-06-10)
 
 
