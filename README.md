@@ -27,3 +27,7 @@ A full stack accounting / payroll software built with [NEXT.js](https://nextjs.o
 - [X] Admin page for making org admins
 - [ ] Orgadmins can create users that have access to the organization
 
+
+- [ ] Edit Paystub after it has been locked -> Show warning
+- [ ] Void Paystub feature
+

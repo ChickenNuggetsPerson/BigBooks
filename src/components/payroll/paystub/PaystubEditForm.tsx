@@ -117,7 +117,7 @@ export default function PaystubEditForm({
             return
         }
 
-        const latest = deserializeData(await getEmployeeLatestPaystub(empUUID))
+        const latest = deserializeData(await getEmployeeLatestPaystub(empUUID, stubPaydate ?? new Date()))
         if (!latest) {
             setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
             setLoading(false)

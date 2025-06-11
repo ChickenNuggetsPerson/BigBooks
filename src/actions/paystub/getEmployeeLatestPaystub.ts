@@ -3,17 +3,21 @@
 import { RoleTypes } from "@/auth/roles/Roles"
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { prisma } from "@/database/prisma"
+import { addDays } from "@/utils/functions/Date"
 import { serializeData } from "@/utils/serialization"
 
 
 
-export default async function getEmployeeLatestPaystub(empUUID: string) {
+export default async function getEmployeeLatestPaystub(empUUID: string, payDate: Date) {
 
     await throwIfInsufficientPerms(RoleTypes.Editor)
 
     const stub = await prisma.payStub.findFirst({
         where: {
-            employeeId: empUUID
+            employeeId: empUUID,
+            payDate: {
+                gte: addDays(payDate, -5)
+            }
         },
         include: {
             items: true
@@ -25,11 +29,11 @@ export default async function getEmployeeLatestPaystub(empUUID: string) {
         ]
     })
 
-    if (stub) {
-        if (stub.submittedTime) { // If the stub is submitted, return null 
-            return serializeData(null)
-        }
-    }
+    // if (stub) {
+    //     if (stub.submittedTime) { // If the stub is submitted, return null 
+    //         return serializeData(null)
+    //     }
+    // }
 
     return serializeData(stub)
 }
