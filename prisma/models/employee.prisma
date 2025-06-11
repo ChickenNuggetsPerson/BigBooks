@@ -1,0 +1,53 @@
+model Employee {
+    uuid        String @id @unique @default(uuid())
+    firstName   String @default("")
+    middleName  String @default("")
+    lastName    String @default("")
+    notes       String @default("")
+    address     String @default("")
+    email       String @default("")
+    phoneNumber String @default("")
+    ssn         String @default("")
+
+    filingStatus FilingTypes     @default(Single)
+    dependants   Int             @default(0)
+    residence    AvaliableStates @default(Other)
+
+    isDeleted Boolean @default(false)
+
+    organization   Organization @relation(fields: [organizationId], references: [uuid])
+    organizationId String
+
+    compensations EmployeeCompensation[]
+    payStubs      PayStub[]
+
+    defaultPayrollItems PayrollItem[]
+}
+
+model EmployeeCompensation {
+    uuid       String   @id @default(uuid())
+    employee   Employee @relation(fields: [employeeId], references: [uuid])
+    employeeId String
+
+    payrollGroup   PayrollGroup @relation(fields: [payrollGroupId], references: [uuid])
+    payrollGroupId String
+
+    isSalary     Boolean      @default(true)
+    salaryAmount Decimal?
+    hourlyRates  HourlyRate[]
+
+    description String?
+
+    @@unique([employeeId, payrollGroupId]) // no duplicate “employee‐group” rows
+}
+
+model HourlyRate {
+    uuid String @id @unique @default(uuid())
+
+    name        String
+    rate        Decimal
+    canOvertime Boolean
+
+    compensation   EmployeeCompensation @relation(fields: [compensationId], references: [uuid])
+    compensationId String
+}

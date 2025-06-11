@@ -120,6 +120,100 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.EmployeeScalarFieldEnum = {
+  uuid: 'uuid',
+  firstName: 'firstName',
+  middleName: 'middleName',
+  lastName: 'lastName',
+  notes: 'notes',
+  address: 'address',
+  email: 'email',
+  phoneNumber: 'phoneNumber',
+  ssn: 'ssn',
+  filingStatus: 'filingStatus',
+  dependants: 'dependants',
+  residence: 'residence',
+  isDeleted: 'isDeleted',
+  organizationId: 'organizationId'
+};
+
+exports.Prisma.EmployeeCompensationScalarFieldEnum = {
+  uuid: 'uuid',
+  employeeId: 'employeeId',
+  payrollGroupId: 'payrollGroupId',
+  isSalary: 'isSalary',
+  salaryAmount: 'salaryAmount',
+  description: 'description'
+};
+
+exports.Prisma.HourlyRateScalarFieldEnum = {
+  uuid: 'uuid',
+  name: 'name',
+  rate: 'rate',
+  canOvertime: 'canOvertime',
+  compensationId: 'compensationId'
+};
+
+exports.Prisma.OrganizationScalarFieldEnum = {
+  uuid: 'uuid',
+  name: 'name',
+  notes: 'notes',
+  address: 'address',
+  isDeleted: 'isDeleted'
+};
+
+exports.Prisma.PayrollGroupScalarFieldEnum = {
+  uuid: 'uuid',
+  name: 'name',
+  description: 'description',
+  payFrequency: 'payFrequency',
+  payRefDate: 'payRefDate',
+  periodRefDate: 'periodRefDate',
+  organizationId: 'organizationId'
+};
+
+exports.Prisma.PayrollItemScalarFieldEnum = {
+  uuid: 'uuid',
+  organizationId: 'organizationId',
+  payrollGroupId: 'payrollGroupId',
+  employeeId: 'employeeId',
+  type: 'type',
+  name: 'name',
+  description: 'description',
+  percent: 'percent',
+  amount: 'amount',
+  absMaxPeriod: 'absMaxPeriod',
+  absMax: 'absMax'
+};
+
+exports.Prisma.PayStubScalarFieldEnum = {
+  uuid: 'uuid',
+  payDate: 'payDate',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  locked: 'locked',
+  lockedTime: 'lockedTime',
+  submittedTime: 'submittedTime',
+  grossEarnings: 'grossEarnings',
+  totalTaxes: 'totalTaxes',
+  totalExtras: 'totalExtras',
+  netPay: 'netPay',
+  employeeId: 'employeeId'
+};
+
+exports.Prisma.PayStubItemScalarFieldEnum = {
+  uuid: 'uuid',
+  payStubId: 'payStubId',
+  payrollItemId: 'payrollItemId',
+  type: 'type',
+  name: 'name',
+  description: 'description',
+  hours: 'hours',
+  rate: 'rate',
+  percent: 'percent',
+  amount: 'amount'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   uuid: 'uuid',
   isActive: 'isActive',
@@ -151,99 +245,6 @@ exports.Prisma.RoleScalarFieldEnum = {
   joinedAt: 'joinedAt'
 };
 
-exports.Prisma.OrganizationScalarFieldEnum = {
-  uuid: 'uuid',
-  name: 'name',
-  notes: 'notes',
-  address: 'address',
-  isDeleted: 'isDeleted'
-};
-
-exports.Prisma.EmployeeScalarFieldEnum = {
-  uuid: 'uuid',
-  firstName: 'firstName',
-  middleName: 'middleName',
-  lastName: 'lastName',
-  notes: 'notes',
-  address: 'address',
-  email: 'email',
-  phoneNumber: 'phoneNumber',
-  ssn: 'ssn',
-  filingStatus: 'filingStatus',
-  dependants: 'dependants',
-  isDeleted: 'isDeleted',
-  organizationId: 'organizationId'
-};
-
-exports.Prisma.PayrollGroupScalarFieldEnum = {
-  uuid: 'uuid',
-  name: 'name',
-  description: 'description',
-  payFrequency: 'payFrequency',
-  payRefDate: 'payRefDate',
-  periodRefDate: 'periodRefDate',
-  organizationId: 'organizationId'
-};
-
-exports.Prisma.EmployeeCompensationScalarFieldEnum = {
-  uuid: 'uuid',
-  employeeId: 'employeeId',
-  payrollGroupId: 'payrollGroupId',
-  isSalary: 'isSalary',
-  salaryAmount: 'salaryAmount',
-  description: 'description'
-};
-
-exports.Prisma.HourlyRateScalarFieldEnum = {
-  uuid: 'uuid',
-  name: 'name',
-  rate: 'rate',
-  canOvertime: 'canOvertime',
-  compensationId: 'compensationId'
-};
-
-exports.Prisma.PayStubScalarFieldEnum = {
-  uuid: 'uuid',
-  payDate: 'payDate',
-  periodStart: 'periodStart',
-  periodEnd: 'periodEnd',
-  locked: 'locked',
-  lockedTime: 'lockedTime',
-  submittedTime: 'submittedTime',
-  grossEarnings: 'grossEarnings',
-  totalTaxes: 'totalTaxes',
-  totalExtras: 'totalExtras',
-  netPay: 'netPay',
-  employeeId: 'employeeId'
-};
-
-exports.Prisma.PayStubItemScalarFieldEnum = {
-  uuid: 'uuid',
-  payStubId: 'payStubId',
-  payrollItemId: 'payrollItemId',
-  type: 'type',
-  name: 'name',
-  description: 'description',
-  hours: 'hours',
-  rate: 'rate',
-  percent: 'percent',
-  amount: 'amount'
-};
-
-exports.Prisma.PayrollItemScalarFieldEnum = {
-  uuid: 'uuid',
-  organizationId: 'organizationId',
-  payrollGroupId: 'payrollGroupId',
-  employeeId: 'employeeId',
-  type: 'type',
-  name: 'name',
-  description: 'description',
-  percent: 'percent',
-  amount: 'amount',
-  absMaxPeriod: 'absMaxPeriod',
-  absMax: 'absMax'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -263,6 +264,11 @@ exports.FilingTypes = exports.$Enums.FilingTypes = {
   Joint: 'Joint'
 };
 
+exports.AvaliableStates = exports.$Enums.AvaliableStates = {
+  Other: 'Other',
+  Utah: 'Utah'
+};
+
 exports.PayStubItemType = exports.$Enums.PayStubItemType = {
   Earning: 'Earning',
   Tax: 'Tax',
@@ -276,18 +282,18 @@ exports.AbsMaxPeriodTypes = exports.$Enums.AbsMaxPeriodTypes = {
 };
 
 exports.Prisma.ModelName = {
+  Employee: 'Employee',
+  EmployeeCompensation: 'EmployeeCompensation',
+  HourlyRate: 'HourlyRate',
+  Organization: 'Organization',
+  PayrollGroup: 'PayrollGroup',
+  PayrollItem: 'PayrollItem',
+  PayStub: 'PayStub',
+  PayStubItem: 'PayStubItem',
   User: 'User',
   RegistrationCode: 'RegistrationCode',
   InviteCode: 'InviteCode',
-  Role: 'Role',
-  Organization: 'Organization',
-  Employee: 'Employee',
-  PayrollGroup: 'PayrollGroup',
-  EmployeeCompensation: 'EmployeeCompensation',
-  HourlyRate: 'HourlyRate',
-  PayStub: 'PayStub',
-  PayStubItem: 'PayStubItem',
-  PayrollItem: 'PayrollItem'
+  Role: 'Role'
 };
 
 /**

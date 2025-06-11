@@ -3,6 +3,7 @@
 import deletePaystub from "@/actions/paystub/deletePaystub"
 import getEmployeeLatestPaystub from "@/actions/paystub/getEmployeeLatestPaystub"
 import getPaystub from "@/actions/paystub/getPaystub"
+import genEmployeeTaxRates from "@/actions/paystub/importTaxes"
 import getEmployeePaystubItems from "@/actions/paystub/payrollItems/getEmployeePaystubItems"
 import { updatePaystubTotals } from "@/actions/paystub/PaystubFunctions"
 import upsertEmployeePaystub from "@/actions/paystub/upsertEmployeePaystub"
@@ -389,18 +390,14 @@ export default function PaystubEditForm({
         toast.promise(
             async () => {
 
-                async function sleep() {
-                    return new Promise(resolve => {
-                        setTimeout(() => {
-                            resolve(null)
-                        }, 1000);
-                    })
+                let items = deserializeData(await genEmployeeTaxRates(empUUID))
+                items = items.filter(i => !shouldSkip(i))
+                if (items.length == 0) { return }
+                const newstub = {
+                    ...paystub,
+                    items: [...paystub.items, ...items]
                 }
-                await sleep()
-                setTimeout(() => {
-                    toast("Feature not added yet...")
-                }, 1000);
-                throw new Error("")
+                updateTotals(newstub)
             },
             {
                 loading: "Importing Tax Items",

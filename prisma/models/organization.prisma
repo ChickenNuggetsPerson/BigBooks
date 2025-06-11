@@ -1,0 +1,15 @@
+model Organization {
+    uuid      String  @id @unique @default(uuid())
+    name      String
+    notes     String  @default("")
+    address   String  @default("")
+    isDeleted Boolean @default(false)
+
+    employees     Employee[]
+    payrollGroups PayrollGroup[]
+
+    inviteCodes InviteCode[]
+    memberships Role[]
+
+    defaultPayrollItems PayrollItem[]
+}

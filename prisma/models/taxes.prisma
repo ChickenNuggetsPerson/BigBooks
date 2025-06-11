@@ -1,0 +1,10 @@
+enum FilingTypes {
+    Single
+    Joint
+}
+
+enum AvaliableStates {
+    Other
+    
+    Utah
+}

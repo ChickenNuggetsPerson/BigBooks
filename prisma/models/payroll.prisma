@@ -1,0 +1,45 @@
+model PayrollGroup {
+    uuid        String @id @unique @default(uuid())
+    name        String
+    description String
+
+    payFrequency  Int      @default(14) // e.g. days
+    payRefDate    DateTime @default(now())
+    periodRefDate DateTime @default(now())
+
+    organization   Organization @relation(fields: [organizationId], references: [uuid])
+    organizationId String
+
+    compensations EmployeeCompensation[]
+
+    defaultPayrollItems PayrollItem[]
+}
+
+enum AbsMaxPeriodTypes {
+    None
+    Month
+    Year
+}
+
+model PayrollItem {
+    uuid String @id @default(uuid())
+
+    organization   Organization? @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
+    organizationId String?
+    payrollGroup   PayrollGroup? @relation(fields: [payrollGroupId], references: [uuid], onDelete: Cascade)
+    payrollGroupId String?
+    employee       Employee?     @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
+    employeeId     String?
+
+    type        PayStubItemType
+    name        String
+    description String?
+
+    percent Decimal?
+    amount  Decimal
+
+    absMaxPeriod AbsMaxPeriodTypes @default(None)
+    absMax       Decimal           @default(0)
+
+    PayStubItem PayStubItem[]
+}

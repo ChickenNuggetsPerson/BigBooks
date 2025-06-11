@@ -18,6 +18,9 @@ export default function EmployeeTaxCard({ employee }: { employee: Employee }) {
 
             <Divider />
 
+            <CardProp label="Residence:" val={employee.residence}/>
+            <Divider />
+            
             <CardProp label="Status:" val={employee.filingStatus}/>
             <CardProp label="Dependants:" val={String(employee.dependants)}/>
 

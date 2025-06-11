@@ -1,0 +1,47 @@
+model PayStub {
+    uuid        String   @id @unique @default(uuid())
+    payDate     DateTime
+    periodStart DateTime
+    periodEnd   DateTime
+
+    locked        Boolean   @default(false)
+    lockedTime    DateTime?
+    submittedTime DateTime?
+
+    // Totals or summaries (computed at generation time)
+    grossEarnings Decimal @default(0)
+    totalTaxes    Decimal @default(0)
+    totalExtras   Decimal @default(0)
+    netPay        Decimal @default(0)
+
+    employee   Employee @relation(fields: [employeeId], references: [uuid])
+    employeeId String
+
+    // Children:
+    items PayStubItem[]
+}
+
+enum PayStubItemType {
+    Earning
+    Tax
+    Other
+}
+
+model PayStubItem {
+    uuid String @id @default(uuid())
+
+    payStub   PayStub @relation(fields: [payStubId], references: [uuid], onDelete: Cascade)
+    payStubId String
+
+    payrollItem   PayrollItem? @relation(fields: [payrollItemId], references: [uuid], onDelete: SetNull)
+    payrollItemId String?
+
+    type        PayStubItemType
+    name        String
+    description String?
+
+    hours   Decimal?
+    rate    Decimal?
+    percent Decimal?
+    amount  Decimal
+}

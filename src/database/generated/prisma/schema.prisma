@@ -1,88 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-generator client {
-  provider      = "prisma-client-js"
-  output        = "../src/database/generated/prisma"
-  binaryTargets = ["native", "rhel-openssl-3.0.x"]
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-model User {
-  uuid     String  @id @unique @default(uuid())
-  isActive Boolean
-
-  firstName String
-  lastName  String
-
-  email String
-
-  username String @unique
-  passHash String @unique
-
-  memberships Role[]
-
-  allocatedOrganizations Int @default(0)
-}
-
-model RegistrationCode {
-  uuid    String   @id @unique @default(uuid())
-  expires DateTime
-}
-
-model InviteCode {
-  uuid String @id @unique @default(uuid())
-
-  organization   Organization @relation(fields: [organizationId], references: [uuid])
-  organizationId String
-
-  role String
-
-  expires DateTime
-}
-
-model Role {
-  uuid   String @id @default(uuid())
-  user   User   @relation(fields: [userId], references: [uuid])
-  userId String
-
-  organization   Organization @relation(fields: [organizationId], references: [uuid])
-  organizationId String
-
-  role     String   @default("")
-  joinedAt DateTime @default(now())
-
-  @@unique([userId, organizationId]) // Prevents duplicate entries
-}
-
-model Organization {
-  uuid      String  @id @unique @default(uuid())
-  name      String
-  notes     String  @default("")
-  address   String  @default("")
-  isDeleted Boolean @default(false)
-
-  employees     Employee[]
-  payrollGroups PayrollGroup[]
-
-  inviteCodes InviteCode[]
-  memberships Role[]
-
-  defaultPayrollItems PayrollItem[]
-}
-
-enum FilingTypes {
-  Single
-  Joint
-}
-
 model Employee {
   uuid        String @id @unique @default(uuid())
   firstName   String @default("")
@@ -94,32 +9,17 @@ model Employee {
   phoneNumber String @default("")
   ssn         String @default("")
 
-  filingStatus FilingTypes @default(Single)
-  dependants   Int         @default(0)
-  isDeleted    Boolean     @default(false)
+  filingStatus FilingTypes     @default(Single)
+  dependants   Int             @default(0)
+  residence    AvaliableStates @default(Other)
+
+  isDeleted Boolean @default(false)
 
   organization   Organization @relation(fields: [organizationId], references: [uuid])
   organizationId String
 
   compensations EmployeeCompensation[]
   payStubs      PayStub[]
-
-  defaultPayrollItems PayrollItem[]
-}
-
-model PayrollGroup {
-  uuid        String @id @unique @default(uuid())
-  name        String
-  description String
-
-  payFrequency  Int      @default(14) // e.g. days
-  payRefDate    DateTime @default(now())
-  periodRefDate DateTime @default(now())
-
-  organization   Organization @relation(fields: [organizationId], references: [uuid])
-  organizationId String
-
-  compensations EmployeeCompensation[]
 
   defaultPayrollItems PayrollItem[]
 }
@@ -150,6 +50,68 @@ model HourlyRate {
 
   compensation   EmployeeCompensation @relation(fields: [compensationId], references: [uuid])
   compensationId String
+}
+
+model Organization {
+  uuid      String  @id @unique @default(uuid())
+  name      String
+  notes     String  @default("")
+  address   String  @default("")
+  isDeleted Boolean @default(false)
+
+  employees     Employee[]
+  payrollGroups PayrollGroup[]
+
+  inviteCodes InviteCode[]
+  memberships Role[]
+
+  defaultPayrollItems PayrollItem[]
+}
+
+model PayrollGroup {
+  uuid        String @id @unique @default(uuid())
+  name        String
+  description String
+
+  payFrequency  Int      @default(14) // e.g. days
+  payRefDate    DateTime @default(now())
+  periodRefDate DateTime @default(now())
+
+  organization   Organization @relation(fields: [organizationId], references: [uuid])
+  organizationId String
+
+  compensations EmployeeCompensation[]
+
+  defaultPayrollItems PayrollItem[]
+}
+
+enum AbsMaxPeriodTypes {
+  None
+  Month
+  Year
+}
+
+model PayrollItem {
+  uuid String @id @default(uuid())
+
+  organization   Organization? @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
+  organizationId String?
+  payrollGroup   PayrollGroup? @relation(fields: [payrollGroupId], references: [uuid], onDelete: Cascade)
+  payrollGroupId String?
+  employee       Employee?     @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
+  employeeId     String?
+
+  type        PayStubItemType
+  name        String
+  description String?
+
+  percent Decimal?
+  amount  Decimal
+
+  absMaxPeriod AbsMaxPeriodTypes @default(None)
+  absMax       Decimal           @default(0)
+
+  PayStubItem PayStubItem[]
 }
 
 model PayStub {
@@ -200,31 +162,77 @@ model PayStubItem {
   amount  Decimal
 }
 
-enum AbsMaxPeriodTypes {
-  None
-  Month
-  Year
+enum FilingTypes {
+  Single
+  Joint
 }
 
-model PayrollItem {
-  uuid String @id @default(uuid())
+enum AvaliableStates {
+  Other
 
-  organization   Organization? @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
-  organizationId String?
-  payrollGroup   PayrollGroup? @relation(fields: [payrollGroupId], references: [uuid], onDelete: Cascade)
-  payrollGroupId String?
-  employee       Employee?     @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
-  employeeId     String?
+  Utah
+}
 
-  type        PayStubItemType
-  name        String
-  description String?
+model User {
+  uuid     String  @id @unique @default(uuid())
+  isActive Boolean
 
-  percent Decimal?
-  amount  Decimal
+  firstName String
+  lastName  String
 
-  absMaxPeriod AbsMaxPeriodTypes @default(None)
-  absMax       Decimal           @default(0)
+  email String
 
-  PayStubItem PayStubItem[]
+  username String @unique
+  passHash String @unique
+
+  memberships Role[]
+
+  allocatedOrganizations Int @default(0)
+}
+
+model RegistrationCode {
+  uuid    String   @id @unique @default(uuid())
+  expires DateTime
+}
+
+model InviteCode {
+  uuid String @id @unique @default(uuid())
+
+  organization   Organization @relation(fields: [organizationId], references: [uuid])
+  organizationId String
+
+  role String
+
+  expires DateTime
+}
+
+model Role {
+  uuid   String @id @default(uuid())
+  user   User   @relation(fields: [userId], references: [uuid])
+  userId String
+
+  organization   Organization @relation(fields: [organizationId], references: [uuid])
+  organizationId String
+
+  role     String   @default("")
+  joinedAt DateTime @default(now())
+
+  @@unique([userId, organizationId]) // Prevents duplicate entries
+}
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../src/database/generated/prisma"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }

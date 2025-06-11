@@ -7,7 +7,7 @@ import SelectInput from "../../Forms/SelectInput";
 import NumberInput from "../../Forms/NumberInput";
 import { Divider } from "../../Forms/Divider";
 import Loading from "@/app/Loading";
-import { Employee, FilingTypes } from "@/database/generated/prisma";
+import { AvaliableStates, Employee, FilingTypes } from "@/database/generated/prisma";
 import TextInput from "../../Forms/TextInput";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -23,6 +23,8 @@ const FilingOptions = [
         id: FilingTypes.Joint
     }
 ]
+
+const StateOptions = Object.keys(AvaliableStates).map(state => { return { label: state, id: state } })
 
 
 interface EmployeeTaxFormProps { empUUID: string }
@@ -94,6 +96,11 @@ export default function EmployeeTaxForm({ empUUID }: EmployeeTaxFormProps) {
                 <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">Edit Tax Information</h5>
                 <Divider />
                 <h6 className="mb-5 text-2xl tracking-tight text-gray-400">{`${props.firstName} ${props.lastName}`}</h6>
+
+
+                <div className="mb-6">
+                    <SelectInput id={"state"} label={"State of Residence"} val={props.residence} options={StateOptions} searchable />
+                </div>
 
                 <div className="flex flex-row gap-4 mb-3">
                     <SelectInput id={"filing"} label={"Filing Status"} val={props.filingStatus} options={FilingOptions} />

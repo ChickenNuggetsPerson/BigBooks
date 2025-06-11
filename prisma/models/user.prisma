@@ -1,0 +1,46 @@
+model User {
+    uuid     String  @id @unique @default(uuid())
+    isActive Boolean
+
+    firstName String
+    lastName  String
+
+    email String
+
+    username String @unique
+    passHash String @unique
+
+    memberships Role[]
+
+    allocatedOrganizations Int @default(0)
+}
+
+model RegistrationCode {
+    uuid    String   @id @unique @default(uuid())
+    expires DateTime
+}
+
+model InviteCode {
+    uuid String @id @unique @default(uuid())
+
+    organization   Organization @relation(fields: [organizationId], references: [uuid])
+    organizationId String
+
+    role String
+
+    expires DateTime
+}
+
+model Role {
+    uuid   String @id @default(uuid())
+    user   User   @relation(fields: [userId], references: [uuid])
+    userId String
+
+    organization   Organization @relation(fields: [organizationId], references: [uuid])
+    organizationId String
+
+    role     String   @default("")
+    joinedAt DateTime @default(now())
+
+    @@unique([userId, organizationId]) // Prevents duplicate entries
+}
