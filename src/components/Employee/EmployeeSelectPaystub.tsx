@@ -23,6 +23,7 @@ export function EmployeeSelectPaystub({ empUUID }: { empUUID: string }) {
             const opt = [] as { id: string, label: string }[]
 
             stubs.forEach((stub) => {
+                if (!stub.locked || !stub.submittedTime) { return }
                 opt.push({ id: stub.uuid, label: `Ending In: ${stub.periodEnd.toLocaleDateString()}` })
             })
 
