@@ -35,9 +35,12 @@ export default function OrgInviteCodeCard({ code }: { code: InviteCode }) {
     }
 
     return (
-        <div className="flex flex-row gap-4">
+        <div className="smallCard flex flex-row justify-between select-none w-full mb-2">
             <ClickableDiv
-                className="card flex flex-row justify-between select-none w-60"
+                className="flex flex-row justify-between w-full mr-2"
+                style={{
+                    padding: 10
+                }}
                 onClick={() => {
                     navigator.clipboard.writeText(getURL())
                     toast.success("Coppied URL")

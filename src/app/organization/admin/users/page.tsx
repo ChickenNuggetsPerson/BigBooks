@@ -3,7 +3,6 @@ import getInviteCodes from "@/actions/user/inviteCodes/getInviteCodes"
 import { getSession } from "@/auth/auth"
 import { RoleTypes } from "@/auth/roles/Roles"
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
-import AnimateChildren from "@/components/Decorative/AnimateChildren"
 import OrgInviteCodeCard from "@/components/User/OrgAdmin/OrgInviteCodeCard"
 import OrgUserCreateInviteButton from "@/components/User/OrgAdmin/OrgUserCreateInviteButton"
 import { OrgUserList } from "@/components/User/OrgAdmin/OrgUserList"
@@ -22,15 +21,16 @@ export default async function AdminUserPage() {
     const codes = await getInviteCodes()
 
     return (
-        <AnimateChildren x={-20} className="grid grid-cols-2 gap-4">
+        <div className="flex flex-row gap-4">
 
-            <OrgUserList users={users} />
+            <div className="h-fit">
+                <OrgUserList users={users} />
+            </div>
 
-            <div className="card max-w-80 relative">
+            <div className="card relative h-fit w-xs">
                 <div className="absolute right-5 top-5">
                     <OrgUserCreateInviteButton />
                 </div>
-
 
                 <p className="font-bold text-xl">
                     Invite Codes
@@ -42,6 +42,6 @@ export default async function AdminUserPage() {
                 ))}
 
             </div>
-        </AnimateChildren>
+        </div>
     )
 }

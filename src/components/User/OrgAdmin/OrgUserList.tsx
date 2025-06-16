@@ -1,34 +1,96 @@
 'use client'
 
 import { useCompany } from "@/app/CompanyContext";
-import OrgUserCard from "./OrgUserCard";
-import TextInput from "@/components/Forms/TextInput";
-import { useEffect, useState } from "react";
 import { Prisma } from "@/database/generated/prisma";
+import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { DispRole, getRoleFromID, RoleTypes } from "@/auth/roles/Roles";
+import ClickableDiv from "@/components/Decorative/ClickableDiv";
+import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
+import RoleModal from "./RoleModal";
+import getUser from "@/actions/user/getUser";
+import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 
+
+type UserData = Prisma.UserGetPayload<{ include: { memberships: true } }>
 
 
 export function OrgUserList({
     users
-}: { users: Prisma.UserGetPayload<{ include: { memberships: true } }>[] }) {
+}: { users: UserData[] }) {
 
     const { context } = useCompany()
-    const [search, setSearch] = useState("")
-    const [dispUsers, setDispUsers] = useState([] as Prisma.UserGetPayload<{ include: { memberships: true } }>[])
-
+    const { addModal } = useModalManager()
+    
+    const [dispUsers, setDispUsers] = useState([] as UserData[])
     useEffect(() => {
+        setDispUsers(users)
+    }, [users])
 
-        const term = search.toLowerCase()
-        const filteredList = users.filter((user) => {
-            return user.firstName.toLowerCase().includes(term) || user.lastName.toLowerCase().includes(term)
+    const columns: GridColDef[] = [
+        {
+            field: '',
+            headerName: 'Name',
+            width: 150,
+            renderCell: (params: GridRenderCellParams<UserData, string>) => (
+                <p>{`${params.row.firstName} ${params.row.lastName}`}</p>
+            ),
+        },
+        {
+            field: 'email',
+            headerName: 'Email',
+            width: 200
+        },
+        {
+            field: 'role',
+            headerName: 'Role',
+            type: "custom",
+            width: 120,
+            renderCell: (params: GridRenderCellParams<UserData, unknown>) => {
+
+                const index = params.row.memberships.findIndex((m) => m.organizationId == context?.companyUUID)
+                if (index == -1) { return (<div></div>) }
+                const membership = params.row.memberships[index]
+                const role = getRoleFromID(membership.role)
+                role.userUUID = params.row.uuid
+                role.orgUUID = context?.companyUUID ?? ""
+
+                return (
+                    <ClickableDiv
+                        onClick={() => {rolePressed(role)}}
+                        className="h-full w-full px-2 flex flex-row justify-center"
+
+                    >
+                        <div className="flex flex-col justify-center">
+                            <div className="w-fit h-fit px-2 py-1 select-none text-white font-bold text-center rounded-xl text-lg" style={{ backgroundColor: role.color }}>
+                                {role.type}
+                            </div>
+                        </div>
+                    </ClickableDiv>
+                )
+            },
+        },
+
+    ]
+
+    async function rolePressed(role: DispRole) {
+        if (role.type == RoleTypes.Error) { return }
+
+        const toastID = toast.loading("Fetching User")
+        const user = await getUser(role.userUUID)
+        if (!user) { return }
+        toast.dismiss(toastID)
+
+        addModal({
+            title: "Edit Permissions:",
+            required: false,
+            component: () => <RoleModal role={role} user={user} orgUUID={context?.companyUUID ?? ""} orgName={context?.companyName ?? ""} />
         })
-
-        setDispUsers(filteredList)
-    }, [users, search])
+    }
 
     return (
-        <div className="max-w-sm card">
+        <div className="w-full card">
             <div className="font-light text-xl">
                 <p>Users Associated With</p>
                 <p className="font-mono font-bold">{context?.companyName}</p>
@@ -36,13 +98,12 @@ export function OrgUserList({
 
             <div className="bg-accent h-px mb-5"></div>
 
-            <TextInput label="Search:" val={search} onChange={(val) => setSearch(val)} />
-
-            <div className="">
-                {dispUsers.map((user) => (
-                    <OrgUserCard user={user} key={user.uuid} />
-                ))}
-            </div>
+            <DataGrid
+                rows={dispUsers}
+                columns={columns}
+                getRowId={(row) => row.uuid}
+                rowSelection={false}
+            />
         </div>
     )
 }

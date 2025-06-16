@@ -16,7 +16,13 @@ export default async function getOrgList(showDeleted: boolean) {
     let list = []
 
     if (session.isAdmin) {
-        const orgs = await prisma.organization.findMany()
+        let orgs = await prisma.organization.findMany()
+        orgs = orgs.filter(o => {
+            if (showDeleted) {
+                return true
+            }
+            return !o.isDeleted
+        })
         return orgs
 
     } else {
