@@ -46,7 +46,7 @@ export default async function UserInfoForm({ userID }: { userID: string }) {
     }
 
     return (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="flex flex-row gap-4 w-full">
             <div className="card w-lg h-80">
 
                 <div className="flex flex-row justify-between pb-2">
