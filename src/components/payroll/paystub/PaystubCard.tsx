@@ -2,6 +2,7 @@
 
 import getEmployeeProps from "@/actions/employee/getEmployeeProps"
 import getPaystub from "@/actions/paystub/getPaystub"
+import EditableDiv from "@/components/Decorative/EditableDiv"
 import { Divider } from "@/components/Forms/Divider"
 import { PayStubItem, PayStubItemType, Prisma } from "@/database/generated/prisma"
 import { HourlyRateStr, HourStr, MoneyToStr } from "@/utils/functions/MoneyStr"
@@ -17,10 +18,12 @@ type Payload = Prisma.PayStubGetPayload<{ include: { employee: true, items: true
 
 export function PaystubCard({
     stubUUID = "",
-    stub
+    stub,
+    editable = false
 }: {
     stubUUID?: string,
-    stub?: SerializationResult<Payload>
+    stub?: SerializationResult<Payload>,
+    editable?: boolean
 }) {
 
     const [paystub, setPaystub] = useState(null as Payload | null)
@@ -80,13 +83,13 @@ export function PaystubCard({
         <div className="w-full flex flex-row gap-8 pb-50 justify-center">
 
             <div className="flex flex-col gap-4">
-                <div className="card w-3xs">
+                <EditableDiv className="card w-3xs" url={`/organization/paystubs/stub/${paystub.uuid}/edit`} enabled={editable}>
                     <p className="font-semibold text-lg">{`${paystub.employee.firstName} ${paystub.employee.lastName}`}</p>
                     <Divider />
                     <p>{`Period Start: ${paystub.periodStart.toLocaleDateString()}`}</p>
                     <p>{`Period End: ${paystub.periodEnd.toLocaleDateString()}`}</p>
                     <p>{`Pay Date: ${paystub.payDate.toLocaleDateString()}`}</p>
-                </div>
+                </EditableDiv>
 
                 <div className="card h-fit w-3xs">
                     <div className="flex flex-row w-full justify-between">

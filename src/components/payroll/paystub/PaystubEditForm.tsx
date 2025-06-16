@@ -606,7 +606,7 @@ export default function PaystubEditForm({
                                     </motion.div>
                                 }
 
-                                {!showWarning &&
+                                {(!showWarning || !paystub.locked) &&
                                     <ClickableDiv onClick={addNewItem} key={"AddItemBtn"}>
                                         <Tooltip title="Add Item to Paystub">
                                             <Plus size={38} className="icon" />

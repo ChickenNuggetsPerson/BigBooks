@@ -3,8 +3,7 @@ import Link from "next/link";
 import { prisma } from "@/database/prisma";
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
 import { RoleTypes } from "@/auth/roles/Roles";
-import { PaystubCard } from "@/components/payroll/paystub/PaystubCard";
-import { serializeData } from "@/utils/serialization";
+import PaystubEditForm from "@/components/payroll/paystub/PaystubEditForm";
 
 
 export default async function ViewPaystubPage({
@@ -30,19 +29,17 @@ export default async function ViewPaystubPage({
         )
     }
 
-    const data = serializeData(stub)
-
     return (
 
         <div>
 
-            <Link href={`/organization/employee/${stub.employeeId}`} >
+            <Link href={`/organization/paystubs/stub/${stub.uuid}`} >
                 <MoveLeft/>
             </Link>
 
             <div className="h-2"></div>
 
-            <PaystubCard stub={data} editable />
+            <PaystubEditForm empUUID={stub.employeeId} stubUUID={stub.uuid} />
 
         </div>
 
