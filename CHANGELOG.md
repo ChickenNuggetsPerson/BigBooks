@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.7.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.6.0...v0.7.0) (2025-06-16)
+
+
+### Features
+
+* Added foundation work for tax calculations. ([c802f23](https://github.com/ChickenNuggetsPerson/BigBooks/commit/c802f23676f5b13537f370ba957b3d35ad6a50de))
+* Changed User List in Configure User page. ([8e754d9](https://github.com/ChickenNuggetsPerson/BigBooks/commit/8e754d9a86938cb450d26e0770ee6ae8cbfc5633))
+* Reworked employee page. ([8ecf1c0](https://github.com/ChickenNuggetsPerson/BigBooks/commit/8ecf1c053d69e9408a68256afbc108eb32210749))
+* Started work on paystub download system. ([94b9054](https://github.com/ChickenNuggetsPerson/BigBooks/commit/94b9054f8e3061a3a912afd1a43780a51a6903fc))
+* Updated branding icon ([c66344a](https://github.com/ChickenNuggetsPerson/BigBooks/commit/c66344a3bbab391398264d9f1f64782a6b8f6218))
+* You can now lock and unlock paystubs. ([7073636](https://github.com/ChickenNuggetsPerson/BigBooks/commit/7073636d82896f36ffbbc7091820ba7505502ace))
+
+
+### Bug Fixes
+
+* Added paystub edit form to paystub screen. ([49fe04c](https://github.com/ChickenNuggetsPerson/BigBooks/commit/49fe04cbf4e1d90388aba87396b40dcfcbbd34e8))
+* Edits to system admin user pages ([7f39f89](https://github.com/ChickenNuggetsPerson/BigBooks/commit/7f39f89e6639e4113e6de4ff1f67fe2fab3137db))
+* Fixed issue with duplicate paystubs. ([da3cd20](https://github.com/ChickenNuggetsPerson/BigBooks/commit/da3cd2063cde648eceff24da341a57c3c64c5901))
+* Select Paystub card now only shows complete paystubs. ([91a1381](https://github.com/ChickenNuggetsPerson/BigBooks/commit/91a13817cefbd070724f2ef40c6816ec4c331a63))
+* Updated paystub view path. ([11e7d51](https://github.com/ChickenNuggetsPerson/BigBooks/commit/11e7d51fdf09bd11422b0e32b7c244f91c8937f6))
+
 ## [0.6.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.5.0...v0.6.0) (2025-06-10)
 
 
