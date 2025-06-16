@@ -8,6 +8,7 @@ import { PayStubItem, PayStubItemType, Prisma } from "@/database/generated/prism
 import { HourlyRateStr, HourStr, MoneyToStr } from "@/utils/functions/MoneyStr"
 import { percentToStr } from "@/utils/functions/PercentStr"
 import { deserializeData, SerializationResult } from "@/utils/serialization"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 
 
@@ -19,11 +20,13 @@ type Payload = Prisma.PayStubGetPayload<{ include: { employee: true, items: true
 export function PaystubCard({
     stubUUID = "",
     stub,
-    editable = false
+    editable = false,
+    downloadable = false
 }: {
     stubUUID?: string,
     stub?: SerializationResult<Payload>,
-    editable?: boolean
+    editable?: boolean,
+    downloadable?: boolean
 }) {
 
     const [paystub, setPaystub] = useState(null as Payload | null)
@@ -110,6 +113,12 @@ export function PaystubCard({
                         <p className="font-semibold">{MoneyToStr(paystub.netPay.toNumber())}</p>
                     </div>
                 </div>
+
+                {downloadable &&
+                    <Link href={`/organization/paystubs/stub/${paystub.uuid}/download`} target="_blank" className="primary-button w-full text-center">
+                        Download Paystub
+                    </Link>
+                }
             </div>
 
             <div className="flex flex-col gap-4">

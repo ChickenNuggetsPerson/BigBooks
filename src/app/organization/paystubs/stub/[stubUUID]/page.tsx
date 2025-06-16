@@ -42,7 +42,7 @@ export default async function ViewPaystubPage({
 
             <div className="h-2"></div>
 
-            <PaystubCard stub={data} editable />
+            <PaystubCard stub={data} editable downloadable />
 
         </div>
 
