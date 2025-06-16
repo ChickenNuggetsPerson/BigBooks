@@ -1,9 +1,9 @@
 import Link from "next/link";
-import Logo from "./Decorative/Logo";
+import Logo from "./Logo";
 import { FileText, House, ScrollText, Users } from "lucide-react";
-import HeaderOrgOptions from "./Header/HeaderOrgOptions";
+import HeaderOrgOptions from "../Header/HeaderOrgOptions";
 import { Suspense } from "react";
-import InteractiveUserIcon from "./User/InteractiveUserIcon";
+import InteractiveUserIcon from "../User/InteractiveUserIcon";
 
 
 
@@ -25,6 +25,12 @@ export default function Sidebar() {
 
     return (
         <div className="z-60 w-65 h-fit fixed inset-y-0 m-5">
+
+            <div className="pb-2">
+                <Suspense fallback={<div className="animate-pulse text-2xl font-bold"> Loading... </div>}>
+                    <InteractiveUserIcon />
+                </Suspense>
+            </div>
 
             <div className="smallCard overflow-clip" style={{ padding: 0 }} >
 
@@ -63,12 +69,6 @@ export default function Sidebar() {
                     </Link>
 
                 </ul>
-            </div>
-
-            <div className="pt-10 ">
-                <Suspense fallback={<div className="animate-pulse text-2xl font-bold"> Loading... </div>}>
-                    <InteractiveUserIcon />
-                </Suspense>
             </div>
 
             <HeaderOrgOptions />

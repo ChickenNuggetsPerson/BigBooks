@@ -55,7 +55,7 @@ export default function ActivePaystubList({ editStub = () => { } }: { editStub?:
         <div className="flex flex-row gap-5 select-none">
 
             <div className="card w-3xs h-fit">
-                <p className="font-semibold">Saved Paystubs:</p>
+                <p className="font-semibold">Active Paystubs:</p>
                 <Divider />
 
                 {paystubs.map((stub, i) => (

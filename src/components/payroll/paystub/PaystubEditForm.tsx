@@ -6,7 +6,10 @@ import getPaystub from "@/actions/paystub/getPaystub"
 import genEmployeeTaxRates from "@/actions/paystub/importTaxes"
 import getEmployeePaystubItems from "@/actions/paystub/payrollItems/getEmployeePaystubItems"
 import { updatePaystubTotals } from "@/actions/paystub/PaystubFunctions"
+import submitPaystub from "@/actions/paystub/submitPaystub"
+import unlockPaystub from "@/actions/paystub/unlockPaystub"
 import upsertEmployeePaystub from "@/actions/paystub/upsertEmployeePaystub"
+import { useCompany } from "@/app/CompanyContext"
 import ClickableDiv from "@/components/Decorative/ClickableDiv"
 import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv"
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
@@ -20,7 +23,7 @@ import { deserializeData, serializeData } from "@/utils/serialization"
 import { Tooltip } from "@mui/material"
 import { GridColDef, DataGrid, GridRenderCellParams, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid"
 import { AnimatePresence, motion } from "framer-motion"
-import { Plus, Save, Trash2, TriangleAlert, X } from "lucide-react"
+import { LockKeyhole, OctagonAlert, Plus, Save, Trash2, TriangleAlert, X } from "lucide-react"
 import React from "react"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
@@ -82,6 +85,7 @@ export default function PaystubEditForm({
     forceLock?: boolean
 }) {
 
+    const { context } = useCompany()
     const { addModal } = useModalManager()
     const [paystub, setPaystub] = useState(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
     const [defaults, setDefaults] = useState({
@@ -93,15 +97,14 @@ export default function PaystubEditForm({
         comps: [] as { compName: string, items: PayStubItem[] }[]
     })
     const [edited, setEdited] = useState(false)
-    const [loading, setLoading] = useState(false)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { load() }, [])
 
     async function load() {
 
+        // const toastID = toast.loading("Loading Data")
         setEdited(false)
-        setLoading(true)
 
         const d = deserializeData(await getEmployeePaystubItems(empUUID))
         setDefaults(d)
@@ -113,18 +116,18 @@ export default function PaystubEditForm({
             } else {
                 setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
             }
-            setLoading(false)
+            // toast.dismiss(toastID)
             return
         }
 
         const latest = deserializeData(await getEmployeeLatestPaystub(empUUID, stubPaydate ?? new Date()))
         if (!latest) {
             setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
-            setLoading(false)
+            // toast.dismiss(toastID)
             return
         }
         setPaystub(latest)
-        setLoading(false)
+        // toast.dismiss(toastID)
     }
 
     const selectOptions = [
@@ -300,7 +303,6 @@ export default function PaystubEditForm({
 
         return item
     }
-
     function updateTotals(stub: Prisma.PayStubGetPayload<{ include: { items: true } }>) {
 
         stub = updatePaystubTotals(stub)
@@ -311,7 +313,6 @@ export default function PaystubEditForm({
         setPaystub(stub)
         setEdited(true)
     }
-
     function importAll() {
         let items = [] as PayStubItem[]
         defaults.comps.forEach(c => { c.items.forEach(i => items.push(i)) })
@@ -339,7 +340,7 @@ export default function PaystubEditForm({
         toast.promise(
             async () => {
                 await upsertEmployeePaystub(serializeData(paystub))
-                await load()
+                load()
             },
             {
                 loading: "Saving Paystub",
@@ -376,7 +377,7 @@ export default function PaystubEditForm({
         toast.promise(
             async () => {
                 await deletePaystub(paystub.uuid)
-                await load()
+                load()
             },
             {
                 loading: "Deleting Paystub",
@@ -389,8 +390,10 @@ export default function PaystubEditForm({
     function importTaxes() {
         toast.promise(
             async () => {
+                if (!context) { throw new Error("Invalid Context") }
 
-                let items = deserializeData(await genEmployeeTaxRates(empUUID))
+                let items = deserializeData(await genEmployeeTaxRates(empUUID, context.companyUUID, paystub.payDate))
+
                 items = items.filter(i => !shouldSkip(i))
                 if (items.length == 0) { return }
                 const newstub = {
@@ -422,13 +425,87 @@ export default function PaystubEditForm({
 
 
     function lockedBtn() {
+        if (paystub.locked) {
+            addModal({
+                title: "This Paystub Is Locked!",
+                required: false,
+                component: () => (<div className="w-sm">
+                    <p>Paystubs can only be unlocked by Organization Administrators. If you believe this paystub was locked by accident, please contact an administrator for this organization.</p>
+                    <div className="flex flex-row justify-end">
+                        <button className="danger-button" onClick={unlockPressed}>Unlock</button>
+                    </div>
+
+                </div>)
+            })
+        } else {
+            addModal({
+                title: "This Paystub Is Submitted!",
+                required: false,
+                component: () => (<div className="w-sm">
+                    <p>This paystub was previously submitted but is not locked.</p>
+                </div>)
+            })
+        }
+    }
+    function unlockPressed() {
         addModal({
-            title: "This Paystub Is Locked!",
+            title: "Are you sure?",
             required: false,
-            component: () => (<div className="w-sm">
-                <p>Paystubs can only be unlocked by System Administrators. If you believe this paystub was locked by accident, please contact a BigBooks Administrator.</p>
-            </div>)
+            component: (push, pop) => (
+                <div className="w-sm">
+                    <p>{`TODO: Add warning text here... TLDR: Don't do this unless you know what you are doing. :)`}</p>
+                    <Divider />
+                    <div className="flex flex-row justify-between">
+                        <button className="primary-button" onClick={() => { pop(); pop(); }}>Cancel</button>
+                        <button className="danger-button" onClick={() => { pop(); pop(); unlockStub(); }} >Unlock</button>
+                    </div>
+                </div>
+            )
         })
+    }
+
+    function unlockStub() {
+
+        toast.promise(
+            async () => {
+                await unlockPaystub(paystub.uuid)
+                load()
+            },
+            {
+                loading: "Unlocking Paystub",
+                success: "Paystub Unlocked",
+                error: "Error Unlocking Paystub"
+            }
+        )
+    }
+
+    function lockPaystubClicked() {
+        addModal({
+                title: "Submit Paystub?",
+                required: false,
+                component: (push, pop) => (<div className="w-sm">
+                    <p>Do you want to lock and submit this paystub?</p>
+                    <Divider/>
+                    <div className="flex flex-row justify-between">
+                        <button className="accent-button" onClick={() => {pop()}}>Cancel</button>
+                        <button className="primary-button" onClick={() => {pop(); lock()}}>Lock and Submit</button>
+                    </div>
+
+                </div>)
+            })
+    }
+    function lock() {
+        toast.promise(
+            async () => {
+                await submitPaystub(paystub.uuid)
+                load()
+            },
+            {
+                loading: "Locking Paystub",
+                success: "Paystub Locked",
+                error: "Error Locking Paystub"
+            }
+        )
     }
 
     const handleProcessRowUpdateError = React.useCallback((error: Error) => {
@@ -437,7 +514,10 @@ export default function PaystubEditForm({
 
     const hasDates = stubStart && stubEnd && stubPaydate
     const datesDiffer = (paystub.periodStart.toISOString() !== (stubStart?.toISOString() ?? "")) || (paystub.periodEnd.toISOString() !== (stubEnd?.toISOString() ?? "")) || (paystub.payDate.toISOString() !== (stubPaydate?.toISOString() ?? ""))
-    const isLocked = (paystub.locked || paystub.lockedTime || paystub.submittedTime || forceLock) as boolean
+    const isLocked = (paystub.locked || forceLock) as boolean
+    const showWarning = (paystub.locked || paystub.lockedTime || paystub.submittedTime) as boolean
+
+    console.log(paystub)
 
     return (
         <div className="flex flex-row gap-5">
@@ -473,25 +553,45 @@ export default function PaystubEditForm({
                         }
                     </AnimatePresence>
 
-                    <div className="flex flex-row gap-8" style={{ transform: `translate(0px, ${forceLock ? 4 : 8}px)` }}>
+                    <div className="flex flex-row gap-4" style={{ transform: `translate(0px, ${forceLock ? 4 : 8}px)` }}>
                         <DateInput label="Period Start" val={paystub.periodStart} onChange={(val) => { setPaystub({ ...paystub, periodStart: val }); setEdited(true) }} disabled={isLocked} />
                         <DateInput label="Period End" val={paystub.periodEnd} onChange={(val) => { setPaystub({ ...paystub, periodEnd: val }); setEdited(true) }} disabled={isLocked} />
                         <DateInput label="Pay Date" val={paystub.payDate} onChange={(val) => { setPaystub({ ...paystub, payDate: val }); setEdited(true) }} disabled={isLocked} />
                     </div>
 
-                    {!isLocked &&
-                        <div className="flex flex-row gap-4 pt-1">
-
-                            <motion.div animate={{ opacity: edited ? 1 : 0 }} >
-                                <ClickableDiv onClick={save}>
-                                    <Tooltip title="Save Paystub">
-                                        <Save size={40} stroke="white" className="bg-primary/80 icon" />
-                                    </Tooltip>
-                                </ClickableDiv>
-                            </motion.div>
-
+                    {(!isLocked || showWarning) &&
+                        <div className="flex flex-row gap-2 pt-1">
                             <AnimatePresence>
-                                {paystub.uuid.trim() !== "" &&
+
+                                {(!edited && !paystub.locked && showWarning) &&
+                                    <motion.div key={"lockbutton"}
+                                        initial={{ opacity: 0, width: 0 }}
+                                        exit={{ opacity: 0, width: 0 }}
+                                        animate={{ opacity: 1, width: "auto" }}
+                                    >
+                                        <ClickableDiv onClick={lockPaystubClicked}>
+                                            <Tooltip title="Lock Paystub">
+                                                <LockKeyhole size={38} stroke="white" className="bg-accent icon" />
+                                            </Tooltip>
+                                        </ClickableDiv>
+                                    </motion.div>
+                                }
+
+                                {edited &&
+                                    <motion.div key={"SavePaystubBtn"}
+                                        initial={{ opacity: 0, width: 0 }}
+                                        exit={{ opacity: 0, width: 0 }}
+                                        animate={{ opacity: 1, width: "auto" }}
+                                    >
+                                        <ClickableDiv onClick={save}>
+                                            <Tooltip title="Save Paystub">
+                                                <Save size={38} stroke="white" className="bg-primary/80 icon" />
+                                            </Tooltip>
+                                        </ClickableDiv>
+                                    </motion.div>
+                                }
+
+                                {(paystub.uuid.trim() !== "" && (!paystub.submittedTime)) &&
                                     <motion.div
                                         key={"deletebutton"}
                                         initial={{ opacity: 0, width: 0 }}
@@ -505,33 +605,42 @@ export default function PaystubEditForm({
                                         </ClickableDiv>
                                     </motion.div>
                                 }
+
+                                {!showWarning &&
+                                    <ClickableDiv onClick={addNewItem} key={"AddItemBtn"}>
+                                        <Tooltip title="Add Item to Paystub">
+                                            <Plus size={38} className="icon" />
+                                        </Tooltip>
+                                    </ClickableDiv>
+                                }
+
+
+                                {showWarning &&
+                                    <motion.div
+                                        key={"locked"}
+                                        initial={{ opacity: 0, width: 0 }}
+                                        exit={{ opacity: 0, width: 0 }}
+                                        animate={{ opacity: 1, width: "auto" }}
+                                    >
+                                        <ClickableDiv onClick={lockedBtn}>
+                                            <Tooltip title="Warning!">
+                                                <div>
+                                                    {paystub.locked &&
+                                                        <TriangleAlert stroke="white" size={38} className="bg-yellow-400 icon" />
+                                                    }
+                                                    {!paystub.locked &&
+                                                        <OctagonAlert stroke="white" size={38} className="bg-orange-400 icon" />
+                                                    }
+                                                </div>
+                                            </Tooltip>
+                                        </ClickableDiv>
+                                    </motion.div>
+                                }
                             </AnimatePresence>
 
 
-                            <ClickableDiv onClick={addNewItem}>
-                                <Tooltip title="Add Item to Paystub">
-                                    <Plus size={38} className="icon" />
-                                </Tooltip>
-                            </ClickableDiv>
                         </div>
                     }
-
-                    <AnimatePresence>
-                        {isLocked && !forceLock &&
-                            <motion.div
-                                key={"locked"}
-                                initial={{ opacity: 0, width: 0 }}
-                                exit={{ opacity: 0, width: 0 }}
-                                animate={{ opacity: 1, width: "auto" }}
-                            >
-                                <ClickableDiv onClick={lockedBtn}>
-                                    <p className="bg-orange-400 rounded-md p-2 hover:bg-orange-300 text-white font-bold overflow-clip text-nowrap">
-                                        <TriangleAlert stroke="white" />
-                                    </p>
-                                </ClickableDiv>
-                            </motion.div>
-                        }
-                    </AnimatePresence>
 
                     {forceLock &&
                         <div></div>
@@ -544,12 +653,6 @@ export default function PaystubEditForm({
                     processRowUpdate={(updatedRow) => updateItem(updatedRow)}
                     onProcessRowUpdateError={handleProcessRowUpdateError}
                     rowHeight={60}
-                    loading={loading}
-                    slotProps={{
-                        loadingOverlay: {
-                            variant: 'skeleton',
-                        },
-                    }}
                 />
 
             </div>

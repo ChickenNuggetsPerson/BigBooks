@@ -20,8 +20,8 @@ export default async function getActivePaystubs() {
     const stubs = await prisma.payStub.findMany({ 
         where: { 
             locked: false,
-            lockedTime: null,
-            submittedTime: null,
+            // lockedTime: null,
+            // submittedTime: null,
             employee: {
                 organizationId: session.orgUUID
             }

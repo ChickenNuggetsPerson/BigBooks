@@ -1,4 +1,4 @@
-import { Employee, PayStubItem } from "@/database/generated/prisma";
+import { Employee, Organization, PayStubItem } from "@/database/generated/prisma";
 
 
 
@@ -9,9 +9,9 @@ import { Employee, PayStubItem } from "@/database/generated/prisma";
 
 
 
-export function calcTaxRates(employee: Employee): PayStubItem[] {
+export function calcTaxRates(employee: Employee, organization: Organization, payDate: Date): PayStubItem[] {
 
-    console.log("Calc Rates for: ", employee.firstName)
+    console.log("Calc Rates for: ", employee.firstName, organization.name, payDate)
 
     return []
 }
