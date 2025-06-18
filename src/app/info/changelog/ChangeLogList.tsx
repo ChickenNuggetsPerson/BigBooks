@@ -29,7 +29,7 @@ export default function ChangeLogList({ items }: { items: string[] }) {
 
                 <div
                     className="markdown-body card w-xl"
-                    style={{ marginBottom: 20 }}
+                    style={{ marginBottom: 20, background: "white", color: "black" }}
                 >
                     <Markdown>{items[current]}</Markdown>
                 </div>
