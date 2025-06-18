@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.8.1](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.8.0...v0.8.1) (2025-06-18)
+
+
+### Features
+
+* Added discord integreation for dev process. ([e101493](https://github.com/ChickenNuggetsPerson/BigBooks/commit/e101493dde087c991704c1079a2cea33ce6ce2e2))
+
+
+### Bug Fixes
+
+* change ([f49c36d](https://github.com/ChickenNuggetsPerson/BigBooks/commit/f49c36d789572675dd0f2605833ab72a37966a75))
+* Changes to automation configs ([b46585f](https://github.com/ChickenNuggetsPerson/BigBooks/commit/b46585fbd4afa88d8cb4ce9c7fed667d5861c560))
+* Changes to automations ([cb0d267](https://github.com/ChickenNuggetsPerson/BigBooks/commit/cb0d26764d70a15b2af29228d5d53f6aab9e3f19))
+
+
+### Miscellaneous Chores
+
+* release 0.8.1 ([f69409d](https://github.com/ChickenNuggetsPerson/BigBooks/commit/f69409d78745ec5933e21a8323f42a741b279e25))
+
 ## [0.8.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.7.0...v0.8.0) (2025-06-18)
 
 
