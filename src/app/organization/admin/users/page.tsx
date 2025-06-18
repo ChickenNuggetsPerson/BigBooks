@@ -27,6 +27,7 @@ export default async function AdminUserPage() {
                 <OrgUserList users={users} />
             </div>
 
+            {/* Invites Card */}
             <div className="card relative h-fit w-xs">
                 <div className="absolute right-5 top-5">
                     <OrgUserCreateInviteButton />
@@ -36,7 +37,7 @@ export default async function AdminUserPage() {
                     Invite Codes
                 </p>
 
-                <div className="bg-accent h-px mb-5 w-35"></div>
+                <div className="bg-accent h-px mb-5 w-40"></div>
                 {codes.map((code) => (
                     <OrgInviteCodeCard code={code} key={code.uuid} />
                 ))}

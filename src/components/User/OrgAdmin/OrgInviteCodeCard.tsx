@@ -34,26 +34,24 @@ export default function OrgInviteCodeCard({ code }: { code: InviteCode }) {
         return `${window.location.protocol}//${window.location.host}/user/invite/${code.uuid}`
     }
 
+    function clicked() {
+        navigator.clipboard.writeText(getURL())
+        toast.success("Coppied URL")
+    }
+
     return (
         <div className="smallCard flex flex-row justify-between select-none w-full mb-2">
-            <ClickableDiv
-                className="flex flex-row justify-between w-full mr-2"
-                style={{
-                    padding: 10
-                }}
-                onClick={() => {
-                    navigator.clipboard.writeText(getURL())
-                    toast.success("Coppied URL")
-                }}
-            >
-
+            <ClickableDiv onClick={clicked}>
                 <UserRoleIcon role={getRoleFromID(code.role)} />
-                <p className="font-mono mt-1">{code.expires.toLocaleDateString()}</p>
-
             </ClickableDiv>
 
+            <ClickableDiv onClick={clicked} className="flex flex-col justify-center">
+                <p className="font-mono mt-1">{code.expires.toLocaleDateString()}</p>
+            </ClickableDiv>
+
+
             <div className="flex flex-col justify-center">
-                <button onClick={del} className="bg-accent text-white font-bold w-8 h-8 text-center rounded-sm">X</button>
+                <button onClick={del} className="bg-accent text-white font-bold w-8 h-8 text-center rounded-xl">X</button>
             </div>
 
         </div>
