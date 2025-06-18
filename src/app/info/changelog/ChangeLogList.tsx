@@ -17,7 +17,6 @@ export default function ChangeLogList({ items }: { items: string[] }) {
         }
     })
 
-    
     return (
         <div>
             <h1 className="font-semibold text-2xl mb-4 flex flex-row justify-center" >Changelog: </h1>
