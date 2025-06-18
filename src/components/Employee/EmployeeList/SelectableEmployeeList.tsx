@@ -246,7 +246,7 @@ function Button(props: React.HTMLAttributes<HTMLButtonElement>) {
         <button
             type="button"
             {...props}
-            className={`flex h-9 items-center justify-center rounded border border-neutral-200 cursor-pointer dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 px-2.5 text-sm font-bold text-neutral-700 dark:text-neutral-200 whitespace-nowrap select-none hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blue-600 active:bg-neutral-100 dark:active:bg-neutral-700 ${props.className}`}
+            className={`flex h-9 items-center justify-center rounded border border-neutral-200 cursor-pointer bg-neutral-50 px-2.5 text-sm font-bold text-neutral-700 whitespace-nowrap select-none hover:bg-neutral-100focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-blue-600 active:bg-neutral-100 ${props.className}`}
         />
     );
 }
@@ -255,7 +255,7 @@ function TextInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
     return (
         <input
             {...props}
-            className={`h-9 w-full rounded border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-900 px-2.5 text-base text-neutral-900 dark:text-neutral-200 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 ${props.className}`}
+            className={`h-9 w-full rounded border border-neutral-200 px-2.5 text-base text-neutral-900 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 ${props.className}`}
         />
     );
 }
