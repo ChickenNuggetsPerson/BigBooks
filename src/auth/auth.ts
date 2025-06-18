@@ -1,4 +1,3 @@
-// lib/auth.ts
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { hashPassword, signSession, verifySession } from './encryption';
@@ -21,8 +20,7 @@ export interface Session {
 export async function loginUser(username: string, password: string) {
 
 
-    // TODO: Check for authentication :3
-
+    // Check for authentication :3
     if (username == process.env.ADMIN_USER && password == process.env.ADMIN_PASS) {
 
         await updateSession({
