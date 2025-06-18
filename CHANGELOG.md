@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.8.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.7.0...v0.8.0) (2025-06-18)
+
+
+### Features
+
+* Added animations to modal system ([79bc29e](https://github.com/ChickenNuggetsPerson/BigBooks/commit/79bc29ea5c274d2411da6f7c27d7c8e2f4b0d895))
+* Added clear state button to payroll first page. ([f26b8f8](https://github.com/ChickenNuggetsPerson/BigBooks/commit/f26b8f8882cdaa28d8370ab9a91d249b4ee27fe9))
+* Finished some TODO items in code. ([f26b8f8](https://github.com/ChickenNuggetsPerson/BigBooks/commit/f26b8f8882cdaa28d8370ab9a91d249b4ee27fe9))
+* New paystubs can now be made from the paystub form in the payroll page. ([345e98f](https://github.com/ChickenNuggetsPerson/BigBooks/commit/345e98f805d8018de45e995a0bf1df94cbdd7905))
+
+
+### Bug Fixes
+
+* Changelog page is now forced to light mode. ([0f632b6](https://github.com/ChickenNuggetsPerson/BigBooks/commit/0f632b603ae7d7267c2d721c1f37c254cd999f9d))
+* Changes to invite code list in organization user page. ([41c2fc9](https://github.com/ChickenNuggetsPerson/BigBooks/commit/41c2fc9f270dca95c35dee47522bd281a04176b3))
+* Fixed darkmode issues with select employees form in payroll page. ([2901705](https://github.com/ChickenNuggetsPerson/BigBooks/commit/29017058d19f062cfa0c38fad6e5f0eddf8f8d17))
+* Fixed text spacing on tab group in the employee page. ([9868535](https://github.com/ChickenNuggetsPerson/BigBooks/commit/9868535058542053946beca6ea5a6d144ea167fc))
+
 ## [0.7.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.6.0...v0.7.0) (2025-06-16)
 
 
