@@ -5,6 +5,7 @@ on: [push]
 jobs:
   git:
     runs-on: ubuntu-latest
+    if: github.actor != 'release-please[bot]' && github.actor != 'dependabot[bot]'
     steps:
       - uses: actions/checkout@v2
 
@@ -12,3 +13,5 @@ jobs:
         uses: johnnyhuy/actions-discord-git-webhook@main
         with:
           webhook_url: ${{ secrets.YOUR_DISCORD_WEBHOOK_URL }}
+          repo_name: Big Books
+          hide_links: false
