@@ -4,7 +4,7 @@ import deletePaystub from "@/actions/paystub/deletePaystub"
 import getEmployeeLatestPaystub from "@/actions/paystub/getEmployeeLatestPaystub"
 import getPaystub from "@/actions/paystub/getPaystub"
 import genEmployeeTaxRates from "@/actions/paystub/importTaxes"
-import getEmployeePaystubItems from "@/actions/paystub/payrollItems/getEmployeePaystubItems"
+import getEmployeePayrollItems from "@/actions/paystub/payrollItems/getEmployeePayrollItems"
 import { updatePaystubTotals } from "@/actions/paystub/PaystubFunctions"
 import submitPaystub from "@/actions/paystub/submitPaystub"
 import unlockPaystub from "@/actions/paystub/unlockPaystub"
@@ -106,7 +106,7 @@ export default function PaystubEditForm({
         // const toastID = toast.loading("Loading Data")
         setEdited(false)
 
-        const d = deserializeData(await getEmployeePaystubItems(empUUID))
+        const d = deserializeData(await getEmployeePayrollItems(empUUID))
         setDefaults(d)
 
         if (stubUUID) {

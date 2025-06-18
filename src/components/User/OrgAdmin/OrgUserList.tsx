@@ -7,8 +7,6 @@ import { DispRole, getRoleFromID, RoleTypes } from "@/auth/roles/Roles";
 import ClickableDiv from "@/components/Decorative/ClickableDiv";
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
 import RoleModal from "./RoleModal";
-import getUser from "@/actions/user/getUser";
-import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 
 
@@ -77,10 +75,9 @@ export function OrgUserList({
     async function rolePressed(role: DispRole) {
         if (role.type == RoleTypes.Error) { return }
 
-        const toastID = toast.loading("Fetching User")
-        const user = await getUser(role.userUUID)
-        if (!user) { return }
-        toast.dismiss(toastID)
+        const index = dispUsers.findIndex(u => u.uuid == role.userUUID)
+        if (index == -1) { return }
+        const user = dispUsers[index]
 
         addModal({
             title: "Edit Permissions:",

@@ -28,10 +28,9 @@ function PayrollItemToStubItem(item: PayrollItem): PayStubItem {
 }
 
 
-export default async function getEmployeePaystubItems(empUUID: string) {
-
-    // TODO: Handle permissions
-    await throwIfInsufficientPerms(RoleTypes.Viewer)
+// Returns all default payroll items associated with an employee.
+// This includes org, group, and employee items. This also has compensations.
+export default async function getEmployeePayrollItems(empUUID: string) {
 
     const data = {
         defaults: {
@@ -40,6 +39,12 @@ export default async function getEmployeePaystubItems(empUUID: string) {
             employee: [] as PayStubItem[]
         },
         comps: [] as { compName: string, items: PayStubItem[] }[]
+    }
+
+    try {
+        await throwIfInsufficientPerms(RoleTypes.Editor) // This data is only avaliable to editors using the paystub edit form.
+    } catch {
+        return serializeData(data) // Return empty data
     }
 
     const employee = await prisma.employee.findUnique({ where: { uuid: empUUID }, include: { defaultPayrollItems: true } })

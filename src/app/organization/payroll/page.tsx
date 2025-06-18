@@ -1,6 +1,7 @@
 'use client'
 
 import { useCompany } from "@/app/CompanyContext";
+import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
 import ProgressBar from "@/components/Decorative/ProgressBar/ProgressBar";
 import SelectableEmployeeList from "@/components/Employee/EmployeeList/SelectableEmployeeList";
 import PayrollInportGroupForm from "@/components/payroll/PayrollInportGroupForm";
@@ -14,6 +15,7 @@ import SuperJSON from "superjson";
 
 
 type PayrollState = {
+    stateVersion: number,
     lastSaved: Date,
     orgUUID: string,
     page: number,
@@ -27,6 +29,7 @@ type PayrollState = {
 }
 
 const DefaultState: PayrollState = {
+    stateVersion: 1,
     lastSaved: new Date(),
     orgUUID: "",
     page: 0,
@@ -49,8 +52,14 @@ export default function Payroll() {
         if (!context?.companyUUID) return
 
         const str = localStorage.getItem("PayrollState")
-        if (str) { // TODO: Make sure the session is of the correct type
+        if (str) {
             const data = SuperJSON.parse<PayrollState>(str)
+
+            if (data.stateVersion !== DefaultState.stateVersion) { // If version mismatch, clear state
+                resetState()
+                return
+            }
+
             if (data.orgUUID === context.companyUUID) {
 
                 const deltaDays = Math.floor((new Date().getTime() - data.lastSaved.getTime()) / 86400000)
@@ -67,8 +76,35 @@ export default function Payroll() {
 
             }
         }
-        setPayrollState({ ...DefaultState, orgUUID: context.companyUUID })
+        resetState()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [context?.companyUUID])
+
+    function resetState() {
+        if (!context?.companyUUID) return
+        setPayrollState({ ...DefaultState, orgUUID: context.companyUUID })
+    }
+
+    const { addModal } = useModalManager()
+    function resetStatePressed() {
+        addModal({
+            title: "Clear Payroll State?",
+            required: false,
+            component: (push, pop) => (
+                <div className="w-sm">
+                    <p>This will clear payroll dates and selected employees. Are you sure you want to clear this?</p>
+                    <div className="w-full flex flex-row justify-between pt-4">
+                        <button className="primary-button" onClick={pop}>Cancel</button>
+                        <button className="danger-button" onClick={() => {
+                            pop()
+                            resetState()
+                        }}>Clear State</button>
+                    </div>
+                </div>
+            )
+        })
+    }
+
 
     useEffect(() => {
         if (typeof window !== "undefined" && payrollState) {
@@ -82,7 +118,7 @@ export default function Payroll() {
         if (!payrollState) { return }
         const index = payrollState.selectedEmployees.findIndex(i => i.id == empUUID)
         if (index == -1) { return }
-        
+
         setPayrollState({
             ...payrollState,
             page: 2,
@@ -97,7 +133,10 @@ export default function Payroll() {
             <div className="h-4"></div>
 
             {payrollState.page == 0 &&
-                <PayrollInportGroupForm initialPeriod={payrollState.period} changeCB={(data) => { setPayrollState({ ...payrollState, period: data, page: 1 }) }} />
+                <>
+                    <PayrollInportGroupForm initialPeriod={payrollState.period} changeCB={(data) => { setPayrollState({ ...payrollState, period: data, page: 1 }) }} />
+                    <button onClick={resetStatePressed} className="danger-button">Reset State</button>
+                </>
             }
 
             {payrollState.page == 1 &&
@@ -108,9 +147,9 @@ export default function Payroll() {
                 <>
                     <HorzScrollSelect selected={payrollState.selectIndex} options={payrollState.selectedEmployees.map(e => e.label)} changeCB={(val) => setPayrollState({ ...payrollState, selectIndex: val })} />
                     <div className="h-5"></div>
-                    <PaystubEditForm 
+                    <PaystubEditForm
                         key={payrollState.selectedEmployees[payrollState.selectIndex].id}
-                        empUUID={payrollState.selectedEmployees[payrollState.selectIndex].id} 
+                        empUUID={payrollState.selectedEmployees[payrollState.selectIndex].id}
                         stubStart={payrollState.period.start}
                         stubEnd={payrollState.period.end}
                         stubPaydate={payrollState.period.pay}
@@ -120,7 +159,7 @@ export default function Payroll() {
 
             {payrollState.page == 3 &&
                 <>
-                    <ActivePaystubList editStub={editStub}/>
+                    <ActivePaystubList editStub={editStub} />
                 </>
             }
         </div>

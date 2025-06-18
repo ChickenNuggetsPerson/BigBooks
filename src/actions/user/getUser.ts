@@ -1,14 +1,19 @@
 'use server'
 
-import { redirectIfInvalidSession } from "@/auth/auth"
+import { getSession,  } from "@/auth/auth"
 import { prisma } from "@/database/prisma"
 
 
 
 
-export default async function getUser(userUUID: string) { // TODO: figure out propper permissions of this
+// Returns the user based on the UUID
+export default async function getUser(userUUID: string) { 
 
-    await redirectIfInvalidSession()
+    const session = await getSession()
+    if (!session) { throw new Error("") }
+    if (!session.isAdmin && session.userID !== userUUID) {
+        throw new Error("Invalid Perms")
+    }
 
     const user = await prisma.user.findUnique({
         where: {
@@ -16,7 +21,7 @@ export default async function getUser(userUUID: string) { // TODO: figure out pr
         }, include: { memberships: true }
     })
 
-    if (user) {
+    if (user) { // Stops the password hash from being passed around.
         user.passHash = ""
     }
 

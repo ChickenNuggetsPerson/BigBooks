@@ -1,6 +1,6 @@
 'use client'
 
-import upsertPayrollItems from "@/actions/paystub/payrollItems/upsertPayrollItems"
+import upsertPayrollItem from "@/actions/paystub/payrollItems/upsertPayrollItem"
 import { useCompany } from "@/app/CompanyContext"
 import { AbsMaxPeriodTypes, PayStubItemType } from "@/database/generated/prisma"
 import { Decimal } from "@/database/generated/prisma/runtime/index-browser"
@@ -31,7 +31,7 @@ export default function PayrollItemAddBtn({
     function clicked() {
         toast.promise(
             async () => {
-                await upsertPayrollItems({
+                await upsertPayrollItem({
                     name: "New Item",
                     uuid: "",
                     type: PayStubItemType.Other,

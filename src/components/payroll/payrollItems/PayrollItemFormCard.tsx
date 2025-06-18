@@ -1,7 +1,7 @@
 'use client'
 
 import deletePayrollItem from "@/actions/paystub/payrollItems/deletePayrollItem"
-import upsertPayrollItems from "@/actions/paystub/payrollItems/upsertPayrollItems"
+import upsertPayrollItem from "@/actions/paystub/payrollItems/upsertPayrollItem"
 import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv"
 import LargeTextInput from "@/components/Forms/LargeTextInput"
 import NumberInput from "@/components/Forms/NumberInput"
@@ -35,7 +35,7 @@ export default function PayrollItemFormCard({ item }: { item: PayrollItem }) {
     function saved() {
         toast.promise(
             async () => {
-                await upsertPayrollItems(itemState)
+                await upsertPayrollItem(itemState)
                 router.refresh()
             },
             {

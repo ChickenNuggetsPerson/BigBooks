@@ -16,7 +16,6 @@ type PaystubItemSelector = {
 
 export default async function getPayrollItems(options: PaystubItemSelector) {
 
-    // TODO: Handle permissions
     await throwIfInsufficientPerms(RoleTypes.Viewer)
 
     const data = {
