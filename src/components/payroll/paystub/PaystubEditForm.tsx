@@ -23,7 +23,7 @@ import { deserializeData, serializeData } from "@/utils/serialization"
 import { Tooltip } from "@mui/material"
 import { GridColDef, DataGrid, GridRenderCellParams, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid"
 import { AnimatePresence, motion } from "framer-motion"
-import { LockKeyhole, OctagonAlert, Plus, Save, Trash2, TriangleAlert, X } from "lucide-react"
+import { FilePlus, LockKeyhole, OctagonAlert, Plus, Save, Trash2, TriangleAlert, X } from "lucide-react"
 import React from "react"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
@@ -75,14 +75,16 @@ export default function PaystubEditForm({
     stubStart,
     stubEnd,
     stubPaydate,
-    forceLock = false
+    forceLock = false,
+    canCreateNewStub = false
 }: {
     empUUID: string,
     stubUUID?: string,
     stubStart?: Date,
     stubEnd?: Date,
     stubPaydate?: Date,
-    forceLock?: boolean
+    forceLock?: boolean,
+    canCreateNewStub?: boolean
 }) {
 
     const { context } = useCompany()
@@ -103,7 +105,7 @@ export default function PaystubEditForm({
 
     async function load() {
 
-        // const toastID = toast.loading("Loading Data")
+        const toastID = toast.loading("Loading Paystub Data")
         setEdited(false)
 
         const d = deserializeData(await getEmployeePayrollItems(empUUID))
@@ -116,18 +118,18 @@ export default function PaystubEditForm({
             } else {
                 setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
             }
-            // toast.dismiss(toastID)
+            toast.dismiss(toastID)
             return
         }
 
         const latest = deserializeData(await getEmployeeLatestPaystub(empUUID, stubPaydate ?? new Date()))
         if (!latest) {
             setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
-            // toast.dismiss(toastID)
+            toast.dismiss(toastID)
             return
         }
         setPaystub(latest)
-        // toast.dismiss(toastID)
+        toast.dismiss(toastID)
     }
 
     const selectOptions = [
@@ -481,18 +483,18 @@ export default function PaystubEditForm({
 
     function lockPaystubClicked() {
         addModal({
-                title: "Submit Paystub?",
-                required: false,
-                component: (push, pop) => (<div className="w-sm">
-                    <p>Do you want to lock and submit this paystub?</p>
-                    <Divider/>
-                    <div className="flex flex-row justify-between">
-                        <button className="accent-button" onClick={() => {pop()}}>Cancel</button>
-                        <button className="primary-button" onClick={() => {pop(); lock()}}>Lock and Submit</button>
-                    </div>
+            title: "Submit Paystub?",
+            required: false,
+            component: (push, pop) => (<div className="w-sm">
+                <p>Do you want to lock and submit this paystub?</p>
+                <Divider />
+                <div className="flex flex-row justify-between">
+                    <button className="accent-button" onClick={() => { pop() }}>Cancel</button>
+                    <button className="primary-button" onClick={() => { pop(); lock() }}>Lock and Submit</button>
+                </div>
 
-                </div>)
-            })
+            </div>)
+        })
     }
     function lock() {
         toast.promise(
@@ -508,6 +510,25 @@ export default function PaystubEditForm({
         )
     }
 
+    function createPaystubClicked() {
+        addModal({
+            title: "Create New Paystub?",
+            required: false,
+            component: (push, pop) => (<div className="w-sm">
+                <p>Do you want to create a new paystub for this employee?</p>
+                <Divider />
+                <div className="flex flex-row justify-between">
+                    <button className="accent-button" onClick={() => { pop() }}>Cancel</button>
+                    <button className="primary-button" onClick={() => { pop(); createNewStub() }}>Create</button>
+                </div>
+
+            </div>)
+        })
+    }
+    function createNewStub() {
+        setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
+    }
+
     const handleProcessRowUpdateError = React.useCallback((error: Error) => {
         toast.error(error.message)
     }, []);
@@ -516,8 +537,6 @@ export default function PaystubEditForm({
     const datesDiffer = (paystub.periodStart.toISOString() !== (stubStart?.toISOString() ?? "")) || (paystub.periodEnd.toISOString() !== (stubEnd?.toISOString() ?? "")) || (paystub.payDate.toISOString() !== (stubPaydate?.toISOString() ?? ""))
     const isLocked = (paystub.locked || forceLock) as boolean
     const showWarning = (paystub.locked || paystub.lockedTime || paystub.submittedTime) as boolean
-
-    console.log(paystub)
 
     return (
         <div className="flex flex-row gap-5">
@@ -614,6 +633,13 @@ export default function PaystubEditForm({
                                     </ClickableDiv>
                                 }
 
+                                {(canCreateNewStub && isLocked) &&
+                                    <ClickableDiv onClick={createPaystubClicked}>
+                                        <Tooltip title="Create New Paystub">
+                                            <FilePlus size={38} stroke="white" className="icon bg-primary/80 " />
+                                        </Tooltip>
+                                    </ClickableDiv>
+                                }
 
                                 {showWarning &&
                                     <motion.div

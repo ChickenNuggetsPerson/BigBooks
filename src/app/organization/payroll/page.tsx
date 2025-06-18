@@ -153,6 +153,7 @@ export default function Payroll() {
                         stubStart={payrollState.period.start}
                         stubEnd={payrollState.period.end}
                         stubPaydate={payrollState.period.pay}
+                        canCreateNewStub
                     />
                 </>
             }

@@ -22,6 +22,8 @@ export function EmployeeSelectPaystub({ empUUID }: { empUUID: string }) {
 
             const opt = [] as { id: string, label: string }[]
 
+            stubs.sort((s1, s2) => s2.periodEnd.getTime() - s1.periodEnd.getTime())
+
             stubs.forEach((stub) => {
                 if (!stub.locked || !stub.submittedTime) { return }
                 opt.push({ id: stub.uuid, label: `Ending In: ${stub.periodEnd.toLocaleDateString()}` })
