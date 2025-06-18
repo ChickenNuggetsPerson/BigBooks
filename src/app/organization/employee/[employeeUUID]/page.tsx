@@ -29,7 +29,7 @@ export default async function EmployeeView({
             </Link>
 
             <div className="w-full flex flex-row justify-center">
-                <TabGroup tabNames={["Employee", "Taxes", "Comps", "Payroll", "Paystubs"]} className="" horizontal>
+                <TabGroup tabNames={["Employee", "Taxes", "Comps", "Payroll", "Paystubs"]} className="" verticalTabs>
                     <EmployeeCard employee={employee} />
                     <EmployeeTaxCard employee={employee} />
                     <EmployeeCompensationCard employee={employee} />

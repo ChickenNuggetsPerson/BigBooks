@@ -7,31 +7,41 @@ import React, { useState } from "react";
 
 type TabGroupProps = React.HTMLAttributes<HTMLDivElement> & {
     tabNames: string[],
-    horizontal?: boolean
+    verticalTabs?: boolean
+}
+
+function longestStrLength(strs: string[]) : number {
+    let max = 0
+    strs.forEach(str => {
+        if (str.length > max) { max = str.length }
+    })
+    return max
 }
 
 const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(
-    ({ tabNames, horizontal = false, children, ...rest }, ref) => {
+    ({ tabNames, verticalTabs = false, children, ...rest }, ref) => {
 
         const [selected, setSelected] = useState(0)
+        const maxLength = longestStrLength(tabNames)
 
         return (
             <div ref={ref} style={{ ...rest.style }} {...rest}>
 
-                <div className={`h-fit flex ${horizontal ? "flex-row" : "flex-col"}`}>
+                <div className={`h-fit flex ${verticalTabs ? "flex-row" : "flex-col"}`}>
                     
                     {/* Tabs */}
-                    <div className={`flex ${horizontal ? "flex-col w-fit" : "flex-row w-full"} select-none`}>
+                    <div className={`flex ${verticalTabs ? "flex-col w-fit" : "flex-row w-full"} select-none`}>
                         {tabNames.map((name, i) => (
                             <div
                                 key={name}
                                 className={`w-full clearSmallCard text-lg text-end ${selected == i ? "bg-primary/80 text-white font-semibold" : "bg-white font-light"}`}
                                 style={{
                                     padding: 12,
-                                    borderTopRightRadius: horizontal ? 0 : undefined,
-                                    borderBottomLeftRadius: horizontal ? undefined : 0,
+                                    borderTopRightRadius: verticalTabs ? 0 : undefined,
+                                    borderBottomLeftRadius: verticalTabs ? undefined : 0,
                                     borderBottomRightRadius: 0,
-                                    zIndex: selected == i ? 100 : 0
+                                    zIndex: selected == i ? 100 : 0,
+                                    width: maxLength * 14
                                 }}
                                 onClick={() => setSelected(i)}
                             >
@@ -44,8 +54,8 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(
                         className="card w-fit"
                         style={{
                             borderTopLeftRadius: 0,
-                            borderTopRightRadius: horizontal ? undefined : 0,
-                            borderBottomLeftRadius: horizontal ? 0 : undefined,
+                            borderTopRightRadius: verticalTabs ? undefined : 0,
+                            borderBottomLeftRadius: verticalTabs ? 0 : undefined,
                             zIndex: 200
                         }}
                     >
