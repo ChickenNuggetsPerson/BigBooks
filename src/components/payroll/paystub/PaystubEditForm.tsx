@@ -15,6 +15,7 @@ import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv"
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
 import DateInput from "@/components/Forms/DateInput"
 import { Divider } from "@/components/Forms/Divider"
+import LargeTextInput from "@/components/Forms/LargeTextInput"
 import SelectInput from "@/components/Forms/SelectInput"
 import { PayStubItem, PayStubItemType, Prisma } from "@/database/generated/prisma"
 import { HourlyRateStr, HourStr, MoneyToStr } from "@/utils/functions/MoneyStr"
@@ -23,7 +24,7 @@ import { deserializeData, serializeData } from "@/utils/serialization"
 import { Tooltip } from "@mui/material"
 import { GridColDef, DataGrid, GridRenderCellParams, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid"
 import { AnimatePresence, motion } from "framer-motion"
-import { FilePlus, LockKeyhole, OctagonAlert, Plus, Save, Trash2, TriangleAlert, X } from "lucide-react"
+import { FilePlus, LockKeyhole, NotebookPen, OctagonAlert, Plus, Save, Trash2, TriangleAlert, X } from "lucide-react"
 import React from "react"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
@@ -167,12 +168,6 @@ export default function PaystubEditForm({
             ),
         },
         {
-            field: 'description',
-            headerName: 'Description',
-            editable: true,
-            type: "string"
-        },
-        {
             field: 'hours',
             headerName: 'Hours',
             editable: true,
@@ -237,10 +232,51 @@ export default function PaystubEditForm({
             type: 'actions',
             headerName: 'Actions',
             getActions: (params: GridRowParams<PayStubItem>) => [
-                <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-item"} icon={<X />} onClick={() => deleteItem(params.row)} label="Delete" />
+                <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-desc"} icon={
+                    <NotebookPen opacity={params.row.description ? 1 : 0.3} />
+                } onClick={() => { showDescriptionModal(params.row) }} label="Description" />,
+                <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-delete"} icon={<X />} onClick={() => deleteItem(params.row)} label="Delete" />,
             ]
         }
     ]
+
+    function showDescriptionModal(item: PayStubItem) {
+        addModal({
+            title: "Item Description:",
+            required: true,
+            component: (push, pop) => {
+
+                function getText() {
+                    const e = document.getElementById("descriptionInput") as HTMLInputElement
+                    return e?.value ?? ""
+                }
+
+                return (
+                    <div className="w-sm select-none">
+                        <div className="h-3"></div>
+                        <LargeTextInput label={`Item Description for: ${item.name}`} id="descriptionInput" val={item.description ?? ""}/>
+                        <div className="w-full flex flex-row justify-between">
+                            <button className="danger-button" onClick={() => {
+                                updateItem({
+                                    ...item,
+                                    description: null
+                                })
+                                pop()
+                            }}>Clear</button>
+                            <button className="primary-button" onClick={() => {
+                                updateItem({
+                                    ...item,
+                                    description: getText()
+                                })
+                                pop()
+                            }}>Save</button>
+                        </div>
+                    </div>
+                )
+            }
+        })
+    }
+
 
     function deleteItem(item: PayStubItem) {
         const items = [...paystub.items].filter(i => i.uuid !== item.uuid)
