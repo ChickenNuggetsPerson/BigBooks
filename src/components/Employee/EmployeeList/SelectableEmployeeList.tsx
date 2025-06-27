@@ -25,6 +25,7 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
 
     useEffect(() => {
         async function load() {
+            const loadingID = toast.loading("Loading Employee List")
 
             let emps = deserializeData(await getEmployeeListWithComps())
             const grps = await getOrgPayrollGroups()
@@ -37,6 +38,7 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
             }))
 
             setEmployees(emps)
+            toast.dismiss(loadingID)
         }
         load()
     }, [context?.companyUUID])
