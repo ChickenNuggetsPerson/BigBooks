@@ -16,12 +16,7 @@ export default function DevLink() {
     useEffect(() => {
         const storedVersion = localStorage.getItem('app_version');
         if (storedVersion && storedVersion !== appVersion) {
-
             toast.success(`Big Books updated to version ${appVersion}`)
-            setTimeout(() => {
-                toast("Check the bottom right for a changelog", { duration: 6000 })
-            }, 2000);
-
         }
         localStorage.setItem('app_version', appVersion);
     }, []);
