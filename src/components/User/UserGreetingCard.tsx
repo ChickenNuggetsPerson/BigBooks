@@ -13,14 +13,13 @@ export default async function UserGreetingCard() {
 
     if (!user) {
         return (
-            <div className="card h-30 w-70">
-                <p className="font-semibold">
-                    You are not logged in!
-                </p>
+            <div className="card w-80 h-60">
 
-                <div className="h-px bg-accent mb-5"></div>
+                <p className="mb-1 text-2xl font-semibold text-gray-700 select-none">{`Not Logged In...`}</p>
 
-                <Link href={"/user/login"} className="primary-button">
+                <div className="h-px bg-accent mb-3"></div>
+
+                <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/user/login"} >
                     Login
                 </Link>
             </div>
@@ -28,24 +27,19 @@ export default async function UserGreetingCard() {
     }
 
     return (
-        <div className="card h-30 w-70">
-            <p className="font-semibold">
-                {`Hello ${user.firstName + " " + user.lastName}!`}
-            </p>
+        <div className="card w-80 h-60">
+
+            <p className="mb-1 text-2xl font-semibold text-gray-700 select-none">{`Hello ${user.firstName}!`}</p>
 
             <div className="h-px bg-accent mb-3"></div>
 
-            <div className="flex flex-row justify-between">
+            <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/user"} >
+                View Profile
+            </Link>
 
-                <Link href={"/user"} className="primary-button">
-                    View Profile
-                </Link>
-
-                <button onClick={logout} className="accent-button">
-                    Logout
-                </button>
-
-            </div>
+            <button onClick={logout} className="block px-4 py-2 hover:bg-gray-100 rounded-lg w-full text-left">
+                Logout
+            </button>
         </div>
     )
 

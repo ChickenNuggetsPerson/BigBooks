@@ -1,6 +1,11 @@
-import MainBackground from "@/components/Decorative/MainBackground";
 import UserGreetingCard from "@/components/User/UserGreetingCard";
 
+import { Open_Sans } from 'next/font/google'
+
+const openSans = Open_Sans({
+  subsets: ['latin'],
+  weight: '800'
+})
 
 
 export const dynamic = 'force-dynamic';
@@ -8,13 +13,35 @@ export const dynamic = 'force-dynamic';
 export default async function Home() {
 
   return (
-    <div className="justify-items-center">
+    <div>
 
-      <div className="mt-40">
-        <UserGreetingCard />
+
+      <div className="bg-primary w-full shadow-lg h-15 flex flex-row justify-end">
+
+      </div>
+      <div className="h-120 flex flex-row justify-between">
+
+        <div className="w-1/2 flex flex-row justify-center">
+          <div className="h-full flex flex-col justify-center">
+
+            <p className={'text-9xl text-left w-70 select-none text-primary-up opacity-70 ' + openSans.className}>
+              BIG Books
+            </p>
+
+          </div>
+        </div>
+
+        <div className="w-1/2 flex flex-row justify-center">
+          <div className="h-full flex flex-col justify-center">
+            <UserGreetingCard />
+          </div>
+        </div>
+
+      </div>
+      <div className="bg-primary w-full shadow-lg h-30">
+
       </div>
 
-      <MainBackground/>
     </div>
   );
 }
