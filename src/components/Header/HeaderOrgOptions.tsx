@@ -18,7 +18,7 @@ export default function HeaderOrgOptions() {
             title: "",
             required: false,
             background: false,
-            component: (push, pop) => (<OrganizationList refreshCB={pop}/>)
+            component: (push, pop) => (<OrganizationList showBackground refreshCB={pop}/>)
         })
     }
 

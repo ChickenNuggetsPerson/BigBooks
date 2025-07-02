@@ -23,7 +23,7 @@ export default function Modal({ modal }: { modal: ModalProps }) {
     console.log(modal)
 
     return (
-        <div className={`${modal.background ? "card min-w-md" : ""} w-fit h-fit`}>
+        <div className={`${modal.background ? "card min-w-md" : ""} w-fit h-fit`} style={{ backdropFilter: modal.background ? "blur(5px)" : "none" }}>
 
             {modal.background &&
                 <div className="relative">
