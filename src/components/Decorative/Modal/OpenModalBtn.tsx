@@ -17,7 +17,7 @@ export default function OpenModalBtn({ modal, title, text, className } : OpenMod
     const { addModal } = useModalManager()
 
     return (
-        <button onClick={() => { addModal({component: () => modal, title: title, required: false}) }} className={className}>
+        <button onClick={() => { addModal({component: () => modal, title: title, required: false, background: true}) }} className={className}>
             {text}
         </button>
     )

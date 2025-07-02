@@ -80,7 +80,7 @@ export default async function UserPage() {
 
                 {/* Right Side */}
                 <div className="mx-auto">
-                    <OrganizationList />
+                    <OrganizationList showBackground/>
                 </div>
             </div>
         </div>

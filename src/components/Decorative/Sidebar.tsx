@@ -22,15 +22,8 @@ export default function Sidebar() {
         return `/organization/${p}`
     }
 
-
     return (
         <div className="z-60 w-65 h-fit fixed inset-y-0 m-5">
-
-            <div className="pb-2">
-                <Suspense fallback={<div className="animate-pulse text-2xl font-bold"> Loading... </div>}>
-                    <InteractiveUserIcon />
-                </Suspense>
-            </div>
 
             <div className="smallCard overflow-clip" style={{ padding: 0 }} >
 
@@ -71,7 +64,13 @@ export default function Sidebar() {
                 </ul>
             </div>
 
-            <HeaderOrgOptions />
+            <div className="smallCard mt-5">
+                <Suspense fallback={<div className="animate-pulse text-2xl font-bold"> Loading... </div>}>
+                    <InteractiveUserIcon />
+                </Suspense>
+
+                <HeaderOrgOptions />
+            </div>
         </div>
     )
 

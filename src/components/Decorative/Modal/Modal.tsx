@@ -6,23 +6,32 @@ import { X } from "lucide-react";
 
 
 export interface ModalProps {
-    title: string,
-    required: boolean
+    title?: string,
+    required?: boolean,
+    background?: boolean,
     component: (push: (modal: ModalProps) => void, pop: () => void) => ReactNode
 }
 
 export default function Modal({ modal }: { modal: ModalProps }) {
 
     const { addModal, popModal } = useModalManager()
+    
+    modal.title = modal.title ?? ""
+    modal.required = modal.required ?? false
+    modal.background = modal.background ?? true
+
+    console.log(modal)
 
     return (
-        <div className="card min-w-md w-fit h-fit">
+        <div className={`${modal.background ? "card min-w-md" : ""} w-fit h-fit`}>
 
-            <div className="relative">
-                <div className="absolute right-0">
-                    <X onClick={popModal} className="cursor-pointer" />
+            {modal.background &&
+                <div className="relative">
+                    <div className="absolute right-0">
+                        <X onClick={popModal} className="cursor-pointer" />
+                    </div>
                 </div>
-            </div>
+            }
 
             {modal.title.trim() !== "" &&
                 <>

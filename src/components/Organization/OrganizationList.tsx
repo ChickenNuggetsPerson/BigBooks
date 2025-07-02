@@ -10,7 +10,13 @@ import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowP
 
 
 
-export default function OrganizationList() {
+export default function OrganizationList({
+    showBackground = false,
+    refreshCB = () => {}
+}: {
+    showBackground?: boolean
+    refreshCB?: () => void
+}) {
 
     const changeSelectOrg = useChangeSelectedOrg()
 
@@ -76,11 +82,12 @@ export default function OrganizationList() {
 
     const handleEvent: GridEventListener<'rowClick'> = (params: GridRowParams<OrgWithRole>) => {
         changeSelectOrg(params.row.uuid, params.row.name)
+        refreshCB()
     };
 
 
     return (
-        <div className="flex flex-col gap-4 smallCard" style={{ padding: 10 }}>
+        <div className={`flex flex-col gap-4 ${showBackground ? "smallCard" : ""}`} style={{ padding: 10 }}>
             <div className="card w-xl">
                 <h5 className="mb-2 text-2xl font-normal text-gray-900">Select An Organization:</h5>
                 <div className="h-px bg-accent"></div>
