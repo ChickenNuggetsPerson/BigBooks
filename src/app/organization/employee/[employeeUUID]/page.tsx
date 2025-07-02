@@ -1,7 +1,7 @@
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
 import EmployeeCard from "@/components/Employee/EmployeeCard";
 import EmployeeTaxCard from "@/components/Employee/taxes/EmployeeTaxCard";
-import { EmployeeSelectPaystub } from "@/components/Employee/EmployeeSelectPaystub";
+import { EmployeeSelectPaystub } from "@/components/Employee/Paystubs/EmployeeSelectPaystub";
 import EmployeeStubDefaultsCard from "@/components/Employee/EmployeeStubDefaultsCard";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
