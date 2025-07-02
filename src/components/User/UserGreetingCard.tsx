@@ -15,11 +15,11 @@ export default async function UserGreetingCard() {
         return (
             <div className="card w-80 h-60">
 
-                <p className="mb-1 text-2xl font-semibold text-gray-700 select-none">{`Not Logged In...`}</p>
+                <p className="mb-1 text-2xl font-semibold text-gray-700 select-none">Not Logged In</p>
 
                 <div className="h-px bg-accent mb-3"></div>
 
-                <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/user/login"} >
+                <Link className="block px-4 py-2 bg-primary/80 hover:bg-primary/70 text-white text-center font-bold rounded-lg" href={"/user/login"}>
                     Login
                 </Link>
             </div>
@@ -35,6 +35,10 @@ export default async function UserGreetingCard() {
 
             <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/user"} >
                 View Profile
+            </Link>
+
+            <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/info/changelog"} >
+                Changelog
             </Link>
 
             <button onClick={logout} className="block px-4 py-2 hover:bg-gray-100 rounded-lg w-full text-left">

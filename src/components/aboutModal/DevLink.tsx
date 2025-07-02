@@ -23,13 +23,9 @@ export default function DevLink() {
 
     return (
         <>
-            <div style={{ position: "fixed", bottom: "10px", right: "10px" }} >
-                <Link href={"/info"} target="_blank" className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center pb-2">
+            <div style={{ position: "fixed", bottom: "10px", right: "5px" }} >
+                <Link href={"/info"} target="_blank" className="smallCard">
                     © Hayden Steele
-                </Link>
-
-                <Link href={"/info/changelog"} target="_blank"  className="bg-gray-600 text-md text-white font-bold p-2 rounded-lg">
-                    ✨ Changelog ✨
                 </Link>
             </div>
         </>
