@@ -15,6 +15,7 @@ import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv"
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
 import { infoUser } from "@/components/Decorative/Modals/infoUser"
 import { promptUser } from "@/components/Decorative/Modals/promptUser"
+import { CardProp } from "@/components/Forms/CardProp"
 import DateInput from "@/components/Forms/DateInput"
 import { Divider } from "@/components/Forms/Divider"
 import LargeTextInput from "@/components/Forms/LargeTextInput"
@@ -26,7 +27,7 @@ import { deserializeData, serializeData } from "@/utils/serialization"
 import { Tooltip } from "@mui/material"
 import { GridColDef, DataGrid, GridRenderCellParams, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid"
 import { AnimatePresence, motion } from "framer-motion"
-import { FilePlus, LockKeyhole, NotebookPen, OctagonAlert, Plus, Save, Trash2, TriangleAlert, X } from "lucide-react"
+import { FilePlus, Link, LockKeyhole, NotebookPen, OctagonAlert, Plus, Save, Trash2, TriangleAlert, X } from "lucide-react"
 import React from "react"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
@@ -251,11 +252,25 @@ export default function PaystubEditForm({
             field: 'actions',
             type: 'actions',
             headerName: 'Actions',
+            width: 130,
             getActions: (params: GridRowParams<PayStubItem>) => [
                 <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-desc"} icon={
                     <NotebookPen opacity={params.row.description ? 1 : 0.3} />
-                } onClick={() => { showDescriptionModal(params.row) }} label="Description" />,
-                <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-delete"} icon={<X />} onClick={() => deleteItem(params.row)} label="Delete" />,
+                } onClick={() => {
+                    showDescriptionModal(params.row)
+                }} label="Description" />,
+
+                <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-link"} icon={
+                    <Link opacity={params.row.payrollItemId ? 1 : 0.3} />
+                } onClick={() => {
+                    showLinkItemModal(params.row)
+                }} label="Link" />,
+
+                <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-delete"} icon={
+                    <X />
+                } onClick={() => {
+                    deleteItem(params.row)
+                }} label="Delete" />,
             ]
         }
     ]
@@ -297,6 +312,52 @@ export default function PaystubEditForm({
         })
     }
 
+    function showLinkItemModal(item: PayStubItem) {
+
+        const options = [
+            { label: "None", id: "" }
+        ] as { label: string, id: string }[]
+
+        defaults.defaults.organization.map(d => {
+            return { label: "Organization: " + d.name, id: d.payrollItemId ?? "error" }
+        }).forEach(d => options.push(d))
+
+        defaults.defaults.group.forEach(group => {
+            group.items.map(d => {
+                return { label: group.groupName + ": " + d.name, id: d.payrollItemId ?? "error" }
+            }).forEach(d => options.push(d))
+        })
+
+        defaults.defaults.employee.map(d => {
+            return { label: "Employee: " + d.name, id: d.payrollItemId ?? "error" }
+        }).forEach(d => options.push(d))
+
+
+        addModal({
+            title: "Link Item",
+            required: false,
+            component: (push, pop) => {
+
+                function changeCB(val: string) {
+                    updateItem({...item, payrollItemId: val})
+                    pop()
+                }
+
+                return (
+                    <div className="w-sm">
+                        <CardProp label="Item Name:" val={item.name} />
+                        <div className="h-4"></div>
+                        <p>Linked Payroll Item:</p>
+                        <SelectInput searchable options={options} val={item.payrollItemId ?? ""} changeCB={changeCB} />
+
+                        {/* <button className={`accent-button w-full mt-5`} onClick={() => {
+                            pop()
+                        }}>Close</button> */}
+                    </div>
+                )
+            }
+        })
+    }
 
     function deleteItem(item: PayStubItem) {
         const items = [...paystub.items].filter(i => i.uuid !== item.uuid)
@@ -408,25 +469,25 @@ export default function PaystubEditForm({
         )
     }
 
-    function clickedDelete() {
-        addModal({
-            title: `Delete Paystub?`,
-            required: false,
-            component: (push, pop) => (
-                <div className="max-w-md">
+    async function clickedDelete() {
 
-                    {/* <p>Are you sure you want to delete this paystub?</p> */}
-
-                    <div className="flex flex-row justify-between mt-5">
-                        <button className="primary-button" onClick={pop}>No, Cancel</button>
-                        <button className="danger-button" onClick={() => {
-                            pop()
-                            deleteStub()
-                        }}>Yes, Delete</button>
-                    </div>
-                </div>
-            )
+        const result = await promptUser({
+            addModal,
+            title: "Delete Paystub?",
+            message: "This action cannot be undone.",
+            falseButton: {
+                title: "Close",
+                type: "accent"
+            },
+            trueButton: {
+                title: "Delete",
+                type: "danger"
+            }
         })
+
+        if (!result) { return }
+
+        deleteStub()
     }
     function deleteStub() {
 
@@ -485,8 +546,9 @@ export default function PaystubEditForm({
 
     async function lockedBtn() {
         if (paystub.locked) {
-            const result = await promptUser({addModal,
-                title: "This Paystub Is Locked!", 
+            const result = await promptUser({
+                addModal,
+                title: "This Paystub Is Locked!",
                 message: "Paystubs can only be unlocked by Organization Administrators. If you believe this paystub was locked by accident, please contact an administrator for this organization.",
                 falseButton: {
                     title: "Close",
@@ -503,15 +565,17 @@ export default function PaystubEditForm({
                 }, 100);
             }
         } else {
-            infoUser({addModal,
+            infoUser({
+                addModal,
                 title: "This Paystub Is Submitted!",
                 message: "This paystub was previously submitted but is not locked."
             })
         }
     }
     async function unlockPressed() {
-        const result = await promptUser({addModal, 
-            title: "Are you sure?", 
+        const result = await promptUser({
+            addModal,
+            title: "Are you sure?",
             message: "TODO: Add warning text here... TLDR: Don't do this unless you know what you are doing. :)",
             falseButton: {
                 title: "Cancel",
@@ -543,7 +607,8 @@ export default function PaystubEditForm({
     }
 
     async function lockPaystubClicked() {
-        const result = await promptUser({addModal,
+        const result = await promptUser({
+            addModal,
             title: "Submit Paystub?",
             message: "Do you want to lock and submit this paystub?",
             falseButton: {
@@ -551,7 +616,7 @@ export default function PaystubEditForm({
                 type: "accent"
             },
             trueButton: {
-                title:"Lock and Submit",
+                title: "Lock and Submit",
                 type: "primary"
             }
         })
@@ -611,8 +676,9 @@ export default function PaystubEditForm({
     async function selectActiveStub(val: string) {
 
         if (edited) {
-            const result = await promptUser({addModal, 
-                title: "Unsaved Changes!", 
+            const result = await promptUser({
+                addModal,
+                title: "Unsaved Changes!",
                 message: "You have unsaved changes in this paystub. All changes will be lost if you switch to a new paystub. Do you wish to continue?",
                 falseButton: {
                     title: "Cancel",
@@ -633,7 +699,7 @@ export default function PaystubEditForm({
         }
     }
 
-    
+
 
     return (
         <div className="flex flex-row gap-5">

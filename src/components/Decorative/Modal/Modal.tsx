@@ -19,9 +19,7 @@ export default function Modal({ modal }: { modal: ModalProps }) {
     modal.title = modal.title ?? ""
     modal.required = modal.required ?? false
     modal.background = modal.background ?? true
-
-    console.log(modal)
-
+    
     return (
         <div className={`${modal.background ? "card min-w-md" : ""} w-fit h-fit`} style={{ backdropFilter: modal.background ? "blur(5px)" : "none" }}>
 

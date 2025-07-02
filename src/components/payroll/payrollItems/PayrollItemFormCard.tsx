@@ -40,7 +40,9 @@ export default function PayrollItemFormCard({ item }: { item: PayrollItemWithCou
     function saved() {
         toast.promise(
             async () => {
-                await upsertPayrollItem(itemState)
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const {_count, ...newState} = itemState
+                await upsertPayrollItem(newState)
                 router.refresh()
             },
             {
