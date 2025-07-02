@@ -26,7 +26,7 @@ export default function EmployeeCompensationAddButton({ employee }: { employee: 
     }
 
     return (
-        <button onClick={clicked} className="primary-button w-full">Add to Group</button>
+        <button onClick={clicked} className="primary-button w-full">Add to Payroll Group</button>
     )
 }
 

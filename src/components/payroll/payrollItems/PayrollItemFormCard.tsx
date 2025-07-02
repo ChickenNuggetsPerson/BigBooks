@@ -1,13 +1,17 @@
 'use client'
 
 import deletePayrollItem from "@/actions/paystub/payrollItems/deletePayrollItem"
+import { PayrollItemWithCount } from "@/actions/paystub/payrollItems/getPayrollItems"
 import upsertPayrollItem from "@/actions/paystub/payrollItems/upsertPayrollItem"
 import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv"
+import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
+import { promptUser } from "@/components/Decorative/Modals/promptUser"
+import { CardProp } from "@/components/Forms/CardProp"
 import LargeTextInput from "@/components/Forms/LargeTextInput"
 import NumberInput from "@/components/Forms/NumberInput"
 import SelectInput from "@/components/Forms/SelectInput"
 import TextInput from "@/components/Forms/TextInput"
-import { AbsMaxPeriodTypes, PayrollItem, PayStubItemType } from "@/database/generated/prisma/"
+import { AbsMaxPeriodTypes, PayStubItemType } from "@/database/generated/prisma/"
 import { Decimal } from "@prisma/client/runtime/index-browser.js"
 import { Save, Trash2 } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -18,8 +22,9 @@ import toast from "react-hot-toast"
 
 
 
-export default function PayrollItemFormCard({ item }: { item: PayrollItem }) {
+export default function PayrollItemFormCard({ item }: { item: PayrollItemWithCount }) {
 
+    const { addModal } = useModalManager()
     const [itemState, setItemState] = useState(item)
     const [edited, setEdited] = useState(false)
     const router = useRouter()
@@ -46,7 +51,40 @@ export default function PayrollItemFormCard({ item }: { item: PayrollItem }) {
         )
     }
 
-    function deleted() {
+    async function deleted() {
+
+        const result = await promptUser({
+            addModal,
+            title: "Are you Sure?",
+            message: "Deleting this item will not affect previously submitted paystubs, but you will delete progress towards period limits. This action cannot be undone!",
+            falseButton: {
+                title: "Cancel",
+                type: "accent"
+            },
+            trueButton: {
+                title: "Delete",
+                type: "danger"
+            }
+        })
+        if (!result) { return }
+
+        if (item._count.PayStubItem > 0) {
+            const r = await promptUser({
+                addModal,
+                title: "Are you REALLY sure?",
+                message: `This payroll item is associated with ${item._count.PayStubItem} paystubs. Deleting this payroll item will delete the relationship between those ${item._count.PayStubItem} paystubs. This will delete the period limit tracking!`,
+                falseButton: {
+                    title: "Cancel",
+                    type: "accent"
+                },
+                trueButton: {
+                    title: "Yes",
+                    type: "danger"
+                }
+            })
+            if (!r) { return }
+        }
+
         toast.promise(
             async () => {
                 await deletePayrollItem(itemState.uuid)
@@ -63,6 +101,8 @@ export default function PayrollItemFormCard({ item }: { item: PayrollItem }) {
 
     return (
         <CollapsibleDiv title={<p className="select-none font-semibold text-lg">{item.name}</p>} className="">
+
+            <CardProp label="Times Used:" val={String(item._count.PayStubItem)}/>
 
             <div className="flex flex-row gap-x-4 pt-4">
                 <SelectInput label="Type" val={itemState.type} options={typeOptions} changeCB={(val) => { setItemState({ ...itemState, type: val as PayStubItemType }) }} />

@@ -13,6 +13,8 @@ import { useCompany } from "@/app/CompanyContext"
 import ClickableDiv from "@/components/Decorative/ClickableDiv"
 import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv"
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
+import { infoUser } from "@/components/Decorative/Modals/infoUser"
+import { promptUser } from "@/components/Decorative/Modals/promptUser"
 import DateInput from "@/components/Forms/DateInput"
 import { Divider } from "@/components/Forms/Divider"
 import LargeTextInput from "@/components/Forms/LargeTextInput"
@@ -481,44 +483,48 @@ export default function PaystubEditForm({
     }
 
 
-    function lockedBtn() {
+    async function lockedBtn() {
         if (paystub.locked) {
-            addModal({
-                title: "This Paystub Is Locked!",
-                required: false,
-                component: () => (<div className="w-sm">
-                    <p>Paystubs can only be unlocked by Organization Administrators. If you believe this paystub was locked by accident, please contact an administrator for this organization.</p>
-                    <div className="flex flex-row justify-end">
-                        <button className="danger-button" onClick={unlockPressed}>Unlock</button>
-                    </div>
-
-                </div>)
+            const result = await promptUser({addModal,
+                title: "This Paystub Is Locked!", 
+                message: "Paystubs can only be unlocked by Organization Administrators. If you believe this paystub was locked by accident, please contact an administrator for this organization.",
+                falseButton: {
+                    title: "Close",
+                    type: "accent"
+                },
+                trueButton: {
+                    title: "Unlock",
+                    type: "danger"
+                }
             })
+            if (result) {
+                setTimeout(() => {
+                    unlockPressed()
+                }, 100);
+            }
         } else {
-            addModal({
+            infoUser({addModal,
                 title: "This Paystub Is Submitted!",
-                required: false,
-                component: () => (<div className="w-sm">
-                    <p>This paystub was previously submitted but is not locked.</p>
-                </div>)
+                message: "This paystub was previously submitted but is not locked."
             })
         }
     }
-    function unlockPressed() {
-        addModal({
-            title: "Are you sure?",
-            required: false,
-            component: (push, pop) => (
-                <div className="w-sm">
-                    <p>{`TODO: Add warning text here... TLDR: Don't do this unless you know what you are doing. :)`}</p>
-                    <Divider />
-                    <div className="flex flex-row justify-between">
-                        <button className="primary-button" onClick={() => { pop(); pop(); }}>Cancel</button>
-                        <button className="danger-button" onClick={() => { pop(); pop(); unlockStub(); }} >Unlock</button>
-                    </div>
-                </div>
-            )
+    async function unlockPressed() {
+        const result = await promptUser({addModal, 
+            title: "Are you sure?", 
+            message: "TODO: Add warning text here... TLDR: Don't do this unless you know what you are doing. :)",
+            falseButton: {
+                title: "Cancel",
+                type: "accent"
+            },
+            trueButton: {
+                title: "Continue",
+                type: "danger"
+            }
         })
+        if (result) {
+            unlockStub()
+        }
     }
 
     function unlockStub() {
@@ -536,20 +542,23 @@ export default function PaystubEditForm({
         )
     }
 
-    function lockPaystubClicked() {
-        addModal({
+    async function lockPaystubClicked() {
+        const result = await promptUser({addModal,
             title: "Submit Paystub?",
-            required: false,
-            component: (push, pop) => (<div className="w-sm">
-                <p>Do you want to lock and submit this paystub?</p>
-                <Divider />
-                <div className="flex flex-row justify-between">
-                    <button className="accent-button" onClick={() => { pop() }}>Cancel</button>
-                    <button className="primary-button" onClick={() => { pop(); lock() }}>Lock and Submit</button>
-                </div>
-
-            </div>)
+            message: "Do you want to lock and submit this paystub?",
+            falseButton: {
+                title: "Cancel",
+                type: "accent"
+            },
+            trueButton: {
+                title:"Lock and Submit",
+                type: "primary"
+            }
         })
+
+        if (result) {
+            lock()
+        }
     }
     function lock() {
         toast.promise(
@@ -602,7 +611,18 @@ export default function PaystubEditForm({
     async function selectActiveStub(val: string) {
 
         if (edited) {
-            const result = await warnUnsavedChanges("You have unsaved changes in this paystub. All changes will be lost if you switch to a new paystub. Do you wish to continue?")
+            const result = await promptUser({addModal, 
+                title: "Unsaved Changes!", 
+                message: "You have unsaved changes in this paystub. All changes will be lost if you switch to a new paystub. Do you wish to continue?",
+                falseButton: {
+                    title: "Cancel",
+                    type: "accent"
+                },
+                trueButton: {
+                    title: "Continue",
+                    type: "danger"
+                }
+            })
             if (!result) { return }
         }
 
@@ -613,35 +633,7 @@ export default function PaystubEditForm({
         }
     }
 
-    async function warnUnsavedChanges(warnMessage: string) {
-        return new Promise(resolve => {
-
-            addModal({
-                title: "Unsaved Changes!",
-                required: true,
-                component: (push, pop) => (
-                    <div className="w-sm">
-                        <p>{warnMessage}</p>
-
-                        <div className="flex flex-row justify-between pt-5">
-
-                            <button type="submit" className="primary-button w-4/9" onClick={() => {
-                                pop()
-                                resolve(false)
-                            }}>Cancel</button>
-                            <button type="submit" className="danger-button w-4/9" onClick={() => {
-                                pop()
-                                resolve(true)
-                            }}>Continue</button>
-
-                        </div>
-
-                    </div>
-                )
-            })
-
-        })
-    }
+    
 
     return (
         <div className="flex flex-row gap-5">

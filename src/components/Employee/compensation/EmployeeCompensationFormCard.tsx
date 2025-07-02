@@ -3,6 +3,8 @@
 import deleteEmployeeCompensation from "@/actions/employeeCompensation/deleteEmployeeCompensation"
 import upsertEmployeeCompensation from "@/actions/employeeCompensation/upsertEmployeeCompensation"
 import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv"
+import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
+import { promptUser } from "@/components/Decorative/Modals/promptUser"
 import CheckboxInput from "@/components/Forms/CheckboxInput"
 import LargeTextInput from "@/components/Forms/LargeTextInput"
 import NumberInput from "@/components/Forms/NumberInput"
@@ -24,6 +26,7 @@ export default function EmployeeCompensationFormCard({ comp }: {
 }) {
 
     const router = useRouter()
+    const { addModal } = useModalManager()
     const [compensation, setCompensation] = useState(comp)
 
     const sal = compensation.salaryAmount as number | null
@@ -47,7 +50,23 @@ export default function EmployeeCompensationFormCard({ comp }: {
             }
         )
     }
-    function deleted() {
+    async function deleted() {
+
+        const result = await promptUser({
+            addModal,
+            title: "Are you Sure?",
+            message: "Do you really want to delete this compensation? This cannot be undone!",
+            falseButton: {
+                title: "Cancel",
+                type: "accent"
+            },
+            trueButton: {
+                title: "Delete",
+                type: "danger"
+            }
+        })
+        if (!result) { return }
+
         toast.promise(
             async () => {
                 await deleteEmployeeCompensation(compensation.uuid)

@@ -1,8 +1,7 @@
 'use server'
 
 import { Divider } from "@/components/Forms/Divider"
-import { PayrollItem } from "@/database/generated/prisma"
-import getPayrollItems from "@/actions/paystub/payrollItems/getPayrollItems"
+import getPayrollItems, { PayrollItemWithCount } from "@/actions/paystub/payrollItems/getPayrollItems"
 import PayrollItemFormCard from "./PayrollItemFormCard"
 import { getSession } from "@/auth/auth"
 import { redirect } from "next/navigation"
@@ -34,7 +33,7 @@ export default async function PayrollItemsForm({
     const title = (organization ? "Organization" : "") + (employee ? "Employee" : "") + (group ? "Group" : "")
     let name = null
 
-    let items = [] as PayrollItem[]
+    let items = [] as PayrollItemWithCount[]
 
     if (organization) {
         items = deserializeData(await getPayrollItems({ organizationId: session.orgUUID })).organization

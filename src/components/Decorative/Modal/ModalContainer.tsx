@@ -12,7 +12,7 @@ export default function ModalContainer({ children }: { children: React.ReactNode
         setModals(prev => [...prev, modal]);
     }
 
-    function popModal() {
+    function optionalPopModal() {
         if (modals[modals.length - 1]?.required) return;
         forcePopModal();
     }
@@ -34,7 +34,7 @@ export default function ModalContainer({ children }: { children: React.ReactNode
                             zIndex: 999 + i * 200,
                             // backgroundColor: "rgba(0.1, 0.1, 0.1, 0.02)",
                         }}
-                        onClick={popModal}
+                        onClick={optionalPopModal}
 
                     // Opacity of background blur fades in
                     initial={{ opacity: 0, backdropFilter: "none" }}

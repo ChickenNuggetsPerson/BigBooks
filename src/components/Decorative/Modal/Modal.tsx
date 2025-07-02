@@ -25,7 +25,7 @@ export default function Modal({ modal }: { modal: ModalProps }) {
     return (
         <div className={`${modal.background ? "card min-w-md" : ""} w-fit h-fit`} style={{ backdropFilter: modal.background ? "blur(5px)" : "none" }}>
 
-            {modal.background &&
+            {(modal.background && !modal.required) &&
                 <div className="relative">
                     <div className="absolute right-0">
                         <X onClick={popModal} className="cursor-pointer" />

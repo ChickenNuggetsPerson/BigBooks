@@ -2,6 +2,7 @@
 
 import { useCompany } from "@/app/CompanyContext";
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
+import { promptUser } from "@/components/Decorative/Modals/promptUser";
 import ProgressBar from "@/components/Decorative/ProgressBar/ProgressBar";
 import SelectableEmployeeList from "@/components/Employee/EmployeeList/SelectableEmployeeList";
 import PayrollInportGroupForm from "@/components/payroll/PayrollInportGroupForm";
@@ -86,23 +87,23 @@ export default function Payroll() {
     }
 
     const { addModal } = useModalManager()
-    function resetStatePressed() {
-        addModal({
-            title: "Clear Payroll State?",
-            required: false,
-            component: (push, pop) => (
-                <div className="w-sm">
-                    <p>This will clear payroll dates and selected employees. Are you sure you want to clear this?</p>
-                    <div className="w-full flex flex-row justify-between pt-4">
-                        <button className="primary-button" onClick={pop}>Cancel</button>
-                        <button className="danger-button" onClick={() => {
-                            pop()
-                            resetState()
-                        }}>Clear State</button>
-                    </div>
-                </div>
-            )
+    async function resetStatePressed() {
+        const result = await promptUser({
+            addModal,
+            title: "Reset State?",
+            message: "This will clear payroll dates and selected employees. Are you sure you want to clear this?",
+            falseButton: {
+                title: "Cancel",
+                type: "accent"
+            },
+            trueButton: {
+                title: "Reset",
+                type: "danger"
+            }
         })
+        if (result) {
+            resetState()
+        }
     }
 
 
@@ -130,7 +131,7 @@ export default function Payroll() {
         <div>
             <ProgressBar steps={["Configure", "Select Employees", "Enter Payroll", "Review"]} currentStep={payrollState.page} changeCB={(index) => setPayrollState({ ...payrollState, page: index })} />
 
-            <div className="h-4"></div>
+            <div className="h-2"></div>
 
             {payrollState.page == 0 &&
                 <>
@@ -146,7 +147,7 @@ export default function Payroll() {
             {payrollState.page == 2 && payrollState.selectedEmployees.length > 0 &&
                 <>
                     <HorzScrollSelect selected={payrollState.selectIndex} options={payrollState.selectedEmployees.map(e => e.label)} changeCB={(val) => setPayrollState({ ...payrollState, selectIndex: val })} />
-                    <div className="h-5"></div>
+                    <div className="h-2"></div>
                     <PaystubEditForm
                         key={payrollState.selectedEmployees[payrollState.selectIndex].id}
                         empUUID={payrollState.selectedEmployees[payrollState.selectIndex].id}
