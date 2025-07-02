@@ -90,12 +90,10 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto card mb-5" >
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto card mb-5 relative" >
 
-            <div className="relative">
-                <div className="fixed top-5 right-0">
-                    {!newOrganization && <button onClick={() => { deactivateOrganization(props.uuid, !props.isDeleted) }} className={`mx-5 ${props.isDeleted ? "primary-button" : "danger-button"}`} >{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
-                </div>
+            <div className="absolute top-5 right-0">
+                {!newOrganization && <button onClick={() => { deactivateOrganization(props.uuid, !props.isDeleted) }} className={`mx-5 ${props.isDeleted ? "primary-button" : "danger-button"}`} >{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
             </div>
 
             <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">{newOrganization ? "Create Organization:" : "Edit Organization:"}</h5>
