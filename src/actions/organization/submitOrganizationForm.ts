@@ -31,6 +31,10 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
 
         if (user.allocatedOrganizations <= 0 && !session.isAdmin) { throw new Error("Insufficient Permissions") }
 
+        if (name.trim() == "" || address.trim() == "") {
+            throw new Error("Did not include name and address.")
+        }
+
         const organization = await prisma.organization.create({
             data: {
                 name: name,
@@ -65,6 +69,10 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
         try { // Edit page
 
             await throwIfInsufficientPerms(RoleTypes.Admin)
+
+            if (name.trim() == "" || address.trim() == "") {
+                throw new Error("Did not include name and address.")
+            }
 
             await prisma.organization.update({
                 where: { uuid: uuid },
