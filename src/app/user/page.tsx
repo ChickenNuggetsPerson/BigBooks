@@ -23,7 +23,7 @@ export default async function UserPage() {
     }
 
     return (
-        <div className="p-5">
+        <div className="py-5 px-10">
 
             <div className="flex flex-row justify-between w-full gap-10">
 
@@ -79,7 +79,7 @@ export default async function UserPage() {
                 </div>
 
                 {/* Right Side */}
-                <div className="mx-auto">
+                <div>
                     <OrganizationList showBackground/>
                 </div>
             </div>
