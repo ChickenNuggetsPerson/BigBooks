@@ -21,7 +21,7 @@ export default async function NewOrganizationPage() {
     }
 
     return (
-        <div className="w-200 overflow-clip pt-30">
+        <div className="w-200 overflow-clip pt-10">
             <div className="text-white font-bold text-center mb-2">
                 {`You are allocated ${user.allocatedOrganizations} more organization${user.allocatedOrganizations > 1 ? "s" : ""}`}
             </div>
