@@ -1,7 +1,7 @@
 'use client'
 
 import deletePaystub from "@/actions/paystub/deletePaystub"
-import getEmployeeLatestPaystub from "@/actions/paystub/getEmployeeLatestPaystub"
+import getEmployeeActivePaystubs from "@/actions/paystub/getEmployeeActivePaystubs"
 import getPaystub from "@/actions/paystub/getPaystub"
 import genEmployeeTaxRates from "@/actions/paystub/importTaxes"
 import getEmployeePayrollItems from "@/actions/paystub/payrollItems/getEmployeePayrollItems"
@@ -90,7 +90,10 @@ export default function PaystubEditForm({
 
     const { context } = useCompany()
     const { addModal } = useModalManager()
+
+    const [activeStubs, setActiveStubs] = useState([] as Prisma.PayStubGetPayload<{ select: { uuid: true, payDate: true, periodEnd: true, periodStart: true } }>[])
     const [paystub, setPaystub] = useState(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
+
     const [defaults, setDefaults] = useState({
         defaults: {
             organization: [] as PayStubItem[],
@@ -104,7 +107,7 @@ export default function PaystubEditForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { load() }, [])
 
-    async function load() {
+    async function load(forceNew: boolean = false) {
 
         const toastID = toast.loading("Loading Paystub Data")
         setEdited(false)
@@ -112,25 +115,38 @@ export default function PaystubEditForm({
         const d = deserializeData(await getEmployeePayrollItems(empUUID))
         setDefaults(d)
 
-        if (stubUUID) {
-            const stub = deserializeData(await getPaystub(stubUUID))
-            if (stub) {
-                setPaystub(stub)
+        // Fetch all unlocked paystubs
+        const unlocked = deserializeData(await getEmployeeActivePaystubs(empUUID))
+        setActiveStubs(unlocked)
+
+        // Component supplied with UUID, or internal state has a valid UUID
+        if ((stubUUID || paystub.uuid !== "") && !forceNew) {
+            const uuid = stubUUID ?? paystub.uuid
+            await loadStubByID(uuid)
+        } else {
+
+            // If a unlocked stub exists, load it.
+            // Otherwise, just set state to an empty stub.
+            if (unlocked.length > 0) {
+                await loadStubByID(unlocked[0].uuid)
             } else {
-                setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
+                createNewStub()
             }
-            toast.dismiss(toastID)
-            return
         }
 
-        const latest = deserializeData(await getEmployeeLatestPaystub(empUUID, stubPaydate ?? new Date()))
-        if (!latest) {
-            setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
-            toast.dismiss(toastID)
-            return
-        }
-        setPaystub(latest)
         toast.dismiss(toastID)
+    }
+
+    // Loades the paystub into internal state.
+    async function loadStubByID(uuid: string) {
+        const stub = deserializeData(await getPaystub(uuid)) // Fetch from server
+        if (stub) {
+            setPaystub(stub)
+        } else {
+            toast.error(`Failed Loading Paystub: ${uuid}`)
+            createNewStub() // Default to empty if needed
+        }
+        setEdited(false)
     }
 
     const selectOptions = [
@@ -254,7 +270,7 @@ export default function PaystubEditForm({
                 return (
                     <div className="w-sm select-none">
                         <div className="h-3"></div>
-                        <LargeTextInput label={`Item Description for: ${item.name}`} id="descriptionInput" val={item.description ?? ""}/>
+                        <LargeTextInput label={`Item Description for: ${item.name}`} id="descriptionInput" val={item.description ?? ""} />
                         <div className="w-full flex flex-row justify-between">
                             <button className="danger-button" onClick={() => {
                                 updateItem({
@@ -415,7 +431,8 @@ export default function PaystubEditForm({
         toast.promise(
             async () => {
                 await deletePaystub(paystub.uuid)
-                load()
+                createNewStub()
+                load(true)
             },
             {
                 loading: "Deleting Paystub",
@@ -563,6 +580,7 @@ export default function PaystubEditForm({
     }
     function createNewStub() {
         setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
+        setEdited(false)
     }
 
     const handleProcessRowUpdateError = React.useCallback((error: Error) => {
@@ -574,22 +592,63 @@ export default function PaystubEditForm({
     const isLocked = (paystub.locked || forceLock) as boolean
     const showWarning = (paystub.locked || paystub.lockedTime || paystub.submittedTime) as boolean
 
+
+    const activeStubsOptions = [
+        { label: "Create New", id: "+" },
+        ...activeStubs.map((s) => { return { label: s.payDate.toLocaleDateString(), id: s.uuid } })
+    ]
+    async function selectActiveStub(val: string) {
+
+        if (edited) {
+            const result = await warnUnsavedChanges("You have unsaved changes in this paystub. All changes will be lost if you switch to a new paystub. Do you wish to continue?")
+            if (!result) { return }
+        }
+
+        if (val == "+") {
+            createNewStub()
+        } else {
+            loadStubByID(val)
+        }
+    }
+
+    async function warnUnsavedChanges(warnMessage: string) {
+        return new Promise(resolve => {
+
+            addModal({
+                title: "Unsaved Changes!",
+                required: true,
+                component: (push, pop) => (
+                    <div className="w-sm">
+                        <p>{warnMessage}</p>
+
+                        <div className="flex flex-row justify-between pt-5">
+
+                            <button type="submit" className="primary-button w-4/9" onClick={() => {
+                                pop()
+                                resolve(false)
+                            }}>Cancel</button>
+                            <button type="submit" className="danger-button w-4/9" onClick={() => {
+                                pop()
+                                resolve(true)
+                            }}>Continue</button>
+
+                        </div>
+
+                    </div>
+                )
+            })
+
+        })
+    }
+
     return (
         <div className="flex flex-row gap-5">
 
+            {/* Left Side */}
             <div className="w-3/4">
-                <div className="flex flex-row justify-between select-none mb-3 smallCard" style={{ padding: 10 }}>
 
-                    {!isLocked &&
-                        <ClickableDiv onClick={importTaxes}>
-                            <p className="primary-button">
-                                Import Taxes
-                            </p>
-                        </ClickableDiv>
-                    }
-                    {isLocked &&
-                        <div></div>
-                    }
+                {/* Options Header */}
+                <div className="flex flex-row justify-between select-none mb-3 smallCard" style={{ padding: 10 }}>
 
                     <AnimatePresence>
                         {hasDates && datesDiffer && !isLocked &&
@@ -721,6 +780,14 @@ export default function PaystubEditForm({
 
             {/* Right Side */}
             <div className="flex flex-col gap-4">
+
+                {(!stubUUID && activeStubs.length > 0) &&
+                    <div className="card h-fit w-3xs" style={{ zIndex: 100 }}>
+                        <h5>{`Active Paystubs: (Paydate)`}</h5>
+                        <SelectInput searchable val={paystub.uuid} options={activeStubsOptions} changeCB={selectActiveStub} />
+                    </div>
+                }
+
                 <div className="card h-fit w-3xs">
                     <div className="flex flex-row w-full justify-between">
                         <p>Gross:</p>
@@ -743,6 +810,9 @@ export default function PaystubEditForm({
 
                 {!isLocked &&
                     <div className="card h-fit w-3xs select-none">
+                        <Tooltip title="Import All Payroll Items">
+                            <button onClick={importTaxes} className="primary-button w-full mb-4">Import Taxes</button>
+                        </Tooltip>
 
                         <Tooltip title="Import All Payroll Items">
                             <button onClick={importAll} className="primary-button w-full">Import All Items</button>

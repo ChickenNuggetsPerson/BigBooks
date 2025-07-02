@@ -3,24 +3,25 @@
 import { RoleTypes } from "@/auth/roles/Roles"
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { prisma } from "@/database/prisma"
-import { addDays } from "@/utils/functions/Date"
 import { serializeData } from "@/utils/serialization"
 
 
 
-export default async function getEmployeeLatestPaystub(empUUID: string, payDate: Date) {
+// Returns a list of unlocked paystubs the employee has
+export default async function getEmployeeActivePaystubs(empUUID: string) {
 
     await throwIfInsufficientPerms(RoleTypes.Editor)
 
-    const stub = await prisma.payStub.findFirst({
+    const stub = await prisma.payStub.findMany({
         where: {
             employeeId: empUUID,
-            payDate: {
-                gte: addDays(payDate, -5)
-            }
+            locked: false
         },
-        include: {
-            items: true
+        select: {
+            uuid: true,
+            payDate: true,
+            periodStart: true,
+            periodEnd: true
         },
         orderBy: [
             {
@@ -28,12 +29,6 @@ export default async function getEmployeeLatestPaystub(empUUID: string, payDate:
             }
         ]
     })
-
-    // if (stub) {
-    //     if (stub.submittedTime) { // If the stub is submitted, return null 
-    //         return serializeData(null)
-    //     }
-    // }
 
     return serializeData(stub)
 }

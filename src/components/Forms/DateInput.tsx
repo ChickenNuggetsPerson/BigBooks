@@ -28,6 +28,7 @@ export default function DateInput({
 
     function c(event: ChangeEvent<HTMLInputElement>): void {
         const date = event.target.valueAsDate ?? new Date()
+        date.setHours(25)
 
         setState(date)
         onChange(date)
