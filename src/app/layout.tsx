@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en">
+    <html lang="en" style={{ scrollbarWidth: "none"}}>
 
       <body className={`antialiased text-text bg-background`}>
 
