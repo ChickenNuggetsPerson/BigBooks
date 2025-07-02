@@ -50,11 +50,11 @@ export default async function UserPage() {
             </AnimateChildren>
 
 
-            <div className="flex flex-col absolute bottom-5 left-5">
-                <button className="accent-button mt-5" onClick={logout}>Logout</button>
+            <div className="flex flex-col absolute top-5 right-5">
+                <button className="smallCard text-white font-bold cursor-pointer" style={{ paddingLeft: 10, paddingRight: 10 }} onClick={logout}>Logout</button>
 
                 {session?.isAdmin &&
-                    <Link href={"/user/users"} className="secondary-button mt-2">
+                    <Link href={"/user/users"} className="smallCard text-white font-bold mt-2 w-fit ml-auto" style={{ paddingLeft: 10, paddingRight: 10 }}>
                         Users
                     </Link>
                 }
