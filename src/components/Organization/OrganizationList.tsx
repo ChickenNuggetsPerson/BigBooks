@@ -50,11 +50,9 @@ export default function OrganizationList({
             type: "custom",
             width: 120,
             renderCell: (params: GridRenderCellParams<OrgWithRole, unknown>) => {
-
                 const role = params.row.role
-
                 return (
-                    <div className="flex flex-col justify-center px-3 pt-2">
+                    <div className="flex flex-col justify-center px-3 pt-2" style={{ opacity: params.row.isDeleted ? 0.5 : 1 }}>
                         <div className="w-fit h-fit px-2 py-1 select-none text-white font-bold text-center rounded-xl text-lg" style={{ backgroundColor: role.color }}>
                             {role.type}
                         </div>
@@ -67,7 +65,7 @@ export default function OrganizationList({
             headerName: 'Name',
             width: 200,
             renderCell: (params: GridRenderCellParams<OrgWithRole, string>) => (
-                <p>{params.row.name}</p>
+                <p style={{ color: params.row.isDeleted ? "red" : "black" }}>{params.row.name}</p>
             ),
         },
         {
@@ -75,7 +73,7 @@ export default function OrganizationList({
             headerName: 'Address',
             width: 200,
             renderCell: (params: GridRenderCellParams<OrgWithRole, string>) => (
-                <p>{params.row.address}</p>
+                <p style={{ color: params.row.isDeleted ? "red" : "black" }}>{params.row.address}</p>
             ),
         },
     ]
