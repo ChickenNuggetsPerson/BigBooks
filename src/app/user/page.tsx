@@ -48,7 +48,7 @@ export default async function UserPage() {
 
                     {
                         !session?.isAdmin &&
-                        <CollapsibleDiv className="card" title={<h5 className="mb-2 text-2xl font-normal text-gray-700">Create Organization:</h5>}>
+                        <CollapsibleDiv className="card" title={<h5 className="mb-2 text-2xl font-normal text-gray-700 select-none">Create Organization:</h5>}>
                             <div className="h-2"></div>
                             <CardProp label="Allocated Organizations:" val={String(user.allocatedOrganizations)} />
 
