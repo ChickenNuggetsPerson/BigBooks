@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.9.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.8.1...v0.9.0) (2025-07-02)
+
+
+### Features
+
+* Added animtions to landing page. ([70bb7b1](https://github.com/ChickenNuggetsPerson/BigBooks/commit/70bb7b149e62e7cc18eaf1c2e1af6dae224f6c6c))
+* Created new website landing page. ([c5fc4ec](https://github.com/ChickenNuggetsPerson/BigBooks/commit/c5fc4ec2486bb223b2e0a868b907134dda435ed4))
+* Enhance modal and organization list functionality with background options. ([adb8951](https://github.com/ChickenNuggetsPerson/BigBooks/commit/adb89511429756d9d0a89ac85b1d457230a7c62b))
+* Organization List now indicates deactivated organizations. ([cfe7cb4](https://github.com/ChickenNuggetsPerson/BigBooks/commit/cfe7cb4e131f4ed2f1042db392e69a5e86e60181))
+* Paystub edit form descriptions are now moved to a button. ([d892f29](https://github.com/ChickenNuggetsPerson/BigBooks/commit/d892f298235c9839f7c34ab6c32dc8ea348bbef3))
+* Redesign to user page. ([ff76620](https://github.com/ChickenNuggetsPerson/BigBooks/commit/ff7662076f60cbcdd0826465daea94b2680c3073))
+
+
+### Bug Fixes
+
+* Added loading animation to employee select list. ([149892d](https://github.com/ChickenNuggetsPerson/BigBooks/commit/149892d7aca3a4622b0f25321ddf5b1a11fec3d4))
+* Changed frosted glass blur radius ([b9c53bc](https://github.com/ChickenNuggetsPerson/BigBooks/commit/b9c53bc00346478d494c4da446abadbd4c959361))
+* Changed positon and look of logout button in user page. ([3cf7d10](https://github.com/ChickenNuggetsPerson/BigBooks/commit/3cf7d102a03076ab626dc7366cf0a9673be7e385))
+* Changes to accessing changelog page. ([541d794](https://github.com/ChickenNuggetsPerson/BigBooks/commit/541d7940b2569d2fad669f2d7f39afc2382d28b8))
+* Create Organization title is no longer selectable. ([393edbb](https://github.com/ChickenNuggetsPerson/BigBooks/commit/393edbb307b4a3931f3a8a56657a440058cde8ca))
+* Fixed postioning of logout button in user page. ([0228b32](https://github.com/ChickenNuggetsPerson/BigBooks/commit/0228b324274b2dc9b2510bb970abeda8c129c452))
+* Landing page login button looks better now. ([1f0bf03](https://github.com/ChickenNuggetsPerson/BigBooks/commit/1f0bf039886f64d6d9c14c684326321204ab9211))
+* More fixes to background blurs of modals. ([0501e31](https://github.com/ChickenNuggetsPerson/BigBooks/commit/0501e3156444f205112516fd8576f4700ecb60b1))
+* Paystub select item now sorts on paydate. ([cb7e544](https://github.com/ChickenNuggetsPerson/BigBooks/commit/cb7e5447702f5596edbd39ee9cf078bea35751c2))
+* Removed extra change notification ([3968dde](https://github.com/ChickenNuggetsPerson/BigBooks/commit/3968dde7788cf56126aea012b5d3660f27413379))
+* Removed scrollbar for the whole website. ([23888e7](https://github.com/ChickenNuggetsPerson/BigBooks/commit/23888e71558509c7d62ec239aac09d5b7a580706))
+* User page now better aligned. ([8641db0](https://github.com/ChickenNuggetsPerson/BigBooks/commit/8641db0cc23d856aabf27b91483ea0802993595d))
+
 ## [0.8.1](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.8.0...v0.8.1) (2025-06-18)
 
 
