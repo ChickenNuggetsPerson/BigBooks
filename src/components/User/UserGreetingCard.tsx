@@ -6,28 +6,28 @@ import Link from "next/link"
 
 
 
-
 export default async function UserGreetingCard() {
 
     const user = await getUserFromSession()
 
     if (!user) {
         return (
-            <div className="card w-80 h-60">
+            <div className="card w-80 h-fit">
 
                 <p className="mb-1 text-2xl font-semibold text-gray-700 select-none">Not Logged In</p>
 
                 <div className="h-px bg-accent mb-3"></div>
 
-                <Link className="block px-4 py-2 bg-primary/80 hover:bg-primary/70 text-white text-center font-bold rounded-lg" href={"/user/login"}>
-                    Login
+                <Link href={"/user/login"}>
+                    <div className="w-full primary-button text-center">Login</div>
                 </Link>
+
             </div>
         )
     }
 
     return (
-        <div className="card w-80 h-60">
+        <div className="card w-80 h-fit">
 
             <p className="mb-1 text-2xl font-semibold text-gray-700 select-none">{`Hello ${user.firstName}!`}</p>
 
