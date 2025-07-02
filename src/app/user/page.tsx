@@ -29,12 +29,10 @@ export default async function UserPage() {
 
                 {/* Left Side */}
                 <div className="flex flex-col gap-4 smallCard h-fit" style={{ padding: 10 }}>
-                    <EditableDiv className="card w-100" enabled={!session?.isAdmin} url={"/user/edit"}>
+                    <EditableDiv className="card w-100 relative" enabled={!session?.isAdmin} url={"/user/edit"}>
 
-                        <div className="relative">
-                            <div className="fixed bottom-0 right-0">
-                                <button className="smallCard text-white/90 font-bold cursor-pointer" style={{ paddingLeft: 10, paddingRight: 10, borderRadius: 12, background: "var(--color-primary)" }} onClick={logout}>Logout</button>
-                            </div>
+                        <div className="absolute bottom-0 right-0">
+                            <button className="smallCard text-white/90 font-bold cursor-pointer" style={{ paddingLeft: 10, paddingRight: 10, borderRadius: 12, background: "var(--color-primary)" }} onClick={logout}>Logout</button>
                         </div>
 
                         <p className="text-xl font-semibold">{user.firstName + " " + user.lastName}</p>
@@ -80,7 +78,7 @@ export default async function UserPage() {
 
                 {/* Right Side */}
                 <div>
-                    <OrganizationList showBackground/>
+                    <OrganizationList showBackground />
                 </div>
             </div>
         </div>
