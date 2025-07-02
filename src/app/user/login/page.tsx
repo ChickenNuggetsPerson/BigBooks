@@ -15,10 +15,13 @@ export default async function LoginPage() {
     }
 
     return (
-        <AnimateChildren x={0} y={-20}>
+        <div className="flex flex-row justify-center">
+            <div className="h-screen flex flex-col justify-center pb-10">
+                <AnimateChildren x={0} y={-20}>
+                    <LoginForm />
+                </AnimateChildren>
+            </div>
+        </div>
 
-            <LoginForm />
-
-        </AnimateChildren>
     );
 }

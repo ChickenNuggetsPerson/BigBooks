@@ -9,7 +9,7 @@ export default async function NewOrganizationPage() {
 
     const session = await getSession()
     const user = await getUserFromSession()
-    
+
     if (!session || !user) {
         redirect("/user/login")
     }
@@ -21,11 +21,15 @@ export default async function NewOrganizationPage() {
     }
 
     return (
-        <div className="w-200 overflow-clip pt-10">
-            <div className="text-white font-bold text-center mb-2">
-                {`You are allocated ${user.allocatedOrganizations} more organization${user.allocatedOrganizations > 1 ? "s" : ""}`}
+        <div className="flex flex-row justify-center">
+            <div className="h-screen flex flex-col justify-center pb-10">
+                <div className="w-200 overflow-clip pt-10">
+                    <div className="text-white font-bold text-center mb-2">
+                        {`You are allocated ${user.allocatedOrganizations} more organization${user.allocatedOrganizations > 1 ? "s" : ""}`}
+                    </div>
+                    <OrganizationForm orgUUID={"new"} />
+                </div>
             </div>
-            <OrganizationForm orgUUID={"new"} />
         </div>
     )
 }

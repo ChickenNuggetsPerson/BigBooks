@@ -14,12 +14,20 @@ export default async function editUserPage({ params }: { params: Promise<{ userU
     const { userUUID } = await params
 
     return (
-        <div>
-            <Link href={`/user/users`} className="text-black font-medium text-lg" >
-                <MoveLeft color="white" />
-            </Link>
-            
-            <UserInfoForm userID={userUUID} />
+        <div className="flex flex-row justify-center">
+            <div className="h-screen flex flex-col justify-center pb-10">
+
+
+                <div>
+                    <Link href={`/user/users`} className="text-black font-medium text-lg" >
+                        <MoveLeft color="white" />
+                    </Link>
+
+                    <UserInfoForm userID={userUUID} />
+                </div>
+
+                
+            </div>
         </div>
     )
 }

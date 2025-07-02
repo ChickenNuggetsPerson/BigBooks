@@ -47,7 +47,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
     if (error) {
         return (
             <div>
-                Error Fetching Employee
+                Error Fetching Organization Details
             </div>
         )
     }
@@ -92,8 +92,13 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
     return (
         <form onSubmit={handleSubmit} className="max-w-md mx-auto card mb-5" >
 
-            <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">{newOrganization ? "Create Organization:" : "Edit Organization:"}</h5>
+            <div className="relative">
+                <div className="fixed top-5 right-0">
+                    {!newOrganization && <button onClick={() => { deactivateOrganization(props.uuid, !props.isDeleted) }} className={`mx-5 ${props.isDeleted ? "primary-button" : "danger-button"}`} >{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
+                </div>
+            </div>
 
+            <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">{newOrganization ? "Create Organization:" : "Edit Organization:"}</h5>
 
             <TextInput id={"name"} label={"Name:"} val={props.name} />
             <LargeTextInput id={"address"} label={"Address"} val={props.address} />
@@ -102,16 +107,15 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
             <TextInput id={"uuid"} label={"Org UUID"} val={props.uuid} disabled={true} />
 
             <div className="flex flex-row justify-between">
-                <div className="flex flex-row gap-2">
-                    <button type="submit" className="primary-button">Submit</button>
-                    <Link href={cancelURL(newOrganization)} className="secondary-button">
-                        Cancel
-                    </Link>
-                </div>
 
-                {!newOrganization && <button onClick={() => { deactivateOrganization(props.uuid, !props.isDeleted) }} className="mx-5 accent-button">{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
+                <Link href={cancelURL(newOrganization)} className="w-4/9">
+                    <div className="w-full accent-button text-center">Cancel</div>
+                </Link>
+
+                <button type="submit" className="primary-button w-4/9">Submit</button>
 
             </div>
+
         </form>
     )
 }

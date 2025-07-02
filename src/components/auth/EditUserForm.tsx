@@ -13,7 +13,7 @@ import { Prisma } from "@/database/generated/prisma";
 interface EditUserFormProps {
     userID: string
 }
-export default function EditUserForm({ userID } : EditUserFormProps) {
+export default function EditUserForm({ userID }: EditUserFormProps) {
 
     const [userProps, setUserProps] = useState({} as Prisma.UserGetPayload<{ include: { memberships: true } }>)
 
@@ -42,11 +42,11 @@ export default function EditUserForm({ userID } : EditUserFormProps) {
 
             <div className="flex flex-row justify-between">
 
-                <Link href={"/user"} className="accent-button">
-                    Cancel
+                <Link href={"/user"} className="w-4/9">
+                    <div className="w-full accent-button text-center">Cancel</div>
                 </Link>
 
-                <button type="submit" className="primary-button">Submit</button>
+                <button type="submit" className="primary-button w-4/9">Submit</button>
 
             </div>
         </form>

@@ -1,10 +1,11 @@
 import { logout } from "@/auth/actions/Logout";
 import { getSession, getUserFromSession } from "@/auth/auth";
-import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import { redirect } from "next/navigation";
 import EditableDiv from "@/components/Decorative/EditableDiv";
 import Link from "next/link";
+import { CardProp } from "@/components/Forms/CardProp";
 import OrganizationList from "@/components/Organization/OrganizationList";
+import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv";
 
 
 export const dynamic = 'force-dynamic';
@@ -22,45 +23,67 @@ export default async function UserPage() {
     }
 
     return (
-        <>
-            <AnimateChildren y={-20} className="pb-20 flex flex-row gap-20">
-                <EditableDiv className="card w-100 h-55" url={session?.isAdmin ? "" : "/user/edit"}>
+        <div className="p-5">
 
-                    <p className="text-xl font-semibold">{user.firstName + " " + user.lastName}</p>
+            <div className="flex flex-row justify-between w-full gap-10">
 
-                    <div className="h-px bg-accent mb-2"></div>
+                {/* Left Side */}
+                <div className="flex flex-col gap-4 smallCard h-fit" style={{ padding: 10 }}>
+                    <EditableDiv className="card w-100" enabled={!session?.isAdmin} url={"/user/edit"}>
 
-                    <p className="font-mono">{"Username: " + user.username}</p>
-                    <p className="font-mono">{"Email: " + user.email}</p>
+                        <div className="relative">
+                            <div className="fixed bottom-0 right-0">
+                                <button className="smallCard text-white/90 font-bold cursor-pointer" style={{ paddingLeft: 10, paddingRight: 10, borderRadius: 12, background: "var(--color-primary)" }} onClick={logout}>Logout</button>
+                            </div>
+                        </div>
 
+                        <p className="text-xl font-semibold">{user.firstName + " " + user.lastName}</p>
 
-                    {(user.allocatedOrganizations !== 0 || session?.isAdmin) &&
-                        <div className="flex flex-col justify-end h-full text-center">
-                            <Link href={"/user/newOrganization"} className="primary-button">
-                                New Organization
+                        <div className="h-px bg-accent mb-2"></div>
+
+                        <CardProp label="Username:" val={user.username} />
+                        <CardProp label="Email:" val={user.email} />
+
+                    </EditableDiv>
+
+                    {
+                        !session?.isAdmin &&
+                        <CollapsibleDiv className="card" title={<h5 className="mb-2 text-2xl font-normal text-gray-700">Create Organization:</h5>}>
+                            <div className="h-2"></div>
+                            <CardProp label="Allocated Organizations:" val={String(user.allocatedOrganizations)} />
+
+                            {(user.allocatedOrganizations !== 0) &&
+                                <Link href={"/user/newOrganization"}>
+                                    <div className="w-full primary-button text-center mt-2">New Organization</div>
+                                </Link>
+                            }
+                        </CollapsibleDiv>
+                    }
+
+                    {
+                        session?.isAdmin &&
+                        <div className="flex flex-row justify-between">
+
+                            <Link href={"/user/users"} className="w-4/9">
+                                <div className="w-full accent-button text-center">All Users</div>
                             </Link>
+
+                            <Link href={"/user/newOrganization"} className="w-4/9">
+                                <div className="w-full primary-button text-center">New Organization</div>
+                            </Link>
+
                         </div>
                     }
 
 
-                </EditableDiv>
+                </div>
 
-                <OrganizationList />
-
-            </AnimateChildren>
-
-
-            <div className="flex flex-col absolute top-5 right-5">
-                <button className="smallCard text-white font-bold cursor-pointer" style={{ paddingLeft: 10, paddingRight: 10 }} onClick={logout}>Logout</button>
-
-                {session?.isAdmin &&
-                    <Link href={"/user/users"} className="smallCard text-white font-bold mt-2 w-fit ml-auto" style={{ paddingLeft: 10, paddingRight: 10 }}>
-                        Users
-                    </Link>
-                }
+                {/* Right Side */}
+                <div className="mx-auto">
+                    <OrganizationList />
+                </div>
             </div>
-        </>
-
+        </div>
     )
 }
 

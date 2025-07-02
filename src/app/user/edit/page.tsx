@@ -15,8 +15,13 @@ export default async function EditUserPage() {
     }
 
     return (
-        <AnimateChildren x={0} y={-20}>
-            <EditUserForm userID={session.userID} />
-        </AnimateChildren>
+        <div className="flex flex-row justify-center">
+            <div className="h-screen flex flex-col justify-center pb-10">
+                <AnimateChildren x={0} y={-20}>
+                    <EditUserForm userID={session.userID} />
+                </AnimateChildren>
+            </div>
+        </div>
+        
     )
 }

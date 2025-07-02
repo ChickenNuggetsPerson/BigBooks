@@ -1,19 +1,19 @@
 'use server'
 
 import { getSession, redirectIfInvalidSession } from "@/auth/auth";
-import { getRoleFromID, Role_Admin } from "@/auth/roles/Roles";
+import { DispRole, getRoleFromID, Role_Admin, Role_SysAdmin } from "@/auth/roles/Roles";
+import { Organization } from "@/database/generated/prisma";
 import { prisma } from "@/database/prisma";
 
 
+export type OrgWithRole = Organization & { role: DispRole }
 
-
-export default async function getOrgList(showDeleted: boolean) {
+export default async function getOrgList(showDeleted: boolean): Promise<OrgWithRole[]> {
 
     await redirectIfInvalidSession()
     const session = await getSession()
     if (!session) { return [] }
 
-    let list = []
 
     if (session.isAdmin) {
         let orgs = await prisma.organization.findMany()
@@ -23,24 +23,31 @@ export default async function getOrgList(showDeleted: boolean) {
             }
             return !o.isDeleted
         })
-        return orgs
+        const orgsWithRoles = orgs.map(o => {
+            return { ...o, role: Role_SysAdmin } as OrgWithRole
+        })
 
-    } else {
+        return orgsWithRoles
 
-        const user = await prisma.user.findUnique({ where: { uuid: session.userID }, include: { memberships: true } })
-        if (!user) { return [] }
+    }
 
-        for (let i = 0; i < user.memberships.length; i++) {
-            const org = await prisma.organization.findUnique({ where: { uuid: user.memberships[i].organizationId } })
-            if (!org) { continue }
 
-            if (org.isDeleted && (getRoleFromID(user.memberships[i].role).level) < Role_Admin.level) {
-                continue
-            }
+    const user = await prisma.user.findUnique({ where: { uuid: session.userID }, include: { memberships: true } })
+    if (!user) { return [] }
 
-            list.push(org)
+
+    let list = []
+    for (let i = 0; i < user.memberships.length; i++) {
+        const org = await prisma.organization.findUnique({ where: { uuid: user.memberships[i].organizationId } })
+        if (!org) { continue }
+
+        const role = getRoleFromID(user.memberships[i].role)
+
+        if (org.isDeleted && (role.level < Role_Admin.level)) {
+            continue
         }
 
+        list.push({...org, role: role} as OrgWithRole)
     }
 
     if (!showDeleted) {
