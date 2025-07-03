@@ -28,7 +28,7 @@ export default async function UserPage() {
             <div className="flex flex-row justify-between w-full gap-10">
 
                 {/* Left Side */}
-                <div className="flex flex-col gap-4 smallCard h-fit" style={{ padding: 10 }}>
+                <div className="flex flex-col gap-4 smallCard h-fit mx-auto" style={{ padding: 10 }}>
                     <EditableDiv className="card w-100 relative" enabled={!session?.isAdmin} url={"/user/edit"}>
 
                         <div className="absolute bottom-0 right-0">
@@ -77,7 +77,7 @@ export default async function UserPage() {
                 </div>
 
                 {/* Right Side */}
-                <div>
+                <div className="mx-auto">
                     <OrganizationList showBackground />
                 </div>
             </div>
