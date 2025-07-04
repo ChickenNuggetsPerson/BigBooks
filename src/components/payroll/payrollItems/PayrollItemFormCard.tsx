@@ -12,6 +12,7 @@ import NumberInput from "@/components/Forms/NumberInput"
 import SelectInput from "@/components/Forms/SelectInput"
 import TextInput from "@/components/Forms/TextInput"
 import { AbsMaxPeriodTypes, PayStubItemType } from "@/database/generated/prisma/"
+import { deserializeData, SerializationResult } from "@/utils/serialization"
 import { Decimal } from "@prisma/client/runtime/index-browser.js"
 import { Save, Trash2 } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -22,8 +23,9 @@ import toast from "react-hot-toast"
 
 
 
-export default function PayrollItemFormCard({ item }: { item: PayrollItemWithCount }) {
+export default function PayrollItemFormCard({ serializedData }: { serializedData: SerializationResult<PayrollItemWithCount> }) {
 
+    const item = deserializeData(serializedData)
     const { addModal } = useModalManager()
     const [itemState, setItemState] = useState(item)
     const [edited, setEdited] = useState(false)
@@ -102,7 +104,7 @@ export default function PayrollItemFormCard({ item }: { item: PayrollItemWithCou
 
 
     return (
-        <CollapsibleDiv title={<p className="select-none font-semibold text-lg">{item.name}</p>} className="">
+        <CollapsibleDiv title={<p className="select-none font-semibold text-lg">{item.name}</p>} arrowSize={20}>
 
             <CardProp label="Times Used:" val={String(item._count.PayStubItem)}/>
 

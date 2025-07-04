@@ -8,7 +8,7 @@ import { redirect } from "next/navigation"
 import PayrollItemAddBtn from "./PayrollItemAddBtn"
 import PayrollItemInfoBtn from "./PayrollItemInfoBtn"
 import { prisma } from "@/database/prisma"
-import { deserializeData } from "@/utils/serialization"
+import { deserializeData, serializeData } from "@/utils/serialization"
 
 
 
@@ -48,11 +48,18 @@ export default async function PayrollItemsForm({
         name = (await prisma.payrollGroup.findUnique({ where: { uuid: groupUUID } }))?.name
     }
 
+    const serializedData = items.map(item => {
+        return {
+            data: serializeData(item),
+            id: item.uuid
+        }
+    })
+
     if (employee && employeeUUID === "") { return (<div>Error...</div>) }
     if (group && groupUUID === "") { return (<div>Error...</div>) }
 
     return (
-        <div className="h-fit w-full flex flex-row gap-4">
+        <div className="h-fit w-fit flex flex-row gap-4">
             <div className="card mb-5 w-sm h-fit">
                 <div className="flex flex-row justify-between">
                     <h5 className="text-xl font-semibold text-gray-700">{`${title} Payroll Items`}</h5>
@@ -67,9 +74,9 @@ export default async function PayrollItemsForm({
             </div>
 
             <div className="h-screen overflow-y-scroll pt-8 px-10 pb-20">
-                {items.map((item) => (
-                    <div key={item.uuid} className="card mb-5">
-                        <PayrollItemFormCard item={item} />
+                {serializedData.map((item) => (
+                    <div key={item.id} className="card mb-5">
+                        <PayrollItemFormCard serializedData={item.data} />
                     </div>
                 ))}
             </div>

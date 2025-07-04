@@ -20,7 +20,9 @@ export default async function OrgGroupsPage() {
                 <MoveLeft />
             </Link>
 
-            <PaystubDefaultsForm organization/>
+            <div className="w-full flex flex-row justify-center">
+                <PaystubDefaultsForm organization/>
+            </div>
 
         </div>
     )
