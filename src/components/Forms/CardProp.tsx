@@ -5,9 +5,18 @@ import ClickableDiv from "../Decorative/ClickableDiv"
 
 
 
-export function CardProp({ label, val }: { label: string, val: string }) {
+export function CardProp({
+    label,
+    val,
+    copyable = false
+}: {
+    label: string,
+    val: string,
+    copyable?: boolean
+}) {
 
     function clicked() {
+        if (!copyable) { return }
         navigator.clipboard.writeText(val)
         toast.success(`Coppied ${label.replace(":", "")}`)
     }

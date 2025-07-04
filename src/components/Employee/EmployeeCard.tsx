@@ -39,8 +39,8 @@ export default function EmployeeCard({ employee }: { employee: Employee }) {
                 </p>
             </ClickableDiv>
 
-            <CardProp label="Email:" val={employee.email} />
-            <CardProp label="Phone:" val={employee.phoneNumber} />
+            <CardProp copyable label="Email:" val={employee.email} />
+            <CardProp copyable label="Phone:" val={employee.phoneNumber} />
             <CardProp label="SSN:" val={employee.ssn} />
 
             {employee.notes != "" &&

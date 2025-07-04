@@ -30,7 +30,7 @@ export default async function EmployeeCompensationCard({ employee }: { employee:
 
                         {item.isSalary &&
                             <div className=" w-full">
-                                <CardProp label={"Salary:"} val={MoneyToStr(item.salaryAmount?.toNumber() ?? 0)} />
+                                <CardProp copyable label={"Salary:"} val={MoneyToStr(item.salaryAmount?.toNumber() ?? 0)} />
                             </div>
                         }
 
@@ -40,7 +40,7 @@ export default async function EmployeeCompensationCard({ employee }: { employee:
                                     <div key={rate.uuid}>
                                         <div className="w-full flex flex-row justify-between">
                                             <div>{rate.name}</div>
-                                            <CardProp label="" val={MoneyToStr(rate.rate.toNumber())} />
+                                            <CardProp copyable label="" val={MoneyToStr(rate.rate.toNumber())} />
                                         </div>
                                         {rate.canOvertime && <div className="pl-5 font-mono flex flex-row gap-2" style={{ fontSize: 15 }}><CornerDownRight /> <p className="pt-1" >Can Overtime</p>  </div>}
                                     </div>
