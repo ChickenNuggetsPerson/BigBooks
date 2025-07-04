@@ -18,7 +18,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col justify-center h-screen">
 
-      <div className="bg-primary w-full shadow-lg h-15 fixed top-0" style={{ boxShadow: "0px -9px 10px 10px gray" }}></div>
+      {/* <div className="bg-primary w-full shadow-lg h-15 fixed top-0" style={{ boxShadow: "0px -9px 10px 10px gray" }}></div> */}
 
       <div className="flex flex-row justify-between h-full">
         <IconBackground />

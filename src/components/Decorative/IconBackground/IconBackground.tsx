@@ -6,7 +6,23 @@ import FloatingBackground from "./FloatingBackground";
 export default function IconBackground() {
     return (
         <div className="absolute -z-50 w-full h-full">
-            <FloatingBackground>
+            <FloatingBackground
+                dt={1000}
+                duration={2}
+
+                // dt={100}
+                // duration={.2}
+                jitter
+
+                padding={50}
+                boundaryNudgeForce={.3}
+                
+                radius={80}
+                reactForce={5}
+
+                dragSpeed={50}
+                dragFac={.9}
+            >
 
                 <File />
                 <FileCheck />
