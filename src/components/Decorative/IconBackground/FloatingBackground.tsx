@@ -51,7 +51,6 @@ const FloatingBackground = React.forwardRef<HTMLDivElement, FloatingBackgroundPr
             setPositions(poses)
         }
         function updatePositions() {
-            console.log("Run")
             if (!ref || !ref.current) { return }
 
             const poses = [...positions]

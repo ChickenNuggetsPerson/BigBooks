@@ -11,14 +11,13 @@ export default function MainBackground() {
     return (
         <div
             style={{ 
-                zIndex: -500, 
+                zIndex: 0, 
                 position: "absolute", 
-                width: "100dvw", 
-                height: "30dvh", 
+                width: "100dvw",  
                 top: 0,
                 boxShadow: "0px -9px 10px 10px gray"
             }}
-            className="bg-primary"
+            className="bg-primary h-15"
         >
         </div>
     )
