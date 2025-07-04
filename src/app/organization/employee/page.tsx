@@ -5,6 +5,7 @@ import ClickableDiv from "@/components/Decorative/ClickableDiv";
 import EmployeeList from "@/components/Employee/EmployeeList/EmployeeList";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Suspense } from "react";
 
 
 export default function Employee() {
@@ -15,7 +16,9 @@ export default function Employee() {
         <div className="flex flex-col xl:flex-row gap-10 mr-2">
 
             <div className="order-2 xl:order-1">
-                <EmployeeList pageination pageCount={8} searchable clickCB={(emp) => { router.push(`/organization/employee/${emp.uuid}`) }} />
+                <Suspense fallback={<p>Loading...</p>}>
+                    <EmployeeList pageination pageCount={8} searchable clickCB={(emp) => { router.push(`/organization/employee/${emp.uuid}`) }} />
+                </Suspense>
             </div>
 
             <div className="flex flex-row xl:flex-col gap-10 order-1 xl:order-2">
