@@ -714,6 +714,12 @@ export default function PaystubEditForm({
                 {/* Options Header */}
                 <div className="flex flex-row justify-between select-none mb-3 smallCard" style={{ padding: 10 }}>
 
+                    <div className="flex flex-row gap-4" style={{ transform: `translate(0px, ${forceLock ? 4 : 8}px)` }}>
+                        <DateInput label="Period Start" val={paystub.periodStart} onChange={(val) => { setPaystub({ ...paystub, periodStart: val }); setEdited(true) }} disabled={isLocked} />
+                        <DateInput label="Period End" val={paystub.periodEnd} onChange={(val) => { setPaystub({ ...paystub, periodEnd: val }); setEdited(true) }} disabled={isLocked} />
+                        <DateInput label="Pay Date" val={paystub.payDate} onChange={(val) => { setPaystub({ ...paystub, payDate: val }); setEdited(true) }} disabled={isLocked} />
+                    </div>
+
                     <AnimatePresence>
                         {hasDates && datesDiffer && !isLocked &&
                             <motion.div
@@ -730,12 +736,6 @@ export default function PaystubEditForm({
                             </motion.div>
                         }
                     </AnimatePresence>
-
-                    <div className="flex flex-row gap-4" style={{ transform: `translate(0px, ${forceLock ? 4 : 8}px)` }}>
-                        <DateInput label="Period Start" val={paystub.periodStart} onChange={(val) => { setPaystub({ ...paystub, periodStart: val }); setEdited(true) }} disabled={isLocked} />
-                        <DateInput label="Period End" val={paystub.periodEnd} onChange={(val) => { setPaystub({ ...paystub, periodEnd: val }); setEdited(true) }} disabled={isLocked} />
-                        <DateInput label="Pay Date" val={paystub.payDate} onChange={(val) => { setPaystub({ ...paystub, payDate: val }); setEdited(true) }} disabled={isLocked} />
-                    </div>
 
                     {(!isLocked || showWarning) &&
                         <div className="flex flex-row gap-2 pt-1">
