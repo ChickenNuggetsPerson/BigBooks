@@ -4,6 +4,7 @@ import upsertPayrollItem from "@/actions/paystub/payrollItems/upsertPayrollItem"
 import { useCompany } from "@/app/CompanyContext"
 import { AbsMaxPeriodTypes, PayStubItemType } from "@/database/generated/prisma"
 import { Decimal } from "@/database/generated/prisma/runtime/index-browser"
+import { serializeData } from "@/utils/serialization"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 
@@ -31,19 +32,21 @@ export default function PayrollItemAddBtn({
     function clicked() {
         toast.promise(
             async () => {
-                await upsertPayrollItem({
-                    name: "New Item",
-                    uuid: "",
-                    type: PayStubItemType.Other,
-                    description: null,
-                    percent: null,
-                    amount: new Decimal(0),
-                    organizationId: (organization) ? (context?.companyUUID ?? null) : null,
-                    payrollGroupId: (group) ? groupUUID : null,
-                    employeeId: (employee) ? employeeUUID : null,
-                    absMax: new Decimal(0),
-                    absMaxPeriod: AbsMaxPeriodTypes.None
-                })
+                await upsertPayrollItem(serializeData(
+                    {
+                        name: "New Payroll Item",
+                        uuid: "",
+                        type: PayStubItemType.Other,
+                        description: null,
+                        percent: null,
+                        amount: new Decimal(0),
+                        organizationId: (organization) ? (context?.companyUUID ?? null) : null,
+                        payrollGroupId: (group) ? groupUUID : null,
+                        employeeId: (employee) ? employeeUUID : null,
+                        absMax: new Decimal(0),
+                        absMaxPeriod: AbsMaxPeriodTypes.None
+                    }
+                ))
                 router.refresh()
             },
             {
