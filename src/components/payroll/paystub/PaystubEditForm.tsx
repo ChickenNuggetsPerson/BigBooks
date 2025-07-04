@@ -146,7 +146,7 @@ export default function PaystubEditForm({
     async function loadStubByID(uuid: string) {
         const stub = deserializeData(await getPaystub(uuid)) // Fetch from server
         if (stub) {
-            setPaystub(stub)
+            updateTotals(stub)
         } else {
             toast.error(`Failed Loading Paystub: ${uuid}`)
             createNewStub() // Default to empty if needed
