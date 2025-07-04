@@ -16,8 +16,6 @@ export enum StubSelectOption {
 
 export default function StubSelector({ paystubs, action }: { paystubs: SerializationResult<PayStub[]>, action: string }) {
 
-    console.log(action)
-
     const router = useRouter()
 
     function onSelect(val: string) {
@@ -43,8 +41,13 @@ export default function StubSelector({ paystubs, action }: { paystubs: Serializa
     const stubs = deserializeData(paystubs)
 
     stubs.sort((s1, s2) => s2.payDate.getTime() - s1.payDate.getTime())
-    const options = stubs.map(stub => {
-        return { id: stub.uuid, label: `Paydate: ${stub.payDate.toLocaleDateString()}` }
+    const options = stubs.map((stub) => {
+
+        const mainStr = stub.payDate.toLocaleDateString()
+        const idStr = stub.uuid.slice(-6)
+        const padding = " ".repeat(20 - mainStr.length)
+
+        return { id: stub.uuid, label: `Paydate: ${mainStr}${padding}(${idStr})` }
     })
 
     return (
