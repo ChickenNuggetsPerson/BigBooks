@@ -1,8 +1,8 @@
 'use client'
 
 
-import React, { useState } from "react";
-
+import React from "react";
+import { useUrlState } from 'state-in-url';
 
 
 type TabGroupProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -21,7 +21,8 @@ function longestStrLength(strs: string[]) : number {
 const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(
     ({ tabNames, verticalTabs = false, children, ...rest }, ref) => {
 
-        const [selected, setSelected] = useState(0)
+        const { urlState, setUrl } = useUrlState({ selected: 0 });
+
         const maxLength = longestStrLength(tabNames)
 
         return (
@@ -34,16 +35,16 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(
                         {tabNames.map((name, i) => (
                             <div
                                 key={name}
-                                className={`w-full clearSmallCard text-lg text-end ${selected == i ? "bg-primary/80 text-white font-semibold" : "bg-white font-light"}`}
+                                className={`w-full clearSmallCard text-lg text-end ${urlState.selected == i ? "bg-primary/80 text-white font-semibold" : "bg-white font-light"}`}
                                 style={{
                                     padding: 12,
                                     borderTopRightRadius: verticalTabs ? 0 : undefined,
                                     borderBottomLeftRadius: verticalTabs ? undefined : 0,
                                     borderBottomRightRadius: 0,
-                                    zIndex: selected == i ? 100 : 0,
+                                    zIndex: urlState.selected == i ? 100 : 0,
                                     width: maxLength * 14
                                 }}
-                                onClick={() => setSelected(i)}
+                                onClick={() => setUrl({ selected: i })}
                             >
                                 {name}
                             </div>
@@ -59,7 +60,7 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(
                             zIndex: 200
                         }}
                     >
-                        {React.Children.toArray(children)[selected]}
+                        {React.Children.toArray(children)[urlState.selected]}
                     </div>
                 </div>
 

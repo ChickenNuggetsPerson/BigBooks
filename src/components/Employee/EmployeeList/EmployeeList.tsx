@@ -14,6 +14,7 @@ import NumericText from "@/components/Decorative/NumericText/NumericText";
 import { limitString } from "@/utils/functions/StringFunctions";
 import Loading from "@/app/Loading";
 import { Employee } from "@/database/generated/prisma";
+import { useUrlState } from "state-in-url";
 
 
 
@@ -38,9 +39,11 @@ export default function EmployeeList({
 
     const [list, setList] = useState([] as Employee[])
 
-    const [search, setSearch] = useState("")
-    const [filter, setFilter] = useState("firstName")
-    const [showDeact, setShowDeact] = useState(2)
+    const { urlState, setUrl } = useUrlState({
+        search: "",
+        filter: "firstName",
+        showDeact: 2
+    });
 
     const [columnFilters, setColumnFilters] = useState([] as ColumnFilter[])
 
@@ -91,17 +94,17 @@ export default function EmployeeList({
         setLoading(true)
         async function load() {
             // 1 For All, 2 For Visable, 3 for Deactivated
-            const l = await getEmployeeList(context?.companyUUID ?? "", showDeact)
+            const l = await getEmployeeList(context?.companyUUID ?? "", urlState.showDeact)
             setList(l)
             setLoading(false)
         }
 
         load()
-    }, [context, showDeact])
+    }, [context, urlState.showDeact])
 
     useEffect(() => {
-        setColumnFilters([{ id: filter, value: search }])
-    }, [filter, search])
+        setColumnFilters([{ id: urlState.filter, value: urlState.search }])
+    }, [urlState.filter, urlState.search])
 
     useEffect(() => {
         table.getColumn("lastName")?.toggleSorting(false)
@@ -115,24 +118,24 @@ export default function EmployeeList({
                 <div className={`flex flex-row justify-between gap-10`}>
 
                     <div className={`w-full ${!pageination ? "translate-y-4" : ""}`}>
-                        <TextInput label="Search" onChange={(val) => { setSearch(val) }} />
+                        <TextInput label="Search" val={urlState.search} onChange={(val) => { setUrl({ search: val }) }} />
                     </div>
 
                     <SelectInput
                         label="Search By"
-                        val={filter}
+                        val={urlState.filter}
                         options={colums.filter((col) => col.accessorKey !== "selected").map((col) => ({
                             label: col.header,
                             id: col.accessorKey
                         }))}
-                        changeCB={(val) => { setFilter(val) }}
+                        changeCB={(val) => { setUrl({ filter: val }) }}
                     />
 
                     <SelectInput
                         label="Show"
-                        val={String(showDeact)}
+                        val={String(urlState.showDeact)}
                         options={[{ id: "1", label: "All" }, { id: "2", label: "Active" }, { id: "3", label: "Deactivated" }]}
-                        changeCB={(val) => setShowDeact(Number(val))}
+                        changeCB={(val) => setUrl({ showDeact: Number(val) })}
                     />
 
                 </div>
