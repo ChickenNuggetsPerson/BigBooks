@@ -23,8 +23,9 @@ export default async function InvitePage({ params }: { params: Promise<{ inviteC
 
             <div className="flex flex-row justify-center">
                 <div className="h-screen flex flex-col justify-center pb-10">
-                    <div className="card w-md">
-                        <p>Whoops! That is an invalid invite link...</p>
+                    <div className="card w-xs">
+                        <p className="font-bold">Whoops!</p>
+                        <p>{`That's an invalid invite link...`}</p>
                     </div>
                 </div>
             </div>
@@ -37,33 +38,36 @@ export default async function InvitePage({ params }: { params: Promise<{ inviteC
         <div className="flex flex-row justify-center">
             <div className="h-screen flex flex-col justify-center pb-10">
 
-
                 <div
-                    className="card mb-5 flex flex-row "
+                    className="card mb-5 flex flex-row gap-2"
                     style={{
                         position: "fixed",
                         top: 10,
                         left: 10
                     }}
                 >
-                    <p>Logged in as: {user?.firstName + " " + user?.lastName}</p>
+                    <p>Logged in as:</p>
+                    <p className="font-semibold">{user?.firstName + " " + user?.lastName}</p>
                 </div>
 
-                <div className="card w-md">
+                <div className="card w-sm">
 
-                    <p className="text-lg font-semibold">You are invited to the {code.organization.name} organization.</p>
-                    <div className="bg-accent h-px my-5"></div>
+                    <div className="flex flex-row justify-between">
 
-                    <div className="flex flex-row justify-start">
-
-                        <p className="mr-2 mt-1">Role:</p>
-                        <UserRoleIcon role={getRoleFromID(code.role)} />
-
-                        <div className="w-full flex flex-row justify-end mb-2">
-                            <InviteButtons inviteID={code.uuid} />
+                        <div className="w-1/2">
+                            <p>You are invited to:</p>
+                            <p className="text-lg font-semibold">{code.organization.name}</p>
                         </div>
 
+                        <div className="flex flex-row justify-end mt-auto mb-1">
+                            <p className="mr-2 mt-auto font-mono">Role:</p>
+                            <UserRoleIcon role={getRoleFromID(code.role)} />
+                        </div>
                     </div>
+
+                    <div className="bg-accent h-px mb-4"></div>
+
+                    <InviteButtons inviteID={code.uuid} />
 
                 </div>
 

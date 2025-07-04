@@ -3,13 +3,13 @@
 import acceptInviteCode from "@/actions/user/inviteCodes/acceptInviteCode"
 import declineInviteCode from "@/actions/user/inviteCodes/declineInviteCode"
 import { useRouter } from "next/navigation"
-import toast, { Toaster } from "react-hot-toast"
+import toast from "react-hot-toast"
 
 
 
 
 
-export default function InviteButtons({ inviteID } : { inviteID: string }) {
+export default function InviteButtons({ inviteID }: { inviteID: string }) {
 
     const router = useRouter()
 
@@ -30,10 +30,9 @@ export default function InviteButtons({ inviteID } : { inviteID: string }) {
     }
 
     return (
-        <>
-            <button onClick={decline} className="accent-button mr-5">Decline</button>
-            <button onClick={accept} className="primary-button">Accept</button>
-            <Toaster/>
-        </>
+        <div className="flex flex-row justify-between">
+            <button type="submit" className={`accent-button w-4/9`} onClick={decline}>Decline</button>
+            <button type="submit" className={`primary-button w-4/9`} onClick={accept}>Accept</button>
+        </div>
     )
 }
