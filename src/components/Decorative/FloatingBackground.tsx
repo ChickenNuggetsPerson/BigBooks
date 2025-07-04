@@ -9,16 +9,25 @@ type FloatingBackgroundProps = React.HTMLAttributes<HTMLDivElement> & {
 
 }
 
+type Vector = { x: number, y: number }
+function makeVec(x: number, y: number) : Vector { return { x: x, y: y } }
+function addVecs(v1: Vector, v2: Vector) : Vector { return { x: v1.x + v2.x, y: v1.y + v2.y } }
+function subVecs(v1: Vector, v2: Vector) : Vector { return { x: v1.x - v2.x, y: v1.y - v2.y } }
+function scaleVec(v1: Vector, scale: number) : Vector { return { x: v1.x * scale, y: v1.y * scale } }
+function lenVec(v1: Vector) : number { return Math.sqrt( Math.pow(v1.x, 2) + Math.pow(v1.y, 2) ) }
+
 const FloatingBackground = React.forwardRef<HTMLDivElement, FloatingBackgroundProps>(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ({ children, ...rest }, forwardRef) => {
 
-        const initalPoses = [] as { x: number, y: number, r: number }[]
+        const initalPoses = [] as { pos: Vector, vel: Vector, r: number, s: number, o: number }[]
         React.Children.forEach(children, () => {
             initalPoses.push({
-                x: 0,
-                y: 0,
-                r: 0
+                pos: makeVec(0, 0),
+                vel: makeVec(Math.random() * 10 - 5, Math.random() * 10 - 5),
+                r: 0,
+                s: 0,
+                o: 0
             })
         })
 
@@ -33,36 +42,92 @@ const FloatingBackground = React.forwardRef<HTMLDivElement, FloatingBackgroundPr
             const height = ref.current.clientHeight
 
             poses.forEach((p, i) => {
-                poses[i].x = Math.random() * width
-                poses[i].y = Math.random() * height
+                poses[i].pos.x = Math.random() * width
+                poses[i].pos.y = Math.random() * height
             })
 
             setPositions(poses)
         }
         function updatePositions() {
-            console.log("Update Pos")
+            console.log("Run")
             if (!ref || !ref.current) { return }
 
             const poses = [...positions]
             const width = ref.current.clientWidth
             const height = ref.current.clientHeight
 
+            const padding = 50
+
+            const forces = poses.map((self, selfIndex) => {
+
+                const size = 50
+                const reactForce = .1
+                let newForce = makeVec(0, 0)
+
+                poses.forEach((other, otherIndex) => {
+                    if (selfIndex == otherIndex) { return } // Postion is the same object.
+
+                    const dv = subVecs(self.pos, other.pos)
+                    const dist = lenVec(dv)
+
+                    if (dist < size) {
+                        newForce = addVecs(newForce, scaleVec(dv, reactForce))
+                    }
+                })
+
+                // Nudge if in boundaries
+                const boundaryNudgeForce = .01
+                if (self.pos.x < padding) { 
+                    newForce.x += boundaryNudgeForce * (padding - self.pos.x)
+                }
+                if (self.pos.x > width - padding) { 
+                    newForce.x -= boundaryNudgeForce * (self.pos.x - padding)
+                }
+                if (self.pos.y < padding) { 
+                    newForce.y += boundaryNudgeForce * (padding - self.pos.y)
+                }
+                if (self.pos.y > height - padding) { 
+                    newForce.y -= boundaryNudgeForce * (self.pos.y - padding)
+                }
+
+                return newForce
+            })
+
             poses.forEach((p, i) => {
-                poses[i].x = Math.random() * width
-                poses[i].y = Math.random() * height
-                poses[i].r = Math.random() * 100 - 50
+
+                poses[i].vel = addVecs(poses[i].vel, forces[i])
+                poses[i].pos = addVecs(poses[i].pos, poses[i].vel)
+
+                if (lenVec(poses[i].vel) > 120) {
+                    poses[i].vel = scaleVec(poses[i].vel, 0.97)
+                }
+                const x = poses[i].pos.x
+                const y = poses[i].pos.y
+
+                const size = Math.random() * 1.2 + .8
+                const opacity = (size - 1) / 3
+
+                poses[i].pos.x = x
+                poses[i].pos.y = y
+                poses[i].r = Math.random() * 50 - 25
+                poses[i].s = size
+                poses[i].o = opacity
+                
             })
 
             setPositions(poses)
         }
 
-        useEffect(() => {
+        useEffect(() => { // Inital Load
             setInitialPositons()
-            const id = setInterval(() => {
-                updatePositions()
-            }, 7000);
-            return () => clearInterval(id)
         }, [])
+
+        useEffect(() => { // Main Loop
+            const id = setTimeout(() => {
+                updatePositions()
+            }, 1000);
+            return () => clearInterval(id)
+        }, [positions])
 
         return (
             <div
@@ -77,14 +142,15 @@ const FloatingBackground = React.forwardRef<HTMLDivElement, FloatingBackgroundPr
                         key={`animateChild-${index}`}
                         className="absolute"
 
-                        initial={{ opacity: 0 }}
+                        initial={{ opacity: 0, scale: 0 }}
                         animate={{
-                            x: positions[index]?.x ?? 0,
-                            y: positions[index]?.y ?? 0,
+                            x: positions[index]?.pos.x ?? 0,
+                            y: positions[index]?.pos.y ?? 0,
                             rotate: positions[index]?.r ?? 0,
-                            opacity: 1
+                            scale: positions[index]?.s ?? 0,
+                            opacity: positions[index]?.o ?? 0
                         }}
-                        transition={{ duration: 7, type: 'spring' }}
+                        transition={{ duration: 1, type: 'spring' }}
                     >
                         {child}
                     </motion.div>
