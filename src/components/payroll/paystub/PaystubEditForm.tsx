@@ -339,7 +339,7 @@ export default function PaystubEditForm({
             component: (push, pop) => {
 
                 function changeCB(val: string) {
-                    updateItem({...item, payrollItemId: val})
+                    updateItem({ ...item, payrollItemId: val })
                     pop()
                 }
 
@@ -409,8 +409,12 @@ export default function PaystubEditForm({
         }
         item.amount = new Prisma.Decimal(item.amount)
 
-        if (item.description) {
-            if (item.description.trim() == "") { item.description = null }
+        if (item.description?.trim() === "") {
+            item.description = null;
+        }
+
+        if (item.payrollItemId?.trim() === "") {
+            item.payrollItemId = null;
         }
 
         items[index] = item
