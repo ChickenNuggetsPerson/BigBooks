@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs"
 import ChangeLogList from "./ChangeLogList";
+import IconBackground from "@/components/Decorative/IconBackground/IconBackground";
 
 
 
@@ -13,7 +14,7 @@ export default function ChangelogPage() {
     const changelog = fs.readFileSync(filePath, 'utf8');
 
     const versions = [] as string[];
-    
+
     changelog.split("## [").forEach((str, i) => {
         if (i == 0) {
             // versions.push(str) Don't add the first changelog item 
@@ -23,10 +24,11 @@ export default function ChangelogPage() {
     })
 
     return (
-        <div className="flex flex-row justify-center">
-            <div className="mt-10">
-                <ChangeLogList items={versions}/>
+        <>
+            <IconBackground />
+            <div className="flex flex-row justify-center h-screen">
+                <ChangeLogList items={versions} />
             </div>
-        </div>
+        </>
     )
 }

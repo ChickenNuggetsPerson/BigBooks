@@ -18,23 +18,24 @@ export default function ChangeLogList({ items }: { items: string[] }) {
     })
 
     return (
-        <div>
-            <h1 className="font-semibold text-2xl mb-4 flex flex-row justify-center" >Changelog: </h1>
+        <div className="h-screen flex flex-row gap-8">
 
-            <div className="bg-accent h-px mb-8"></div>
-
-            <div className="flex flex-row gap-4">
-
+            <div className="mt-10 h-fit card">
+                <h1 className="font-semibold text-2xl" >Changelog: </h1>
+                <div className="bg-accent h-px mb-4"></div>
                 <SelectInput id={""} label={""} val={String(current)} disabled={false} options={options} changeCB={(val) => { setCurrent(Number(val)) }} searchable={true} />
+            </div>
 
+
+            <div className="overflow-y-scroll p-8 pb-30" style={{ scrollbarWidth: "none" }}>
                 <div
                     className="markdown-body card w-xl"
-                    style={{ marginBottom: 20, background: "white", color: "black" }}
+                    style={{ marginBottom: 20, background: "white", color: "black", scrollbarWidth: "none" }}
                 >
                     <Markdown>{items[current]}</Markdown>
                 </div>
-
             </div>
+
         </div>
     )
 }

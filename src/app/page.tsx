@@ -1,7 +1,7 @@
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
-import FloatingBackground from "@/components/Decorative/FloatingBackground";
+import IconBackground from "@/components/Decorative/IconBackground/IconBackground";
 import UserGreetingCard from "@/components/User/UserGreetingCard";
-import { File, FileCheck, FileCode, FileOutput, FilePlus2, FileText, FileX2, ScrollText, Book, Files, BookText, FileSliders, SquarePen, Pencil, Folder, FolderClosed, FolderOpen, Folders, AppWindow, Archive, BookCheck, Bookmark, BookType, Calendar, CalendarCheck2, ClipboardCheck, ClipboardList } from "lucide-react";
+
 
 import { Open_Sans } from 'next/font/google'
 
@@ -16,47 +16,12 @@ export const dynamic = 'force-dynamic';
 export default async function Home() {
 
   return (
-    <div>
+    <div className="flex flex-col justify-center h-screen">
 
+      <div className="bg-primary w-full shadow-lg h-15 fixed top-0"></div>
 
-      <div className="bg-primary w-full shadow-lg h-15 flex flex-row justify-end"></div>
-
-      <div className="h-120 flex flex-row justify-between relative">
-
-        <div className="absolute -z-50 w-full h-full">
-          <FloatingBackground>
-
-            <File />
-            <FileCheck />
-            <FileCode />
-            <FileOutput />
-            <FilePlus2 />
-            <FileText />
-            <FileX2 />
-            <ScrollText />
-            <Book />
-            <Files />
-            <BookText />
-            <FileSliders />
-            <SquarePen />
-            <Pencil />
-            <Folder />
-            <FolderClosed />
-            <FolderOpen />
-            <Folders />
-
-            <AppWindow />
-            <Archive />
-            <BookCheck />
-            <BookType />
-            <Bookmark />
-            <Calendar />
-            <CalendarCheck2 />
-            <ClipboardCheck />
-            <ClipboardList />
-
-          </FloatingBackground>
-        </div>
+      <div className="flex flex-row justify-between h-[calc(100%-120px)]">
+        <IconBackground />
 
         <div className="w-1/2 flex flex-row justify-center">
           <div className="h-full flex flex-col justify-center">
@@ -83,7 +48,7 @@ export default async function Home() {
 
       </div>
 
-      <div className="bg-primary w-full shadow-lg h-screen"></div>
+      <div className="bg-primary w-full shadow-lg h-15 fixed bottom-0"></div>
 
     </div>
   );

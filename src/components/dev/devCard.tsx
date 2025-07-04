@@ -7,9 +7,9 @@ import Link from "next/link"
 
 export default function DevCard() {
     return (
-        <div className="w-100 border border-gray-300 rounded-3xl font-mono">
+        <div className="w-100 border border-gray-300 rounded-3xl font-mono h-fit card" style={{ padding: 0 }}>
 
-            <div className="bg-primary font-black text-white p-2 pl-5 pt-3 rounded-t-3xl h-10">
+            <div className="bg-primary/80 font-black text-white p-2 pl-5 pt-3 h-10 overflow-hidden" style={{ borderTopLeftRadius: 14, borderTopRightRadius: 14 }}>
                 BIG Books
             </div>
 

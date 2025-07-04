@@ -5,10 +5,6 @@ import React, { useEffect, useRef, useState } from "react";
 
 
 
-type FloatingBackgroundProps = React.HTMLAttributes<HTMLDivElement> & {
-
-}
-
 type Vector = { x: number, y: number }
 function makeVec(x: number, y: number) : Vector { return { x: x, y: y } }
 function addVecs(v1: Vector, v2: Vector) : Vector { return { x: v1.x + v2.x, y: v1.y + v2.y } }
@@ -16,9 +12,15 @@ function subVecs(v1: Vector, v2: Vector) : Vector { return { x: v1.x - v2.x, y: 
 function scaleVec(v1: Vector, scale: number) : Vector { return { x: v1.x * scale, y: v1.y * scale } }
 function lenVec(v1: Vector) : number { return Math.sqrt( Math.pow(v1.x, 2) + Math.pow(v1.y, 2) ) }
 
+type FloatingBackgroundProps = React.HTMLAttributes<HTMLDivElement> & {
+    dt?: number,
+    duration?: number,
+    padding?: number
+}
+
 const FloatingBackground = React.forwardRef<HTMLDivElement, FloatingBackgroundProps>(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ({ children, ...rest }, forwardRef) => {
+    ({ children, dt = 1000, duration = 1, padding = 50, ...rest }, forwardRef) => {
 
         const initalPoses = [] as { pos: Vector, vel: Vector, r: number, s: number, o: number }[]
         React.Children.forEach(children, () => {
@@ -55,8 +57,6 @@ const FloatingBackground = React.forwardRef<HTMLDivElement, FloatingBackgroundPr
             const poses = [...positions]
             const width = ref.current.clientWidth
             const height = ref.current.clientHeight
-
-            const padding = 50
 
             const forces = poses.map((self, selfIndex) => {
 
@@ -125,7 +125,7 @@ const FloatingBackground = React.forwardRef<HTMLDivElement, FloatingBackgroundPr
         useEffect(() => { // Main Loop
             const id = setTimeout(() => {
                 updatePositions()
-            }, 1000);
+            }, dt);
             return () => clearInterval(id)
         }, [positions])
 
@@ -150,7 +150,7 @@ const FloatingBackground = React.forwardRef<HTMLDivElement, FloatingBackgroundPr
                             scale: positions[index]?.s ?? 0,
                             opacity: positions[index]?.o ?? 0
                         }}
-                        transition={{ duration: 1, type: 'spring' }}
+                        transition={{ duration: duration, type: 'spring' }}
                     >
                         {child}
                     </motion.div>
