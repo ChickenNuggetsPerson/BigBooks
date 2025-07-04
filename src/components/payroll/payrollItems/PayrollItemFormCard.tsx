@@ -12,7 +12,7 @@ import NumberInput from "@/components/Forms/NumberInput"
 import SelectInput from "@/components/Forms/SelectInput"
 import TextInput from "@/components/Forms/TextInput"
 import { AbsMaxPeriodTypes, PayStubItemType } from "@/database/generated/prisma/"
-import { deserializeData, SerializationResult } from "@/utils/serialization"
+import { deserializeData, SerializationResult, serializeData } from "@/utils/serialization"
 import { Decimal } from "@prisma/client/runtime/index-browser.js"
 import { Save, Trash2 } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -44,7 +44,7 @@ export default function PayrollItemFormCard({ serializedData }: { serializedData
             async () => {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const {_count, ...newState} = itemState
-                await upsertPayrollItem(newState)
+                await upsertPayrollItem(serializeData(newState))
                 router.refresh()
             },
             {

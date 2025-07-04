@@ -4,13 +4,16 @@ import { RoleTypes } from "@/auth/roles/Roles"
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { PayrollItem } from "@/database/generated/prisma"
 import { prisma } from "@/database/prisma"
+import { deserializeData, SerializationResult } from "@/utils/serialization"
 import { randomUUID } from "crypto"
 
 
 
 
 
-export default async function upsertPayrollItem(paystubItem: PayrollItem) {
+export default async function upsertPayrollItem(item: SerializationResult<PayrollItem>) {
+
+    const paystubItem = deserializeData(item)
 
     // Check to make sure the earnings object is configured correctly
     // Specifically the relations
