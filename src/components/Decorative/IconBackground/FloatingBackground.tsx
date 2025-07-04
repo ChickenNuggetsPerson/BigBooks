@@ -120,6 +120,7 @@ const FloatingBackground = React.forwardRef<HTMLDivElement, FloatingBackgroundPr
 
         useEffect(() => { // Inital Load
             setInitialPositons()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [])
 
         useEffect(() => { // Main Loop
@@ -127,6 +128,7 @@ const FloatingBackground = React.forwardRef<HTMLDivElement, FloatingBackgroundPr
                 updatePositions()
             }, dt);
             return () => clearInterval(id)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [positions])
 
         return (
