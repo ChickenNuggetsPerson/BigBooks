@@ -18,6 +18,6 @@ export function nextOccurence(refDate: Date, daysPerOccurence: number, now?: Dat
     now.setHours(0)
     now.setMinutes(0)
 
-    const deltaDays = daysPerOccurence - (Math.floor((now.getTime() - refDate.getTime()) / 86400000) % daysPerOccurence) + 1
+    const deltaDays = daysPerOccurence - (Math.floor((now.getTime() - refDate.getTime()) / 86400000) % daysPerOccurence) 
     return addDays(now, deltaDays)
 }

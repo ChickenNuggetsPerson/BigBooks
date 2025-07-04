@@ -45,12 +45,9 @@ export default function PayrollInportGroupForm({ initialPeriod, changeCB }: { in
 
         const nextEnd = nextOccurence(group.periodRefDate, group.payFrequency)
         const nextStart = new Date(nextEnd)
-        nextStart.setDate(nextEnd.getDate() - group.payFrequency)
-
-        nextEnd.setDate(nextEnd.getDate() - 1)
+        nextStart.setDate(nextEnd.getDate() - group.payFrequency + 1) // Shift forward one day to avoid day overlap
 
         const pay = nextOccurence(group.payRefDate, group.payFrequency)
-        pay.setDate(pay.getDate() - 1)
 
         setState({
             start: nextStart,

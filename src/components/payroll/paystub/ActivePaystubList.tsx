@@ -65,7 +65,7 @@ export default function ActivePaystubList({ editStub = () => { } }: { editStub?:
                 ))}
             </div>
 
-            <div>
+            <div className="w-full">
 
                 {(index !== undefined) && (index < paystubs.length) &&
                     <div className="smallCard mb-5 flex flex-row w-full justify-between">
