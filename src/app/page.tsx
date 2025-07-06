@@ -1,9 +1,10 @@
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import IconBackground from "@/components/Decorative/IconBackground/IconBackground";
-import UserGreetingCard from "@/components/User/UserGreetingCard";
+import UserGreetingCard, { UserGreetingCard_Loading } from "@/components/User/UserGreetingCard";
 
 
 import { Open_Sans } from 'next/font/google'
+import { Suspense } from "react";
 
 const openSans = Open_Sans({
   subsets: ['latin'],
@@ -41,7 +42,11 @@ export default async function Home() {
         <div className="w-1/2 flex flex-row justify-center">
           <div className="h-full flex flex-col justify-center">
             <AnimateChildren fade y={-10}>
-              <UserGreetingCard />
+              <Suspense fallback={<UserGreetingCard_Loading />}>
+
+                <UserGreetingCard />
+                
+              </Suspense>
             </AnimateChildren>
           </div>
         </div>

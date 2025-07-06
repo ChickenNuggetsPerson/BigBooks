@@ -17,9 +17,13 @@ export default function ActivePaystubList({ editStub = () => { } }: { editStub?:
 
     const [paystubs, setPaystubs] = useState([] as Prisma.PayStubGetPayload<{ select: { employee: true, uuid: true } }>[])
     const [index, setIndex] = useState(undefined as number | undefined)
+    const [loading, setLoading] = useState(false)
+
     useEffect(() => {
+        setLoading(true)
         async function load() {
             setPaystubs(deserializeData(await getActivePaystubs()))
+            setLoading(false)
         }
         load()
     }, [])
@@ -33,7 +37,7 @@ export default function ActivePaystubList({ editStub = () => { } }: { editStub?:
             async () => {
                 await submitPaystub(uuid)
                 setTimeout(() => {
-                    location.reload() 
+                    location.reload()
                 }, 2000);
             },
             {
@@ -58,11 +62,20 @@ export default function ActivePaystubList({ editStub = () => { } }: { editStub?:
                 <p className="font-semibold">Active Paystubs:</p>
                 <Divider />
 
-                {paystubs.map((stub, i) => (
-                    <div key={stub.uuid} className="icon bg-primary/70 text-white font-bold mb-2" onClick={() => setIndex(i)}>
-                        {`${stub.employee.firstName} ${stub.employee.lastName}`}
+                {loading &&
+                    <div>
+                        <div className="icon bg-primary/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
+                        <div className="icon bg-primary/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
+                        <div className="icon bg-primary/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
                     </div>
-                ))}
+                }
+                {!loading &&
+                    paystubs.map((stub, i) => (
+                        <div key={stub.uuid} className="icon bg-primary/70 text-white font-bold mb-2" onClick={() => setIndex(i)}>
+                            {`${stub.employee.firstName} ${stub.employee.lastName}`}
+                        </div>
+                    ))
+                }
             </div>
 
             <div className="w-full">

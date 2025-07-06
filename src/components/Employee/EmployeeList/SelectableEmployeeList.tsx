@@ -22,10 +22,11 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
     const [employees, setEmployees] = useState([] as Prisma.EmployeeGetPayload<{ include: { compensations: true } }>[])
 
     const [selected, setSelected] = useState(new Set<string>())
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         async function load() {
-            const loadingID = toast.loading("Loading Employee List")
+            setLoading(true)
 
             let emps = deserializeData(await getEmployeeListWithComps())
             const grps = await getOrgPayrollGroups()
@@ -38,7 +39,7 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
             }))
 
             setEmployees(emps)
-            toast.dismiss(loadingID)
+            setLoading(false)
         }
         load()
     }, [context?.companyUUID])
@@ -124,6 +125,14 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
                 rowSelectionModel={rowSelectionModel}
                 slots={{ toolbar: CustomToolbar }}
                 isRowSelectable={(params) => !selected.has(params.id as string)}
+
+                loading={loading}
+                slotProps={{
+                    loadingOverlay: {
+                        variant: 'linear-progress',
+                        noRowsVariant: 'linear-progress',
+                    },
+                }}
             />
 
             <div>

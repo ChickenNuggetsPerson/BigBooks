@@ -12,7 +12,7 @@ import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowP
 
 export default function OrganizationList({
     showBackground = false,
-    refreshCB = () => {}
+    refreshCB = () => { }
 }: {
     showBackground?: boolean
     refreshCB?: () => void
@@ -20,15 +20,18 @@ export default function OrganizationList({
 
     const changeSelectOrg = useChangeSelectedOrg()
 
+    const [loading, setLoading] = useState(false)
     const [orgs, setOrgs] = useState([] as OrgWithRole[])
     const [filteredList, setFilteredList] = useState([] as OrgWithRole[])
     const [showDeleted, setShowDeleted] = useState(false)
 
     useEffect(() => {
+        setLoading(true)
         async function load() {
             const list = await getOrgList(showDeleted)
             setOrgs(list)
             setFilteredList(list)
+            setLoading(false)
         }
         load()
     }, [showDeleted])
@@ -110,6 +113,13 @@ export default function OrganizationList({
                     getRowId={(row) => row.uuid}
                     rowSelection={false}
                     onRowClick={handleEvent}
+                    loading={loading}
+                    slotProps={{
+                        loadingOverlay: {
+                            variant: 'linear-progress',
+                            noRowsVariant: 'linear-progress',
+                        },
+                    }}
                 />
             </div>
         </div>

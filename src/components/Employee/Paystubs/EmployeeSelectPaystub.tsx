@@ -1,17 +1,17 @@
 'use server'
 
 
-import getEmployeePaystubs from "@/actions/paystub/getEmployeePaystubs";
-import { deserializeData, serializeData } from "@/utils/serialization";
+import { deserializeData, SerializationResult, serializeData } from "@/utils/serialization";
 import { Divider } from "../../Forms/Divider";
 import StubSelector from "./StubSelector";
+import { PayStub } from "@/database/generated/prisma";
 
 
 
-export async function EmployeeSelectPaystub({ empUUID }: { empUUID: string }) {
+export async function EmployeeSelectPaystub({ data }: { data: SerializationResult<PayStub[]> }) {
 
 
-    const stubs = deserializeData(await getEmployeePaystubs(empUUID))
+    const stubs = deserializeData(data)
 
     const submitted = serializeData(stubs.filter(s => s.locked))
     const active = serializeData(stubs.filter(s => !s.locked))

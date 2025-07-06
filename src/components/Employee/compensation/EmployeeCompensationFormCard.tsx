@@ -12,7 +12,7 @@ import SelectInput from "@/components/Forms/SelectInput"
 import TextInput from "@/components/Forms/TextInput"
 import { HourlyRate, Prisma } from "@/database/generated/prisma"
 import { Decimal } from "@/database/generated/prisma/runtime/index-browser"
-import { serializeData } from "@/utils/serialization"
+import { deserializeData, SerializationResult, serializeData } from "@/utils/serialization"
 import { Plus, Save, Trash2, X } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -21,10 +21,11 @@ import toast from "react-hot-toast"
 
 
 
-export default function EmployeeCompensationFormCard({ comp }: {
-    comp: Prisma.EmployeeCompensationGetPayload<{ include: { hourlyRates: true, payrollGroup: true } }>
+export default function EmployeeCompensationFormCard({ data }: {
+    data: SerializationResult<Prisma.EmployeeCompensationGetPayload<{ include: { hourlyRates: true, payrollGroup: true } }>>
 }) {
 
+    const comp = deserializeData(data)
     const router = useRouter()
     const { addModal } = useModalManager()
     const [compensation, setCompensation] = useState(comp)

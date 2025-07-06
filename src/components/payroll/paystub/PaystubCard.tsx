@@ -2,6 +2,7 @@
 
 import getEmployeeProps from "@/actions/employee/getEmployeeProps"
 import getPaystub from "@/actions/paystub/getPaystub"
+import Loading from "@/app/Loading"
 import EditableDiv from "@/components/Decorative/EditableDiv"
 import { Divider } from "@/components/Forms/Divider"
 import { PayStubItem, PayStubItemType, Prisma } from "@/database/generated/prisma"
@@ -65,7 +66,7 @@ export function PaystubCard({
     if (loading) {
         return (
             <div className="card w-fit h-fit">
-                Loading...
+                <Loading vCenter hCenter/>
             </div>
         )
     }

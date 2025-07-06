@@ -2,9 +2,29 @@
 import { logout } from "@/auth/actions/Logout"
 import { getUserFromSession } from "@/auth/auth"
 import Link from "next/link"
+import LoadingBlock from "../Decorative/LoadingBlock"
 
 
+export function UserGreetingCard_Loading() {
 
+    return (
+        <div className="card w-80 h-fit ">
+
+            <div className="mb-1 text-2xl font-semibold text-gray-700 select-none flex flex-row">
+                <p>Hello </p>
+                <LoadingBlock w={"30"} h={8} className="w-30"/>
+                <p>!</p>
+            </div>
+
+            <div className="h-px bg-accent mb-3"></div>
+
+            <LoadingBlock h={8} w={"full"} className="my-2"/>
+            <LoadingBlock h={8} w={"full"} className="my-2"/>
+            <LoadingBlock h={8} w={"full"} className="my-2"/>
+        </div>
+    )
+
+}
 
 export default async function UserGreetingCard() {
 

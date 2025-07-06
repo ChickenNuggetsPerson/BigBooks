@@ -7,6 +7,7 @@ import getUser from "@/actions/user/getUser";
 import editUser from "@/actions/user/editUser";
 import Link from "next/link";
 import { Prisma } from "@/database/generated/prisma";
+import Loading from "@/app/Loading";
 
 
 
@@ -16,18 +17,29 @@ interface EditUserFormProps {
 export default function EditUserForm({ userID }: EditUserFormProps) {
 
     const [userProps, setUserProps] = useState({} as Prisma.UserGetPayload<{ include: { memberships: true } }>)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        setLoading(true)
         async function load() {
             const props = await getUser(userID ?? "")
             if (props) {
                 setUserProps(props)
             }
+            setLoading(false)
         }
 
         load()
     }, [userID])
 
+
+    if (loading) {
+        return (
+            <div className="mx-auto card w-fit">
+                <Loading hCenter vCenter />
+            </div>
+        )
+    }
 
     return (
         <form action={editUser} className="card w-md">

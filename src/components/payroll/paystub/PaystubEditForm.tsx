@@ -108,13 +108,14 @@ export default function PaystubEditForm({
         comps: [] as { compName: string, items: PayStubItem[] }[]
     })
     const [edited, setEdited] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { load() }, [])
 
     async function load(forceNew: boolean = false) {
 
-        const toastID = toast.loading("Loading Paystub Data")
+        setLoading(true)
         setEdited(false)
 
         const d = deserializeData(await getEmployeePayrollItems(empUUID))
@@ -139,11 +140,12 @@ export default function PaystubEditForm({
             }
         }
 
-        toast.dismiss(toastID)
+        setLoading(false)
     }
 
     // Loades the paystub into internal state.
     async function loadStubByID(uuid: string) {
+        setLoading(true)
         const stub = deserializeData(await getPaystub(uuid)) // Fetch from server
         if (stub) {
             updateTotals(stub)
@@ -152,6 +154,7 @@ export default function PaystubEditForm({
             createNewStub() // Default to empty if needed
         }
         setEdited(false)
+        setLoading(false)
     }
 
     const selectOptions = [
@@ -838,6 +841,14 @@ export default function PaystubEditForm({
                     processRowUpdate={(updatedRow) => updateItem(updatedRow)}
                     onProcessRowUpdateError={handleProcessRowUpdateError}
                     rowHeight={60}
+
+                    loading={loading}
+                    slotProps={{
+                        loadingOverlay: {
+                            variant: 'linear-progress',
+                            noRowsVariant: 'linear-progress',
+                        },
+                    }}
                 />
 
             </div>

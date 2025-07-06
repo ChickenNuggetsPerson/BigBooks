@@ -19,16 +19,13 @@ import { useUrlState } from "state-in-url";
 
 
 interface EmployeeListProps {
-    selectable?: boolean
-    selected?: string[]
+
     clickCB?: (emp: Employee) => void
     searchable?: boolean
     pageination?: boolean
     pageCount?: number
 }
 export default function EmployeeList({
-    selectable = false,
-    selected = [],
     clickCB = () => { },
     searchable = false,
     pageination = false,
@@ -64,17 +61,11 @@ export default function EmployeeList({
             header: "Email",
         }
     ]
-    if (selectable) {
-        colums.push({
-            accessorKey: "selected",
-            header: "Selected",
-        })
-    } else {
-        colums.push({
-            accessorKey: "phoneNumber",
-            header: "Phone Number",
-        })
-    }
+
+    colums.push({
+        accessorKey: "phoneNumber",
+        header: "Phone Number",
+    })
 
     const table = useReactTable({
         data: list,
@@ -194,12 +185,6 @@ export default function EmployeeList({
 
                                         <p>{limitString(cell.getValue() as string ?? "", 25)}</p>
 
-                                        {cell.column.id == "selected" &&
-                                            <div className="w-1/2 h-full bg-primary rounded-md text-white font-bold m-auto">
-                                                {selected.includes(row.original.uuid) ? "Selected" : ""}
-                                            </div>
-                                        }
-
                                     </td>
                                 ))}
 
@@ -211,7 +196,7 @@ export default function EmployeeList({
 
             </table>
 
-            {loading && <Loading hCenter />}
+            {loading && <div className="my-2"> <Loading hCenter /> </div>}
 
         </AnimateChildren>
     )

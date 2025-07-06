@@ -1,21 +1,42 @@
 import getOrgUsers from "@/actions/user/getOrgUsers"
 import getInviteCodes from "@/actions/user/inviteCodes/getInviteCodes"
+import Loading from "@/app/Loading"
 import { getSession } from "@/auth/auth"
 import { RoleTypes } from "@/auth/roles/Roles"
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import OrgInviteCodeCard from "@/components/User/OrgAdmin/OrgInviteCodeCard"
 import OrgUserCreateInviteButton from "@/components/User/OrgAdmin/OrgUserCreateInviteButton"
 import { OrgUserList } from "@/components/User/OrgAdmin/OrgUserList"
+import { Suspense } from "react"
 
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminUserPage() {
+export default function AdminUserPage() {
 
+
+    return (
+        <Suspense fallback={<div className="mx-auto card w-fit"><Loading vCenter hCenter /></div>}>
+            <Page />
+        </Suspense>
+    )
+}
+
+
+
+async function Page() {
     const session = await getSession()
     if (!session) { return <div></div> }
 
-    await throwIfInsufficientPerms(RoleTypes.Admin)
+    try {
+        await throwIfInsufficientPerms(RoleTypes.Admin)
+    } catch {
+        return (
+            <div className="h-fit w-fit">
+                Insufficient Permissions
+            </div>
+        )
+    }
 
     const users = await getOrgUsers(session.orgUUID)
     const codes = await getInviteCodes()

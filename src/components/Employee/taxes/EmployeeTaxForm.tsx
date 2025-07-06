@@ -59,7 +59,7 @@ export default function EmployeeTaxForm({ empUUID }: EmployeeTaxFormProps) {
 
     if (error) {
         return (
-            <div>
+            <div className="mx-auto card w-fit">
                 Error Fetching Employee
             </div>
         )
@@ -67,7 +67,7 @@ export default function EmployeeTaxForm({ empUUID }: EmployeeTaxFormProps) {
 
     if (loading) {
         return (
-            <Loading hCenter vCenter />
+            <div className="mx-auto card w-fit"><Loading hCenter vCenter /></div>
         )
     }
 

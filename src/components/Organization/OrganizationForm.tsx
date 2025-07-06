@@ -46,7 +46,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
 
     if (error) {
         return (
-            <div>
+            <div className="mx-auto card w-fit">
                 Error Fetching Organization Details
             </div>
         )
@@ -54,7 +54,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
 
     if (loading) {
         return (
-            <Loading vCenter hCenter />
+            <div className="mx-auto card w-fit"><Loading hCenter vCenter /></div>
         )
     }
 

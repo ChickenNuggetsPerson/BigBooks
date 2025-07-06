@@ -4,9 +4,11 @@ import { prisma } from "@/database/prisma";
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
 import { RoleTypes } from "@/auth/roles/Roles";
 import PaystubEditForm from "@/components/payroll/paystub/PaystubEditForm";
+import { Suspense } from "react";
+import Loading from "@/app/Loading";
 
 
-export default async function ViewPaystubPage({
+export default async function EditPaystubPage({
     params,
 }: {
     params: Promise<{ stubUUID: string }>
@@ -14,10 +16,25 @@ export default async function ViewPaystubPage({
 
     const paystubUUID = (await params).stubUUID
 
+    return (
+
+        <div>
+
+            <Suspense fallback={<div className="mx-auto card w-fit"><Loading hCenter vCenter /></div>}>
+                <Page paystubUUID={paystubUUID} />
+            </Suspense>
+
+        </div>
+
+    )
+}
+
+async function Page({ paystubUUID }: { paystubUUID: string }) {
+
     await throwIfInsufficientPerms(RoleTypes.Viewer)
 
-    const stub = await prisma.payStub.findUnique({ 
-        where: { uuid: paystubUUID }, 
+    const stub = await prisma.payStub.findUnique({
+        where: { uuid: paystubUUID },
         include: { employee: true, items: true }
     })
 
@@ -30,19 +47,15 @@ export default async function ViewPaystubPage({
     }
 
     return (
-
-        <div>
-
+        <>
             <Link href={`/organization/paystubs/stub/${stub.uuid}`} >
-                <MoveLeft/>
+                <MoveLeft />
             </Link>
 
             <div className="h-2"></div>
 
             <PaystubEditForm empUUID={stub.employeeId} stubUUID={stub.uuid} />
-
-        </div>
-
+        </>
     )
 }
 

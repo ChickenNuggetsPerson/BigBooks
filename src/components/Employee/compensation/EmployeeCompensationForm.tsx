@@ -1,16 +1,46 @@
 import getEmployeeCompensations from "@/actions/employeeCompensation/getEmployeeCompensations";
 import { Divider } from "@/components/Forms/Divider";
-import { Employee } from "@/database/generated/prisma";
-import { deserializeData } from "@/utils/serialization";
+import { deserializeData, serializeData } from "@/utils/serialization";
 import EmployeeCompensationAddButton from "./EmployeeCompensationAddButton";
 import EmployeeCompensationFormCard from "./EmployeeCompensationFormCard";
+import getEmployeeProps from "@/actions/employee/getEmployeeProps";
+import { RoleTypes } from "@/auth/roles/Roles";
+import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
 
 
 
 
-export default async function EmployeeCompensationForm({ employee }: { employee: Employee }) {
+export default async function EmployeeCompensationForm({ employeeUUID }: { employeeUUID: string }) {
 
-    const comps = deserializeData(await getEmployeeCompensations(employee.uuid))
+
+    try {
+        await throwIfInsufficientPerms(RoleTypes.Editor)
+    } catch {
+        return (
+            <div className="items-center min-h-screen p-8 pb-20 gap-16">
+                <div className="card max-w-sm">
+                    Insufficient Permissions
+                </div>
+            </div>
+        )
+    }
+
+    const employee = await getEmployeeProps(employeeUUID, true)
+    if (!employee) {
+        return (
+            <div className="items-center min-h-screen p-8 pb-20 gap-16">
+                <div className="card max-w-sm">
+                    Invalid Employee
+                </div>
+            </div>
+        )
+    }
+    const comps = deserializeData(await getEmployeeCompensations(employee.uuid)).map(c => {
+        return {
+            data: serializeData(c),
+            uuid: c.uuid
+        }
+    })
 
     return (
         <div className="flex flex-row justify-center w-full gap-5">
@@ -24,7 +54,7 @@ export default async function EmployeeCompensationForm({ employee }: { employee:
 
             <div className="flex flex-col gap-2">
                 {comps.map(c => (
-                    <EmployeeCompensationFormCard comp={c} key={c.uuid}/>
+                    <EmployeeCompensationFormCard data={c.data} key={c.uuid}/>
                 ))}
             </div>
         </div>

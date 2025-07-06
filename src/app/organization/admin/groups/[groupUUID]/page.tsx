@@ -1,9 +1,9 @@
-import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
+import Loading from "@/app/Loading"
 import AnimateChildren from "@/components/Decorative/AnimateChildren"
 import PayrollItemsForm from "@/components/payroll/payrollItems/PayrollItemsForm"
 import { MoveLeft } from "lucide-react"
 import Link from "next/link"
+import { Suspense } from "react"
 
 
 
@@ -17,22 +17,6 @@ export default async function GroupPayrollItemEditPage({
 
     const groupUUID = (await params).groupUUID
 
-
-    try {
-        await throwIfInsufficientPerms(RoleTypes.Editor)
-    } catch {
-
-        return (
-            <div className="items-center min-h-screen p-8 pb-20 gap-16">
-                <div className="card max-w-sm">
-                    Insufficient Permissions
-                </div>
-            </div>
-        )
-
-    }
-
-
     return (
         <div className="">
 
@@ -42,7 +26,9 @@ export default async function GroupPayrollItemEditPage({
 
             <AnimateChildren y={-20}>
 
-                <PayrollItemsForm group groupUUID={groupUUID}/>
+                <Suspense fallback={<div className="mx-auto card w-fit"><Loading vCenter hCenter /></div>}>
+                    <PayrollItemsForm group groupUUID={groupUUID} />
+                </Suspense>
 
             </AnimateChildren>
         </div>

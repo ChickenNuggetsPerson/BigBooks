@@ -1,9 +1,9 @@
-import { RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
+import Loading from "@/app/Loading";
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import PaystubDefaultsForm from "@/components/payroll/payrollItems/PayrollItemsForm";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 
 
@@ -11,17 +11,7 @@ export default async function EmployeeDefaultsPage({params}: { params: Promise<{
 
     const { employeeUUID } = await params
 
-    try {
-        await throwIfInsufficientPerms(RoleTypes.Editor)
-    } catch {
-        return (
-            <div className="items-center min-h-screen p-8 pb-20 gap-16">
-                <div className="card max-w-sm">
-                    Insufficient Permissions
-                </div>
-            </div>
-        )
-    }
+    
     return (
         <div className="">
 
@@ -31,7 +21,9 @@ export default async function EmployeeDefaultsPage({params}: { params: Promise<{
 
             <AnimateChildren y={-20} className="mx-20">
 
-                <PaystubDefaultsForm employee employeeUUID={employeeUUID}/>
+                <Suspense fallback={<div className="mx-auto card w-fit"><Loading hCenter vCenter /></div>}>
+                    <PaystubDefaultsForm employee employeeUUID={employeeUUID}/>
+                </Suspense>
 
             </AnimateChildren>
         </div>

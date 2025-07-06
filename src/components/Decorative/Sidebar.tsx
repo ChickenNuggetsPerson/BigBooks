@@ -3,7 +3,7 @@ import Logo from "./Logo";
 import { FileText, House, ScrollText, Users } from "lucide-react";
 import HeaderOrgOptions from "../Header/HeaderOrgOptions";
 import { Suspense } from "react";
-import InteractiveUserIcon from "../User/InteractiveUserIcon";
+import InteractiveUserIcon, { InteractiveUserIcon_Loading } from "../User/InteractiveUserIcon";
 
 
 
@@ -65,7 +65,7 @@ export default function Sidebar() {
             </div>
 
             <div className="smallCard mt-5">
-                <Suspense fallback={<div className="animate-pulse text-2xl font-bold"> Loading... </div>}>
+                <Suspense fallback={<InteractiveUserIcon_Loading />}>
                     <InteractiveUserIcon />
                 </Suspense>
 

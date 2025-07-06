@@ -49,12 +49,14 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
 
     if (loading) {
         return (
-            <Loading hCenter vCenter />
+            <div className="mx-auto card w-fit"> 
+                <Loading hCenter vCenter />
+            </div>
         )
     }
     if (error) {
         return (
-            <div>
+            <div className="mx-auto card w-fit">
                 Error Fetching Employee
             </div>
         )

@@ -16,7 +16,8 @@ export default function Employee() {
         <div className="flex flex-col xl:flex-row gap-10 mr-2">
 
             <div className="order-2 xl:order-1">
-                <Suspense fallback={<p>Loading...</p>}>
+                {/* Since Employee list uses "UseSearchParams()", it needs to be wrapped in a Suspense */}
+                <Suspense> 
                     <EmployeeList pageination pageCount={8} searchable clickCB={(emp) => { router.push(`/organization/employee/${emp.uuid}`) }} />
                 </Suspense>
             </div>

@@ -5,6 +5,8 @@ import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { RoleTypes } from "@/auth/roles/Roles";
 import { PaystubCard } from "@/components/payroll/paystub/PaystubCard";
 import { serializeData } from "@/utils/serialization";
+import { Suspense } from "react";
+import Loading from "@/app/Loading";
 
 
 export default async function ViewPaystubPage({
@@ -15,17 +17,34 @@ export default async function ViewPaystubPage({
 
     const paystubUUID = (await params).stubUUID
 
+
+
+    return (
+
+        <div>
+
+            <Suspense fallback={<div className="mx-auto card w-fit"><Loading hCenter vCenter /></div>}>
+                <ViewStub paystubUUID={paystubUUID} />
+            </Suspense>
+
+        </div>
+
+    )
+}
+
+async function ViewStub({ paystubUUID }: { paystubUUID: string }) {
+
     await throwIfInsufficientPerms(RoleTypes.Viewer)
 
-    const stub = await prisma.payStub.findUnique({ 
-        where: { uuid: paystubUUID }, 
+    const stub = await prisma.payStub.findUnique({
+        where: { uuid: paystubUUID },
         include: { employee: true, items: true }
     })
 
     if (!stub) {
         return (
             <div className="card w-fit h-fit">
-                Invalid Paystub ID
+                Invalid Paystub UUID
             </div>
         )
     }
@@ -33,19 +52,14 @@ export default async function ViewPaystubPage({
     const data = serializeData(stub)
 
     return (
-
-        <div>
-
+        <>
             <Link href={`/organization/employee/${stub.employeeId}`} >
-                <MoveLeft/>
+                <MoveLeft />
             </Link>
 
             <div className="h-2"></div>
 
             <PaystubCard stub={data} editable downloadable />
-
-        </div>
-
+        </>
     )
 }
-
