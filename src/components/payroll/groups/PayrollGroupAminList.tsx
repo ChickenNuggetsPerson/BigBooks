@@ -15,7 +15,7 @@ import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { nextOccurence } from "@/utils/functions/Date";
+import { nextOccurence, timesPerYear } from "@/utils/functions/Date";
 import Link from "next/link";
 import { CardProp } from "@/components/Forms/CardProp";
 
@@ -242,11 +242,11 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
 
             <LargeTextInput label="Description" val={selected.description} onChange={descUpdated} />
 
-            {/* TODO: These Dates aren't calculating correctly */}
             <div className="flex flex-row justify-between">
                 <div>
                     <CardProp label={"Next Period End:"} val={nextOccurence(selected.periodRefDate, selected.payFrequency).toLocaleDateString()} />
                     <CardProp label={"Next Paydate:"} val={nextOccurence(selected.payRefDate, selected.payFrequency).toLocaleDateString()} />
+                    <CardProp label="Paydates Per Year:" val={timesPerYear(selected.payFrequency)} />
                 </div>
 
                 <div className="w-35">
@@ -254,7 +254,6 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
                 </div>
             </div>
 
-            {/* TODO: Calc Times per year and fix that in the paystub system */}
             <div className="flex flex-row gap-4 py-5">
                 <DateInput label="Pay Date" val={selected.payRefDate} onChange={refDateUpdated} />
                 <DateInput label="Period End" val={selected.periodRefDate} onChange={periodRefDate} />

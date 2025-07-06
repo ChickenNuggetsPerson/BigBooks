@@ -22,3 +22,7 @@ export function nextOccurence(refDate: Date, daysPerOccurence: number, now?: Dat
     const deltaDays = daysPerOccurence - (Math.floor((now.getTime() - refDate.getTime()) / 86400000) % daysPerOccurence) 
     return addDays(now, deltaDays)
 }
+
+export function timesPerYear(daysPerOccurence: number) {
+    return Math.floor(365 / daysPerOccurence)
+}

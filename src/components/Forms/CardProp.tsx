@@ -13,14 +13,14 @@ export function CardProp({
     loading = false
 }: {
     label: string,
-    val?: string,
+    val?: string | number,
     copyable?: boolean,
     loading?: boolean
 }) {
 
     function clicked() {
         if (!copyable) { return }
-        navigator.clipboard.writeText(val)
+        navigator.clipboard.writeText(String(val))
         toast.success(`Coppied ${label.replace(":", "")}`)
     }
 
