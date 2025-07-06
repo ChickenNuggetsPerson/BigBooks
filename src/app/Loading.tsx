@@ -18,9 +18,10 @@ export default function Loading({
 
     const [text, setText] = useState("Loading")
     useEffect(() => {
-        setInterval(() => {
+        const id = setInterval(() => {
             setText(text + ".")
         }, 1000);
+        return () => clearInterval(id)
     })
 
     return (

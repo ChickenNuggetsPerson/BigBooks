@@ -18,7 +18,7 @@ export default async function UserInfoForm({ userID }: { userID: string }) {
 
     if (!user) {
         return (
-            <div>
+            <div className="card">
                 User does not exist...
             </div>
         )
