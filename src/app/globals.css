@@ -88,7 +88,7 @@
 
 
 .primary-button {
-  @apply text-white bg-primary/80 hover:bg-primary-up/80 text-base font-semibold;
+  @apply text-white bg-primary/80 hover:bg-primary-up/80 text-base font-semibold cursor-pointer;
 
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -99,7 +99,7 @@
 }
 
 .secondary-button {
-  @apply text-white bg-secondary/80 hover:bg-secondary-up/80 text-base font-semibold;
+  @apply text-white bg-secondary/80 hover:bg-secondary-up/80 text-base font-semibold cursor-pointer;
 
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -110,7 +110,7 @@
 }
 
 .accent-button {
-  @apply text-white bg-accent/80 hover:bg-accent-up/80 text-base font-semibold;
+  @apply text-white bg-accent/80 hover:bg-accent-up/80 text-base font-semibold cursor-pointer;
 
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -121,7 +121,7 @@
 }
 
 .danger-button {
-  @apply text-white bg-rose-600/80 hover:bg-rose-500/80 text-base font-semibold;
+  @apply text-white bg-rose-600/80 hover:bg-rose-500/80 text-base font-semibold cursor-pointer;
 
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
