@@ -25,7 +25,7 @@ export default async function UserPage() {
     return (
         <div className="py-5 px-10">
 
-            <div className="flex flex-row justify-between w-full gap-10">
+            <div className="flex flex-row justify-between w-full gap-10 mt-15">
 
                 {/* Left Side */}
                 <div className="flex flex-col gap-4 smallCard h-fit mx-auto" style={{ padding: 10 }}>
