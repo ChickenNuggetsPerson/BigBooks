@@ -856,12 +856,22 @@ export default function PaystubEditForm({
             {/* Right Side */}
             <div className="flex flex-col gap-4">
 
-                {(!stubUUID && activeStubs.length > 0) &&
-                    <div className="card h-fit w-3xs" style={{ zIndex: 100 }}>
-                        <h5>{`Active Paystubs: (Paydate)`}</h5>
-                        <SelectInput searchable val={paystub.uuid} options={activeStubsOptions} changeCB={selectActiveStub} />
-                    </div>
-                }
+                <AnimatePresence>
+                    {(!stubUUID && activeStubs.length > 0) &&
+                        <motion.div
+                            key={"activeStubList"}
+                            initial={{ opacity: 0, height: 0 }}
+                            exit={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+
+                            className="card h-fit w-3xs"
+                            style={{ zIndex: 100 }}
+                        >
+                            <h5>{`Active Paystubs: (Paydate)`}</h5>
+                            <SelectInput searchable val={paystub.uuid} options={activeStubsOptions} changeCB={selectActiveStub} />
+                        </motion.div>
+                    }
+                </AnimatePresence>
 
                 <div className="card h-fit w-3xs">
                     <div className="flex flex-row w-full justify-between">
