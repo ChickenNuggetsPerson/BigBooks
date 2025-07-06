@@ -18,12 +18,14 @@ export default function Gauge({
 }: GaugeProps) {
 
     const [dispPercent, setDispPercent] = useState(null as number | null)
+    const [dispColor, setDispColor] = useState(color)
 
     useEffect(() => {
         setTimeout(() => {
             setDispPercent(percent)
+            setDispColor(color)
         }, 750);
-    }, [percent])
+    }, [percent, color])
 
     function convert() {
         if (dispPercent == null || Number.isNaN(dispPercent)) {
@@ -60,7 +62,7 @@ export default function Gauge({
                     strokeDasharray={convert()}
                     strokeLinecap="round"
                     style={{
-                        color: color,
+                        color: dispColor,
                         transition: 'stroke-dasharray 1s ease, color 1s ease',
                     }}
                 ></circle>
