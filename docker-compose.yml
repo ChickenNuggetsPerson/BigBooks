@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   db:
     image: postgres:17
@@ -7,9 +7,38 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: mydb
-    ports:
-      - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+
+  toxiproxy:
+    image: shopify/toxiproxy
+    ports:
+      - "8474:8474"   # Toxiproxy admin API
+      - "8666:8666"   # Proxy port we will use
+    depends_on:
+      - db
+
+  toxiproxy-init:
+    image: curlimages/curl:latest
+    depends_on:
+      - toxiproxy
+    entrypoint: >
+      sh -c "
+        sleep 3 &&
+        echo 'Creating proxy...' &&
+        curl -s -X POST http://toxiproxy:8474/proxies -d '{
+          \"name\": \"pg\",
+          \"listen\": \"0.0.0.0:8666\",
+          \"upstream\": \"db:5432\"
+        }' &&
+        echo 'Adding latency...' &&
+        curl -s -X POST http://toxiproxy:8474/proxies/pg/toxics -d '{
+          \"name\": \"latency\",
+          \"type\": \"latency\",
+          \"stream\": \"downstream\",
+          \"attributes\": {\"latency\": 500}
+        }'
+      "
+
 volumes:
   postgres-data:
