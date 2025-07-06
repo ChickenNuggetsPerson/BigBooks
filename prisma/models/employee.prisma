@@ -38,6 +38,8 @@ model EmployeeCompensation {
 
     description String?
 
+    paystubItems PayStubItem[]
+
     @@unique([employeeId, payrollGroupId]) // no duplicate “employee‐group” rows
 }
 
@@ -50,4 +52,6 @@ model HourlyRate {
 
     compensation   EmployeeCompensation @relation(fields: [compensationId], references: [uuid])
     compensationId String
+
+    paystubItems PayStubItem[]
 }

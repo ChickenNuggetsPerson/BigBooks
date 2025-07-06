@@ -205,6 +205,8 @@ exports.Prisma.PayStubItemScalarFieldEnum = {
   uuid: 'uuid',
   payStubId: 'payStubId',
   payrollItemId: 'payrollItemId',
+  compensationId: 'compensationId',
+  hourlyRateId: 'hourlyRateId',
   type: 'type',
   name: 'name',
   description: 'description',

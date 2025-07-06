@@ -1975,10 +1975,12 @@ export namespace Prisma {
 
   export type EmployeeCompensationCountOutputType = {
     hourlyRates: number
+    paystubItems: number
   }
 
   export type EmployeeCompensationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     hourlyRates?: boolean | EmployeeCompensationCountOutputTypeCountHourlyRatesArgs
+    paystubItems?: boolean | EmployeeCompensationCountOutputTypeCountPaystubItemsArgs
   }
 
   // Custom InputTypes
@@ -1997,6 +1999,44 @@ export namespace Prisma {
    */
   export type EmployeeCompensationCountOutputTypeCountHourlyRatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: HourlyRateWhereInput
+  }
+
+  /**
+   * EmployeeCompensationCountOutputType without action
+   */
+  export type EmployeeCompensationCountOutputTypeCountPaystubItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PayStubItemWhereInput
+  }
+
+
+  /**
+   * Count Type HourlyRateCountOutputType
+   */
+
+  export type HourlyRateCountOutputType = {
+    paystubItems: number
+  }
+
+  export type HourlyRateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    paystubItems?: boolean | HourlyRateCountOutputTypeCountPaystubItemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * HourlyRateCountOutputType without action
+   */
+  export type HourlyRateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HourlyRateCountOutputType
+     */
+    select?: HourlyRateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * HourlyRateCountOutputType without action
+   */
+  export type HourlyRateCountOutputTypeCountPaystubItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PayStubItemWhereInput
   }
 
 
@@ -3708,6 +3748,7 @@ export namespace Prisma {
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
     payrollGroup?: boolean | PayrollGroupDefaultArgs<ExtArgs>
     hourlyRates?: boolean | EmployeeCompensation$hourlyRatesArgs<ExtArgs>
+    paystubItems?: boolean | EmployeeCompensation$paystubItemsArgs<ExtArgs>
     _count?: boolean | EmployeeCompensationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employeeCompensation"]>
 
@@ -3747,6 +3788,7 @@ export namespace Prisma {
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
     payrollGroup?: boolean | PayrollGroupDefaultArgs<ExtArgs>
     hourlyRates?: boolean | EmployeeCompensation$hourlyRatesArgs<ExtArgs>
+    paystubItems?: boolean | EmployeeCompensation$paystubItemsArgs<ExtArgs>
     _count?: boolean | EmployeeCompensationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EmployeeCompensationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3764,6 +3806,7 @@ export namespace Prisma {
       employee: Prisma.$EmployeePayload<ExtArgs>
       payrollGroup: Prisma.$PayrollGroupPayload<ExtArgs>
       hourlyRates: Prisma.$HourlyRatePayload<ExtArgs>[]
+      paystubItems: Prisma.$PayStubItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       uuid: string
@@ -4169,6 +4212,7 @@ export namespace Prisma {
     employee<T extends EmployeeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeDefaultArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     payrollGroup<T extends PayrollGroupDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PayrollGroupDefaultArgs<ExtArgs>>): Prisma__PayrollGroupClient<$Result.GetResult<Prisma.$PayrollGroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     hourlyRates<T extends EmployeeCompensation$hourlyRatesArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeCompensation$hourlyRatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HourlyRatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    paystubItems<T extends EmployeeCompensation$paystubItemsArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeCompensation$paystubItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayStubItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4624,6 +4668,30 @@ export namespace Prisma {
   }
 
   /**
+   * EmployeeCompensation.paystubItems
+   */
+  export type EmployeeCompensation$paystubItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayStubItem
+     */
+    select?: PayStubItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayStubItem
+     */
+    omit?: PayStubItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayStubItemInclude<ExtArgs> | null
+    where?: PayStubItemWhereInput
+    orderBy?: PayStubItemOrderByWithRelationInput | PayStubItemOrderByWithRelationInput[]
+    cursor?: PayStubItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PayStubItemScalarFieldEnum | PayStubItemScalarFieldEnum[]
+  }
+
+  /**
    * EmployeeCompensation without action
    */
   export type EmployeeCompensationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4841,6 +4909,8 @@ export namespace Prisma {
     canOvertime?: boolean
     compensationId?: boolean
     compensation?: boolean | EmployeeCompensationDefaultArgs<ExtArgs>
+    paystubItems?: boolean | HourlyRate$paystubItemsArgs<ExtArgs>
+    _count?: boolean | HourlyRateCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hourlyRate"]>
 
   export type HourlyRateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4872,6 +4942,8 @@ export namespace Prisma {
   export type HourlyRateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "name" | "rate" | "canOvertime" | "compensationId", ExtArgs["result"]["hourlyRate"]>
   export type HourlyRateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     compensation?: boolean | EmployeeCompensationDefaultArgs<ExtArgs>
+    paystubItems?: boolean | HourlyRate$paystubItemsArgs<ExtArgs>
+    _count?: boolean | HourlyRateCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type HourlyRateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     compensation?: boolean | EmployeeCompensationDefaultArgs<ExtArgs>
@@ -4884,6 +4956,7 @@ export namespace Prisma {
     name: "HourlyRate"
     objects: {
       compensation: Prisma.$EmployeeCompensationPayload<ExtArgs>
+      paystubItems: Prisma.$PayStubItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       uuid: string
@@ -5286,6 +5359,7 @@ export namespace Prisma {
   export interface Prisma__HourlyRateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     compensation<T extends EmployeeCompensationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeCompensationDefaultArgs<ExtArgs>>): Prisma__EmployeeCompensationClient<$Result.GetResult<Prisma.$EmployeeCompensationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    paystubItems<T extends HourlyRate$paystubItemsArgs<ExtArgs> = {}>(args?: Subset<T, HourlyRate$paystubItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayStubItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5713,6 +5787,30 @@ export namespace Prisma {
      * Limit how many HourlyRates to delete.
      */
     limit?: number
+  }
+
+  /**
+   * HourlyRate.paystubItems
+   */
+  export type HourlyRate$paystubItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayStubItem
+     */
+    select?: PayStubItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayStubItem
+     */
+    omit?: PayStubItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayStubItemInclude<ExtArgs> | null
+    where?: PayStubItemWhereInput
+    orderBy?: PayStubItemOrderByWithRelationInput | PayStubItemOrderByWithRelationInput[]
+    cursor?: PayStubItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PayStubItemScalarFieldEnum | PayStubItemScalarFieldEnum[]
   }
 
   /**
@@ -10628,6 +10726,8 @@ export namespace Prisma {
     uuid: string | null
     payStubId: string | null
     payrollItemId: string | null
+    compensationId: string | null
+    hourlyRateId: string | null
     type: $Enums.PayStubItemType | null
     name: string | null
     description: string | null
@@ -10641,6 +10741,8 @@ export namespace Prisma {
     uuid: string | null
     payStubId: string | null
     payrollItemId: string | null
+    compensationId: string | null
+    hourlyRateId: string | null
     type: $Enums.PayStubItemType | null
     name: string | null
     description: string | null
@@ -10654,6 +10756,8 @@ export namespace Prisma {
     uuid: number
     payStubId: number
     payrollItemId: number
+    compensationId: number
+    hourlyRateId: number
     type: number
     name: number
     description: number
@@ -10683,6 +10787,8 @@ export namespace Prisma {
     uuid?: true
     payStubId?: true
     payrollItemId?: true
+    compensationId?: true
+    hourlyRateId?: true
     type?: true
     name?: true
     description?: true
@@ -10696,6 +10802,8 @@ export namespace Prisma {
     uuid?: true
     payStubId?: true
     payrollItemId?: true
+    compensationId?: true
+    hourlyRateId?: true
     type?: true
     name?: true
     description?: true
@@ -10709,6 +10817,8 @@ export namespace Prisma {
     uuid?: true
     payStubId?: true
     payrollItemId?: true
+    compensationId?: true
+    hourlyRateId?: true
     type?: true
     name?: true
     description?: true
@@ -10809,6 +10919,8 @@ export namespace Prisma {
     uuid: string
     payStubId: string
     payrollItemId: string | null
+    compensationId: string | null
+    hourlyRateId: string | null
     type: $Enums.PayStubItemType
     name: string
     description: string | null
@@ -10841,6 +10953,8 @@ export namespace Prisma {
     uuid?: boolean
     payStubId?: boolean
     payrollItemId?: boolean
+    compensationId?: boolean
+    hourlyRateId?: boolean
     type?: boolean
     name?: boolean
     description?: boolean
@@ -10850,12 +10964,16 @@ export namespace Prisma {
     amount?: boolean
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
+    compensation?: boolean | PayStubItem$compensationArgs<ExtArgs>
+    hourlyRate?: boolean | PayStubItem$hourlyRateArgs<ExtArgs>
   }, ExtArgs["result"]["payStubItem"]>
 
   export type PayStubItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     uuid?: boolean
     payStubId?: boolean
     payrollItemId?: boolean
+    compensationId?: boolean
+    hourlyRateId?: boolean
     type?: boolean
     name?: boolean
     description?: boolean
@@ -10865,12 +10983,16 @@ export namespace Prisma {
     amount?: boolean
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
+    compensation?: boolean | PayStubItem$compensationArgs<ExtArgs>
+    hourlyRate?: boolean | PayStubItem$hourlyRateArgs<ExtArgs>
   }, ExtArgs["result"]["payStubItem"]>
 
   export type PayStubItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     uuid?: boolean
     payStubId?: boolean
     payrollItemId?: boolean
+    compensationId?: boolean
+    hourlyRateId?: boolean
     type?: boolean
     name?: boolean
     description?: boolean
@@ -10880,12 +11002,16 @@ export namespace Prisma {
     amount?: boolean
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
+    compensation?: boolean | PayStubItem$compensationArgs<ExtArgs>
+    hourlyRate?: boolean | PayStubItem$hourlyRateArgs<ExtArgs>
   }, ExtArgs["result"]["payStubItem"]>
 
   export type PayStubItemSelectScalar = {
     uuid?: boolean
     payStubId?: boolean
     payrollItemId?: boolean
+    compensationId?: boolean
+    hourlyRateId?: boolean
     type?: boolean
     name?: boolean
     description?: boolean
@@ -10895,18 +11021,24 @@ export namespace Prisma {
     amount?: boolean
   }
 
-  export type PayStubItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "payStubId" | "payrollItemId" | "type" | "name" | "description" | "hours" | "rate" | "percent" | "amount", ExtArgs["result"]["payStubItem"]>
+  export type PayStubItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "payStubId" | "payrollItemId" | "compensationId" | "hourlyRateId" | "type" | "name" | "description" | "hours" | "rate" | "percent" | "amount", ExtArgs["result"]["payStubItem"]>
   export type PayStubItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
+    compensation?: boolean | PayStubItem$compensationArgs<ExtArgs>
+    hourlyRate?: boolean | PayStubItem$hourlyRateArgs<ExtArgs>
   }
   export type PayStubItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
+    compensation?: boolean | PayStubItem$compensationArgs<ExtArgs>
+    hourlyRate?: boolean | PayStubItem$hourlyRateArgs<ExtArgs>
   }
   export type PayStubItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
+    compensation?: boolean | PayStubItem$compensationArgs<ExtArgs>
+    hourlyRate?: boolean | PayStubItem$hourlyRateArgs<ExtArgs>
   }
 
   export type $PayStubItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10914,11 +11046,15 @@ export namespace Prisma {
     objects: {
       payStub: Prisma.$PayStubPayload<ExtArgs>
       payrollItem: Prisma.$PayrollItemPayload<ExtArgs> | null
+      compensation: Prisma.$EmployeeCompensationPayload<ExtArgs> | null
+      hourlyRate: Prisma.$HourlyRatePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       uuid: string
       payStubId: string
       payrollItemId: string | null
+      compensationId: string | null
+      hourlyRateId: string | null
       type: $Enums.PayStubItemType
       name: string
       description: string | null
@@ -11322,6 +11458,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     payStub<T extends PayStubDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PayStubDefaultArgs<ExtArgs>>): Prisma__PayStubClient<$Result.GetResult<Prisma.$PayStubPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     payrollItem<T extends PayStubItem$payrollItemArgs<ExtArgs> = {}>(args?: Subset<T, PayStubItem$payrollItemArgs<ExtArgs>>): Prisma__PayrollItemClient<$Result.GetResult<Prisma.$PayrollItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    compensation<T extends PayStubItem$compensationArgs<ExtArgs> = {}>(args?: Subset<T, PayStubItem$compensationArgs<ExtArgs>>): Prisma__EmployeeCompensationClient<$Result.GetResult<Prisma.$EmployeeCompensationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    hourlyRate<T extends PayStubItem$hourlyRateArgs<ExtArgs> = {}>(args?: Subset<T, PayStubItem$hourlyRateArgs<ExtArgs>>): Prisma__HourlyRateClient<$Result.GetResult<Prisma.$HourlyRatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11354,6 +11492,8 @@ export namespace Prisma {
     readonly uuid: FieldRef<"PayStubItem", 'String'>
     readonly payStubId: FieldRef<"PayStubItem", 'String'>
     readonly payrollItemId: FieldRef<"PayStubItem", 'String'>
+    readonly compensationId: FieldRef<"PayStubItem", 'String'>
+    readonly hourlyRateId: FieldRef<"PayStubItem", 'String'>
     readonly type: FieldRef<"PayStubItem", 'PayStubItemType'>
     readonly name: FieldRef<"PayStubItem", 'String'>
     readonly description: FieldRef<"PayStubItem", 'String'>
@@ -11773,6 +11913,44 @@ export namespace Prisma {
      */
     include?: PayrollItemInclude<ExtArgs> | null
     where?: PayrollItemWhereInput
+  }
+
+  /**
+   * PayStubItem.compensation
+   */
+  export type PayStubItem$compensationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeCompensation
+     */
+    select?: EmployeeCompensationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeCompensation
+     */
+    omit?: EmployeeCompensationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeCompensationInclude<ExtArgs> | null
+    where?: EmployeeCompensationWhereInput
+  }
+
+  /**
+   * PayStubItem.hourlyRate
+   */
+  export type PayStubItem$hourlyRateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HourlyRate
+     */
+    select?: HourlyRateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HourlyRate
+     */
+    omit?: HourlyRateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HourlyRateInclude<ExtArgs> | null
+    where?: HourlyRateWhereInput
   }
 
   /**
@@ -16124,6 +16302,8 @@ export namespace Prisma {
     uuid: 'uuid',
     payStubId: 'payStubId',
     payrollItemId: 'payrollItemId',
+    compensationId: 'compensationId',
+    hourlyRateId: 'hourlyRateId',
     type: 'type',
     name: 'name',
     description: 'description',
@@ -16468,6 +16648,7 @@ export namespace Prisma {
     employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
     payrollGroup?: XOR<PayrollGroupScalarRelationFilter, PayrollGroupWhereInput>
     hourlyRates?: HourlyRateListRelationFilter
+    paystubItems?: PayStubItemListRelationFilter
   }
 
   export type EmployeeCompensationOrderByWithRelationInput = {
@@ -16480,6 +16661,7 @@ export namespace Prisma {
     employee?: EmployeeOrderByWithRelationInput
     payrollGroup?: PayrollGroupOrderByWithRelationInput
     hourlyRates?: HourlyRateOrderByRelationAggregateInput
+    paystubItems?: PayStubItemOrderByRelationAggregateInput
   }
 
   export type EmployeeCompensationWhereUniqueInput = Prisma.AtLeast<{
@@ -16496,6 +16678,7 @@ export namespace Prisma {
     employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
     payrollGroup?: XOR<PayrollGroupScalarRelationFilter, PayrollGroupWhereInput>
     hourlyRates?: HourlyRateListRelationFilter
+    paystubItems?: PayStubItemListRelationFilter
   }, "uuid" | "employeeId_payrollGroupId">
 
   export type EmployeeCompensationOrderByWithAggregationInput = {
@@ -16534,6 +16717,7 @@ export namespace Prisma {
     canOvertime?: BoolFilter<"HourlyRate"> | boolean
     compensationId?: StringFilter<"HourlyRate"> | string
     compensation?: XOR<EmployeeCompensationScalarRelationFilter, EmployeeCompensationWhereInput>
+    paystubItems?: PayStubItemListRelationFilter
   }
 
   export type HourlyRateOrderByWithRelationInput = {
@@ -16543,6 +16727,7 @@ export namespace Prisma {
     canOvertime?: SortOrder
     compensationId?: SortOrder
     compensation?: EmployeeCompensationOrderByWithRelationInput
+    paystubItems?: PayStubItemOrderByRelationAggregateInput
   }
 
   export type HourlyRateWhereUniqueInput = Prisma.AtLeast<{
@@ -16555,6 +16740,7 @@ export namespace Prisma {
     canOvertime?: BoolFilter<"HourlyRate"> | boolean
     compensationId?: StringFilter<"HourlyRate"> | string
     compensation?: XOR<EmployeeCompensationScalarRelationFilter, EmployeeCompensationWhereInput>
+    paystubItems?: PayStubItemListRelationFilter
   }, "uuid" | "uuid">
 
   export type HourlyRateOrderByWithAggregationInput = {
@@ -16919,6 +17105,8 @@ export namespace Prisma {
     uuid?: StringFilter<"PayStubItem"> | string
     payStubId?: StringFilter<"PayStubItem"> | string
     payrollItemId?: StringNullableFilter<"PayStubItem"> | string | null
+    compensationId?: StringNullableFilter<"PayStubItem"> | string | null
+    hourlyRateId?: StringNullableFilter<"PayStubItem"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubItem"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubItem"> | string
     description?: StringNullableFilter<"PayStubItem"> | string | null
@@ -16928,12 +17116,16 @@ export namespace Prisma {
     amount?: DecimalFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string
     payStub?: XOR<PayStubScalarRelationFilter, PayStubWhereInput>
     payrollItem?: XOR<PayrollItemNullableScalarRelationFilter, PayrollItemWhereInput> | null
+    compensation?: XOR<EmployeeCompensationNullableScalarRelationFilter, EmployeeCompensationWhereInput> | null
+    hourlyRate?: XOR<HourlyRateNullableScalarRelationFilter, HourlyRateWhereInput> | null
   }
 
   export type PayStubItemOrderByWithRelationInput = {
     uuid?: SortOrder
     payStubId?: SortOrder
     payrollItemId?: SortOrderInput | SortOrder
+    compensationId?: SortOrderInput | SortOrder
+    hourlyRateId?: SortOrderInput | SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
@@ -16943,6 +17135,8 @@ export namespace Prisma {
     amount?: SortOrder
     payStub?: PayStubOrderByWithRelationInput
     payrollItem?: PayrollItemOrderByWithRelationInput
+    compensation?: EmployeeCompensationOrderByWithRelationInput
+    hourlyRate?: HourlyRateOrderByWithRelationInput
   }
 
   export type PayStubItemWhereUniqueInput = Prisma.AtLeast<{
@@ -16952,6 +17146,8 @@ export namespace Prisma {
     NOT?: PayStubItemWhereInput | PayStubItemWhereInput[]
     payStubId?: StringFilter<"PayStubItem"> | string
     payrollItemId?: StringNullableFilter<"PayStubItem"> | string | null
+    compensationId?: StringNullableFilter<"PayStubItem"> | string | null
+    hourlyRateId?: StringNullableFilter<"PayStubItem"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubItem"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubItem"> | string
     description?: StringNullableFilter<"PayStubItem"> | string | null
@@ -16961,12 +17157,16 @@ export namespace Prisma {
     amount?: DecimalFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string
     payStub?: XOR<PayStubScalarRelationFilter, PayStubWhereInput>
     payrollItem?: XOR<PayrollItemNullableScalarRelationFilter, PayrollItemWhereInput> | null
+    compensation?: XOR<EmployeeCompensationNullableScalarRelationFilter, EmployeeCompensationWhereInput> | null
+    hourlyRate?: XOR<HourlyRateNullableScalarRelationFilter, HourlyRateWhereInput> | null
   }, "uuid">
 
   export type PayStubItemOrderByWithAggregationInput = {
     uuid?: SortOrder
     payStubId?: SortOrder
     payrollItemId?: SortOrderInput | SortOrder
+    compensationId?: SortOrderInput | SortOrder
+    hourlyRateId?: SortOrderInput | SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
@@ -16988,6 +17188,8 @@ export namespace Prisma {
     uuid?: StringWithAggregatesFilter<"PayStubItem"> | string
     payStubId?: StringWithAggregatesFilter<"PayStubItem"> | string
     payrollItemId?: StringNullableWithAggregatesFilter<"PayStubItem"> | string | null
+    compensationId?: StringNullableWithAggregatesFilter<"PayStubItem"> | string | null
+    hourlyRateId?: StringNullableWithAggregatesFilter<"PayStubItem"> | string | null
     type?: EnumPayStubItemTypeWithAggregatesFilter<"PayStubItem"> | $Enums.PayStubItemType
     name?: StringWithAggregatesFilter<"PayStubItem"> | string
     description?: StringNullableWithAggregatesFilter<"PayStubItem"> | string | null
@@ -17353,6 +17555,7 @@ export namespace Prisma {
     employee: EmployeeCreateNestedOneWithoutCompensationsInput
     payrollGroup: PayrollGroupCreateNestedOneWithoutCompensationsInput
     hourlyRates?: HourlyRateCreateNestedManyWithoutCompensationInput
+    paystubItems?: PayStubItemCreateNestedManyWithoutCompensationInput
   }
 
   export type EmployeeCompensationUncheckedCreateInput = {
@@ -17363,6 +17566,7 @@ export namespace Prisma {
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     hourlyRates?: HourlyRateUncheckedCreateNestedManyWithoutCompensationInput
+    paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutCompensationInput
   }
 
   export type EmployeeCompensationUpdateInput = {
@@ -17373,6 +17577,7 @@ export namespace Prisma {
     employee?: EmployeeUpdateOneRequiredWithoutCompensationsNestedInput
     payrollGroup?: PayrollGroupUpdateOneRequiredWithoutCompensationsNestedInput
     hourlyRates?: HourlyRateUpdateManyWithoutCompensationNestedInput
+    paystubItems?: PayStubItemUpdateManyWithoutCompensationNestedInput
   }
 
   export type EmployeeCompensationUncheckedUpdateInput = {
@@ -17383,6 +17588,7 @@ export namespace Prisma {
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRates?: HourlyRateUncheckedUpdateManyWithoutCompensationNestedInput
+    paystubItems?: PayStubItemUncheckedUpdateManyWithoutCompensationNestedInput
   }
 
   export type EmployeeCompensationCreateManyInput = {
@@ -17416,6 +17622,7 @@ export namespace Prisma {
     rate: Decimal | DecimalJsLike | number | string
     canOvertime: boolean
     compensation: EmployeeCompensationCreateNestedOneWithoutHourlyRatesInput
+    paystubItems?: PayStubItemCreateNestedManyWithoutHourlyRateInput
   }
 
   export type HourlyRateUncheckedCreateInput = {
@@ -17424,6 +17631,7 @@ export namespace Prisma {
     rate: Decimal | DecimalJsLike | number | string
     canOvertime: boolean
     compensationId: string
+    paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutHourlyRateInput
   }
 
   export type HourlyRateUpdateInput = {
@@ -17432,6 +17640,7 @@ export namespace Prisma {
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     canOvertime?: BoolFieldUpdateOperationsInput | boolean
     compensation?: EmployeeCompensationUpdateOneRequiredWithoutHourlyRatesNestedInput
+    paystubItems?: PayStubItemUpdateManyWithoutHourlyRateNestedInput
   }
 
   export type HourlyRateUncheckedUpdateInput = {
@@ -17440,6 +17649,7 @@ export namespace Prisma {
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     canOvertime?: BoolFieldUpdateOperationsInput | boolean
     compensationId?: StringFieldUpdateOperationsInput | string
+    paystubItems?: PayStubItemUncheckedUpdateManyWithoutHourlyRateNestedInput
   }
 
   export type HourlyRateCreateManyInput = {
@@ -17836,12 +18046,16 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     payStub: PayStubCreateNestedOneWithoutItemsInput
     payrollItem?: PayrollItemCreateNestedOneWithoutPayStubItemInput
+    compensation?: EmployeeCompensationCreateNestedOneWithoutPaystubItemsInput
+    hourlyRate?: HourlyRateCreateNestedOneWithoutPaystubItemsInput
   }
 
   export type PayStubItemUncheckedCreateInput = {
     uuid?: string
     payStubId: string
     payrollItemId?: string | null
+    compensationId?: string | null
+    hourlyRateId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -17862,12 +18076,16 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payStub?: PayStubUpdateOneRequiredWithoutItemsNestedInput
     payrollItem?: PayrollItemUpdateOneWithoutPayStubItemNestedInput
+    compensation?: EmployeeCompensationUpdateOneWithoutPaystubItemsNestedInput
+    hourlyRate?: HourlyRateUpdateOneWithoutPaystubItemsNestedInput
   }
 
   export type PayStubItemUncheckedUpdateInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     payStubId?: StringFieldUpdateOperationsInput | string
     payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    compensationId?: NullableStringFieldUpdateOperationsInput | string | null
+    hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17881,6 +18099,8 @@ export namespace Prisma {
     uuid?: string
     payStubId: string
     payrollItemId?: string | null
+    compensationId?: string | null
+    hourlyRateId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -17905,6 +18125,8 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     payStubId?: StringFieldUpdateOperationsInput | string
     payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    compensationId?: NullableStringFieldUpdateOperationsInput | string | null
+    hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18375,12 +18597,22 @@ export namespace Prisma {
     none?: HourlyRateWhereInput
   }
 
+  export type PayStubItemListRelationFilter = {
+    every?: PayStubItemWhereInput
+    some?: PayStubItemWhereInput
+    none?: PayStubItemWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type HourlyRateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PayStubItemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -18678,16 +18910,6 @@ export namespace Prisma {
     isNot?: EmployeeWhereInput | null
   }
 
-  export type PayStubItemListRelationFilter = {
-    every?: PayStubItemWhereInput
-    some?: PayStubItemWhereInput
-    none?: PayStubItemWhereInput
-  }
-
-  export type PayStubItemOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type PayrollItemCountOrderByAggregateInput = {
     uuid?: SortOrder
     organizationId?: SortOrder
@@ -18856,10 +19078,22 @@ export namespace Prisma {
     isNot?: PayrollItemWhereInput | null
   }
 
+  export type EmployeeCompensationNullableScalarRelationFilter = {
+    is?: EmployeeCompensationWhereInput | null
+    isNot?: EmployeeCompensationWhereInput | null
+  }
+
+  export type HourlyRateNullableScalarRelationFilter = {
+    is?: HourlyRateWhereInput | null
+    isNot?: HourlyRateWhereInput | null
+  }
+
   export type PayStubItemCountOrderByAggregateInput = {
     uuid?: SortOrder
     payStubId?: SortOrder
     payrollItemId?: SortOrder
+    compensationId?: SortOrder
+    hourlyRateId?: SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrder
@@ -18880,6 +19114,8 @@ export namespace Prisma {
     uuid?: SortOrder
     payStubId?: SortOrder
     payrollItemId?: SortOrder
+    compensationId?: SortOrder
+    hourlyRateId?: SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrder
@@ -18893,6 +19129,8 @@ export namespace Prisma {
     uuid?: SortOrder
     payStubId?: SortOrder
     payrollItemId?: SortOrder
+    compensationId?: SortOrder
+    hourlyRateId?: SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrder
@@ -19203,11 +19441,25 @@ export namespace Prisma {
     connect?: HourlyRateWhereUniqueInput | HourlyRateWhereUniqueInput[]
   }
 
+  export type PayStubItemCreateNestedManyWithoutCompensationInput = {
+    create?: XOR<PayStubItemCreateWithoutCompensationInput, PayStubItemUncheckedCreateWithoutCompensationInput> | PayStubItemCreateWithoutCompensationInput[] | PayStubItemUncheckedCreateWithoutCompensationInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutCompensationInput | PayStubItemCreateOrConnectWithoutCompensationInput[]
+    createMany?: PayStubItemCreateManyCompensationInputEnvelope
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+  }
+
   export type HourlyRateUncheckedCreateNestedManyWithoutCompensationInput = {
     create?: XOR<HourlyRateCreateWithoutCompensationInput, HourlyRateUncheckedCreateWithoutCompensationInput> | HourlyRateCreateWithoutCompensationInput[] | HourlyRateUncheckedCreateWithoutCompensationInput[]
     connectOrCreate?: HourlyRateCreateOrConnectWithoutCompensationInput | HourlyRateCreateOrConnectWithoutCompensationInput[]
     createMany?: HourlyRateCreateManyCompensationInputEnvelope
     connect?: HourlyRateWhereUniqueInput | HourlyRateWhereUniqueInput[]
+  }
+
+  export type PayStubItemUncheckedCreateNestedManyWithoutCompensationInput = {
+    create?: XOR<PayStubItemCreateWithoutCompensationInput, PayStubItemUncheckedCreateWithoutCompensationInput> | PayStubItemCreateWithoutCompensationInput[] | PayStubItemUncheckedCreateWithoutCompensationInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutCompensationInput | PayStubItemCreateOrConnectWithoutCompensationInput[]
+    createMany?: PayStubItemCreateManyCompensationInputEnvelope
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
   }
 
   export type NullableDecimalFieldUpdateOperationsInput = {
@@ -19252,6 +19504,20 @@ export namespace Prisma {
     deleteMany?: HourlyRateScalarWhereInput | HourlyRateScalarWhereInput[]
   }
 
+  export type PayStubItemUpdateManyWithoutCompensationNestedInput = {
+    create?: XOR<PayStubItemCreateWithoutCompensationInput, PayStubItemUncheckedCreateWithoutCompensationInput> | PayStubItemCreateWithoutCompensationInput[] | PayStubItemUncheckedCreateWithoutCompensationInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutCompensationInput | PayStubItemCreateOrConnectWithoutCompensationInput[]
+    upsert?: PayStubItemUpsertWithWhereUniqueWithoutCompensationInput | PayStubItemUpsertWithWhereUniqueWithoutCompensationInput[]
+    createMany?: PayStubItemCreateManyCompensationInputEnvelope
+    set?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    disconnect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    delete?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    update?: PayStubItemUpdateWithWhereUniqueWithoutCompensationInput | PayStubItemUpdateWithWhereUniqueWithoutCompensationInput[]
+    updateMany?: PayStubItemUpdateManyWithWhereWithoutCompensationInput | PayStubItemUpdateManyWithWhereWithoutCompensationInput[]
+    deleteMany?: PayStubItemScalarWhereInput | PayStubItemScalarWhereInput[]
+  }
+
   export type HourlyRateUncheckedUpdateManyWithoutCompensationNestedInput = {
     create?: XOR<HourlyRateCreateWithoutCompensationInput, HourlyRateUncheckedCreateWithoutCompensationInput> | HourlyRateCreateWithoutCompensationInput[] | HourlyRateUncheckedCreateWithoutCompensationInput[]
     connectOrCreate?: HourlyRateCreateOrConnectWithoutCompensationInput | HourlyRateCreateOrConnectWithoutCompensationInput[]
@@ -19266,10 +19532,38 @@ export namespace Prisma {
     deleteMany?: HourlyRateScalarWhereInput | HourlyRateScalarWhereInput[]
   }
 
+  export type PayStubItemUncheckedUpdateManyWithoutCompensationNestedInput = {
+    create?: XOR<PayStubItemCreateWithoutCompensationInput, PayStubItemUncheckedCreateWithoutCompensationInput> | PayStubItemCreateWithoutCompensationInput[] | PayStubItemUncheckedCreateWithoutCompensationInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutCompensationInput | PayStubItemCreateOrConnectWithoutCompensationInput[]
+    upsert?: PayStubItemUpsertWithWhereUniqueWithoutCompensationInput | PayStubItemUpsertWithWhereUniqueWithoutCompensationInput[]
+    createMany?: PayStubItemCreateManyCompensationInputEnvelope
+    set?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    disconnect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    delete?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    update?: PayStubItemUpdateWithWhereUniqueWithoutCompensationInput | PayStubItemUpdateWithWhereUniqueWithoutCompensationInput[]
+    updateMany?: PayStubItemUpdateManyWithWhereWithoutCompensationInput | PayStubItemUpdateManyWithWhereWithoutCompensationInput[]
+    deleteMany?: PayStubItemScalarWhereInput | PayStubItemScalarWhereInput[]
+  }
+
   export type EmployeeCompensationCreateNestedOneWithoutHourlyRatesInput = {
     create?: XOR<EmployeeCompensationCreateWithoutHourlyRatesInput, EmployeeCompensationUncheckedCreateWithoutHourlyRatesInput>
     connectOrCreate?: EmployeeCompensationCreateOrConnectWithoutHourlyRatesInput
     connect?: EmployeeCompensationWhereUniqueInput
+  }
+
+  export type PayStubItemCreateNestedManyWithoutHourlyRateInput = {
+    create?: XOR<PayStubItemCreateWithoutHourlyRateInput, PayStubItemUncheckedCreateWithoutHourlyRateInput> | PayStubItemCreateWithoutHourlyRateInput[] | PayStubItemUncheckedCreateWithoutHourlyRateInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutHourlyRateInput | PayStubItemCreateOrConnectWithoutHourlyRateInput[]
+    createMany?: PayStubItemCreateManyHourlyRateInputEnvelope
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+  }
+
+  export type PayStubItemUncheckedCreateNestedManyWithoutHourlyRateInput = {
+    create?: XOR<PayStubItemCreateWithoutHourlyRateInput, PayStubItemUncheckedCreateWithoutHourlyRateInput> | PayStubItemCreateWithoutHourlyRateInput[] | PayStubItemUncheckedCreateWithoutHourlyRateInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutHourlyRateInput | PayStubItemCreateOrConnectWithoutHourlyRateInput[]
+    createMany?: PayStubItemCreateManyHourlyRateInputEnvelope
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -19286,6 +19580,34 @@ export namespace Prisma {
     upsert?: EmployeeCompensationUpsertWithoutHourlyRatesInput
     connect?: EmployeeCompensationWhereUniqueInput
     update?: XOR<XOR<EmployeeCompensationUpdateToOneWithWhereWithoutHourlyRatesInput, EmployeeCompensationUpdateWithoutHourlyRatesInput>, EmployeeCompensationUncheckedUpdateWithoutHourlyRatesInput>
+  }
+
+  export type PayStubItemUpdateManyWithoutHourlyRateNestedInput = {
+    create?: XOR<PayStubItemCreateWithoutHourlyRateInput, PayStubItemUncheckedCreateWithoutHourlyRateInput> | PayStubItemCreateWithoutHourlyRateInput[] | PayStubItemUncheckedCreateWithoutHourlyRateInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutHourlyRateInput | PayStubItemCreateOrConnectWithoutHourlyRateInput[]
+    upsert?: PayStubItemUpsertWithWhereUniqueWithoutHourlyRateInput | PayStubItemUpsertWithWhereUniqueWithoutHourlyRateInput[]
+    createMany?: PayStubItemCreateManyHourlyRateInputEnvelope
+    set?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    disconnect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    delete?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    update?: PayStubItemUpdateWithWhereUniqueWithoutHourlyRateInput | PayStubItemUpdateWithWhereUniqueWithoutHourlyRateInput[]
+    updateMany?: PayStubItemUpdateManyWithWhereWithoutHourlyRateInput | PayStubItemUpdateManyWithWhereWithoutHourlyRateInput[]
+    deleteMany?: PayStubItemScalarWhereInput | PayStubItemScalarWhereInput[]
+  }
+
+  export type PayStubItemUncheckedUpdateManyWithoutHourlyRateNestedInput = {
+    create?: XOR<PayStubItemCreateWithoutHourlyRateInput, PayStubItemUncheckedCreateWithoutHourlyRateInput> | PayStubItemCreateWithoutHourlyRateInput[] | PayStubItemUncheckedCreateWithoutHourlyRateInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutHourlyRateInput | PayStubItemCreateOrConnectWithoutHourlyRateInput[]
+    upsert?: PayStubItemUpsertWithWhereUniqueWithoutHourlyRateInput | PayStubItemUpsertWithWhereUniqueWithoutHourlyRateInput[]
+    createMany?: PayStubItemCreateManyHourlyRateInputEnvelope
+    set?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    disconnect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    delete?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    update?: PayStubItemUpdateWithWhereUniqueWithoutHourlyRateInput | PayStubItemUpdateWithWhereUniqueWithoutHourlyRateInput[]
+    updateMany?: PayStubItemUpdateManyWithWhereWithoutHourlyRateInput | PayStubItemUpdateManyWithWhereWithoutHourlyRateInput[]
+    deleteMany?: PayStubItemScalarWhereInput | PayStubItemScalarWhereInput[]
   }
 
   export type EmployeeCreateNestedManyWithoutOrganizationInput = {
@@ -19770,6 +20092,18 @@ export namespace Prisma {
     connect?: PayrollItemWhereUniqueInput
   }
 
+  export type EmployeeCompensationCreateNestedOneWithoutPaystubItemsInput = {
+    create?: XOR<EmployeeCompensationCreateWithoutPaystubItemsInput, EmployeeCompensationUncheckedCreateWithoutPaystubItemsInput>
+    connectOrCreate?: EmployeeCompensationCreateOrConnectWithoutPaystubItemsInput
+    connect?: EmployeeCompensationWhereUniqueInput
+  }
+
+  export type HourlyRateCreateNestedOneWithoutPaystubItemsInput = {
+    create?: XOR<HourlyRateCreateWithoutPaystubItemsInput, HourlyRateUncheckedCreateWithoutPaystubItemsInput>
+    connectOrCreate?: HourlyRateCreateOrConnectWithoutPaystubItemsInput
+    connect?: HourlyRateWhereUniqueInput
+  }
+
   export type PayStubUpdateOneRequiredWithoutItemsNestedInput = {
     create?: XOR<PayStubCreateWithoutItemsInput, PayStubUncheckedCreateWithoutItemsInput>
     connectOrCreate?: PayStubCreateOrConnectWithoutItemsInput
@@ -19786,6 +20120,26 @@ export namespace Prisma {
     delete?: PayrollItemWhereInput | boolean
     connect?: PayrollItemWhereUniqueInput
     update?: XOR<XOR<PayrollItemUpdateToOneWithWhereWithoutPayStubItemInput, PayrollItemUpdateWithoutPayStubItemInput>, PayrollItemUncheckedUpdateWithoutPayStubItemInput>
+  }
+
+  export type EmployeeCompensationUpdateOneWithoutPaystubItemsNestedInput = {
+    create?: XOR<EmployeeCompensationCreateWithoutPaystubItemsInput, EmployeeCompensationUncheckedCreateWithoutPaystubItemsInput>
+    connectOrCreate?: EmployeeCompensationCreateOrConnectWithoutPaystubItemsInput
+    upsert?: EmployeeCompensationUpsertWithoutPaystubItemsInput
+    disconnect?: EmployeeCompensationWhereInput | boolean
+    delete?: EmployeeCompensationWhereInput | boolean
+    connect?: EmployeeCompensationWhereUniqueInput
+    update?: XOR<XOR<EmployeeCompensationUpdateToOneWithWhereWithoutPaystubItemsInput, EmployeeCompensationUpdateWithoutPaystubItemsInput>, EmployeeCompensationUncheckedUpdateWithoutPaystubItemsInput>
+  }
+
+  export type HourlyRateUpdateOneWithoutPaystubItemsNestedInput = {
+    create?: XOR<HourlyRateCreateWithoutPaystubItemsInput, HourlyRateUncheckedCreateWithoutPaystubItemsInput>
+    connectOrCreate?: HourlyRateCreateOrConnectWithoutPaystubItemsInput
+    upsert?: HourlyRateUpsertWithoutPaystubItemsInput
+    disconnect?: HourlyRateWhereInput | boolean
+    delete?: HourlyRateWhereInput | boolean
+    connect?: HourlyRateWhereUniqueInput
+    update?: XOR<XOR<HourlyRateUpdateToOneWithWhereWithoutPaystubItemsInput, HourlyRateUpdateWithoutPaystubItemsInput>, HourlyRateUncheckedUpdateWithoutPaystubItemsInput>
   }
 
   export type RoleCreateNestedManyWithoutUserInput = {
@@ -20204,6 +20558,7 @@ export namespace Prisma {
     description?: string | null
     payrollGroup: PayrollGroupCreateNestedOneWithoutCompensationsInput
     hourlyRates?: HourlyRateCreateNestedManyWithoutCompensationInput
+    paystubItems?: PayStubItemCreateNestedManyWithoutCompensationInput
   }
 
   export type EmployeeCompensationUncheckedCreateWithoutEmployeeInput = {
@@ -20213,6 +20568,7 @@ export namespace Prisma {
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     hourlyRates?: HourlyRateUncheckedCreateNestedManyWithoutCompensationInput
+    paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutCompensationInput
   }
 
   export type EmployeeCompensationCreateOrConnectWithoutEmployeeInput = {
@@ -20508,6 +20864,7 @@ export namespace Prisma {
     name: string
     rate: Decimal | DecimalJsLike | number | string
     canOvertime: boolean
+    paystubItems?: PayStubItemCreateNestedManyWithoutHourlyRateInput
   }
 
   export type HourlyRateUncheckedCreateWithoutCompensationInput = {
@@ -20515,6 +20872,7 @@ export namespace Prisma {
     name: string
     rate: Decimal | DecimalJsLike | number | string
     canOvertime: boolean
+    paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutHourlyRateInput
   }
 
   export type HourlyRateCreateOrConnectWithoutCompensationInput = {
@@ -20524,6 +20882,44 @@ export namespace Prisma {
 
   export type HourlyRateCreateManyCompensationInputEnvelope = {
     data: HourlyRateCreateManyCompensationInput | HourlyRateCreateManyCompensationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PayStubItemCreateWithoutCompensationInput = {
+    uuid?: string
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+    payStub: PayStubCreateNestedOneWithoutItemsInput
+    payrollItem?: PayrollItemCreateNestedOneWithoutPayStubItemInput
+    hourlyRate?: HourlyRateCreateNestedOneWithoutPaystubItemsInput
+  }
+
+  export type PayStubItemUncheckedCreateWithoutCompensationInput = {
+    uuid?: string
+    payStubId: string
+    payrollItemId?: string | null
+    hourlyRateId?: string | null
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemCreateOrConnectWithoutCompensationInput = {
+    where: PayStubItemWhereUniqueInput
+    create: XOR<PayStubItemCreateWithoutCompensationInput, PayStubItemUncheckedCreateWithoutCompensationInput>
+  }
+
+  export type PayStubItemCreateManyCompensationInputEnvelope = {
+    data: PayStubItemCreateManyCompensationInput | PayStubItemCreateManyCompensationInput[]
     skipDuplicates?: boolean
   }
 
@@ -20636,6 +21032,40 @@ export namespace Prisma {
     compensationId?: StringFilter<"HourlyRate"> | string
   }
 
+  export type PayStubItemUpsertWithWhereUniqueWithoutCompensationInput = {
+    where: PayStubItemWhereUniqueInput
+    update: XOR<PayStubItemUpdateWithoutCompensationInput, PayStubItemUncheckedUpdateWithoutCompensationInput>
+    create: XOR<PayStubItemCreateWithoutCompensationInput, PayStubItemUncheckedCreateWithoutCompensationInput>
+  }
+
+  export type PayStubItemUpdateWithWhereUniqueWithoutCompensationInput = {
+    where: PayStubItemWhereUniqueInput
+    data: XOR<PayStubItemUpdateWithoutCompensationInput, PayStubItemUncheckedUpdateWithoutCompensationInput>
+  }
+
+  export type PayStubItemUpdateManyWithWhereWithoutCompensationInput = {
+    where: PayStubItemScalarWhereInput
+    data: XOR<PayStubItemUpdateManyMutationInput, PayStubItemUncheckedUpdateManyWithoutCompensationInput>
+  }
+
+  export type PayStubItemScalarWhereInput = {
+    AND?: PayStubItemScalarWhereInput | PayStubItemScalarWhereInput[]
+    OR?: PayStubItemScalarWhereInput[]
+    NOT?: PayStubItemScalarWhereInput | PayStubItemScalarWhereInput[]
+    uuid?: StringFilter<"PayStubItem"> | string
+    payStubId?: StringFilter<"PayStubItem"> | string
+    payrollItemId?: StringNullableFilter<"PayStubItem"> | string | null
+    compensationId?: StringNullableFilter<"PayStubItem"> | string | null
+    hourlyRateId?: StringNullableFilter<"PayStubItem"> | string | null
+    type?: EnumPayStubItemTypeFilter<"PayStubItem"> | $Enums.PayStubItemType
+    name?: StringFilter<"PayStubItem"> | string
+    description?: StringNullableFilter<"PayStubItem"> | string | null
+    hours?: DecimalNullableFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string | null
+    rate?: DecimalNullableFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string | null
+    percent?: DecimalNullableFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string
+  }
+
   export type EmployeeCompensationCreateWithoutHourlyRatesInput = {
     uuid?: string
     isSalary?: boolean
@@ -20643,6 +21073,7 @@ export namespace Prisma {
     description?: string | null
     employee: EmployeeCreateNestedOneWithoutCompensationsInput
     payrollGroup: PayrollGroupCreateNestedOneWithoutCompensationsInput
+    paystubItems?: PayStubItemCreateNestedManyWithoutCompensationInput
   }
 
   export type EmployeeCompensationUncheckedCreateWithoutHourlyRatesInput = {
@@ -20652,11 +21083,50 @@ export namespace Prisma {
     isSalary?: boolean
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
+    paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutCompensationInput
   }
 
   export type EmployeeCompensationCreateOrConnectWithoutHourlyRatesInput = {
     where: EmployeeCompensationWhereUniqueInput
     create: XOR<EmployeeCompensationCreateWithoutHourlyRatesInput, EmployeeCompensationUncheckedCreateWithoutHourlyRatesInput>
+  }
+
+  export type PayStubItemCreateWithoutHourlyRateInput = {
+    uuid?: string
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+    payStub: PayStubCreateNestedOneWithoutItemsInput
+    payrollItem?: PayrollItemCreateNestedOneWithoutPayStubItemInput
+    compensation?: EmployeeCompensationCreateNestedOneWithoutPaystubItemsInput
+  }
+
+  export type PayStubItemUncheckedCreateWithoutHourlyRateInput = {
+    uuid?: string
+    payStubId: string
+    payrollItemId?: string | null
+    compensationId?: string | null
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemCreateOrConnectWithoutHourlyRateInput = {
+    where: PayStubItemWhereUniqueInput
+    create: XOR<PayStubItemCreateWithoutHourlyRateInput, PayStubItemUncheckedCreateWithoutHourlyRateInput>
+  }
+
+  export type PayStubItemCreateManyHourlyRateInputEnvelope = {
+    data: PayStubItemCreateManyHourlyRateInput | PayStubItemCreateManyHourlyRateInput[]
+    skipDuplicates?: boolean
   }
 
   export type EmployeeCompensationUpsertWithoutHourlyRatesInput = {
@@ -20677,6 +21147,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     employee?: EmployeeUpdateOneRequiredWithoutCompensationsNestedInput
     payrollGroup?: PayrollGroupUpdateOneRequiredWithoutCompensationsNestedInput
+    paystubItems?: PayStubItemUpdateManyWithoutCompensationNestedInput
   }
 
   export type EmployeeCompensationUncheckedUpdateWithoutHourlyRatesInput = {
@@ -20686,6 +21157,23 @@ export namespace Prisma {
     isSalary?: BoolFieldUpdateOperationsInput | boolean
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    paystubItems?: PayStubItemUncheckedUpdateManyWithoutCompensationNestedInput
+  }
+
+  export type PayStubItemUpsertWithWhereUniqueWithoutHourlyRateInput = {
+    where: PayStubItemWhereUniqueInput
+    update: XOR<PayStubItemUpdateWithoutHourlyRateInput, PayStubItemUncheckedUpdateWithoutHourlyRateInput>
+    create: XOR<PayStubItemCreateWithoutHourlyRateInput, PayStubItemUncheckedCreateWithoutHourlyRateInput>
+  }
+
+  export type PayStubItemUpdateWithWhereUniqueWithoutHourlyRateInput = {
+    where: PayStubItemWhereUniqueInput
+    data: XOR<PayStubItemUpdateWithoutHourlyRateInput, PayStubItemUncheckedUpdateWithoutHourlyRateInput>
+  }
+
+  export type PayStubItemUpdateManyWithWhereWithoutHourlyRateInput = {
+    where: PayStubItemScalarWhereInput
+    data: XOR<PayStubItemUpdateManyMutationInput, PayStubItemUncheckedUpdateManyWithoutHourlyRateInput>
   }
 
   export type EmployeeCreateWithoutOrganizationInput = {
@@ -21022,6 +21510,7 @@ export namespace Prisma {
     description?: string | null
     employee: EmployeeCreateNestedOneWithoutCompensationsInput
     hourlyRates?: HourlyRateCreateNestedManyWithoutCompensationInput
+    paystubItems?: PayStubItemCreateNestedManyWithoutCompensationInput
   }
 
   export type EmployeeCompensationUncheckedCreateWithoutPayrollGroupInput = {
@@ -21031,6 +21520,7 @@ export namespace Prisma {
     salaryAmount?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     hourlyRates?: HourlyRateUncheckedCreateNestedManyWithoutCompensationInput
+    paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutCompensationInput
   }
 
   export type EmployeeCompensationCreateOrConnectWithoutPayrollGroupInput = {
@@ -21257,11 +21747,15 @@ export namespace Prisma {
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
     payStub: PayStubCreateNestedOneWithoutItemsInput
+    compensation?: EmployeeCompensationCreateNestedOneWithoutPaystubItemsInput
+    hourlyRate?: HourlyRateCreateNestedOneWithoutPaystubItemsInput
   }
 
   export type PayStubItemUncheckedCreateWithoutPayrollItemInput = {
     uuid?: string
     payStubId: string
+    compensationId?: string | null
+    hourlyRateId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -21414,22 +21908,6 @@ export namespace Prisma {
     data: XOR<PayStubItemUpdateManyMutationInput, PayStubItemUncheckedUpdateManyWithoutPayrollItemInput>
   }
 
-  export type PayStubItemScalarWhereInput = {
-    AND?: PayStubItemScalarWhereInput | PayStubItemScalarWhereInput[]
-    OR?: PayStubItemScalarWhereInput[]
-    NOT?: PayStubItemScalarWhereInput | PayStubItemScalarWhereInput[]
-    uuid?: StringFilter<"PayStubItem"> | string
-    payStubId?: StringFilter<"PayStubItem"> | string
-    payrollItemId?: StringNullableFilter<"PayStubItem"> | string | null
-    type?: EnumPayStubItemTypeFilter<"PayStubItem"> | $Enums.PayStubItemType
-    name?: StringFilter<"PayStubItem"> | string
-    description?: StringNullableFilter<"PayStubItem"> | string | null
-    hours?: DecimalNullableFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string | null
-    rate?: DecimalNullableFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string | null
-    percent?: DecimalNullableFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string | null
-    amount?: DecimalFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string
-  }
-
   export type EmployeeCreateWithoutPayStubsInput = {
     uuid?: string
     firstName?: string
@@ -21483,11 +21961,15 @@ export namespace Prisma {
     percent?: Decimal | DecimalJsLike | number | string | null
     amount: Decimal | DecimalJsLike | number | string
     payrollItem?: PayrollItemCreateNestedOneWithoutPayStubItemInput
+    compensation?: EmployeeCompensationCreateNestedOneWithoutPaystubItemsInput
+    hourlyRate?: HourlyRateCreateNestedOneWithoutPaystubItemsInput
   }
 
   export type PayStubItemUncheckedCreateWithoutPayStubInput = {
     uuid?: string
     payrollItemId?: string | null
+    compensationId?: string | null
+    hourlyRateId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -21640,6 +22122,52 @@ export namespace Prisma {
     create: XOR<PayrollItemCreateWithoutPayStubItemInput, PayrollItemUncheckedCreateWithoutPayStubItemInput>
   }
 
+  export type EmployeeCompensationCreateWithoutPaystubItemsInput = {
+    uuid?: string
+    isSalary?: boolean
+    salaryAmount?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    employee: EmployeeCreateNestedOneWithoutCompensationsInput
+    payrollGroup: PayrollGroupCreateNestedOneWithoutCompensationsInput
+    hourlyRates?: HourlyRateCreateNestedManyWithoutCompensationInput
+  }
+
+  export type EmployeeCompensationUncheckedCreateWithoutPaystubItemsInput = {
+    uuid?: string
+    employeeId: string
+    payrollGroupId: string
+    isSalary?: boolean
+    salaryAmount?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    hourlyRates?: HourlyRateUncheckedCreateNestedManyWithoutCompensationInput
+  }
+
+  export type EmployeeCompensationCreateOrConnectWithoutPaystubItemsInput = {
+    where: EmployeeCompensationWhereUniqueInput
+    create: XOR<EmployeeCompensationCreateWithoutPaystubItemsInput, EmployeeCompensationUncheckedCreateWithoutPaystubItemsInput>
+  }
+
+  export type HourlyRateCreateWithoutPaystubItemsInput = {
+    uuid?: string
+    name: string
+    rate: Decimal | DecimalJsLike | number | string
+    canOvertime: boolean
+    compensation: EmployeeCompensationCreateNestedOneWithoutHourlyRatesInput
+  }
+
+  export type HourlyRateUncheckedCreateWithoutPaystubItemsInput = {
+    uuid?: string
+    name: string
+    rate: Decimal | DecimalJsLike | number | string
+    canOvertime: boolean
+    compensationId: string
+  }
+
+  export type HourlyRateCreateOrConnectWithoutPaystubItemsInput = {
+    where: HourlyRateWhereUniqueInput
+    create: XOR<HourlyRateCreateWithoutPaystubItemsInput, HourlyRateUncheckedCreateWithoutPaystubItemsInput>
+  }
+
   export type PayStubUpsertWithoutItemsInput = {
     update: XOR<PayStubUpdateWithoutItemsInput, PayStubUncheckedUpdateWithoutItemsInput>
     create: XOR<PayStubCreateWithoutItemsInput, PayStubUncheckedCreateWithoutItemsInput>
@@ -21718,6 +22246,64 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     absMaxPeriod?: EnumAbsMaxPeriodTypesFieldUpdateOperationsInput | $Enums.AbsMaxPeriodTypes
     absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type EmployeeCompensationUpsertWithoutPaystubItemsInput = {
+    update: XOR<EmployeeCompensationUpdateWithoutPaystubItemsInput, EmployeeCompensationUncheckedUpdateWithoutPaystubItemsInput>
+    create: XOR<EmployeeCompensationCreateWithoutPaystubItemsInput, EmployeeCompensationUncheckedCreateWithoutPaystubItemsInput>
+    where?: EmployeeCompensationWhereInput
+  }
+
+  export type EmployeeCompensationUpdateToOneWithWhereWithoutPaystubItemsInput = {
+    where?: EmployeeCompensationWhereInput
+    data: XOR<EmployeeCompensationUpdateWithoutPaystubItemsInput, EmployeeCompensationUncheckedUpdateWithoutPaystubItemsInput>
+  }
+
+  export type EmployeeCompensationUpdateWithoutPaystubItemsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    isSalary?: BoolFieldUpdateOperationsInput | boolean
+    salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    employee?: EmployeeUpdateOneRequiredWithoutCompensationsNestedInput
+    payrollGroup?: PayrollGroupUpdateOneRequiredWithoutCompensationsNestedInput
+    hourlyRates?: HourlyRateUpdateManyWithoutCompensationNestedInput
+  }
+
+  export type EmployeeCompensationUncheckedUpdateWithoutPaystubItemsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    payrollGroupId?: StringFieldUpdateOperationsInput | string
+    isSalary?: BoolFieldUpdateOperationsInput | boolean
+    salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    hourlyRates?: HourlyRateUncheckedUpdateManyWithoutCompensationNestedInput
+  }
+
+  export type HourlyRateUpsertWithoutPaystubItemsInput = {
+    update: XOR<HourlyRateUpdateWithoutPaystubItemsInput, HourlyRateUncheckedUpdateWithoutPaystubItemsInput>
+    create: XOR<HourlyRateCreateWithoutPaystubItemsInput, HourlyRateUncheckedCreateWithoutPaystubItemsInput>
+    where?: HourlyRateWhereInput
+  }
+
+  export type HourlyRateUpdateToOneWithWhereWithoutPaystubItemsInput = {
+    where?: HourlyRateWhereInput
+    data: XOR<HourlyRateUpdateWithoutPaystubItemsInput, HourlyRateUncheckedUpdateWithoutPaystubItemsInput>
+  }
+
+  export type HourlyRateUpdateWithoutPaystubItemsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    canOvertime?: BoolFieldUpdateOperationsInput | boolean
+    compensation?: EmployeeCompensationUpdateOneRequiredWithoutHourlyRatesNestedInput
+  }
+
+  export type HourlyRateUncheckedUpdateWithoutPaystubItemsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    canOvertime?: BoolFieldUpdateOperationsInput | boolean
+    compensationId?: StringFieldUpdateOperationsInput | string
   }
 
   export type RoleCreateWithoutUserInput = {
@@ -21990,6 +22576,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     payrollGroup?: PayrollGroupUpdateOneRequiredWithoutCompensationsNestedInput
     hourlyRates?: HourlyRateUpdateManyWithoutCompensationNestedInput
+    paystubItems?: PayStubItemUpdateManyWithoutCompensationNestedInput
   }
 
   export type EmployeeCompensationUncheckedUpdateWithoutEmployeeInput = {
@@ -21999,6 +22586,7 @@ export namespace Prisma {
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRates?: HourlyRateUncheckedUpdateManyWithoutCompensationNestedInput
+    paystubItems?: PayStubItemUncheckedUpdateManyWithoutCompensationNestedInput
   }
 
   export type EmployeeCompensationUncheckedUpdateManyWithoutEmployeeInput = {
@@ -22101,11 +22689,26 @@ export namespace Prisma {
     canOvertime: boolean
   }
 
+  export type PayStubItemCreateManyCompensationInput = {
+    uuid?: string
+    payStubId: string
+    payrollItemId?: string | null
+    hourlyRateId?: string | null
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+  }
+
   export type HourlyRateUpdateWithoutCompensationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     canOvertime?: BoolFieldUpdateOperationsInput | boolean
+    paystubItems?: PayStubItemUpdateManyWithoutHourlyRateNestedInput
   }
 
   export type HourlyRateUncheckedUpdateWithoutCompensationInput = {
@@ -22113,6 +22716,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     canOvertime?: BoolFieldUpdateOperationsInput | boolean
+    paystubItems?: PayStubItemUncheckedUpdateManyWithoutHourlyRateNestedInput
   }
 
   export type HourlyRateUncheckedUpdateManyWithoutCompensationInput = {
@@ -22120,6 +22724,104 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     canOvertime?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type PayStubItemUpdateWithoutCompensationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payStub?: PayStubUpdateOneRequiredWithoutItemsNestedInput
+    payrollItem?: PayrollItemUpdateOneWithoutPayStubItemNestedInput
+    hourlyRate?: HourlyRateUpdateOneWithoutPaystubItemsNestedInput
+  }
+
+  export type PayStubItemUncheckedUpdateWithoutCompensationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    payStubId?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemUncheckedUpdateManyWithoutCompensationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    payStubId?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemCreateManyHourlyRateInput = {
+    uuid?: string
+    payStubId: string
+    payrollItemId?: string | null
+    compensationId?: string | null
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemUpdateWithoutHourlyRateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payStub?: PayStubUpdateOneRequiredWithoutItemsNestedInput
+    payrollItem?: PayrollItemUpdateOneWithoutPayStubItemNestedInput
+    compensation?: EmployeeCompensationUpdateOneWithoutPaystubItemsNestedInput
+  }
+
+  export type PayStubItemUncheckedUpdateWithoutHourlyRateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    payStubId?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    compensationId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemUncheckedUpdateManyWithoutHourlyRateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    payStubId?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    compensationId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type EmployeeCreateManyOrganizationInput = {
@@ -22366,6 +23068,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     employee?: EmployeeUpdateOneRequiredWithoutCompensationsNestedInput
     hourlyRates?: HourlyRateUpdateManyWithoutCompensationNestedInput
+    paystubItems?: PayStubItemUpdateManyWithoutCompensationNestedInput
   }
 
   export type EmployeeCompensationUncheckedUpdateWithoutPayrollGroupInput = {
@@ -22375,6 +23078,7 @@ export namespace Prisma {
     salaryAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRates?: HourlyRateUncheckedUpdateManyWithoutCompensationNestedInput
+    paystubItems?: PayStubItemUncheckedUpdateManyWithoutCompensationNestedInput
   }
 
   export type EmployeeCompensationUncheckedUpdateManyWithoutPayrollGroupInput = {
@@ -22429,6 +23133,8 @@ export namespace Prisma {
   export type PayStubItemCreateManyPayrollItemInput = {
     uuid?: string
     payStubId: string
+    compensationId?: string | null
+    hourlyRateId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -22448,11 +23154,15 @@ export namespace Prisma {
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payStub?: PayStubUpdateOneRequiredWithoutItemsNestedInput
+    compensation?: EmployeeCompensationUpdateOneWithoutPaystubItemsNestedInput
+    hourlyRate?: HourlyRateUpdateOneWithoutPaystubItemsNestedInput
   }
 
   export type PayStubItemUncheckedUpdateWithoutPayrollItemInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     payStubId?: StringFieldUpdateOperationsInput | string
+    compensationId?: NullableStringFieldUpdateOperationsInput | string | null
+    hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22465,6 +23175,8 @@ export namespace Prisma {
   export type PayStubItemUncheckedUpdateManyWithoutPayrollItemInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     payStubId?: StringFieldUpdateOperationsInput | string
+    compensationId?: NullableStringFieldUpdateOperationsInput | string | null
+    hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22477,6 +23189,8 @@ export namespace Prisma {
   export type PayStubItemCreateManyPayStubInput = {
     uuid?: string
     payrollItemId?: string | null
+    compensationId?: string | null
+    hourlyRateId?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -22496,11 +23210,15 @@ export namespace Prisma {
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     payrollItem?: PayrollItemUpdateOneWithoutPayStubItemNestedInput
+    compensation?: EmployeeCompensationUpdateOneWithoutPaystubItemsNestedInput
+    hourlyRate?: HourlyRateUpdateOneWithoutPaystubItemsNestedInput
   }
 
   export type PayStubItemUncheckedUpdateWithoutPayStubInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    compensationId?: NullableStringFieldUpdateOperationsInput | string | null
+    hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22513,6 +23231,8 @@ export namespace Prisma {
   export type PayStubItemUncheckedUpdateManyWithoutPayStubInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    compensationId?: NullableStringFieldUpdateOperationsInput | string | null
+    hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null

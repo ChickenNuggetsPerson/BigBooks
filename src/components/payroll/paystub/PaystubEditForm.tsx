@@ -5,6 +5,7 @@ import getEmployeeActivePaystubs from "@/actions/paystub/getEmployeeActivePaystu
 import getPaystub from "@/actions/paystub/getPaystub"
 import genEmployeeTaxRates from "@/actions/paystub/importTaxes"
 import getEmployeePayrollItems from "@/actions/paystub/payrollItems/getEmployeePayrollItems"
+import { OvertimePrefix } from "@/actions/paystub/payrollItems/PayrollItemConsts"
 import { updatePaystubTotals } from "@/actions/paystub/PaystubFunctions"
 import submitPaystub from "@/actions/paystub/submitPaystub"
 import unlockPaystub from "@/actions/paystub/unlockPaystub"
@@ -62,6 +63,8 @@ function getNewItem(): PayStubItem {
         name: "New Item",
         uuid: crypto.randomUUID(),
         payStubId: "",
+        compensationId: null,
+        hourlyRateId: null,
         payrollItemId: null,
         type: "Earning",
         description: null,
@@ -105,7 +108,7 @@ export default function PaystubEditForm({
             group: [] as { groupName: string, items: PayStubItem[] }[],
             employee: [] as PayStubItem[]
         },
-        comps: [] as { compName: string, items: PayStubItem[] }[]
+        comps: [] as { compName: string, isSallary: boolean, items: PayStubItem[] }[]
     })
     const [edited, setEdited] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -264,7 +267,7 @@ export default function PaystubEditForm({
                 }} label="Description" />,
 
                 <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-link"} icon={
-                    <Link opacity={params.row.payrollItemId ? 1 : 0.3} />
+                    <Link opacity={(params.row.payrollItemId || params.row.compensationId || params.row.hourlyRateId) ? 1 : 0.3} />
                 } onClick={() => {
                     showLinkItemModal(params.row)
                 }} label="Link" />,
@@ -281,7 +284,7 @@ export default function PaystubEditForm({
     function showDescriptionModal(item: PayStubItem) {
         addModal({
             title: "Item Description:",
-            required: true,
+            required: false,
             component: (push, pop) => {
 
                 function getText() {
@@ -294,14 +297,10 @@ export default function PaystubEditForm({
                         <div className="h-3"></div>
                         <LargeTextInput label={`Item Description for: ${item.name}`} id="descriptionInput" val={item.description ?? ""} />
                         <div className="w-full flex flex-row justify-between">
-                            <button className="danger-button" onClick={() => {
-                                updateItem({
-                                    ...item,
-                                    description: null
-                                })
+                            <button className="accent-button w-4/9" onClick={() => {
                                 pop()
-                            }}>Clear</button>
-                            <button className="primary-button" onClick={() => {
+                            }}>Close</button>
+                            <button className="primary-button w-4/9" onClick={() => {
                                 updateItem({
                                     ...item,
                                     description: getText()
@@ -317,23 +316,55 @@ export default function PaystubEditForm({
 
     function showLinkItemModal(item: PayStubItem) {
 
+        enum OptionType {
+            "payroll" = 0,
+            "compensation" = 1,
+            "rate" = 2,
+            "none" = 3
+        }
         const options = [
-            { label: "None", id: "" }
-        ] as { label: string, id: string }[]
+            { label: "None", id: "", type: OptionType.none }
+        ] as { label: string, id: string, type: OptionType }[]
+
+        defaults.comps.forEach(comp => {
+
+            if (comp.isSallary) {
+                comp.items.forEach(item => {
+                    if (!item.compensationId) { return }
+                    options.push({
+                        label: "Salary: " + comp.compName,
+                        id: item.compensationId,
+                        type: OptionType.compensation
+                    })
+                })
+            } else {
+                comp.items.forEach(item => {
+                    if (!item.hourlyRateId) { return }
+                    if (item.name.startsWith(OvertimePrefix)) { return }
+                    options.push({
+                        label: "Rate: " + item.name,
+                        id: item.hourlyRateId,
+                        type: OptionType.rate
+                    })
+                })
+            }
+        })
 
         defaults.defaults.organization.map(d => {
-            return { label: "Organization: " + d.name, id: d.payrollItemId ?? "error" }
+            return { label: "Organization: " + d.name, id: d.payrollItemId ?? "error", type: OptionType.payroll }
         }).forEach(d => options.push(d))
 
         defaults.defaults.group.forEach(group => {
             group.items.map(d => {
-                return { label: group.groupName + ": " + d.name, id: d.payrollItemId ?? "error" }
+                return { label: group.groupName + ": " + d.name, id: d.payrollItemId ?? "error", type: OptionType.payroll }
             }).forEach(d => options.push(d))
         })
 
         defaults.defaults.employee.map(d => {
-            return { label: "Employee: " + d.name, id: d.payrollItemId ?? "error" }
+            return { label: "Employee: " + d.name, id: d.payrollItemId ?? "error", type: OptionType.payroll }
         }).forEach(d => options.push(d))
+
+        
 
 
         addModal({
@@ -342,16 +373,39 @@ export default function PaystubEditForm({
             component: (push, pop) => {
 
                 function changeCB(val: string) {
-                    updateItem({ ...item, payrollItemId: val })
+                    const selected = options.find(o => o.id === val)
+                    if (!selected) return
+
+                    updateItem({
+                        ...item,
+                        payrollItemId: selected.type === OptionType.payroll ? selected.id : null,
+                        compensationId: selected.type === OptionType.compensation ? selected.id : null,
+                        hourlyRateId: selected.type === OptionType.rate ? selected.id : null
+                    })
+
+                    toast(`${item.name} now linked to:\n ${selected.label}`)
+
                     pop()
+                }
+
+                // An item can't be linked to multiple groups
+                let val = ""
+                if (item.payrollItemId) {
+                    val = item.payrollItemId
+                } else if (item.compensationId) {
+                    val = item.compensationId
+                } else if (item.hourlyRateId) {
+                    val = item.hourlyRateId
+                } else {
+                    val = ""
                 }
 
                 return (
                     <div className="w-sm">
                         <CardProp label="Item Name:" val={item.name} />
                         <div className="h-4"></div>
-                        <p>Linked Payroll Item:</p>
-                        <SelectInput searchable options={options} val={item.payrollItemId ?? ""} changeCB={changeCB} />
+                        <p>Linked To:</p>
+                        <SelectInput searchable options={options} val={val} changeCB={changeCB} />
 
                         {/* <button className={`accent-button w-full mt-5`} onClick={() => {
                             pop()
@@ -418,6 +472,12 @@ export default function PaystubEditForm({
 
         if (item.payrollItemId?.trim() === "") {
             item.payrollItemId = null;
+        }
+        if (item.compensationId?.trim() === "") {
+            item.compensationId = null;
+        }
+        if (item.hourlyRateId?.trim() === "") {
+            item.hourlyRateId = null;
         }
 
         items[index] = item

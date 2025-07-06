@@ -36,6 +36,15 @@ model PayStubItem {
     payrollItem   PayrollItem? @relation(fields: [payrollItemId], references: [uuid], onDelete: SetNull)
     payrollItemId String?
 
+    compensation   EmployeeCompensation? @relation(fields: [compensationId], references: [uuid], onDelete: SetNull)
+    compensationId String?
+
+    hourlyRate   HourlyRate? @relation(fields: [hourlyRateId], references: [uuid], onDelete: SetNull)
+    hourlyRateId String?
+
+    // TODO: Let organizations store their own taxes with their own tax brackets. Then link a tax to the item as well
+    // TODO: Once the taxes are added, make sure to update paystub edit form to allow linking to taxes.
+
     type        PayStubItemType
     name        String
     description String?

@@ -7,6 +7,7 @@ import { prisma } from "@/database/prisma"
 import { CalcStubSalary } from "@/database/Taxes/SalaryCalc"
 import { serializeData } from "@/utils/serialization"
 import { randomUUID } from "crypto"
+import { OvertimePrefix } from "./PayrollItemConsts"
 
 
 
@@ -17,6 +18,8 @@ function PayrollItemToStubItem(item: PayrollItem): PayStubItem {
         name: item.name,
         uuid: randomUUID(),
         payStubId: "",
+        compensationId: null,
+        hourlyRateId: null,
         payrollItemId: item.uuid,
         type: item.type,
         description: null,
@@ -38,7 +41,7 @@ export default async function getEmployeePayrollItems(empUUID: string) {
             group: [] as { groupName: string, items: PayStubItem[] }[],
             employee: [] as PayStubItem[]
         },
-        comps: [] as { compName: string, items: PayStubItem[] }[]
+        comps: [] as { compName: string, isSallary: boolean, items: PayStubItem[] }[]
     }
 
     try {
@@ -81,10 +84,13 @@ export default async function getEmployeePayrollItems(empUUID: string) {
         if (comp.isSalary) { // Salary Comp
             data.comps.push({
                 compName: comp.payrollGroup.name,
+                isSallary: true,
                 items: [{
                     name: "Salary",
                     uuid: randomUUID(),
                     payStubId: "",
+                    compensationId: comp.uuid,
+                    hourlyRateId: null,
                     payrollItemId: null,
                     type: PayStubItemType.Earning,
                     description: null,
@@ -98,6 +104,7 @@ export default async function getEmployeePayrollItems(empUUID: string) {
 
             const c = {
                 compName: comp.payrollGroup.name,
+                isSallary: false,
                 items: [] as PayStubItem[]
             }
 
@@ -106,6 +113,8 @@ export default async function getEmployeePayrollItems(empUUID: string) {
                     name: rate.name,
                     uuid: randomUUID(),
                     payStubId: "",
+                    compensationId: null,
+                    hourlyRateId: rate.uuid,
                     payrollItemId: null,
                     type: PayStubItemType.Earning,
                     description: null,
@@ -117,10 +126,12 @@ export default async function getEmployeePayrollItems(empUUID: string) {
 
                 if (rate.canOvertime) {
                     c.items.push({
-                        name: `OT: ${rate.name}`,
+                        name: `${OvertimePrefix}${rate.name}`,
                         uuid: randomUUID(),
                         payStubId: "",
                         payrollItemId: null,
+                        compensationId: null,
+                        hourlyRateId: rate.uuid,
                         type: PayStubItemType.Earning,
                         description: null,
                         hours: null,
