@@ -260,7 +260,7 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
                 <DateInput label="Period End" val={selected.periodRefDate} onChange={periodRefDate} />
             </div>
 
-            <button onClick={saveButton} className="primary-button w-full">Submit</button>
+            <button onClick={saveButton} className="primary-button w-full">Save</button>
 
         </motion.div>
     )

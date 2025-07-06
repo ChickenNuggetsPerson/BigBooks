@@ -4,9 +4,10 @@
 
 
 export function addDays(date: Date, amt: number) {
-    const day = date.getDate()
-    date.setDate(day + amt)
-    return date
+    const d = new Date(date)
+    const day = d.getDate()
+    d.setDate(day + amt)
+    return d
 }
 
 export function nextOccurence(refDate: Date, daysPerOccurence: number, now?: Date) {

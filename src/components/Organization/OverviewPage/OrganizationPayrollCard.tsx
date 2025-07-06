@@ -6,7 +6,7 @@ import EditableDiv from "@/components/Decorative/EditableDiv"
 import LoadingBlock from "@/components/Decorative/LoadingBlock"
 import { CardProp } from "@/components/Forms/CardProp"
 import { Divider } from "@/components/Forms/Divider"
-import { nextOccurence } from "@/utils/functions/Date"
+import { addDays, nextOccurence } from "@/utils/functions/Date"
 
 
 
@@ -35,14 +35,20 @@ export default async function OrganizationPayrollCard() {
             <Divider />
 
             {groups.length == 0 && <h5 className="font-normal text-gray-700">No groups...</h5>}
-            {groups.map(group => (
+            {groups.map(group => {
+                
+                const periodEnd = nextOccurence(group.periodRefDate, group.payFrequency)
+                const periodStart = addDays(periodEnd, 1 - group.payFrequency)
+
+                return (
                 <CollapsibleDiv key={group.uuid} arrowSize={15} className="select-none" title={<p>{group.name}</p>}>
                     <div className="pl-2 pt-1 pb-4">
+                        <CardProp label={"Current Period:"} val={`${periodStart.toLocaleDateString()} - ${periodEnd.toLocaleDateString()}`} />
                         <CardProp label={"Next Paydate:"} val={nextOccurence(group.payRefDate, group.payFrequency).toLocaleDateString()} />
                         <CardProp label={"Days per Period:"} val={String(group.payFrequency)} />
                     </div>
                 </CollapsibleDiv>
-            ))}
+            )})}
         </EditableDiv>
     )
 }
