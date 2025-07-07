@@ -3,7 +3,7 @@
 import { Plus } from "lucide-react"
 import { useModalManager } from "../Decorative/Modal/ModalContext"
 import { useState } from "react"
-import { Tax } from "@/database/generated/prisma"
+import { AvaliableStates, Tax } from "@/database/generated/prisma"
 import TextInput from "../Forms/TextInput"
 import LargeTextInput from "../Forms/LargeTextInput"
 import toast from "react-hot-toast"
@@ -11,6 +11,8 @@ import createTax from "@/actions/taxes/createTax"
 import { serializeData } from "@/utils/serialization"
 import { useRouter } from "next/navigation"
 import { useCompany } from "@/app/CompanyContext"
+import SelectInput from "../Forms/SelectInput"
+import { StateOptions } from "@/utils/taxes/calcTaxRates"
 
 
 
@@ -39,8 +41,9 @@ function CreateTaxModal({ pop, isSysTaxes }: { pop: () => void, isSysTaxes: bool
     const [state, setState] = useState({
         name: "",
         uuid: "",
+        state: AvaliableStates.Other,
         sysAdminControlled: isSysTaxes,
-        organizationID: context?.companyUUID ?? "",
+        organizationID: isSysTaxes ? null : (context?.companyUUID ?? ""),
         description: null,
         archived: false
     } as Tax)
@@ -73,6 +76,8 @@ function CreateTaxModal({ pop, isSysTaxes }: { pop: () => void, isSysTaxes: bool
 
             <TextInput label="Name" onChange={(val) => setState({...state, name: val })} />
             <LargeTextInput label="Description" onChange={(val) => setState({...state, description: val })} />
+
+            <SelectInput label={"State of Residence"} val={state.state} options={StateOptions} changeCB={(val) => setState({...state, state: val as AvaliableStates })} searchable />
 
             <div className="flex flex-row justify-between pt-5">
                 <button type="submit" className={`accent-button w-4/9`} onClick={() => {pop()}}>Cancel</button>

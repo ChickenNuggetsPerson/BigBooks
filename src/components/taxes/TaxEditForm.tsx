@@ -1,27 +1,49 @@
 'use client'
 
-import { FilingTypes, Prisma, TaxBracket, TaxType } from "@/database/generated/prisma"
+import { AvaliableStates, FilingTypes, Prisma, Tax, TaxBracket, TaxType } from "@/database/generated/prisma"
 import { Divider } from "../Forms/Divider"
 import CreateTaxButton from "./CreateTaxButton"
-import { GridColDef, DataGrid, GridEventListener, GridRowParams, GridActionsCellItem, GridRenderCellParams } from "@mui/x-data-grid"
+import { GridColDef, DataGrid, GridEventListener, GridRowParams, GridActionsCellItem } from "@mui/x-data-grid"
 import toast from "react-hot-toast"
-import { Pen, Plus } from "lucide-react"
+import { MoveLeft, Pen, Plus, X } from "lucide-react"
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import DateInput from "../Forms/DateInput"
 import TextInput from "../Forms/TextInput"
 import upsertTaxSnapshot from "@/actions/taxes/snapshots/upsertTaxSnapshot"
-import { serializeData } from "@/utils/serialization"
+import { deserializeData, SerializationResult, serializeData } from "@/utils/serialization"
 import { MoneyToStr } from "@/utils/functions/MoneyStr"
-import SelectInput from "../Forms/SelectInput"
 import React from "react"
+import LargeTextInput from "../Forms/LargeTextInput"
+import deleteTaxSnapshot from "@/actions/taxes/snapshots/deleteTaxSnapshot"
+import { promptUser } from "../Decorative/Modals/promptUser"
+import { useModalManager } from "../Decorative/Modal/ModalContext"
+import deleteTax from "@/actions/taxes/deleteTax"
+import { useRouter } from "next/navigation"
+import updateTax from "@/actions/taxes/updateTax"
+import setTaxArchive from "@/actions/taxes/setTaxArchive"
+import { CardProp } from "../Forms/CardProp"
+import CheckboxInput from "../Forms/CheckboxInput"
+import { percentToStr } from "@/utils/functions/PercentStr"
+import { StateOptions } from "@/utils/taxes/calcTaxRates"
+import SelectInput from "../Forms/SelectInput"
 
 
+export type TaxWithSnapshots = Prisma.TaxGetPayload<{
+    include: {
+        snapshots: {
+            include: {
+                brackets: true,
+                _count: { select: { paystubItems: true } }
+            }
+        }
+    }
+}>
 
-type TaxWithSnapshots = Prisma.TaxGetPayload<{ include: { snapshots: { include: { brackets: true } } } }>
-type SnapshotWithBrackets = Prisma.TaxSnapshotGetPayload<{ include: { brackets: true } }>
+// Extracts the type of a single snapshot from the `snapshots` array
+export type SnapshotWithBrackets = TaxWithSnapshots['snapshots'][number]
 
-function makeNewBracket(): TaxBracket {
+function makeNewBracket(type: FilingTypes): TaxBracket {
     return {
         uuid: crypto.randomUUID(),
         taxSnapshotId: "",
@@ -29,7 +51,7 @@ function makeNewBracket(): TaxBracket {
         hasMinBound: false,
         max: new Prisma.Decimal(0),
         hasMaxBound: false,
-        filingType: FilingTypes.Single,
+        filingType: type,
         type: TaxType.FlatRate,
         rate: new Prisma.Decimal(0),
         ammount: new Prisma.Decimal(0)
@@ -39,39 +61,61 @@ function makeNewBracket(): TaxBracket {
 export default function TaxEditForm({
     sysTaxes = false,
     loading = false,
-    taxes = []
+    taxesData = serializeData([])
 }: {
     sysTaxes?: boolean,
     loading?: boolean,
-    taxes: TaxWithSnapshots[]
+    taxesData?: SerializationResult<TaxWithSnapshots[]>
 }) {
 
+    const taxes = deserializeData(taxesData)
+
+    const router = useRouter()
+    const { addModal } = useModalManager()
     const [selectedTax, setSelectedTax] = useState(null as TaxWithSnapshots | null)
     const [selectedSnapshot, setSelectedSnapshot] = useState(null as SnapshotWithBrackets | null)
-    useEffect(() => {
-        if (selectedTax) {
-            const index = taxes.findIndex((f) => f.uuid == selectedTax.uuid)
-            if (index === -1) { return }
-            setSelectedTax(taxes[index])
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [taxes])
 
     useEffect(() => {
-        if (selectedSnapshot && selectedTax) {
-            const index = selectedTax.snapshots.findIndex((f) => f.uuid == selectedSnapshot.uuid)
-            if (index === -1) { return }
-            setSelectedSnapshot(selectedTax.snapshots[index])
+        let isMounted = true;
+
+        if (selectedTax) {
+            const updatedTax = taxes.find((f) => f.uuid === selectedTax.uuid);
+            if (isMounted) {
+                setSelectedTax(updatedTax ?? null);
+            }
         }
+
+        return () => { isMounted = false };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedTax])
+    }, [taxesData]);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        if (selectedTax && selectedSnapshot) {
+            const updatedSnapshot = selectedTax.snapshots.find((s) => s.uuid === selectedSnapshot.uuid);
+            if (isMounted) {
+                setSelectedSnapshot(updatedSnapshot ?? null);
+            }
+        }
+
+        return () => { isMounted = false };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedTax]);
+
 
     const taxesColumns: GridColDef<TaxWithSnapshots>[] = [
         {
             field: 'name',
             headerName: 'Name',
             type: 'string',
-            width: 300
+            width: 220
+        },
+        {
+            field: 'state',
+            headerName: 'State',
+            type: 'string',
+            width: 80
         },
         {
             field: 'actions',
@@ -97,34 +141,20 @@ export default function TaxEditForm({
         },
         {
             field: 'effectiveThrough',
-            headerName: 'Through',
+            headerName: 'Effective Through',
+            width: 180,
             valueFormatter: (value: Date) => value.toLocaleDateString()
         },
     ]
 
     const bracketColumns: GridColDef<TaxBracket>[] = [
-        {
-            field: 'filingType',
-            headerName: 'Filing Type',
-            editable: true,
-            type: "custom",
-            width: 160,
-            renderCell: (params: GridRenderCellParams<TaxBracket, FilingTypes>) => (
-                <SelectInput
-                    options={[
-                        { id: FilingTypes.Single, label: "Single" },
-                        { id: FilingTypes.Joint, label: "Joint" }
-                    ]}
-                    val={params.value}
-                    changeCB={(val) => updateBracket({ ...params.row, filingType: val as FilingTypes })}
-                />
-            ),
-        },
+
         {
             field: 'min',
             headerName: 'Min',
             editable: true,
             type: "number",
+            width: 120,
             valueFormatter: (value: number, row) => row.hasMinBound ? MoneyToStr(value) : ""
         },
         {
@@ -132,9 +162,38 @@ export default function TaxEditForm({
             headerName: 'Max',
             editable: true,
             type: "number",
+            width: 120,
             valueFormatter: (value: number, row) => row.hasMaxBound ? MoneyToStr(value) : ""
         },
-        // TODO: Add the rest of the properties for brackets ( type, rate, flat ammount )
+        {
+            field: 'ammount',
+            headerName: 'Flat Ammount',
+            editable: true,
+            type: "number",
+            width: 120,
+            valueFormatter: (value: number, row) => row.type == TaxType.FlatAmmount ? MoneyToStr(value) : ""
+        },
+        {
+            field: 'rate',
+            headerName: 'Rate',
+            editable: true,
+            type: "number",
+            width: 90,
+            valueFormatter: (value: number, row) => row.type == TaxType.FlatRate ? percentToStr(value) : ""
+        },
+        {
+            field: 'actions',
+            type: 'actions',
+            headerName: 'Actions',
+            width: 75,
+            getActions: (params: GridRowParams<TaxBracket>) => [
+                <GridActionsCellItem key={params.row.uuid + "-delete"} icon={
+                    <X />
+                } onClick={() => {
+                    deleteBracket(params.row)
+                }} label="Delete" />,
+            ]
+        }
     ]
 
     function updateBracket(bracket: TaxBracket) {
@@ -144,14 +203,15 @@ export default function TaxEditForm({
         const index = brackets.findIndex(e => e.uuid == bracket.uuid)
         if (index == -1) { throw new Error("Bracket UUID does not exist") }
 
-        if (bracket.min) {
-            bracket.min = new Prisma.Decimal(bracket.min)
-            bracket.hasMinBound = !bracket.min.equals(0)
-        }
-        if (bracket.max) {
-            bracket.max = new Prisma.Decimal(bracket.max)
-            bracket.hasMaxBound = !bracket.max.equals(0)
-        }
+        bracket.min = new Prisma.Decimal(bracket.min ?? 0)
+        bracket.hasMinBound = !bracket.min.equals(0)
+
+        bracket.max = new Prisma.Decimal(bracket.max ?? 0)
+        bracket.hasMaxBound = !bracket.max.equals(0)
+
+        bracket.rate = new Prisma.Decimal(bracket.rate ?? 0)
+        bracket.ammount = new Prisma.Decimal(bracket.ammount ?? 0)
+        bracket.type = bracket.ammount.equals(0) ? TaxType.FlatRate : TaxType.FlatAmmount
 
         brackets[index] = bracket
         setSelectedSnapshot({
@@ -160,6 +220,12 @@ export default function TaxEditForm({
         })
 
         return bracket
+    }
+
+    function deleteBracket(bracket: TaxBracket) {
+        if (!selectedSnapshot) { return }
+        const brackets = selectedSnapshot.brackets.filter(b => b.uuid !== bracket.uuid)
+        setSelectedSnapshot({ ...selectedSnapshot, brackets: brackets })
     }
 
     function editClicked(row: TaxWithSnapshots) {
@@ -190,6 +256,7 @@ export default function TaxEditForm({
                 description: "New Snapshot",
                 taxId: selectedTax.uuid,
                 effectiveThrough: new Date(),
+                supportsJoint: false,
                 brackets: []
             }))
         }, {
@@ -212,13 +279,69 @@ export default function TaxEditForm({
         })
     }
 
+    function editTaxClicked() {
+        if (!selectedTax) { return }
+
+        addModal({
+            title: `Edit ${selectedTax.name}`,
+            component: (push, pop) => (<EditTaxModal initalTax={selectedTax} pop={pop} saveTax={(t: Tax) => {
+                toast.promise(async () => {
+                    await updateTax(t)
+                    router.refresh()
+                }, {
+                    loading: "Saving Tax",
+                    success: "Tax Details Saved",
+                    error: "Error Saving Tax Details"
+                })
+            }} canDelete={canDeleteTax} />)
+        })
+    }
+
+    async function clickedDeleteSnapshot() {
+        if (!selectedSnapshot) { return }
+        const result = await promptUser({
+            addModal,
+            title: "Delete Snapshot?",
+            message: "This Tax Snapshot has no linked paystub items, so you are able to delete it.",
+            falseButton: {
+                title: "Cancel",
+                type: "accent"
+            },
+            trueButton: {
+                title: "Delete",
+                type: "danger"
+            }
+        })
+
+        if (!result) { return }
+        toast.promise(deleteTaxSnapshot(selectedSnapshot.uuid), {
+            loading: "Deleting Tax Snapshot",
+            success: "Tax Snapshot Deleted",
+            error: "Error Deleting Tax Snapshot"
+        })
+    }
+
+    let canDeleteTax = false
+    if (selectedTax) {
+        canDeleteTax = selectedTax.snapshots.map(s => s._count.paystubItems).reduce((p, c) => p + c, 0) == 0
+    }
+
     return (
         <div className="w-full flex flex-row justify-between gap-4">
 
             {/* Left Side */}
             <div className="flex flex-col h-full gap-4">
 
-                <div className="h-fit w-md smallCard" style={{ padding: 15 }}>
+                <motion.div
+                    className="h-fit w-md smallCard"
+                    style={{ padding: 15 }}
+                    animate={{ 
+                        filter: `blur(${selectedTax ? 2 : 0}px)`, 
+                        pointerEvents: selectedTax ? "none" : "auto",
+                        opacity: selectedTax ? 0.5 : 1
+                    }}
+                    transition={{ duration: .5 }}
+                >
                     <div className="flex flex-row justify-between">
                         <p className="font-semibold text-xl">{sysTaxes ? "System" : "Organization"} Taxes:</p>
                         {!loading && <CreateTaxButton isSysTaxes={sysTaxes} />}
@@ -252,116 +375,334 @@ export default function TaxEditForm({
                         disableDensitySelector
                     />
 
-                </div>
+                </motion.div>
 
+                {/* Tax View Card */}
                 {selectedTax &&
                     <motion.div
                         key={selectedTax.uuid}
-                        initial={{ opacity: 0, y: -5 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1, translateX: selectedSnapshot ? 0 : 100 }}
                         transition={{ type: "spring" }}
 
-                        className="h-fit w-md smallCard"
-                        style={{ padding: 15 }}
+                        className="h-fit w-md smallCard absolute top-30"
+                        style={{ padding: 5 }}
                     >
-                        <div className="flex flex-row justify-between">
-                            <p className="font-semibold text-xl">{selectedTax.name}</p>
-                            <button onClick={newSnapshot} className="icon bg-primary/80 text-white font-semibold select-none cursor-pointer" style={{ paddingLeft: 10, paddingRight: 10 }}>
-                                New Snapshot
-                            </button>
+                        <div className="smallCard" style={{ padding: 15 }}>
+
+                            <div className="flex flex-row gap-4">
+                                <button onClick={() => {
+                                    setSelectedSnapshot(null)
+                                    setSelectedTax(null)
+                                }}>
+                                    <MoveLeft />
+                                </button>
+                                <p className="font-semibold text-xl">{selectedTax.name}</p>
+                            </div>
+                            <Divider />
+                            <div className="w-full bg-gray-300/20 p-2 rounded-xl font-mono">
+                                <p>{"State: " + selectedTax.state}</p>
+                                <p>{selectedTax.description}</p>
+                            </div>
+                            <Divider />
+
+                            <div className="w-full flex flex-row justify-between mb-2">
+
+                                <button onClick={editTaxClicked} className="accent-button cursor-pointer w-4/9" style={{ paddingLeft: 10, paddingRight: 10 }}>
+                                    Edit Tax
+                                </button>
+                                <button onClick={newSnapshot} className="primary-button cursor-pointer w-4/9" style={{ paddingLeft: 10, paddingRight: 10 }}>
+                                    New Snapshot
+                                </button>
+                            </div>
+
+
+                            <DataGrid
+                                rows={selectedTax.snapshots}
+                                columns={snapshotColumns}
+                                getRowId={(row) => row.uuid}
+                                rowSelection={false}
+                                rowHeight={40}
+
+                                onRowClick={handleSnapshotEvent}
+
+                                loading={loading}
+                                slotProps={{
+                                    loadingOverlay: {
+                                        variant: 'linear-progress',
+                                        noRowsVariant: 'linear-progress',
+                                    }
+                                }}
+                                initialState={{
+                                    sorting: {
+                                        sortModel: [{ field: "effectiveThrough", sort: "desc" }]
+                                    }
+                                }}
+
+                                disableColumnFilter
+                                disableColumnSelector
+                                disableDensitySelector
+                            />
+
                         </div>
-                        <Divider />
-
-                        <DataGrid
-                            rows={selectedTax.snapshots}
-                            columns={snapshotColumns}
-                            getRowId={(row) => row.uuid}
-                            rowSelection={false}
-                            rowHeight={40}
-
-                            onRowClick={handleSnapshotEvent}
-
-                            loading={loading}
-                            slotProps={{
-                                loadingOverlay: {
-                                    variant: 'linear-progress',
-                                    noRowsVariant: 'linear-progress',
-                                }
-                            }}
-                            initialState={{
-                                sorting: {
-                                    sortModel: [{ field: "effectiveThrough", sort: "desc" }]
-                                }
-                            }}
-
-                            disableColumnFilter
-                            disableColumnSelector
-                            disableDensitySelector
-                        />
 
                     </motion.div>
                 }
             </div>
 
+            {/* Right Side */}
             <div className="w-full">
 
                 {(selectedSnapshot && selectedTax) &&
                     <motion.div
                         key={selectedSnapshot.uuid}
-                        initial={{ opacity: 0, y: -5 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, translateX: 50 }}
+                        animate={{ opacity: 1, translateX: 0 }}
                         transition={{ type: "spring" }}
 
-                        className="h-fit w-full smallCard"
-                        style={{ padding: 15 }}
+                        className="h-fit w-xl smallCard mb-50 mx-auto"
+                        style={{ padding: 5 }}
                     >
-                        <div className="flex flex-row justify-between gap-12 mt-2">
-                            <TextInput label="Description" val={selectedSnapshot.description ?? ""} onChange={(val) => setSelectedSnapshot({ ...selectedSnapshot, description: val })} />
-                            <div className="mt-2">
-                                <DateInput label="Valid Through: " val={selectedSnapshot.effectiveThrough} onChange={(val) => setSelectedSnapshot({ ...selectedSnapshot, effectiveThrough: val })} />
+                        <div className="smallCard" style={{ padding: 15 }}>
+                            <div className="flex flex-row justify-between gap-10 mt-2">
+                                <TextInput label="Description" val={selectedSnapshot.description ?? ""} onChange={(val) => setSelectedSnapshot({ ...selectedSnapshot, description: val })} />
+
+                                {selectedSnapshot._count.paystubItems == 0 &&
+                                    <div className="w-full text-center">
+                                        <button onClick={clickedDeleteSnapshot} className="danger-button w-full"> Delete </button>
+                                    </div>
+                                }
+                                <div className="w-full text-center">
+                                    <button onClick={saveClicked} className="primary-button w-full"> Save </button>
+                                </div>
                             </div>
-                            <button className="icon h-fit mt-2" onClick={() => setSelectedSnapshot({...selectedSnapshot, brackets: [...selectedSnapshot.brackets, makeNewBracket()]})}>
-                                <Plus />
-                            </button>
-                            <div className="w-full text-center">
-                                <button onClick={saveClicked} className="primary-button w-full"> Save </button>
+
+
+                            <div className="flex flex-row w-full justify-between gap-4">
+
+                                <div className="flex flex-row gap-4">
+                                    <DateInput label="Valid Through: " val={selectedSnapshot.effectiveThrough} onChange={(val) => setSelectedSnapshot({ ...selectedSnapshot, effectiveThrough: val })} />
+                                    <div className="w-full">
+                                        <CheckboxInput label="Supports Joint" val={selectedSnapshot.supportsJoint} changeCB={(val) => setSelectedSnapshot({ ...selectedSnapshot, supportsJoint: val })} />
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-row gap-4">
+                                    <p className="font-semibold text-xl mt-1">{selectedSnapshot.supportsJoint ? "Single Brackets:" : "Brackets:"}</p>
+                                    <button className="icon h-fit" onClick={() => setSelectedSnapshot({ ...selectedSnapshot, brackets: [...selectedSnapshot.brackets, makeNewBracket(FilingTypes.Single)] })}>
+                                        <Plus />
+                                    </button>
+                                </div>
                             </div>
+
+                            <DataGrid
+                                rows={selectedSnapshot.brackets.filter(b => b.filingType == FilingTypes.Single)}
+                                columns={bracketColumns}
+                                getRowId={(row) => row.uuid}
+                                rowSelection={false}
+                                rowHeight={30}
+
+                                processRowUpdate={(updatedRow) => updateBracket(updatedRow)}
+                                onProcessRowUpdateError={handleProcessRowUpdateError}
+
+                                loading={loading}
+                                slotProps={{
+                                    loadingOverlay: {
+                                        variant: 'linear-progress',
+                                        noRowsVariant: 'linear-progress',
+                                    }
+                                }}
+                                initialState={{
+                                    sorting: {
+                                        sortModel: [{ field: "min", sort: "asc" }]
+                                    }
+                                }}
+
+                                disableColumnFilter
+                                disableColumnSelector
+                                disableDensitySelector
+                            />
+
+                            {selectedSnapshot.supportsJoint &&
+                                <motion.div
+                                    key={selectedSnapshot.uuid + "-joint"}
+                                    initial={{ opacity: 0, y: -5 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ type: "spring" }}
+                                >
+                                    <Divider />
+                                    <div className="flex flex-row w-full justify-end gap-4 mb-2">
+                                        <p className="font-semibold text-xl mt-1">Joint Brackets: </p>
+                                        <button className="icon h-fit" onClick={() => setSelectedSnapshot({ ...selectedSnapshot, brackets: [...selectedSnapshot.brackets, makeNewBracket(FilingTypes.Joint)] })}>
+                                            <Plus />
+                                        </button>
+                                    </div>
+                                    <DataGrid
+                                        rows={selectedSnapshot.brackets.filter(b => b.filingType == FilingTypes.Joint)}
+                                        columns={bracketColumns}
+                                        getRowId={(row) => row.uuid}
+                                        rowSelection={false}
+                                        rowHeight={30}
+
+                                        processRowUpdate={(updatedRow) => updateBracket(updatedRow)}
+                                        onProcessRowUpdateError={handleProcessRowUpdateError}
+
+                                        loading={loading}
+                                        slotProps={{
+                                            loadingOverlay: {
+                                                variant: 'linear-progress',
+                                                noRowsVariant: 'linear-progress',
+                                            }
+                                        }}
+                                        initialState={{
+                                            sorting: {
+                                                sortModel: [{ field: "min", sort: "asc" }]
+                                            }
+                                        }}
+
+                                        disableColumnFilter
+                                        disableColumnSelector
+                                        disableDensitySelector
+                                    />
+                                </motion.div>
+                            }
                         </div>
-
-                        <DataGrid
-                            rows={selectedSnapshot.brackets}
-                            columns={bracketColumns}
-                            getRowId={(row) => row.uuid}
-                            rowSelection={false}
-                            rowHeight={60}
-
-                            onRowClick={handleSnapshotEvent}
-                            processRowUpdate={(updatedRow) => updateBracket(updatedRow)}
-                            onProcessRowUpdateError={handleProcessRowUpdateError}
-
-                            loading={loading}
-                            slotProps={{
-                                loadingOverlay: {
-                                    variant: 'linear-progress',
-                                    noRowsVariant: 'linear-progress',
-                                }
-                            }}
-                            initialState={{
-                                sorting: {
-                                    sortModel: [{ field: "effectiveThrough", sort: "desc" }]
-                                }
-                            }}
-
-                            disableColumnFilter
-                            disableColumnSelector
-                            disableDensitySelector
-                        />
-
                     </motion.div>
                 }
 
             </div>
 
+        </div>
+    )
+}
+
+
+
+function EditTaxModal({
+    initalTax,
+    pop,
+    saveTax,
+    canDelete
+}: {
+    initalTax: Tax
+    pop: () => void,
+    saveTax: (t: Tax) => void,
+    canDelete: boolean
+}) {
+
+    const { addModal } = useModalManager()
+    const router = useRouter()
+    const [taxState, setTaxState] = useState(initalTax)
+
+    async function clickedDeleteTax() {
+        if (!canDelete) { return }
+
+        const result = await promptUser({
+            addModal,
+            title: "Delete Tax?",
+            message: "This tax has no linked paystub items, so you are allowed to delete it.",
+            falseButton: {
+                title: "Cancel",
+                type: "accent"
+            },
+            trueButton: {
+                title: "Delete",
+                type: "danger"
+            }
+        })
+
+        if (!result) { return }
+
+        toast.promise(async () => {
+            await deleteTax(taxState.uuid)
+            router.refresh()
+        }, {
+            loading: "Deleting Tax",
+            success: `${taxState.name} Deleted`,
+            error: "Error Deleting Tax"
+        })
+
+        pop()
+    }
+
+    async function clickedArchive() {
+        const result = await promptUser({
+            addModal,
+            title: "Are you sure?",
+            message: `Are you sure that you want to ${taxState.archived ? "unarchive" : "archive"} this tax?`,
+            falseButton: {
+                title: "Cancel",
+                type: "accent"
+            },
+            trueButton: {
+                title: taxState.archived ? "Unarchive" : "Archive",
+                type: "danger"
+            }
+        })
+        if (!result) { return }
+
+        toast.promise(async () => {
+            await setTaxArchive(taxState.uuid, !taxState.archived)
+            router.refresh()
+        }, {
+            loading: "Updating Tax",
+            success: `${taxState.name} ${taxState.archived ? "Unarchived" : "Archived"}`,
+            error: "Error Updating Tax"
+        })
+
+        pop()
+    }
+
+    let taxStatus = ""
+    if (canDelete) {
+        taxStatus = "Can Delete"
+    } else {
+        if (taxState.archived) {
+            taxStatus = "Can Be Archived"
+        } else {
+            taxStatus = "Can Be Unrchived"
+        }
+    }
+
+    return (
+        <div className="w-sm pt-2">
+
+            <div className="w-full flex flex-row justify-between gap-8">
+                <TextInput label="Name:" val={taxState.name} onChange={(val) => setTaxState({ ...taxState, name: val })} />
+                <SelectInput label={"State of Residence"} val={taxState.state} options={StateOptions} changeCB={(val) => setTaxState({ ...taxState, state: val as AvaliableStates })} searchable />
+            </div>
+            <LargeTextInput label="Description:" val={taxState.description ?? ""} onChange={(val) => setTaxState({ ...taxState, description: val })} />
+
+            <div className="w-full flex flex-row justify-between mb-4">
+
+                <div className="mt-2">
+                    <CardProp label={"Status:"} val={taxStatus} />
+                </div>
+
+                {canDelete &&
+                    <button type="submit" className={`danger-button`} onClick={clickedDeleteTax}>Delete</button>
+                }
+                {!canDelete &&
+                    <>
+                        {taxState.archived &&
+                            <button type="submit" className={`primary-button`} onClick={clickedArchive}>Unarchive</button>
+                        }
+                        {!taxState.archived &&
+                            <button type="submit" className={`danger-button`} onClick={clickedArchive}>Archive</button>
+                        }
+                    </>
+                }
+            </div>
+
+            <div className="w-full flex flex-row justify-between">
+                <button type="submit" className={`accent-button w-4/9`} onClick={() => {
+                    pop()
+                }}>Cancel</button>
+                <button type="submit" className={`primary-button w-4/9`} onClick={() => {
+                    pop()
+                    saveTax(taxState)
+                }}>Save</button>
+            </div>
         </div>
     )
 }

@@ -223,6 +223,7 @@ exports.Prisma.TaxScalarFieldEnum = {
   organizationID: 'organizationID',
   name: 'name',
   description: 'description',
+  state: 'state',
   archived: 'archived'
 };
 
@@ -230,6 +231,7 @@ exports.Prisma.TaxSnapshotScalarFieldEnum = {
   uuid: 'uuid',
   taxId: 'taxId',
   effectiveThrough: 'effectiveThrough',
+  supportsJoint: 'supportsJoint',
   description: 'description'
 };
 

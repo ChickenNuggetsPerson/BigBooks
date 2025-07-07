@@ -144,6 +144,9 @@ const FloatingBackground = React.forwardRef<HTMLDivElement, FloatingBackgroundPr
 
         useEffect(() => { // Inital Load
             setInitialPositons()
+            setTimeout(() => {
+                updatePositions()
+            }, duration * 1000);
         // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [])
 

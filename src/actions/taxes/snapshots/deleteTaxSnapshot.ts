@@ -44,6 +44,7 @@ export default async function deleteTaxSnapshot(snapshotUUID: string) {
 
     if (snapshot.tax.sysAdminControlled) {
         // TODO: Add sysadmin tax path 
+        revalidatePath("/user/taxes")
     } else {
         revalidatePath("/organization/admin/taxes")
     }

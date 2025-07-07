@@ -3,7 +3,7 @@
 import { getSession } from "@/auth/auth"
 import { RoleTypes } from "@/auth/roles/Roles"
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
-import { Prisma } from "@/database/generated/prisma"
+import { FilingTypes, Prisma } from "@/database/generated/prisma"
 import { prisma } from "@/database/prisma"
 import { deserializeData, SerializationResult } from "@/utils/serialization"
 import { revalidatePath } from "next/cache"
@@ -39,15 +39,20 @@ export default async function upsertTaxSnapshot(data: SerializationResult<TaxSna
         create: {
             taxId: tax.uuid,
             effectiveThrough: snapshotData.effectiveThrough,
-            description: snapshotData.description
+            description: snapshotData.description,
+            supportsJoint: snapshotData.supportsJoint
         },
         update: {
             effectiveThrough: snapshotData.effectiveThrough,
-            description: snapshotData.description
+            description: snapshotData.description,
+            supportsJoint: snapshotData.supportsJoint
         }
     })
 
-    const bracketsData = snapshotData.brackets
+    let bracketsData = snapshotData.brackets
+    if (!snapshotData.supportsJoint) { // Remove joint brackets if the snapshot no longer supports them
+        bracketsData = bracketsData.filter(b => b.filingType == FilingTypes.Single)
+    }
     const currentBrackets = await prisma.taxBracket.findMany({ where: { taxSnapshotId: currentSnapshot.uuid } })
 
     // New / Edit items
@@ -89,6 +94,7 @@ export default async function upsertTaxSnapshot(data: SerializationResult<TaxSna
 
     if (tax.sysAdminControlled) {
         // TODO: Add sysadmin tax path 
+        revalidatePath("/user/taxes")
     } else {
         revalidatePath("/organization/admin/taxes")
     }

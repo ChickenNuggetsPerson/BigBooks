@@ -202,17 +202,20 @@ model Tax {
 
   name        String
   description String?
-  archived    Boolean @default(false)
+  state       AvaliableStates @default(Other)
+
+  archived Boolean @default(false)
 
   snapshots TaxSnapshot[]
 }
 
 model TaxSnapshot {
   uuid  String @id @unique @default(uuid())
-  tax   Tax    @relation(fields: [taxId], references: [uuid])
+  tax   Tax    @relation(fields: [taxId], references: [uuid], onDelete: Cascade)
   taxId String
 
   effectiveThrough DateTime
+  supportsJoint    Boolean  @default(false)
 
   description String?
   brackets    TaxBracket[]
@@ -222,7 +225,7 @@ model TaxSnapshot {
 
 model TaxBracket {
   uuid          String      @id @unique @default(uuid())
-  taxSnapshot   TaxSnapshot @relation(fields: [taxSnapshotId], references: [uuid])
+  taxSnapshot   TaxSnapshot @relation(fields: [taxSnapshotId], references: [uuid], onDelete: Cascade)
   taxSnapshotId String
 
   min         Decimal @default(0)

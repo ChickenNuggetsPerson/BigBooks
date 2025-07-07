@@ -16,11 +16,11 @@ export function UserPageColumn_Loading() {
 
             <div className="card w-100">
 
-                <LoadingBlock w={30} h={6} className="mb-2"/>
+                <LoadingBlock w={30} h={6} className="mb-2" />
 
                 <div className="h-px bg-accent mb-2"></div>
 
-                <CardProp label="Username:" loading/>
+                <CardProp label="Username:" loading />
                 <CardProp label="Email:" loading />
 
             </div>
@@ -38,7 +38,6 @@ export default async function UserPageColumn() {
     if (!user) {
         redirect("/user/login")
     }
-
 
     return (
         <div className="flex flex-col gap-4 smallCard h-fit mx-auto" style={{ padding: 10 }}>
@@ -69,14 +68,21 @@ export default async function UserPageColumn() {
 
             {
                 session?.isAdmin &&
+                <Link href={"/user/taxes"}>
+                    <div className="w-full primary-button text-center mt-2">System Taxes</div>
+                </Link>
+            }
+
+            {
+                session?.isAdmin &&
                 <div className="flex flex-row justify-between">
 
                     <Link href={"/user/users"} className="w-4/9">
-                        <div className="w-full secondary-button text-center">All Users</div>
+                        <div className="w-full danger-button text-center">All Users</div>
                     </Link>
 
                     <Link href={"/user/newOrganization"} className="w-4/9">
-                        <div className="w-full primary-button text-center">New Organization</div>
+                        <div className="w-full secondary-button text-center">New Organization</div>
                     </Link>
 
                 </div>

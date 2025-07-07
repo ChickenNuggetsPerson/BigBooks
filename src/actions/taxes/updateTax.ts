@@ -5,14 +5,12 @@ import { RoleTypes } from "@/auth/roles/Roles";
 import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
 import { Tax } from "@/database/generated/prisma";
 import { prisma } from "@/database/prisma";
-import { deserializeData, SerializationResult } from "@/utils/serialization";
 import { revalidatePath } from "next/cache";
 
 
 
-export default async function updateTax(data: SerializationResult<Tax>) {
-    const tax = deserializeData(data)
-    
+export default async function updateTax(tax: Tax) {
+
     const session = await getSession()
     if (!session) {
         throw new Error("Invalid Session")
@@ -33,12 +31,14 @@ export default async function updateTax(data: SerializationResult<Tax>) {
         where: { uuid: tax.uuid },
         data: {
             name: tax.name,
-            description: tax.description
+            description: tax.description,
+            state: tax.state
         }
     })
 
     if (tax.sysAdminControlled) {
         // TODO: Add sysadmin tax path 
+        revalidatePath("/user/taxes")
     } else {
         revalidatePath("/organization/admin/taxes")
     }

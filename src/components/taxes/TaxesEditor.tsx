@@ -1,14 +1,13 @@
 import getTaxes from "@/actions/taxes/getTaxes"
 import { getSession } from "@/auth/auth"
-import { Prisma } from "@/database/generated/prisma"
-import { deserializeData } from "@/utils/serialization"
-import TaxEditForm from "./TaxEditForm"
+import { deserializeData, serializeData } from "@/utils/serialization"
+import TaxEditForm, { TaxWithSnapshots } from "./TaxEditForm"
 
 
 
 export function TaxesEditor_Loading() {
     return (
-        <TaxEditForm loading taxes={[]} />
+        <TaxEditForm loading />
     )
 }
 
@@ -22,14 +21,16 @@ export default async function TaxesEditor({
     const session = await getSession()
     if (!session) { <div className="card h-fit w-fit">Invalid Session</div> }
 
-    let taxes = [] as Prisma.TaxGetPayload<{ include: { snapshots: { include: { brackets: true } } } }>[]
+    let taxes = [] as TaxWithSnapshots[]
     if (sysTaxes) {
         taxes = deserializeData(await getTaxes({ system: true }))
     } else {
         taxes = deserializeData(await getTaxes({ organization: true }))
     }
 
+    const data = serializeData(taxes)
+
     return (
-        <TaxEditForm taxes={taxes} sysTaxes={sysTaxes} />
+        <TaxEditForm taxesData={data} sysTaxes={sysTaxes} />
     )
 }

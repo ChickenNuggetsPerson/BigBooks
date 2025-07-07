@@ -12,7 +12,7 @@ import { revalidatePath } from "next/cache";
 
 export default async function createTax(data: SerializationResult<Tax>) {
     const tax = deserializeData(data)
-    
+
     const session = await getSession()
     if (!session) {
         throw new Error("Invalid Session")
@@ -30,17 +30,30 @@ export default async function createTax(data: SerializationResult<Tax>) {
         }
     }
 
-    await prisma.tax.create({
-        data: {
-            sysAdminControlled: tax.sysAdminControlled,
-            organizationID: tax.organizationID,
-            name: tax.name,
-            description: tax.description
-        }
-    })
+    if (tax.sysAdminControlled) {
+        await prisma.tax.create({
+            data: {
+                sysAdminControlled: tax.sysAdminControlled,
+                name: tax.name,
+                description: tax.description,
+                state: tax.state
+            }
+        })
+    } else {
+        await prisma.tax.create({
+            data: {
+                sysAdminControlled: tax.sysAdminControlled,
+                organizationID: tax.organizationID,
+                name: tax.name,
+                description: tax.description,
+                state: tax.state
+            }
+        })
+    }
 
     if (tax.sysAdminControlled) {
         // TODO: Add sysadmin tax path 
+        revalidatePath("/user/taxes")
     } else {
         revalidatePath("/organization/admin/taxes")
     }

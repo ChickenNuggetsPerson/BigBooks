@@ -12,7 +12,6 @@ import unlockPaystub from "@/actions/paystub/unlockPaystub"
 import upsertEmployeePaystub from "@/actions/paystub/upsertEmployeePaystub"
 import { useCompany } from "@/app/CompanyContext"
 import ClickableDiv from "@/components/Decorative/ClickableDiv"
-import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv"
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
 import { infoUser } from "@/components/Decorative/Modals/infoUser"
 import { promptUser } from "@/components/Decorative/Modals/promptUser"
@@ -268,9 +267,13 @@ export default function PaystubEditForm({
                 }} label="Description" />,
 
                 <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-link"} icon={
-                    <Link opacity={(params.row.payrollItemId || params.row.compensationId || params.row.hourlyRateId) ? 1 : 0.3} />
+                    <Link opacity={(params.row.payrollItemId || params.row.compensationId || params.row.hourlyRateId || params.row.taxID) ? 1 : 0.3} />
                 } onClick={() => {
-                    showLinkItemModal(params.row)
+                    if (params.row.taxID) {
+                        toast("Cannot Edit Link: (Linked to Tax)")
+                    } else {
+                        showLinkItemModal(params.row)
+                    }
                 }} label="Link" />,
 
                 <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-delete"} icon={
@@ -365,7 +368,7 @@ export default function PaystubEditForm({
             return { label: "Employee: " + d.name, id: d.payrollItemId ?? "error", type: OptionType.payroll }
         }).forEach(d => options.push(d))
 
-        
+
 
 
         addModal({
@@ -956,48 +959,14 @@ export default function PaystubEditForm({
 
                 {!isLocked &&
                     <div className="card h-fit w-3xs select-none">
-                        <Tooltip title="Import All Payroll Items">
+                        <Tooltip title="Import All Taxes">
                             <button onClick={importTaxes} className="primary-button w-full mb-4">Import Taxes</button>
                         </Tooltip>
 
                         <Tooltip title="Import All Payroll Items">
-                            <button onClick={importAll} className="primary-button w-full">Import All Items</button>
+                            <button onClick={importAll} className="primary-button w-full">Import Payroll Items</button>
                         </Tooltip>
-                        <Divider />
-                        <CollapsibleDiv title="Compensations" arrowSize={14}>
-                            {defaults.comps.map(comp => (
-                                <div key={comp.compName} className="pl-2">
-                                    {comp.items.map(item => (
-                                        <DefaultItemCard key={item.uuid} item={item} add={addItem} />
-                                    ))}
-                                </div>
-                            ))}
-                        </CollapsibleDiv>
-                        <CollapsibleDiv title="Payroll Items" arrowSize={14}>
-                            <div className="pl-2">
 
-                                {defaults.defaults.organization.map(comp => (
-                                    <DefaultItemCard key={comp.uuid} item={comp} add={addItem} />
-                                ))}
-
-                                {defaults.defaults.group.map(group => {
-                                    if (group.items.length == 0) { return <></> }
-                                    return (
-                                        <div key={group.groupName}>
-                                            {group.items.map(item => (
-                                                <DefaultItemCard key={item.uuid} item={item} add={addItem} />
-                                            ))}
-                                        </div>
-                                    )
-                                })}
-
-                                {defaults.defaults.employee.map(comp => (
-                                    <DefaultItemCard key={comp.uuid} item={comp} add={addItem} />
-                                ))}
-
-                            </div>
-
-                        </CollapsibleDiv>
                     </div>
                 }
             </div>
@@ -1009,25 +978,61 @@ export default function PaystubEditForm({
 
 
 
-function DefaultItemCard({ item, add }: { item: PayStubItem, add: (item: PayStubItem) => void }) {
+// <Divider />
+// <CollapsibleDiv title="Compensations" arrowSize={14}>
+//     {defaults.comps.map(comp => (
+//         <div key={comp.compName} className="pl-2">
+//             {comp.items.map(item => (
+//                 <DefaultItemCard key={item.uuid} item={item} add={addItem} />
+//             ))}
+//         </div>
+//     ))}
+// </CollapsibleDiv>
+// <CollapsibleDiv title="Payroll Items" arrowSize={14}>
+//     <div className="pl-2">
 
-    let str = ""
+//         {defaults.defaults.organization.map(comp => (
+//             <DefaultItemCard key={comp.uuid} item={comp} add={addItem} />
+//         ))}
 
-    if (item.rate) {
-        str += HourlyRateStr(item.rate.toNumber())
-    }
-    if (item.percent) {
-        str += percentToStr(item.percent.toNumber())
-    }
-    if (!item.amount.equals(0)) {
-        str += MoneyToStr(item.amount.toNumber())
-    }
+//         {defaults.defaults.group.map(group => {
+//             if (group.items.length == 0) { return <></> }
+//             return (
+//                 <div key={group.groupName}>
+//                     {group.items.map(item => (
+//                         <DefaultItemCard key={item.uuid} item={item} add={addItem} />
+//                     ))}
+//                 </div>
+//             )
+//         })}
 
-    return (
-        <ClickableDiv onClick={() => add(item)} >
-            <Tooltip title={str} className="w-full flex flex-row justify-between bg-gray-100 hover:bg-gray-200 rounded-sm px-2 mb-2">
-                <button>{`${item.name}`}</button>
-            </Tooltip>
-        </ClickableDiv>
-    )
-}
+//         {defaults.defaults.employee.map(comp => (
+//             <DefaultItemCard key={comp.uuid} item={comp} add={addItem} />
+//         ))}
+
+//     </div>
+
+// </CollapsibleDiv>
+
+// function DefaultItemCard({ item, add }: { item: PayStubItem, add: (item: PayStubItem) => void }) {
+
+//     let str = ""
+
+//     if (item.rate) {
+//         str += HourlyRateStr(item.rate.toNumber())
+//     }
+//     if (item.percent) {
+//         str += percentToStr(item.percent.toNumber())
+//     }
+//     if (!item.amount.equals(0)) {
+//         str += MoneyToStr(item.amount.toNumber())
+//     }
+
+//     return (
+//         <ClickableDiv onClick={() => add(item)} >
+//             <Tooltip title={str} className="w-full flex flex-row justify-between bg-gray-100 hover:bg-gray-200 rounded-sm px-2 mb-2">
+//                 <button>{`${item.name}`}</button>
+//             </Tooltip>
+//         </ClickableDiv>
+//     )
+// }

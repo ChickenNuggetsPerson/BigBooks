@@ -25,8 +25,9 @@ export default async function genEmployeeTaxRates(empUUID: string, orgUUID: stri
         where: {
             uuid: empUUID,
             organizationId: org.uuid
-        }
+        },
+        include: { compensations: { include: { hourlyRates: true } } }
     })
-    const rates = calcTaxRates(employee, org, payDate)
+    const rates = await calcTaxRates(employee, org, payDate)
     return serializeData(rates)
 }

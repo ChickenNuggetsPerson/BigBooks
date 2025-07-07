@@ -15,13 +15,16 @@ export interface ModalProps {
 export default function Modal({ modal }: { modal: ModalProps }) {
 
     const { addModal, popModal } = useModalManager()
-    
+
     modal.title = modal.title ?? ""
     modal.required = modal.required ?? false
     modal.background = modal.background ?? true
-    
+
     return (
-        <div className={`${modal.background ? "card min-w-md" : ""} w-fit h-fit`} style={{ backdropFilter: modal.background ? "blur(5px)" : "none" }}>
+        <div
+            className={`${modal.background ? "card min-w-md" : ""} w-fit h-fit`}
+            style={{ backdropFilter: modal.background ? "blur(5px)" : "none" }}
+        >
 
             {(modal.background && !modal.required) &&
                 <div className="relative">

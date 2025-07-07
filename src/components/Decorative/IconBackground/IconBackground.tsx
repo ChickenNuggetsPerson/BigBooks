@@ -7,7 +7,7 @@ export default function IconBackground() {
     return (
         <div className="absolute -z-50 w-full h-full">
             <FloatingBackground
-                dt={1000}
+                dt={4000}
                 duration={2}
 
                 // dt={100}

@@ -44,7 +44,6 @@ model PayStubItem {
 
     tax   TaxSnapshot? @relation(fields: [taxID], references: [uuid], onDelete: SetNull)
     taxID String?
-    // TODO: Once the taxes are added, make sure to update paystub edit form to allow linking to taxes.
 
     type        PayStubItemType
     name        String

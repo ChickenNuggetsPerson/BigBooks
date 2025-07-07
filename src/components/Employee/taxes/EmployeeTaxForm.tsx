@@ -7,10 +7,11 @@ import SelectInput from "../../Forms/SelectInput";
 import NumberInput from "../../Forms/NumberInput";
 import { Divider } from "../../Forms/Divider";
 import Loading from "@/app/Loading";
-import { AvaliableStates, Employee, FilingTypes } from "@/database/generated/prisma";
+import { Employee, FilingTypes } from "@/database/generated/prisma";
 import TextInput from "../../Forms/TextInput";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { StateOptions } from "@/utils/taxes/calcTaxRates";
 
 
 const FilingOptions = [
@@ -23,8 +24,6 @@ const FilingOptions = [
         id: FilingTypes.Joint
     }
 ]
-
-const StateOptions = Object.keys(AvaliableStates).map(state => { return { label: state, id: state } })
 
 
 interface EmployeeTaxFormProps { empUUID: string }

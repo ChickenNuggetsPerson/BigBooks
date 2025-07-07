@@ -12421,6 +12421,7 @@ export namespace Prisma {
     organizationID: string | null
     name: string | null
     description: string | null
+    state: $Enums.AvaliableStates | null
     archived: boolean | null
   }
 
@@ -12430,6 +12431,7 @@ export namespace Prisma {
     organizationID: string | null
     name: string | null
     description: string | null
+    state: $Enums.AvaliableStates | null
     archived: boolean | null
   }
 
@@ -12439,6 +12441,7 @@ export namespace Prisma {
     organizationID: number
     name: number
     description: number
+    state: number
     archived: number
     _all: number
   }
@@ -12450,6 +12453,7 @@ export namespace Prisma {
     organizationID?: true
     name?: true
     description?: true
+    state?: true
     archived?: true
   }
 
@@ -12459,6 +12463,7 @@ export namespace Prisma {
     organizationID?: true
     name?: true
     description?: true
+    state?: true
     archived?: true
   }
 
@@ -12468,6 +12473,7 @@ export namespace Prisma {
     organizationID?: true
     name?: true
     description?: true
+    state?: true
     archived?: true
     _all?: true
   }
@@ -12550,6 +12556,7 @@ export namespace Prisma {
     organizationID: string | null
     name: string
     description: string | null
+    state: $Enums.AvaliableStates
     archived: boolean
     _count: TaxCountAggregateOutputType | null
     _min: TaxMinAggregateOutputType | null
@@ -12576,6 +12583,7 @@ export namespace Prisma {
     organizationID?: boolean
     name?: boolean
     description?: boolean
+    state?: boolean
     archived?: boolean
     organization?: boolean | Tax$organizationArgs<ExtArgs>
     snapshots?: boolean | Tax$snapshotsArgs<ExtArgs>
@@ -12588,6 +12596,7 @@ export namespace Prisma {
     organizationID?: boolean
     name?: boolean
     description?: boolean
+    state?: boolean
     archived?: boolean
     organization?: boolean | Tax$organizationArgs<ExtArgs>
   }, ExtArgs["result"]["tax"]>
@@ -12598,6 +12607,7 @@ export namespace Prisma {
     organizationID?: boolean
     name?: boolean
     description?: boolean
+    state?: boolean
     archived?: boolean
     organization?: boolean | Tax$organizationArgs<ExtArgs>
   }, ExtArgs["result"]["tax"]>
@@ -12608,10 +12618,11 @@ export namespace Prisma {
     organizationID?: boolean
     name?: boolean
     description?: boolean
+    state?: boolean
     archived?: boolean
   }
 
-  export type TaxOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "sysAdminControlled" | "organizationID" | "name" | "description" | "archived", ExtArgs["result"]["tax"]>
+  export type TaxOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "sysAdminControlled" | "organizationID" | "name" | "description" | "state" | "archived", ExtArgs["result"]["tax"]>
   export type TaxInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | Tax$organizationArgs<ExtArgs>
     snapshots?: boolean | Tax$snapshotsArgs<ExtArgs>
@@ -12636,6 +12647,7 @@ export namespace Prisma {
       organizationID: string | null
       name: string
       description: string | null
+      state: $Enums.AvaliableStates
       archived: boolean
     }, ExtArgs["result"]["tax"]>
     composites: {}
@@ -13067,6 +13079,7 @@ export namespace Prisma {
     readonly organizationID: FieldRef<"Tax", 'String'>
     readonly name: FieldRef<"Tax", 'String'>
     readonly description: FieldRef<"Tax", 'String'>
+    readonly state: FieldRef<"Tax", 'AvaliableStates'>
     readonly archived: FieldRef<"Tax", 'Boolean'>
   }
     
@@ -13539,6 +13552,7 @@ export namespace Prisma {
     uuid: string | null
     taxId: string | null
     effectiveThrough: Date | null
+    supportsJoint: boolean | null
     description: string | null
   }
 
@@ -13546,6 +13560,7 @@ export namespace Prisma {
     uuid: string | null
     taxId: string | null
     effectiveThrough: Date | null
+    supportsJoint: boolean | null
     description: string | null
   }
 
@@ -13553,6 +13568,7 @@ export namespace Prisma {
     uuid: number
     taxId: number
     effectiveThrough: number
+    supportsJoint: number
     description: number
     _all: number
   }
@@ -13562,6 +13578,7 @@ export namespace Prisma {
     uuid?: true
     taxId?: true
     effectiveThrough?: true
+    supportsJoint?: true
     description?: true
   }
 
@@ -13569,6 +13586,7 @@ export namespace Prisma {
     uuid?: true
     taxId?: true
     effectiveThrough?: true
+    supportsJoint?: true
     description?: true
   }
 
@@ -13576,6 +13594,7 @@ export namespace Prisma {
     uuid?: true
     taxId?: true
     effectiveThrough?: true
+    supportsJoint?: true
     description?: true
     _all?: true
   }
@@ -13656,6 +13675,7 @@ export namespace Prisma {
     uuid: string
     taxId: string
     effectiveThrough: Date
+    supportsJoint: boolean
     description: string | null
     _count: TaxSnapshotCountAggregateOutputType | null
     _min: TaxSnapshotMinAggregateOutputType | null
@@ -13680,6 +13700,7 @@ export namespace Prisma {
     uuid?: boolean
     taxId?: boolean
     effectiveThrough?: boolean
+    supportsJoint?: boolean
     description?: boolean
     tax?: boolean | TaxDefaultArgs<ExtArgs>
     brackets?: boolean | TaxSnapshot$bracketsArgs<ExtArgs>
@@ -13691,6 +13712,7 @@ export namespace Prisma {
     uuid?: boolean
     taxId?: boolean
     effectiveThrough?: boolean
+    supportsJoint?: boolean
     description?: boolean
     tax?: boolean | TaxDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taxSnapshot"]>
@@ -13699,6 +13721,7 @@ export namespace Prisma {
     uuid?: boolean
     taxId?: boolean
     effectiveThrough?: boolean
+    supportsJoint?: boolean
     description?: boolean
     tax?: boolean | TaxDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taxSnapshot"]>
@@ -13707,10 +13730,11 @@ export namespace Prisma {
     uuid?: boolean
     taxId?: boolean
     effectiveThrough?: boolean
+    supportsJoint?: boolean
     description?: boolean
   }
 
-  export type TaxSnapshotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "taxId" | "effectiveThrough" | "description", ExtArgs["result"]["taxSnapshot"]>
+  export type TaxSnapshotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "taxId" | "effectiveThrough" | "supportsJoint" | "description", ExtArgs["result"]["taxSnapshot"]>
   export type TaxSnapshotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tax?: boolean | TaxDefaultArgs<ExtArgs>
     brackets?: boolean | TaxSnapshot$bracketsArgs<ExtArgs>
@@ -13735,6 +13759,7 @@ export namespace Prisma {
       uuid: string
       taxId: string
       effectiveThrough: Date
+      supportsJoint: boolean
       description: string | null
     }, ExtArgs["result"]["taxSnapshot"]>
     composites: {}
@@ -14165,6 +14190,7 @@ export namespace Prisma {
     readonly uuid: FieldRef<"TaxSnapshot", 'String'>
     readonly taxId: FieldRef<"TaxSnapshot", 'String'>
     readonly effectiveThrough: FieldRef<"TaxSnapshot", 'DateTime'>
+    readonly supportsJoint: FieldRef<"TaxSnapshot", 'Boolean'>
     readonly description: FieldRef<"TaxSnapshot", 'String'>
   }
     
@@ -20148,6 +20174,7 @@ export namespace Prisma {
     organizationID: 'organizationID',
     name: 'name',
     description: 'description',
+    state: 'state',
     archived: 'archived'
   };
 
@@ -20158,6 +20185,7 @@ export namespace Prisma {
     uuid: 'uuid',
     taxId: 'taxId',
     effectiveThrough: 'effectiveThrough',
+    supportsJoint: 'supportsJoint',
     description: 'description'
   };
 
@@ -21097,6 +21125,7 @@ export namespace Prisma {
     organizationID?: StringNullableFilter<"Tax"> | string | null
     name?: StringFilter<"Tax"> | string
     description?: StringNullableFilter<"Tax"> | string | null
+    state?: EnumAvaliableStatesFilter<"Tax"> | $Enums.AvaliableStates
     archived?: BoolFilter<"Tax"> | boolean
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
     snapshots?: TaxSnapshotListRelationFilter
@@ -21108,6 +21137,7 @@ export namespace Prisma {
     organizationID?: SortOrderInput | SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
+    state?: SortOrder
     archived?: SortOrder
     organization?: OrganizationOrderByWithRelationInput
     snapshots?: TaxSnapshotOrderByRelationAggregateInput
@@ -21122,6 +21152,7 @@ export namespace Prisma {
     organizationID?: StringNullableFilter<"Tax"> | string | null
     name?: StringFilter<"Tax"> | string
     description?: StringNullableFilter<"Tax"> | string | null
+    state?: EnumAvaliableStatesFilter<"Tax"> | $Enums.AvaliableStates
     archived?: BoolFilter<"Tax"> | boolean
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
     snapshots?: TaxSnapshotListRelationFilter
@@ -21133,6 +21164,7 @@ export namespace Prisma {
     organizationID?: SortOrderInput | SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
+    state?: SortOrder
     archived?: SortOrder
     _count?: TaxCountOrderByAggregateInput
     _max?: TaxMaxOrderByAggregateInput
@@ -21148,6 +21180,7 @@ export namespace Prisma {
     organizationID?: StringNullableWithAggregatesFilter<"Tax"> | string | null
     name?: StringWithAggregatesFilter<"Tax"> | string
     description?: StringNullableWithAggregatesFilter<"Tax"> | string | null
+    state?: EnumAvaliableStatesWithAggregatesFilter<"Tax"> | $Enums.AvaliableStates
     archived?: BoolWithAggregatesFilter<"Tax"> | boolean
   }
 
@@ -21158,6 +21191,7 @@ export namespace Prisma {
     uuid?: StringFilter<"TaxSnapshot"> | string
     taxId?: StringFilter<"TaxSnapshot"> | string
     effectiveThrough?: DateTimeFilter<"TaxSnapshot"> | Date | string
+    supportsJoint?: BoolFilter<"TaxSnapshot"> | boolean
     description?: StringNullableFilter<"TaxSnapshot"> | string | null
     tax?: XOR<TaxScalarRelationFilter, TaxWhereInput>
     brackets?: TaxBracketListRelationFilter
@@ -21168,6 +21202,7 @@ export namespace Prisma {
     uuid?: SortOrder
     taxId?: SortOrder
     effectiveThrough?: SortOrder
+    supportsJoint?: SortOrder
     description?: SortOrderInput | SortOrder
     tax?: TaxOrderByWithRelationInput
     brackets?: TaxBracketOrderByRelationAggregateInput
@@ -21181,6 +21216,7 @@ export namespace Prisma {
     NOT?: TaxSnapshotWhereInput | TaxSnapshotWhereInput[]
     taxId?: StringFilter<"TaxSnapshot"> | string
     effectiveThrough?: DateTimeFilter<"TaxSnapshot"> | Date | string
+    supportsJoint?: BoolFilter<"TaxSnapshot"> | boolean
     description?: StringNullableFilter<"TaxSnapshot"> | string | null
     tax?: XOR<TaxScalarRelationFilter, TaxWhereInput>
     brackets?: TaxBracketListRelationFilter
@@ -21191,6 +21227,7 @@ export namespace Prisma {
     uuid?: SortOrder
     taxId?: SortOrder
     effectiveThrough?: SortOrder
+    supportsJoint?: SortOrder
     description?: SortOrderInput | SortOrder
     _count?: TaxSnapshotCountOrderByAggregateInput
     _max?: TaxSnapshotMaxOrderByAggregateInput
@@ -21204,6 +21241,7 @@ export namespace Prisma {
     uuid?: StringWithAggregatesFilter<"TaxSnapshot"> | string
     taxId?: StringWithAggregatesFilter<"TaxSnapshot"> | string
     effectiveThrough?: DateTimeWithAggregatesFilter<"TaxSnapshot"> | Date | string
+    supportsJoint?: BoolWithAggregatesFilter<"TaxSnapshot"> | boolean
     description?: StringNullableWithAggregatesFilter<"TaxSnapshot"> | string | null
   }
 
@@ -22241,6 +22279,7 @@ export namespace Prisma {
     sysAdminControlled?: boolean
     name: string
     description?: string | null
+    state?: $Enums.AvaliableStates
     archived?: boolean
     organization?: OrganizationCreateNestedOneWithoutOrgTaxesInput
     snapshots?: TaxSnapshotCreateNestedManyWithoutTaxInput
@@ -22252,6 +22291,7 @@ export namespace Prisma {
     organizationID?: string | null
     name: string
     description?: string | null
+    state?: $Enums.AvaliableStates
     archived?: boolean
     snapshots?: TaxSnapshotUncheckedCreateNestedManyWithoutTaxInput
   }
@@ -22261,6 +22301,7 @@ export namespace Prisma {
     sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     archived?: BoolFieldUpdateOperationsInput | boolean
     organization?: OrganizationUpdateOneWithoutOrgTaxesNestedInput
     snapshots?: TaxSnapshotUpdateManyWithoutTaxNestedInput
@@ -22272,6 +22313,7 @@ export namespace Prisma {
     organizationID?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     archived?: BoolFieldUpdateOperationsInput | boolean
     snapshots?: TaxSnapshotUncheckedUpdateManyWithoutTaxNestedInput
   }
@@ -22282,6 +22324,7 @@ export namespace Prisma {
     organizationID?: string | null
     name: string
     description?: string | null
+    state?: $Enums.AvaliableStates
     archived?: boolean
   }
 
@@ -22290,6 +22333,7 @@ export namespace Prisma {
     sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     archived?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -22299,12 +22343,14 @@ export namespace Prisma {
     organizationID?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     archived?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TaxSnapshotCreateInput = {
     uuid?: string
     effectiveThrough: Date | string
+    supportsJoint?: boolean
     description?: string | null
     tax: TaxCreateNestedOneWithoutSnapshotsInput
     brackets?: TaxBracketCreateNestedManyWithoutTaxSnapshotInput
@@ -22315,6 +22361,7 @@ export namespace Prisma {
     uuid?: string
     taxId: string
     effectiveThrough: Date | string
+    supportsJoint?: boolean
     description?: string | null
     brackets?: TaxBracketUncheckedCreateNestedManyWithoutTaxSnapshotInput
     paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutTaxInput
@@ -22323,6 +22370,7 @@ export namespace Prisma {
   export type TaxSnapshotUpdateInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    supportsJoint?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tax?: TaxUpdateOneRequiredWithoutSnapshotsNestedInput
     brackets?: TaxBracketUpdateManyWithoutTaxSnapshotNestedInput
@@ -22333,6 +22381,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     taxId?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    supportsJoint?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brackets?: TaxBracketUncheckedUpdateManyWithoutTaxSnapshotNestedInput
     paystubItems?: PayStubItemUncheckedUpdateManyWithoutTaxNestedInput
@@ -22342,12 +22391,14 @@ export namespace Prisma {
     uuid?: string
     taxId: string
     effectiveThrough: Date | string
+    supportsJoint?: boolean
     description?: string | null
   }
 
   export type TaxSnapshotUpdateManyMutationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    supportsJoint?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -22355,6 +22406,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     taxId?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    supportsJoint?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -23493,6 +23545,7 @@ export namespace Prisma {
     organizationID?: SortOrder
     name?: SortOrder
     description?: SortOrder
+    state?: SortOrder
     archived?: SortOrder
   }
 
@@ -23502,6 +23555,7 @@ export namespace Prisma {
     organizationID?: SortOrder
     name?: SortOrder
     description?: SortOrder
+    state?: SortOrder
     archived?: SortOrder
   }
 
@@ -23511,6 +23565,7 @@ export namespace Prisma {
     organizationID?: SortOrder
     name?: SortOrder
     description?: SortOrder
+    state?: SortOrder
     archived?: SortOrder
   }
 
@@ -23533,6 +23588,7 @@ export namespace Prisma {
     uuid?: SortOrder
     taxId?: SortOrder
     effectiveThrough?: SortOrder
+    supportsJoint?: SortOrder
     description?: SortOrder
   }
 
@@ -23540,6 +23596,7 @@ export namespace Prisma {
     uuid?: SortOrder
     taxId?: SortOrder
     effectiveThrough?: SortOrder
+    supportsJoint?: SortOrder
     description?: SortOrder
   }
 
@@ -23547,6 +23604,7 @@ export namespace Prisma {
     uuid?: SortOrder
     taxId?: SortOrder
     effectiveThrough?: SortOrder
+    supportsJoint?: SortOrder
     description?: SortOrder
   }
 
@@ -26081,6 +26139,7 @@ export namespace Prisma {
     sysAdminControlled?: boolean
     name: string
     description?: string | null
+    state?: $Enums.AvaliableStates
     archived?: boolean
     snapshots?: TaxSnapshotCreateNestedManyWithoutTaxInput
   }
@@ -26090,6 +26149,7 @@ export namespace Prisma {
     sysAdminControlled?: boolean
     name: string
     description?: string | null
+    state?: $Enums.AvaliableStates
     archived?: boolean
     snapshots?: TaxSnapshotUncheckedCreateNestedManyWithoutTaxInput
   }
@@ -26263,6 +26323,7 @@ export namespace Prisma {
     organizationID?: StringNullableFilter<"Tax"> | string | null
     name?: StringFilter<"Tax"> | string
     description?: StringNullableFilter<"Tax"> | string | null
+    state?: EnumAvaliableStatesFilter<"Tax"> | $Enums.AvaliableStates
     archived?: BoolFilter<"Tax"> | boolean
   }
 
@@ -26975,6 +27036,7 @@ export namespace Prisma {
   export type TaxSnapshotCreateWithoutPaystubItemsInput = {
     uuid?: string
     effectiveThrough: Date | string
+    supportsJoint?: boolean
     description?: string | null
     tax: TaxCreateNestedOneWithoutSnapshotsInput
     brackets?: TaxBracketCreateNestedManyWithoutTaxSnapshotInput
@@ -26984,6 +27046,7 @@ export namespace Prisma {
     uuid?: string
     taxId: string
     effectiveThrough: Date | string
+    supportsJoint?: boolean
     description?: string | null
     brackets?: TaxBracketUncheckedCreateNestedManyWithoutTaxSnapshotInput
   }
@@ -27145,6 +27208,7 @@ export namespace Prisma {
   export type TaxSnapshotUpdateWithoutPaystubItemsInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    supportsJoint?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tax?: TaxUpdateOneRequiredWithoutSnapshotsNestedInput
     brackets?: TaxBracketUpdateManyWithoutTaxSnapshotNestedInput
@@ -27154,6 +27218,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     taxId?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    supportsJoint?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brackets?: TaxBracketUncheckedUpdateManyWithoutTaxSnapshotNestedInput
   }
@@ -27192,6 +27257,7 @@ export namespace Prisma {
   export type TaxSnapshotCreateWithoutTaxInput = {
     uuid?: string
     effectiveThrough: Date | string
+    supportsJoint?: boolean
     description?: string | null
     brackets?: TaxBracketCreateNestedManyWithoutTaxSnapshotInput
     paystubItems?: PayStubItemCreateNestedManyWithoutTaxInput
@@ -27200,6 +27266,7 @@ export namespace Prisma {
   export type TaxSnapshotUncheckedCreateWithoutTaxInput = {
     uuid?: string
     effectiveThrough: Date | string
+    supportsJoint?: boolean
     description?: string | null
     brackets?: TaxBracketUncheckedCreateNestedManyWithoutTaxSnapshotInput
     paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutTaxInput
@@ -27275,6 +27342,7 @@ export namespace Prisma {
     uuid?: StringFilter<"TaxSnapshot"> | string
     taxId?: StringFilter<"TaxSnapshot"> | string
     effectiveThrough?: DateTimeFilter<"TaxSnapshot"> | Date | string
+    supportsJoint?: BoolFilter<"TaxSnapshot"> | boolean
     description?: StringNullableFilter<"TaxSnapshot"> | string | null
   }
 
@@ -27283,6 +27351,7 @@ export namespace Prisma {
     sysAdminControlled?: boolean
     name: string
     description?: string | null
+    state?: $Enums.AvaliableStates
     archived?: boolean
     organization?: OrganizationCreateNestedOneWithoutOrgTaxesInput
   }
@@ -27293,6 +27362,7 @@ export namespace Prisma {
     organizationID?: string | null
     name: string
     description?: string | null
+    state?: $Enums.AvaliableStates
     archived?: boolean
   }
 
@@ -27391,6 +27461,7 @@ export namespace Prisma {
     sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     archived?: BoolFieldUpdateOperationsInput | boolean
     organization?: OrganizationUpdateOneWithoutOrgTaxesNestedInput
   }
@@ -27401,6 +27472,7 @@ export namespace Prisma {
     organizationID?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     archived?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -27455,6 +27527,7 @@ export namespace Prisma {
   export type TaxSnapshotCreateWithoutBracketsInput = {
     uuid?: string
     effectiveThrough: Date | string
+    supportsJoint?: boolean
     description?: string | null
     tax: TaxCreateNestedOneWithoutSnapshotsInput
     paystubItems?: PayStubItemCreateNestedManyWithoutTaxInput
@@ -27464,6 +27537,7 @@ export namespace Prisma {
     uuid?: string
     taxId: string
     effectiveThrough: Date | string
+    supportsJoint?: boolean
     description?: string | null
     paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutTaxInput
   }
@@ -27487,6 +27561,7 @@ export namespace Prisma {
   export type TaxSnapshotUpdateWithoutBracketsInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    supportsJoint?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tax?: TaxUpdateOneRequiredWithoutSnapshotsNestedInput
     paystubItems?: PayStubItemUpdateManyWithoutTaxNestedInput
@@ -27496,6 +27571,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     taxId?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    supportsJoint?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     paystubItems?: PayStubItemUncheckedUpdateManyWithoutTaxNestedInput
   }
@@ -28090,6 +28166,7 @@ export namespace Prisma {
     sysAdminControlled?: boolean
     name: string
     description?: string | null
+    state?: $Enums.AvaliableStates
     archived?: boolean
   }
 
@@ -28263,6 +28340,7 @@ export namespace Prisma {
     sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     archived?: BoolFieldUpdateOperationsInput | boolean
     snapshots?: TaxSnapshotUpdateManyWithoutTaxNestedInput
   }
@@ -28272,6 +28350,7 @@ export namespace Prisma {
     sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     archived?: BoolFieldUpdateOperationsInput | boolean
     snapshots?: TaxSnapshotUncheckedUpdateManyWithoutTaxNestedInput
   }
@@ -28281,6 +28360,7 @@ export namespace Prisma {
     sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     archived?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -28497,12 +28577,14 @@ export namespace Prisma {
   export type TaxSnapshotCreateManyTaxInput = {
     uuid?: string
     effectiveThrough: Date | string
+    supportsJoint?: boolean
     description?: string | null
   }
 
   export type TaxSnapshotUpdateWithoutTaxInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    supportsJoint?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brackets?: TaxBracketUpdateManyWithoutTaxSnapshotNestedInput
     paystubItems?: PayStubItemUpdateManyWithoutTaxNestedInput
@@ -28511,6 +28593,7 @@ export namespace Prisma {
   export type TaxSnapshotUncheckedUpdateWithoutTaxInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    supportsJoint?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brackets?: TaxBracketUncheckedUpdateManyWithoutTaxSnapshotNestedInput
     paystubItems?: PayStubItemUncheckedUpdateManyWithoutTaxNestedInput
@@ -28519,6 +28602,7 @@ export namespace Prisma {
   export type TaxSnapshotUncheckedUpdateManyWithoutTaxInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    supportsJoint?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
