@@ -42,7 +42,8 @@ model PayStubItem {
     hourlyRate   HourlyRate? @relation(fields: [hourlyRateId], references: [uuid], onDelete: SetNull)
     hourlyRateId String?
 
-    // TODO: Let organizations store their own taxes with their own tax brackets. Then link a tax to the item as well
+    tax   TaxSnapshot? @relation(fields: [taxID], references: [uuid], onDelete: SetNull)
+    taxID String?
     // TODO: Once the taxes are added, make sure to update paystub edit form to allow linking to taxes.
 
     type        PayStubItemType

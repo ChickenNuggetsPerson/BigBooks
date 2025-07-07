@@ -8,9 +8,9 @@ import { RoleMeetsLevel, RoleTypes } from "./Roles";
 
 
 // To be run in server functions
-export async function throwIfInsufficientPerms(level: RoleTypes) {
+export async function throwIfInsufficientPerms(level: RoleTypes, orgUUID: string = "") {
 
-    const role = await getOrgRole()
+    const role = await getOrgRole(orgUUID)
 
     if (RoleMeetsLevel(role, level)) {
         return

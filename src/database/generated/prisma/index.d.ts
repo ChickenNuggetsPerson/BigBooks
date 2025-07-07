@@ -54,6 +54,21 @@ export type PayStub = $Result.DefaultSelection<Prisma.$PayStubPayload>
  */
 export type PayStubItem = $Result.DefaultSelection<Prisma.$PayStubItemPayload>
 /**
+ * Model Tax
+ * 
+ */
+export type Tax = $Result.DefaultSelection<Prisma.$TaxPayload>
+/**
+ * Model TaxSnapshot
+ * 
+ */
+export type TaxSnapshot = $Result.DefaultSelection<Prisma.$TaxSnapshotPayload>
+/**
+ * Model TaxBracket
+ * 
+ */
+export type TaxBracket = $Result.DefaultSelection<Prisma.$TaxBracketPayload>
+/**
  * Model User
  * 
  */
@@ -111,6 +126,14 @@ export const AvaliableStates: {
 
 export type AvaliableStates = (typeof AvaliableStates)[keyof typeof AvaliableStates]
 
+
+export const TaxType: {
+  FlatRate: 'FlatRate',
+  FlatAmmount: 'FlatAmmount'
+};
+
+export type TaxType = (typeof TaxType)[keyof typeof TaxType]
+
 }
 
 export type AbsMaxPeriodTypes = $Enums.AbsMaxPeriodTypes
@@ -128,6 +151,10 @@ export const FilingTypes: typeof $Enums.FilingTypes
 export type AvaliableStates = $Enums.AvaliableStates
 
 export const AvaliableStates: typeof $Enums.AvaliableStates
+
+export type TaxType = $Enums.TaxType
+
+export const TaxType: typeof $Enums.TaxType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -333,6 +360,36 @@ export class PrismaClient<
     * ```
     */
   get payStubItem(): Prisma.PayStubItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tax`: Exposes CRUD operations for the **Tax** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Taxes
+    * const taxes = await prisma.tax.findMany()
+    * ```
+    */
+  get tax(): Prisma.TaxDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.taxSnapshot`: Exposes CRUD operations for the **TaxSnapshot** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TaxSnapshots
+    * const taxSnapshots = await prisma.taxSnapshot.findMany()
+    * ```
+    */
+  get taxSnapshot(): Prisma.TaxSnapshotDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.taxBracket`: Exposes CRUD operations for the **TaxBracket** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TaxBrackets
+    * const taxBrackets = await prisma.taxBracket.findMany()
+    * ```
+    */
+  get taxBracket(): Prisma.TaxBracketDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
@@ -821,6 +878,9 @@ export namespace Prisma {
     PayrollItem: 'PayrollItem',
     PayStub: 'PayStub',
     PayStubItem: 'PayStubItem',
+    Tax: 'Tax',
+    TaxSnapshot: 'TaxSnapshot',
+    TaxBracket: 'TaxBracket',
     User: 'User',
     RegistrationCode: 'RegistrationCode',
     InviteCode: 'InviteCode',
@@ -843,7 +903,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "employee" | "employeeCompensation" | "hourlyRate" | "organization" | "payrollGroup" | "payrollItem" | "payStub" | "payStubItem" | "user" | "registrationCode" | "inviteCode" | "role"
+      modelProps: "employee" | "employeeCompensation" | "hourlyRate" | "organization" | "payrollGroup" | "payrollItem" | "payStub" | "payStubItem" | "tax" | "taxSnapshot" | "taxBracket" | "user" | "registrationCode" | "inviteCode" | "role"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1439,6 +1499,228 @@ export namespace Prisma {
           }
         }
       }
+      Tax: {
+        payload: Prisma.$TaxPayload<ExtArgs>
+        fields: Prisma.TaxFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TaxFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TaxFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxPayload>
+          }
+          findFirst: {
+            args: Prisma.TaxFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TaxFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxPayload>
+          }
+          findMany: {
+            args: Prisma.TaxFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxPayload>[]
+          }
+          create: {
+            args: Prisma.TaxCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxPayload>
+          }
+          createMany: {
+            args: Prisma.TaxCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TaxCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxPayload>[]
+          }
+          delete: {
+            args: Prisma.TaxDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxPayload>
+          }
+          update: {
+            args: Prisma.TaxUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxPayload>
+          }
+          deleteMany: {
+            args: Prisma.TaxDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TaxUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TaxUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxPayload>[]
+          }
+          upsert: {
+            args: Prisma.TaxUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxPayload>
+          }
+          aggregate: {
+            args: Prisma.TaxAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTax>
+          }
+          groupBy: {
+            args: Prisma.TaxGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TaxGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TaxCountArgs<ExtArgs>
+            result: $Utils.Optional<TaxCountAggregateOutputType> | number
+          }
+        }
+      }
+      TaxSnapshot: {
+        payload: Prisma.$TaxSnapshotPayload<ExtArgs>
+        fields: Prisma.TaxSnapshotFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TaxSnapshotFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxSnapshotPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TaxSnapshotFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxSnapshotPayload>
+          }
+          findFirst: {
+            args: Prisma.TaxSnapshotFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxSnapshotPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TaxSnapshotFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxSnapshotPayload>
+          }
+          findMany: {
+            args: Prisma.TaxSnapshotFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxSnapshotPayload>[]
+          }
+          create: {
+            args: Prisma.TaxSnapshotCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxSnapshotPayload>
+          }
+          createMany: {
+            args: Prisma.TaxSnapshotCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TaxSnapshotCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxSnapshotPayload>[]
+          }
+          delete: {
+            args: Prisma.TaxSnapshotDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxSnapshotPayload>
+          }
+          update: {
+            args: Prisma.TaxSnapshotUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxSnapshotPayload>
+          }
+          deleteMany: {
+            args: Prisma.TaxSnapshotDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TaxSnapshotUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TaxSnapshotUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxSnapshotPayload>[]
+          }
+          upsert: {
+            args: Prisma.TaxSnapshotUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxSnapshotPayload>
+          }
+          aggregate: {
+            args: Prisma.TaxSnapshotAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTaxSnapshot>
+          }
+          groupBy: {
+            args: Prisma.TaxSnapshotGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TaxSnapshotGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TaxSnapshotCountArgs<ExtArgs>
+            result: $Utils.Optional<TaxSnapshotCountAggregateOutputType> | number
+          }
+        }
+      }
+      TaxBracket: {
+        payload: Prisma.$TaxBracketPayload<ExtArgs>
+        fields: Prisma.TaxBracketFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TaxBracketFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxBracketPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TaxBracketFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxBracketPayload>
+          }
+          findFirst: {
+            args: Prisma.TaxBracketFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxBracketPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TaxBracketFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxBracketPayload>
+          }
+          findMany: {
+            args: Prisma.TaxBracketFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxBracketPayload>[]
+          }
+          create: {
+            args: Prisma.TaxBracketCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxBracketPayload>
+          }
+          createMany: {
+            args: Prisma.TaxBracketCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TaxBracketCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxBracketPayload>[]
+          }
+          delete: {
+            args: Prisma.TaxBracketDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxBracketPayload>
+          }
+          update: {
+            args: Prisma.TaxBracketUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxBracketPayload>
+          }
+          deleteMany: {
+            args: Prisma.TaxBracketDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TaxBracketUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TaxBracketUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxBracketPayload>[]
+          }
+          upsert: {
+            args: Prisma.TaxBracketUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaxBracketPayload>
+          }
+          aggregate: {
+            args: Prisma.TaxBracketAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTaxBracket>
+          }
+          groupBy: {
+            args: Prisma.TaxBracketGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TaxBracketGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TaxBracketCountArgs<ExtArgs>
+            result: $Utils.Optional<TaxBracketCountAggregateOutputType> | number
+          }
+        }
+      }
       User: {
         payload: Prisma.$UserPayload<ExtArgs>
         fields: Prisma.UserFieldRefs
@@ -1827,6 +2109,9 @@ export namespace Prisma {
     payrollItem?: PayrollItemOmit
     payStub?: PayStubOmit
     payStubItem?: PayStubItemOmit
+    tax?: TaxOmit
+    taxSnapshot?: TaxSnapshotOmit
+    taxBracket?: TaxBracketOmit
     user?: UserOmit
     registrationCode?: RegistrationCodeOmit
     inviteCode?: InviteCodeOmit
@@ -2050,6 +2335,7 @@ export namespace Prisma {
     inviteCodes: number
     memberships: number
     defaultPayrollItems: number
+    orgTaxes: number
   }
 
   export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2058,6 +2344,7 @@ export namespace Prisma {
     inviteCodes?: boolean | OrganizationCountOutputTypeCountInviteCodesArgs
     memberships?: boolean | OrganizationCountOutputTypeCountMembershipsArgs
     defaultPayrollItems?: boolean | OrganizationCountOutputTypeCountDefaultPayrollItemsArgs
+    orgTaxes?: boolean | OrganizationCountOutputTypeCountOrgTaxesArgs
   }
 
   // Custom InputTypes
@@ -2104,6 +2391,13 @@ export namespace Prisma {
    */
   export type OrganizationCountOutputTypeCountDefaultPayrollItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PayrollItemWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountOrgTaxesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaxWhereInput
   }
 
 
@@ -2205,6 +2499,77 @@ export namespace Prisma {
    * PayStubCountOutputType without action
    */
   export type PayStubCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PayStubItemWhereInput
+  }
+
+
+  /**
+   * Count Type TaxCountOutputType
+   */
+
+  export type TaxCountOutputType = {
+    snapshots: number
+  }
+
+  export type TaxCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    snapshots?: boolean | TaxCountOutputTypeCountSnapshotsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TaxCountOutputType without action
+   */
+  export type TaxCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxCountOutputType
+     */
+    select?: TaxCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TaxCountOutputType without action
+   */
+  export type TaxCountOutputTypeCountSnapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaxSnapshotWhereInput
+  }
+
+
+  /**
+   * Count Type TaxSnapshotCountOutputType
+   */
+
+  export type TaxSnapshotCountOutputType = {
+    brackets: number
+    paystubItems: number
+  }
+
+  export type TaxSnapshotCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brackets?: boolean | TaxSnapshotCountOutputTypeCountBracketsArgs
+    paystubItems?: boolean | TaxSnapshotCountOutputTypeCountPaystubItemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TaxSnapshotCountOutputType without action
+   */
+  export type TaxSnapshotCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshotCountOutputType
+     */
+    select?: TaxSnapshotCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TaxSnapshotCountOutputType without action
+   */
+  export type TaxSnapshotCountOutputTypeCountBracketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaxBracketWhereInput
+  }
+
+  /**
+   * TaxSnapshotCountOutputType without action
+   */
+  export type TaxSnapshotCountOutputTypeCountPaystubItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PayStubItemWhereInput
   }
 
@@ -6001,6 +6366,7 @@ export namespace Prisma {
     inviteCodes?: boolean | Organization$inviteCodesArgs<ExtArgs>
     memberships?: boolean | Organization$membershipsArgs<ExtArgs>
     defaultPayrollItems?: boolean | Organization$defaultPayrollItemsArgs<ExtArgs>
+    orgTaxes?: boolean | Organization$orgTaxesArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
 
@@ -6035,6 +6401,7 @@ export namespace Prisma {
     inviteCodes?: boolean | Organization$inviteCodesArgs<ExtArgs>
     memberships?: boolean | Organization$membershipsArgs<ExtArgs>
     defaultPayrollItems?: boolean | Organization$defaultPayrollItemsArgs<ExtArgs>
+    orgTaxes?: boolean | Organization$orgTaxesArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6048,6 +6415,7 @@ export namespace Prisma {
       inviteCodes: Prisma.$InviteCodePayload<ExtArgs>[]
       memberships: Prisma.$RolePayload<ExtArgs>[]
       defaultPayrollItems: Prisma.$PayrollItemPayload<ExtArgs>[]
+      orgTaxes: Prisma.$TaxPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       uuid: string
@@ -6454,6 +6822,7 @@ export namespace Prisma {
     inviteCodes<T extends Organization$inviteCodesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$inviteCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     memberships<T extends Organization$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     defaultPayrollItems<T extends Organization$defaultPayrollItemsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$defaultPayrollItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayrollItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    orgTaxes<T extends Organization$orgTaxesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$orgTaxesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6993,6 +7362,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PayrollItemScalarFieldEnum | PayrollItemScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.orgTaxes
+   */
+  export type Organization$orgTaxesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxInclude<ExtArgs> | null
+    where?: TaxWhereInput
+    orderBy?: TaxOrderByWithRelationInput | TaxOrderByWithRelationInput[]
+    cursor?: TaxWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaxScalarFieldEnum | TaxScalarFieldEnum[]
   }
 
   /**
@@ -10728,6 +11121,7 @@ export namespace Prisma {
     payrollItemId: string | null
     compensationId: string | null
     hourlyRateId: string | null
+    taxID: string | null
     type: $Enums.PayStubItemType | null
     name: string | null
     description: string | null
@@ -10743,6 +11137,7 @@ export namespace Prisma {
     payrollItemId: string | null
     compensationId: string | null
     hourlyRateId: string | null
+    taxID: string | null
     type: $Enums.PayStubItemType | null
     name: string | null
     description: string | null
@@ -10758,6 +11153,7 @@ export namespace Prisma {
     payrollItemId: number
     compensationId: number
     hourlyRateId: number
+    taxID: number
     type: number
     name: number
     description: number
@@ -10789,6 +11185,7 @@ export namespace Prisma {
     payrollItemId?: true
     compensationId?: true
     hourlyRateId?: true
+    taxID?: true
     type?: true
     name?: true
     description?: true
@@ -10804,6 +11201,7 @@ export namespace Prisma {
     payrollItemId?: true
     compensationId?: true
     hourlyRateId?: true
+    taxID?: true
     type?: true
     name?: true
     description?: true
@@ -10819,6 +11217,7 @@ export namespace Prisma {
     payrollItemId?: true
     compensationId?: true
     hourlyRateId?: true
+    taxID?: true
     type?: true
     name?: true
     description?: true
@@ -10921,6 +11320,7 @@ export namespace Prisma {
     payrollItemId: string | null
     compensationId: string | null
     hourlyRateId: string | null
+    taxID: string | null
     type: $Enums.PayStubItemType
     name: string
     description: string | null
@@ -10955,6 +11355,7 @@ export namespace Prisma {
     payrollItemId?: boolean
     compensationId?: boolean
     hourlyRateId?: boolean
+    taxID?: boolean
     type?: boolean
     name?: boolean
     description?: boolean
@@ -10966,6 +11367,7 @@ export namespace Prisma {
     payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
     compensation?: boolean | PayStubItem$compensationArgs<ExtArgs>
     hourlyRate?: boolean | PayStubItem$hourlyRateArgs<ExtArgs>
+    tax?: boolean | PayStubItem$taxArgs<ExtArgs>
   }, ExtArgs["result"]["payStubItem"]>
 
   export type PayStubItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10974,6 +11376,7 @@ export namespace Prisma {
     payrollItemId?: boolean
     compensationId?: boolean
     hourlyRateId?: boolean
+    taxID?: boolean
     type?: boolean
     name?: boolean
     description?: boolean
@@ -10985,6 +11388,7 @@ export namespace Prisma {
     payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
     compensation?: boolean | PayStubItem$compensationArgs<ExtArgs>
     hourlyRate?: boolean | PayStubItem$hourlyRateArgs<ExtArgs>
+    tax?: boolean | PayStubItem$taxArgs<ExtArgs>
   }, ExtArgs["result"]["payStubItem"]>
 
   export type PayStubItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10993,6 +11397,7 @@ export namespace Prisma {
     payrollItemId?: boolean
     compensationId?: boolean
     hourlyRateId?: boolean
+    taxID?: boolean
     type?: boolean
     name?: boolean
     description?: boolean
@@ -11004,6 +11409,7 @@ export namespace Prisma {
     payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
     compensation?: boolean | PayStubItem$compensationArgs<ExtArgs>
     hourlyRate?: boolean | PayStubItem$hourlyRateArgs<ExtArgs>
+    tax?: boolean | PayStubItem$taxArgs<ExtArgs>
   }, ExtArgs["result"]["payStubItem"]>
 
   export type PayStubItemSelectScalar = {
@@ -11012,6 +11418,7 @@ export namespace Prisma {
     payrollItemId?: boolean
     compensationId?: boolean
     hourlyRateId?: boolean
+    taxID?: boolean
     type?: boolean
     name?: boolean
     description?: boolean
@@ -11021,24 +11428,27 @@ export namespace Prisma {
     amount?: boolean
   }
 
-  export type PayStubItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "payStubId" | "payrollItemId" | "compensationId" | "hourlyRateId" | "type" | "name" | "description" | "hours" | "rate" | "percent" | "amount", ExtArgs["result"]["payStubItem"]>
+  export type PayStubItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "payStubId" | "payrollItemId" | "compensationId" | "hourlyRateId" | "taxID" | "type" | "name" | "description" | "hours" | "rate" | "percent" | "amount", ExtArgs["result"]["payStubItem"]>
   export type PayStubItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
     compensation?: boolean | PayStubItem$compensationArgs<ExtArgs>
     hourlyRate?: boolean | PayStubItem$hourlyRateArgs<ExtArgs>
+    tax?: boolean | PayStubItem$taxArgs<ExtArgs>
   }
   export type PayStubItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
     compensation?: boolean | PayStubItem$compensationArgs<ExtArgs>
     hourlyRate?: boolean | PayStubItem$hourlyRateArgs<ExtArgs>
+    tax?: boolean | PayStubItem$taxArgs<ExtArgs>
   }
   export type PayStubItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payStub?: boolean | PayStubDefaultArgs<ExtArgs>
     payrollItem?: boolean | PayStubItem$payrollItemArgs<ExtArgs>
     compensation?: boolean | PayStubItem$compensationArgs<ExtArgs>
     hourlyRate?: boolean | PayStubItem$hourlyRateArgs<ExtArgs>
+    tax?: boolean | PayStubItem$taxArgs<ExtArgs>
   }
 
   export type $PayStubItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11048,6 +11458,7 @@ export namespace Prisma {
       payrollItem: Prisma.$PayrollItemPayload<ExtArgs> | null
       compensation: Prisma.$EmployeeCompensationPayload<ExtArgs> | null
       hourlyRate: Prisma.$HourlyRatePayload<ExtArgs> | null
+      tax: Prisma.$TaxSnapshotPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       uuid: string
@@ -11055,6 +11466,7 @@ export namespace Prisma {
       payrollItemId: string | null
       compensationId: string | null
       hourlyRateId: string | null
+      taxID: string | null
       type: $Enums.PayStubItemType
       name: string
       description: string | null
@@ -11460,6 +11872,7 @@ export namespace Prisma {
     payrollItem<T extends PayStubItem$payrollItemArgs<ExtArgs> = {}>(args?: Subset<T, PayStubItem$payrollItemArgs<ExtArgs>>): Prisma__PayrollItemClient<$Result.GetResult<Prisma.$PayrollItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     compensation<T extends PayStubItem$compensationArgs<ExtArgs> = {}>(args?: Subset<T, PayStubItem$compensationArgs<ExtArgs>>): Prisma__EmployeeCompensationClient<$Result.GetResult<Prisma.$EmployeeCompensationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     hourlyRate<T extends PayStubItem$hourlyRateArgs<ExtArgs> = {}>(args?: Subset<T, PayStubItem$hourlyRateArgs<ExtArgs>>): Prisma__HourlyRateClient<$Result.GetResult<Prisma.$HourlyRatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    tax<T extends PayStubItem$taxArgs<ExtArgs> = {}>(args?: Subset<T, PayStubItem$taxArgs<ExtArgs>>): Prisma__TaxSnapshotClient<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11494,6 +11907,7 @@ export namespace Prisma {
     readonly payrollItemId: FieldRef<"PayStubItem", 'String'>
     readonly compensationId: FieldRef<"PayStubItem", 'String'>
     readonly hourlyRateId: FieldRef<"PayStubItem", 'String'>
+    readonly taxID: FieldRef<"PayStubItem", 'String'>
     readonly type: FieldRef<"PayStubItem", 'PayStubItemType'>
     readonly name: FieldRef<"PayStubItem", 'String'>
     readonly description: FieldRef<"PayStubItem", 'String'>
@@ -11954,6 +12368,25 @@ export namespace Prisma {
   }
 
   /**
+   * PayStubItem.tax
+   */
+  export type PayStubItem$taxArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotInclude<ExtArgs> | null
+    where?: TaxSnapshotWhereInput
+  }
+
+  /**
    * PayStubItem without action
    */
   export type PayStubItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11969,6 +12402,3398 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PayStubItemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Tax
+   */
+
+  export type AggregateTax = {
+    _count: TaxCountAggregateOutputType | null
+    _min: TaxMinAggregateOutputType | null
+    _max: TaxMaxAggregateOutputType | null
+  }
+
+  export type TaxMinAggregateOutputType = {
+    uuid: string | null
+    sysAdminControlled: boolean | null
+    organizationID: string | null
+    name: string | null
+    description: string | null
+    archived: boolean | null
+  }
+
+  export type TaxMaxAggregateOutputType = {
+    uuid: string | null
+    sysAdminControlled: boolean | null
+    organizationID: string | null
+    name: string | null
+    description: string | null
+    archived: boolean | null
+  }
+
+  export type TaxCountAggregateOutputType = {
+    uuid: number
+    sysAdminControlled: number
+    organizationID: number
+    name: number
+    description: number
+    archived: number
+    _all: number
+  }
+
+
+  export type TaxMinAggregateInputType = {
+    uuid?: true
+    sysAdminControlled?: true
+    organizationID?: true
+    name?: true
+    description?: true
+    archived?: true
+  }
+
+  export type TaxMaxAggregateInputType = {
+    uuid?: true
+    sysAdminControlled?: true
+    organizationID?: true
+    name?: true
+    description?: true
+    archived?: true
+  }
+
+  export type TaxCountAggregateInputType = {
+    uuid?: true
+    sysAdminControlled?: true
+    organizationID?: true
+    name?: true
+    description?: true
+    archived?: true
+    _all?: true
+  }
+
+  export type TaxAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tax to aggregate.
+     */
+    where?: TaxWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Taxes to fetch.
+     */
+    orderBy?: TaxOrderByWithRelationInput | TaxOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TaxWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Taxes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Taxes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Taxes
+    **/
+    _count?: true | TaxCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TaxMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TaxMaxAggregateInputType
+  }
+
+  export type GetTaxAggregateType<T extends TaxAggregateArgs> = {
+        [P in keyof T & keyof AggregateTax]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTax[P]>
+      : GetScalarType<T[P], AggregateTax[P]>
+  }
+
+
+
+
+  export type TaxGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaxWhereInput
+    orderBy?: TaxOrderByWithAggregationInput | TaxOrderByWithAggregationInput[]
+    by: TaxScalarFieldEnum[] | TaxScalarFieldEnum
+    having?: TaxScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TaxCountAggregateInputType | true
+    _min?: TaxMinAggregateInputType
+    _max?: TaxMaxAggregateInputType
+  }
+
+  export type TaxGroupByOutputType = {
+    uuid: string
+    sysAdminControlled: boolean
+    organizationID: string | null
+    name: string
+    description: string | null
+    archived: boolean
+    _count: TaxCountAggregateOutputType | null
+    _min: TaxMinAggregateOutputType | null
+    _max: TaxMaxAggregateOutputType | null
+  }
+
+  type GetTaxGroupByPayload<T extends TaxGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TaxGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TaxGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TaxGroupByOutputType[P]>
+            : GetScalarType<T[P], TaxGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TaxSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    sysAdminControlled?: boolean
+    organizationID?: boolean
+    name?: boolean
+    description?: boolean
+    archived?: boolean
+    organization?: boolean | Tax$organizationArgs<ExtArgs>
+    snapshots?: boolean | Tax$snapshotsArgs<ExtArgs>
+    _count?: boolean | TaxCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tax"]>
+
+  export type TaxSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    sysAdminControlled?: boolean
+    organizationID?: boolean
+    name?: boolean
+    description?: boolean
+    archived?: boolean
+    organization?: boolean | Tax$organizationArgs<ExtArgs>
+  }, ExtArgs["result"]["tax"]>
+
+  export type TaxSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    sysAdminControlled?: boolean
+    organizationID?: boolean
+    name?: boolean
+    description?: boolean
+    archived?: boolean
+    organization?: boolean | Tax$organizationArgs<ExtArgs>
+  }, ExtArgs["result"]["tax"]>
+
+  export type TaxSelectScalar = {
+    uuid?: boolean
+    sysAdminControlled?: boolean
+    organizationID?: boolean
+    name?: boolean
+    description?: boolean
+    archived?: boolean
+  }
+
+  export type TaxOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "sysAdminControlled" | "organizationID" | "name" | "description" | "archived", ExtArgs["result"]["tax"]>
+  export type TaxInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | Tax$organizationArgs<ExtArgs>
+    snapshots?: boolean | Tax$snapshotsArgs<ExtArgs>
+    _count?: boolean | TaxCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TaxIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | Tax$organizationArgs<ExtArgs>
+  }
+  export type TaxIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | Tax$organizationArgs<ExtArgs>
+  }
+
+  export type $TaxPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Tax"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs> | null
+      snapshots: Prisma.$TaxSnapshotPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      uuid: string
+      sysAdminControlled: boolean
+      organizationID: string | null
+      name: string
+      description: string | null
+      archived: boolean
+    }, ExtArgs["result"]["tax"]>
+    composites: {}
+  }
+
+  type TaxGetPayload<S extends boolean | null | undefined | TaxDefaultArgs> = $Result.GetResult<Prisma.$TaxPayload, S>
+
+  type TaxCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TaxFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TaxCountAggregateInputType | true
+    }
+
+  export interface TaxDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Tax'], meta: { name: 'Tax' } }
+    /**
+     * Find zero or one Tax that matches the filter.
+     * @param {TaxFindUniqueArgs} args - Arguments to find a Tax
+     * @example
+     * // Get one Tax
+     * const tax = await prisma.tax.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TaxFindUniqueArgs>(args: SelectSubset<T, TaxFindUniqueArgs<ExtArgs>>): Prisma__TaxClient<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Tax that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TaxFindUniqueOrThrowArgs} args - Arguments to find a Tax
+     * @example
+     * // Get one Tax
+     * const tax = await prisma.tax.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TaxFindUniqueOrThrowArgs>(args: SelectSubset<T, TaxFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TaxClient<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tax that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxFindFirstArgs} args - Arguments to find a Tax
+     * @example
+     * // Get one Tax
+     * const tax = await prisma.tax.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TaxFindFirstArgs>(args?: SelectSubset<T, TaxFindFirstArgs<ExtArgs>>): Prisma__TaxClient<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tax that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxFindFirstOrThrowArgs} args - Arguments to find a Tax
+     * @example
+     * // Get one Tax
+     * const tax = await prisma.tax.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TaxFindFirstOrThrowArgs>(args?: SelectSubset<T, TaxFindFirstOrThrowArgs<ExtArgs>>): Prisma__TaxClient<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Taxes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Taxes
+     * const taxes = await prisma.tax.findMany()
+     * 
+     * // Get first 10 Taxes
+     * const taxes = await prisma.tax.findMany({ take: 10 })
+     * 
+     * // Only select the `uuid`
+     * const taxWithUuidOnly = await prisma.tax.findMany({ select: { uuid: true } })
+     * 
+     */
+    findMany<T extends TaxFindManyArgs>(args?: SelectSubset<T, TaxFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Tax.
+     * @param {TaxCreateArgs} args - Arguments to create a Tax.
+     * @example
+     * // Create one Tax
+     * const Tax = await prisma.tax.create({
+     *   data: {
+     *     // ... data to create a Tax
+     *   }
+     * })
+     * 
+     */
+    create<T extends TaxCreateArgs>(args: SelectSubset<T, TaxCreateArgs<ExtArgs>>): Prisma__TaxClient<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Taxes.
+     * @param {TaxCreateManyArgs} args - Arguments to create many Taxes.
+     * @example
+     * // Create many Taxes
+     * const tax = await prisma.tax.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TaxCreateManyArgs>(args?: SelectSubset<T, TaxCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Taxes and returns the data saved in the database.
+     * @param {TaxCreateManyAndReturnArgs} args - Arguments to create many Taxes.
+     * @example
+     * // Create many Taxes
+     * const tax = await prisma.tax.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Taxes and only return the `uuid`
+     * const taxWithUuidOnly = await prisma.tax.createManyAndReturn({
+     *   select: { uuid: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TaxCreateManyAndReturnArgs>(args?: SelectSubset<T, TaxCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Tax.
+     * @param {TaxDeleteArgs} args - Arguments to delete one Tax.
+     * @example
+     * // Delete one Tax
+     * const Tax = await prisma.tax.delete({
+     *   where: {
+     *     // ... filter to delete one Tax
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TaxDeleteArgs>(args: SelectSubset<T, TaxDeleteArgs<ExtArgs>>): Prisma__TaxClient<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Tax.
+     * @param {TaxUpdateArgs} args - Arguments to update one Tax.
+     * @example
+     * // Update one Tax
+     * const tax = await prisma.tax.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TaxUpdateArgs>(args: SelectSubset<T, TaxUpdateArgs<ExtArgs>>): Prisma__TaxClient<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Taxes.
+     * @param {TaxDeleteManyArgs} args - Arguments to filter Taxes to delete.
+     * @example
+     * // Delete a few Taxes
+     * const { count } = await prisma.tax.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TaxDeleteManyArgs>(args?: SelectSubset<T, TaxDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Taxes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Taxes
+     * const tax = await prisma.tax.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TaxUpdateManyArgs>(args: SelectSubset<T, TaxUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Taxes and returns the data updated in the database.
+     * @param {TaxUpdateManyAndReturnArgs} args - Arguments to update many Taxes.
+     * @example
+     * // Update many Taxes
+     * const tax = await prisma.tax.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Taxes and only return the `uuid`
+     * const taxWithUuidOnly = await prisma.tax.updateManyAndReturn({
+     *   select: { uuid: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TaxUpdateManyAndReturnArgs>(args: SelectSubset<T, TaxUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Tax.
+     * @param {TaxUpsertArgs} args - Arguments to update or create a Tax.
+     * @example
+     * // Update or create a Tax
+     * const tax = await prisma.tax.upsert({
+     *   create: {
+     *     // ... data to create a Tax
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Tax we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TaxUpsertArgs>(args: SelectSubset<T, TaxUpsertArgs<ExtArgs>>): Prisma__TaxClient<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Taxes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxCountArgs} args - Arguments to filter Taxes to count.
+     * @example
+     * // Count the number of Taxes
+     * const count = await prisma.tax.count({
+     *   where: {
+     *     // ... the filter for the Taxes we want to count
+     *   }
+     * })
+    **/
+    count<T extends TaxCountArgs>(
+      args?: Subset<T, TaxCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TaxCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Tax.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TaxAggregateArgs>(args: Subset<T, TaxAggregateArgs>): Prisma.PrismaPromise<GetTaxAggregateType<T>>
+
+    /**
+     * Group by Tax.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TaxGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TaxGroupByArgs['orderBy'] }
+        : { orderBy?: TaxGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TaxGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTaxGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Tax model
+   */
+  readonly fields: TaxFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Tax.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TaxClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends Tax$organizationArgs<ExtArgs> = {}>(args?: Subset<T, Tax$organizationArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    snapshots<T extends Tax$snapshotsArgs<ExtArgs> = {}>(args?: Subset<T, Tax$snapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Tax model
+   */
+  interface TaxFieldRefs {
+    readonly uuid: FieldRef<"Tax", 'String'>
+    readonly sysAdminControlled: FieldRef<"Tax", 'Boolean'>
+    readonly organizationID: FieldRef<"Tax", 'String'>
+    readonly name: FieldRef<"Tax", 'String'>
+    readonly description: FieldRef<"Tax", 'String'>
+    readonly archived: FieldRef<"Tax", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Tax findUnique
+   */
+  export type TaxFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxInclude<ExtArgs> | null
+    /**
+     * Filter, which Tax to fetch.
+     */
+    where: TaxWhereUniqueInput
+  }
+
+  /**
+   * Tax findUniqueOrThrow
+   */
+  export type TaxFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxInclude<ExtArgs> | null
+    /**
+     * Filter, which Tax to fetch.
+     */
+    where: TaxWhereUniqueInput
+  }
+
+  /**
+   * Tax findFirst
+   */
+  export type TaxFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxInclude<ExtArgs> | null
+    /**
+     * Filter, which Tax to fetch.
+     */
+    where?: TaxWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Taxes to fetch.
+     */
+    orderBy?: TaxOrderByWithRelationInput | TaxOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Taxes.
+     */
+    cursor?: TaxWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Taxes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Taxes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Taxes.
+     */
+    distinct?: TaxScalarFieldEnum | TaxScalarFieldEnum[]
+  }
+
+  /**
+   * Tax findFirstOrThrow
+   */
+  export type TaxFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxInclude<ExtArgs> | null
+    /**
+     * Filter, which Tax to fetch.
+     */
+    where?: TaxWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Taxes to fetch.
+     */
+    orderBy?: TaxOrderByWithRelationInput | TaxOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Taxes.
+     */
+    cursor?: TaxWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Taxes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Taxes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Taxes.
+     */
+    distinct?: TaxScalarFieldEnum | TaxScalarFieldEnum[]
+  }
+
+  /**
+   * Tax findMany
+   */
+  export type TaxFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxInclude<ExtArgs> | null
+    /**
+     * Filter, which Taxes to fetch.
+     */
+    where?: TaxWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Taxes to fetch.
+     */
+    orderBy?: TaxOrderByWithRelationInput | TaxOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Taxes.
+     */
+    cursor?: TaxWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Taxes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Taxes.
+     */
+    skip?: number
+    distinct?: TaxScalarFieldEnum | TaxScalarFieldEnum[]
+  }
+
+  /**
+   * Tax create
+   */
+  export type TaxCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Tax.
+     */
+    data: XOR<TaxCreateInput, TaxUncheckedCreateInput>
+  }
+
+  /**
+   * Tax createMany
+   */
+  export type TaxCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Taxes.
+     */
+    data: TaxCreateManyInput | TaxCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Tax createManyAndReturn
+   */
+  export type TaxCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * The data used to create many Taxes.
+     */
+    data: TaxCreateManyInput | TaxCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Tax update
+   */
+  export type TaxUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Tax.
+     */
+    data: XOR<TaxUpdateInput, TaxUncheckedUpdateInput>
+    /**
+     * Choose, which Tax to update.
+     */
+    where: TaxWhereUniqueInput
+  }
+
+  /**
+   * Tax updateMany
+   */
+  export type TaxUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Taxes.
+     */
+    data: XOR<TaxUpdateManyMutationInput, TaxUncheckedUpdateManyInput>
+    /**
+     * Filter which Taxes to update
+     */
+    where?: TaxWhereInput
+    /**
+     * Limit how many Taxes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Tax updateManyAndReturn
+   */
+  export type TaxUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * The data used to update Taxes.
+     */
+    data: XOR<TaxUpdateManyMutationInput, TaxUncheckedUpdateManyInput>
+    /**
+     * Filter which Taxes to update
+     */
+    where?: TaxWhereInput
+    /**
+     * Limit how many Taxes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Tax upsert
+   */
+  export type TaxUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Tax to update in case it exists.
+     */
+    where: TaxWhereUniqueInput
+    /**
+     * In case the Tax found by the `where` argument doesn't exist, create a new Tax with this data.
+     */
+    create: XOR<TaxCreateInput, TaxUncheckedCreateInput>
+    /**
+     * In case the Tax was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TaxUpdateInput, TaxUncheckedUpdateInput>
+  }
+
+  /**
+   * Tax delete
+   */
+  export type TaxDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxInclude<ExtArgs> | null
+    /**
+     * Filter which Tax to delete.
+     */
+    where: TaxWhereUniqueInput
+  }
+
+  /**
+   * Tax deleteMany
+   */
+  export type TaxDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Taxes to delete
+     */
+    where?: TaxWhereInput
+    /**
+     * Limit how many Taxes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Tax.organization
+   */
+  export type Tax$organizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * Tax.snapshots
+   */
+  export type Tax$snapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotInclude<ExtArgs> | null
+    where?: TaxSnapshotWhereInput
+    orderBy?: TaxSnapshotOrderByWithRelationInput | TaxSnapshotOrderByWithRelationInput[]
+    cursor?: TaxSnapshotWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaxSnapshotScalarFieldEnum | TaxSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * Tax without action
+   */
+  export type TaxDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tax
+     */
+    select?: TaxSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tax
+     */
+    omit?: TaxOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TaxSnapshot
+   */
+
+  export type AggregateTaxSnapshot = {
+    _count: TaxSnapshotCountAggregateOutputType | null
+    _min: TaxSnapshotMinAggregateOutputType | null
+    _max: TaxSnapshotMaxAggregateOutputType | null
+  }
+
+  export type TaxSnapshotMinAggregateOutputType = {
+    uuid: string | null
+    taxId: string | null
+    effectiveThrough: Date | null
+    description: string | null
+  }
+
+  export type TaxSnapshotMaxAggregateOutputType = {
+    uuid: string | null
+    taxId: string | null
+    effectiveThrough: Date | null
+    description: string | null
+  }
+
+  export type TaxSnapshotCountAggregateOutputType = {
+    uuid: number
+    taxId: number
+    effectiveThrough: number
+    description: number
+    _all: number
+  }
+
+
+  export type TaxSnapshotMinAggregateInputType = {
+    uuid?: true
+    taxId?: true
+    effectiveThrough?: true
+    description?: true
+  }
+
+  export type TaxSnapshotMaxAggregateInputType = {
+    uuid?: true
+    taxId?: true
+    effectiveThrough?: true
+    description?: true
+  }
+
+  export type TaxSnapshotCountAggregateInputType = {
+    uuid?: true
+    taxId?: true
+    effectiveThrough?: true
+    description?: true
+    _all?: true
+  }
+
+  export type TaxSnapshotAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaxSnapshot to aggregate.
+     */
+    where?: TaxSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaxSnapshots to fetch.
+     */
+    orderBy?: TaxSnapshotOrderByWithRelationInput | TaxSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TaxSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaxSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaxSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TaxSnapshots
+    **/
+    _count?: true | TaxSnapshotCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TaxSnapshotMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TaxSnapshotMaxAggregateInputType
+  }
+
+  export type GetTaxSnapshotAggregateType<T extends TaxSnapshotAggregateArgs> = {
+        [P in keyof T & keyof AggregateTaxSnapshot]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTaxSnapshot[P]>
+      : GetScalarType<T[P], AggregateTaxSnapshot[P]>
+  }
+
+
+
+
+  export type TaxSnapshotGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaxSnapshotWhereInput
+    orderBy?: TaxSnapshotOrderByWithAggregationInput | TaxSnapshotOrderByWithAggregationInput[]
+    by: TaxSnapshotScalarFieldEnum[] | TaxSnapshotScalarFieldEnum
+    having?: TaxSnapshotScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TaxSnapshotCountAggregateInputType | true
+    _min?: TaxSnapshotMinAggregateInputType
+    _max?: TaxSnapshotMaxAggregateInputType
+  }
+
+  export type TaxSnapshotGroupByOutputType = {
+    uuid: string
+    taxId: string
+    effectiveThrough: Date
+    description: string | null
+    _count: TaxSnapshotCountAggregateOutputType | null
+    _min: TaxSnapshotMinAggregateOutputType | null
+    _max: TaxSnapshotMaxAggregateOutputType | null
+  }
+
+  type GetTaxSnapshotGroupByPayload<T extends TaxSnapshotGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TaxSnapshotGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TaxSnapshotGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TaxSnapshotGroupByOutputType[P]>
+            : GetScalarType<T[P], TaxSnapshotGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TaxSnapshotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    taxId?: boolean
+    effectiveThrough?: boolean
+    description?: boolean
+    tax?: boolean | TaxDefaultArgs<ExtArgs>
+    brackets?: boolean | TaxSnapshot$bracketsArgs<ExtArgs>
+    paystubItems?: boolean | TaxSnapshot$paystubItemsArgs<ExtArgs>
+    _count?: boolean | TaxSnapshotCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taxSnapshot"]>
+
+  export type TaxSnapshotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    taxId?: boolean
+    effectiveThrough?: boolean
+    description?: boolean
+    tax?: boolean | TaxDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taxSnapshot"]>
+
+  export type TaxSnapshotSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    taxId?: boolean
+    effectiveThrough?: boolean
+    description?: boolean
+    tax?: boolean | TaxDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taxSnapshot"]>
+
+  export type TaxSnapshotSelectScalar = {
+    uuid?: boolean
+    taxId?: boolean
+    effectiveThrough?: boolean
+    description?: boolean
+  }
+
+  export type TaxSnapshotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "taxId" | "effectiveThrough" | "description", ExtArgs["result"]["taxSnapshot"]>
+  export type TaxSnapshotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tax?: boolean | TaxDefaultArgs<ExtArgs>
+    brackets?: boolean | TaxSnapshot$bracketsArgs<ExtArgs>
+    paystubItems?: boolean | TaxSnapshot$paystubItemsArgs<ExtArgs>
+    _count?: boolean | TaxSnapshotCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TaxSnapshotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tax?: boolean | TaxDefaultArgs<ExtArgs>
+  }
+  export type TaxSnapshotIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tax?: boolean | TaxDefaultArgs<ExtArgs>
+  }
+
+  export type $TaxSnapshotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TaxSnapshot"
+    objects: {
+      tax: Prisma.$TaxPayload<ExtArgs>
+      brackets: Prisma.$TaxBracketPayload<ExtArgs>[]
+      paystubItems: Prisma.$PayStubItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      uuid: string
+      taxId: string
+      effectiveThrough: Date
+      description: string | null
+    }, ExtArgs["result"]["taxSnapshot"]>
+    composites: {}
+  }
+
+  type TaxSnapshotGetPayload<S extends boolean | null | undefined | TaxSnapshotDefaultArgs> = $Result.GetResult<Prisma.$TaxSnapshotPayload, S>
+
+  type TaxSnapshotCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TaxSnapshotFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TaxSnapshotCountAggregateInputType | true
+    }
+
+  export interface TaxSnapshotDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TaxSnapshot'], meta: { name: 'TaxSnapshot' } }
+    /**
+     * Find zero or one TaxSnapshot that matches the filter.
+     * @param {TaxSnapshotFindUniqueArgs} args - Arguments to find a TaxSnapshot
+     * @example
+     * // Get one TaxSnapshot
+     * const taxSnapshot = await prisma.taxSnapshot.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TaxSnapshotFindUniqueArgs>(args: SelectSubset<T, TaxSnapshotFindUniqueArgs<ExtArgs>>): Prisma__TaxSnapshotClient<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TaxSnapshot that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TaxSnapshotFindUniqueOrThrowArgs} args - Arguments to find a TaxSnapshot
+     * @example
+     * // Get one TaxSnapshot
+     * const taxSnapshot = await prisma.taxSnapshot.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TaxSnapshotFindUniqueOrThrowArgs>(args: SelectSubset<T, TaxSnapshotFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TaxSnapshotClient<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaxSnapshot that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxSnapshotFindFirstArgs} args - Arguments to find a TaxSnapshot
+     * @example
+     * // Get one TaxSnapshot
+     * const taxSnapshot = await prisma.taxSnapshot.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TaxSnapshotFindFirstArgs>(args?: SelectSubset<T, TaxSnapshotFindFirstArgs<ExtArgs>>): Prisma__TaxSnapshotClient<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaxSnapshot that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxSnapshotFindFirstOrThrowArgs} args - Arguments to find a TaxSnapshot
+     * @example
+     * // Get one TaxSnapshot
+     * const taxSnapshot = await prisma.taxSnapshot.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TaxSnapshotFindFirstOrThrowArgs>(args?: SelectSubset<T, TaxSnapshotFindFirstOrThrowArgs<ExtArgs>>): Prisma__TaxSnapshotClient<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TaxSnapshots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxSnapshotFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TaxSnapshots
+     * const taxSnapshots = await prisma.taxSnapshot.findMany()
+     * 
+     * // Get first 10 TaxSnapshots
+     * const taxSnapshots = await prisma.taxSnapshot.findMany({ take: 10 })
+     * 
+     * // Only select the `uuid`
+     * const taxSnapshotWithUuidOnly = await prisma.taxSnapshot.findMany({ select: { uuid: true } })
+     * 
+     */
+    findMany<T extends TaxSnapshotFindManyArgs>(args?: SelectSubset<T, TaxSnapshotFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TaxSnapshot.
+     * @param {TaxSnapshotCreateArgs} args - Arguments to create a TaxSnapshot.
+     * @example
+     * // Create one TaxSnapshot
+     * const TaxSnapshot = await prisma.taxSnapshot.create({
+     *   data: {
+     *     // ... data to create a TaxSnapshot
+     *   }
+     * })
+     * 
+     */
+    create<T extends TaxSnapshotCreateArgs>(args: SelectSubset<T, TaxSnapshotCreateArgs<ExtArgs>>): Prisma__TaxSnapshotClient<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TaxSnapshots.
+     * @param {TaxSnapshotCreateManyArgs} args - Arguments to create many TaxSnapshots.
+     * @example
+     * // Create many TaxSnapshots
+     * const taxSnapshot = await prisma.taxSnapshot.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TaxSnapshotCreateManyArgs>(args?: SelectSubset<T, TaxSnapshotCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TaxSnapshots and returns the data saved in the database.
+     * @param {TaxSnapshotCreateManyAndReturnArgs} args - Arguments to create many TaxSnapshots.
+     * @example
+     * // Create many TaxSnapshots
+     * const taxSnapshot = await prisma.taxSnapshot.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TaxSnapshots and only return the `uuid`
+     * const taxSnapshotWithUuidOnly = await prisma.taxSnapshot.createManyAndReturn({
+     *   select: { uuid: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TaxSnapshotCreateManyAndReturnArgs>(args?: SelectSubset<T, TaxSnapshotCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TaxSnapshot.
+     * @param {TaxSnapshotDeleteArgs} args - Arguments to delete one TaxSnapshot.
+     * @example
+     * // Delete one TaxSnapshot
+     * const TaxSnapshot = await prisma.taxSnapshot.delete({
+     *   where: {
+     *     // ... filter to delete one TaxSnapshot
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TaxSnapshotDeleteArgs>(args: SelectSubset<T, TaxSnapshotDeleteArgs<ExtArgs>>): Prisma__TaxSnapshotClient<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TaxSnapshot.
+     * @param {TaxSnapshotUpdateArgs} args - Arguments to update one TaxSnapshot.
+     * @example
+     * // Update one TaxSnapshot
+     * const taxSnapshot = await prisma.taxSnapshot.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TaxSnapshotUpdateArgs>(args: SelectSubset<T, TaxSnapshotUpdateArgs<ExtArgs>>): Prisma__TaxSnapshotClient<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TaxSnapshots.
+     * @param {TaxSnapshotDeleteManyArgs} args - Arguments to filter TaxSnapshots to delete.
+     * @example
+     * // Delete a few TaxSnapshots
+     * const { count } = await prisma.taxSnapshot.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TaxSnapshotDeleteManyArgs>(args?: SelectSubset<T, TaxSnapshotDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaxSnapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxSnapshotUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TaxSnapshots
+     * const taxSnapshot = await prisma.taxSnapshot.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TaxSnapshotUpdateManyArgs>(args: SelectSubset<T, TaxSnapshotUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaxSnapshots and returns the data updated in the database.
+     * @param {TaxSnapshotUpdateManyAndReturnArgs} args - Arguments to update many TaxSnapshots.
+     * @example
+     * // Update many TaxSnapshots
+     * const taxSnapshot = await prisma.taxSnapshot.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TaxSnapshots and only return the `uuid`
+     * const taxSnapshotWithUuidOnly = await prisma.taxSnapshot.updateManyAndReturn({
+     *   select: { uuid: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TaxSnapshotUpdateManyAndReturnArgs>(args: SelectSubset<T, TaxSnapshotUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TaxSnapshot.
+     * @param {TaxSnapshotUpsertArgs} args - Arguments to update or create a TaxSnapshot.
+     * @example
+     * // Update or create a TaxSnapshot
+     * const taxSnapshot = await prisma.taxSnapshot.upsert({
+     *   create: {
+     *     // ... data to create a TaxSnapshot
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TaxSnapshot we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TaxSnapshotUpsertArgs>(args: SelectSubset<T, TaxSnapshotUpsertArgs<ExtArgs>>): Prisma__TaxSnapshotClient<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TaxSnapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxSnapshotCountArgs} args - Arguments to filter TaxSnapshots to count.
+     * @example
+     * // Count the number of TaxSnapshots
+     * const count = await prisma.taxSnapshot.count({
+     *   where: {
+     *     // ... the filter for the TaxSnapshots we want to count
+     *   }
+     * })
+    **/
+    count<T extends TaxSnapshotCountArgs>(
+      args?: Subset<T, TaxSnapshotCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TaxSnapshotCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TaxSnapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxSnapshotAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TaxSnapshotAggregateArgs>(args: Subset<T, TaxSnapshotAggregateArgs>): Prisma.PrismaPromise<GetTaxSnapshotAggregateType<T>>
+
+    /**
+     * Group by TaxSnapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxSnapshotGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TaxSnapshotGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TaxSnapshotGroupByArgs['orderBy'] }
+        : { orderBy?: TaxSnapshotGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TaxSnapshotGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTaxSnapshotGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TaxSnapshot model
+   */
+  readonly fields: TaxSnapshotFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TaxSnapshot.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TaxSnapshotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tax<T extends TaxDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaxDefaultArgs<ExtArgs>>): Prisma__TaxClient<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    brackets<T extends TaxSnapshot$bracketsArgs<ExtArgs> = {}>(args?: Subset<T, TaxSnapshot$bracketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxBracketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    paystubItems<T extends TaxSnapshot$paystubItemsArgs<ExtArgs> = {}>(args?: Subset<T, TaxSnapshot$paystubItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayStubItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TaxSnapshot model
+   */
+  interface TaxSnapshotFieldRefs {
+    readonly uuid: FieldRef<"TaxSnapshot", 'String'>
+    readonly taxId: FieldRef<"TaxSnapshot", 'String'>
+    readonly effectiveThrough: FieldRef<"TaxSnapshot", 'DateTime'>
+    readonly description: FieldRef<"TaxSnapshot", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TaxSnapshot findUnique
+   */
+  export type TaxSnapshotFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which TaxSnapshot to fetch.
+     */
+    where: TaxSnapshotWhereUniqueInput
+  }
+
+  /**
+   * TaxSnapshot findUniqueOrThrow
+   */
+  export type TaxSnapshotFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which TaxSnapshot to fetch.
+     */
+    where: TaxSnapshotWhereUniqueInput
+  }
+
+  /**
+   * TaxSnapshot findFirst
+   */
+  export type TaxSnapshotFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which TaxSnapshot to fetch.
+     */
+    where?: TaxSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaxSnapshots to fetch.
+     */
+    orderBy?: TaxSnapshotOrderByWithRelationInput | TaxSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaxSnapshots.
+     */
+    cursor?: TaxSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaxSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaxSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaxSnapshots.
+     */
+    distinct?: TaxSnapshotScalarFieldEnum | TaxSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * TaxSnapshot findFirstOrThrow
+   */
+  export type TaxSnapshotFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which TaxSnapshot to fetch.
+     */
+    where?: TaxSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaxSnapshots to fetch.
+     */
+    orderBy?: TaxSnapshotOrderByWithRelationInput | TaxSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaxSnapshots.
+     */
+    cursor?: TaxSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaxSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaxSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaxSnapshots.
+     */
+    distinct?: TaxSnapshotScalarFieldEnum | TaxSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * TaxSnapshot findMany
+   */
+  export type TaxSnapshotFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which TaxSnapshots to fetch.
+     */
+    where?: TaxSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaxSnapshots to fetch.
+     */
+    orderBy?: TaxSnapshotOrderByWithRelationInput | TaxSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TaxSnapshots.
+     */
+    cursor?: TaxSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaxSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaxSnapshots.
+     */
+    skip?: number
+    distinct?: TaxSnapshotScalarFieldEnum | TaxSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * TaxSnapshot create
+   */
+  export type TaxSnapshotCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TaxSnapshot.
+     */
+    data: XOR<TaxSnapshotCreateInput, TaxSnapshotUncheckedCreateInput>
+  }
+
+  /**
+   * TaxSnapshot createMany
+   */
+  export type TaxSnapshotCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TaxSnapshots.
+     */
+    data: TaxSnapshotCreateManyInput | TaxSnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TaxSnapshot createManyAndReturn
+   */
+  export type TaxSnapshotCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * The data used to create many TaxSnapshots.
+     */
+    data: TaxSnapshotCreateManyInput | TaxSnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TaxSnapshot update
+   */
+  export type TaxSnapshotUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TaxSnapshot.
+     */
+    data: XOR<TaxSnapshotUpdateInput, TaxSnapshotUncheckedUpdateInput>
+    /**
+     * Choose, which TaxSnapshot to update.
+     */
+    where: TaxSnapshotWhereUniqueInput
+  }
+
+  /**
+   * TaxSnapshot updateMany
+   */
+  export type TaxSnapshotUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TaxSnapshots.
+     */
+    data: XOR<TaxSnapshotUpdateManyMutationInput, TaxSnapshotUncheckedUpdateManyInput>
+    /**
+     * Filter which TaxSnapshots to update
+     */
+    where?: TaxSnapshotWhereInput
+    /**
+     * Limit how many TaxSnapshots to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaxSnapshot updateManyAndReturn
+   */
+  export type TaxSnapshotUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * The data used to update TaxSnapshots.
+     */
+    data: XOR<TaxSnapshotUpdateManyMutationInput, TaxSnapshotUncheckedUpdateManyInput>
+    /**
+     * Filter which TaxSnapshots to update
+     */
+    where?: TaxSnapshotWhereInput
+    /**
+     * Limit how many TaxSnapshots to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TaxSnapshot upsert
+   */
+  export type TaxSnapshotUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TaxSnapshot to update in case it exists.
+     */
+    where: TaxSnapshotWhereUniqueInput
+    /**
+     * In case the TaxSnapshot found by the `where` argument doesn't exist, create a new TaxSnapshot with this data.
+     */
+    create: XOR<TaxSnapshotCreateInput, TaxSnapshotUncheckedCreateInput>
+    /**
+     * In case the TaxSnapshot was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TaxSnapshotUpdateInput, TaxSnapshotUncheckedUpdateInput>
+  }
+
+  /**
+   * TaxSnapshot delete
+   */
+  export type TaxSnapshotDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter which TaxSnapshot to delete.
+     */
+    where: TaxSnapshotWhereUniqueInput
+  }
+
+  /**
+   * TaxSnapshot deleteMany
+   */
+  export type TaxSnapshotDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaxSnapshots to delete
+     */
+    where?: TaxSnapshotWhereInput
+    /**
+     * Limit how many TaxSnapshots to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaxSnapshot.brackets
+   */
+  export type TaxSnapshot$bracketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxBracket
+     */
+    select?: TaxBracketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxBracket
+     */
+    omit?: TaxBracketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxBracketInclude<ExtArgs> | null
+    where?: TaxBracketWhereInput
+    orderBy?: TaxBracketOrderByWithRelationInput | TaxBracketOrderByWithRelationInput[]
+    cursor?: TaxBracketWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaxBracketScalarFieldEnum | TaxBracketScalarFieldEnum[]
+  }
+
+  /**
+   * TaxSnapshot.paystubItems
+   */
+  export type TaxSnapshot$paystubItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PayStubItem
+     */
+    select?: PayStubItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PayStubItem
+     */
+    omit?: PayStubItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PayStubItemInclude<ExtArgs> | null
+    where?: PayStubItemWhereInput
+    orderBy?: PayStubItemOrderByWithRelationInput | PayStubItemOrderByWithRelationInput[]
+    cursor?: PayStubItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PayStubItemScalarFieldEnum | PayStubItemScalarFieldEnum[]
+  }
+
+  /**
+   * TaxSnapshot without action
+   */
+  export type TaxSnapshotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxSnapshot
+     */
+    select?: TaxSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxSnapshot
+     */
+    omit?: TaxSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxSnapshotInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TaxBracket
+   */
+
+  export type AggregateTaxBracket = {
+    _count: TaxBracketCountAggregateOutputType | null
+    _avg: TaxBracketAvgAggregateOutputType | null
+    _sum: TaxBracketSumAggregateOutputType | null
+    _min: TaxBracketMinAggregateOutputType | null
+    _max: TaxBracketMaxAggregateOutputType | null
+  }
+
+  export type TaxBracketAvgAggregateOutputType = {
+    min: Decimal | null
+    max: Decimal | null
+    rate: Decimal | null
+    ammount: Decimal | null
+  }
+
+  export type TaxBracketSumAggregateOutputType = {
+    min: Decimal | null
+    max: Decimal | null
+    rate: Decimal | null
+    ammount: Decimal | null
+  }
+
+  export type TaxBracketMinAggregateOutputType = {
+    uuid: string | null
+    taxSnapshotId: string | null
+    min: Decimal | null
+    hasMinBound: boolean | null
+    max: Decimal | null
+    hasMaxBound: boolean | null
+    filingType: $Enums.FilingTypes | null
+    type: $Enums.TaxType | null
+    rate: Decimal | null
+    ammount: Decimal | null
+  }
+
+  export type TaxBracketMaxAggregateOutputType = {
+    uuid: string | null
+    taxSnapshotId: string | null
+    min: Decimal | null
+    hasMinBound: boolean | null
+    max: Decimal | null
+    hasMaxBound: boolean | null
+    filingType: $Enums.FilingTypes | null
+    type: $Enums.TaxType | null
+    rate: Decimal | null
+    ammount: Decimal | null
+  }
+
+  export type TaxBracketCountAggregateOutputType = {
+    uuid: number
+    taxSnapshotId: number
+    min: number
+    hasMinBound: number
+    max: number
+    hasMaxBound: number
+    filingType: number
+    type: number
+    rate: number
+    ammount: number
+    _all: number
+  }
+
+
+  export type TaxBracketAvgAggregateInputType = {
+    min?: true
+    max?: true
+    rate?: true
+    ammount?: true
+  }
+
+  export type TaxBracketSumAggregateInputType = {
+    min?: true
+    max?: true
+    rate?: true
+    ammount?: true
+  }
+
+  export type TaxBracketMinAggregateInputType = {
+    uuid?: true
+    taxSnapshotId?: true
+    min?: true
+    hasMinBound?: true
+    max?: true
+    hasMaxBound?: true
+    filingType?: true
+    type?: true
+    rate?: true
+    ammount?: true
+  }
+
+  export type TaxBracketMaxAggregateInputType = {
+    uuid?: true
+    taxSnapshotId?: true
+    min?: true
+    hasMinBound?: true
+    max?: true
+    hasMaxBound?: true
+    filingType?: true
+    type?: true
+    rate?: true
+    ammount?: true
+  }
+
+  export type TaxBracketCountAggregateInputType = {
+    uuid?: true
+    taxSnapshotId?: true
+    min?: true
+    hasMinBound?: true
+    max?: true
+    hasMaxBound?: true
+    filingType?: true
+    type?: true
+    rate?: true
+    ammount?: true
+    _all?: true
+  }
+
+  export type TaxBracketAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaxBracket to aggregate.
+     */
+    where?: TaxBracketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaxBrackets to fetch.
+     */
+    orderBy?: TaxBracketOrderByWithRelationInput | TaxBracketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TaxBracketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaxBrackets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaxBrackets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TaxBrackets
+    **/
+    _count?: true | TaxBracketCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TaxBracketAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TaxBracketSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TaxBracketMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TaxBracketMaxAggregateInputType
+  }
+
+  export type GetTaxBracketAggregateType<T extends TaxBracketAggregateArgs> = {
+        [P in keyof T & keyof AggregateTaxBracket]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTaxBracket[P]>
+      : GetScalarType<T[P], AggregateTaxBracket[P]>
+  }
+
+
+
+
+  export type TaxBracketGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaxBracketWhereInput
+    orderBy?: TaxBracketOrderByWithAggregationInput | TaxBracketOrderByWithAggregationInput[]
+    by: TaxBracketScalarFieldEnum[] | TaxBracketScalarFieldEnum
+    having?: TaxBracketScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TaxBracketCountAggregateInputType | true
+    _avg?: TaxBracketAvgAggregateInputType
+    _sum?: TaxBracketSumAggregateInputType
+    _min?: TaxBracketMinAggregateInputType
+    _max?: TaxBracketMaxAggregateInputType
+  }
+
+  export type TaxBracketGroupByOutputType = {
+    uuid: string
+    taxSnapshotId: string
+    min: Decimal
+    hasMinBound: boolean
+    max: Decimal
+    hasMaxBound: boolean
+    filingType: $Enums.FilingTypes
+    type: $Enums.TaxType
+    rate: Decimal
+    ammount: Decimal
+    _count: TaxBracketCountAggregateOutputType | null
+    _avg: TaxBracketAvgAggregateOutputType | null
+    _sum: TaxBracketSumAggregateOutputType | null
+    _min: TaxBracketMinAggregateOutputType | null
+    _max: TaxBracketMaxAggregateOutputType | null
+  }
+
+  type GetTaxBracketGroupByPayload<T extends TaxBracketGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TaxBracketGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TaxBracketGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TaxBracketGroupByOutputType[P]>
+            : GetScalarType<T[P], TaxBracketGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TaxBracketSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    taxSnapshotId?: boolean
+    min?: boolean
+    hasMinBound?: boolean
+    max?: boolean
+    hasMaxBound?: boolean
+    filingType?: boolean
+    type?: boolean
+    rate?: boolean
+    ammount?: boolean
+    taxSnapshot?: boolean | TaxSnapshotDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taxBracket"]>
+
+  export type TaxBracketSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    taxSnapshotId?: boolean
+    min?: boolean
+    hasMinBound?: boolean
+    max?: boolean
+    hasMaxBound?: boolean
+    filingType?: boolean
+    type?: boolean
+    rate?: boolean
+    ammount?: boolean
+    taxSnapshot?: boolean | TaxSnapshotDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taxBracket"]>
+
+  export type TaxBracketSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    taxSnapshotId?: boolean
+    min?: boolean
+    hasMinBound?: boolean
+    max?: boolean
+    hasMaxBound?: boolean
+    filingType?: boolean
+    type?: boolean
+    rate?: boolean
+    ammount?: boolean
+    taxSnapshot?: boolean | TaxSnapshotDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taxBracket"]>
+
+  export type TaxBracketSelectScalar = {
+    uuid?: boolean
+    taxSnapshotId?: boolean
+    min?: boolean
+    hasMinBound?: boolean
+    max?: boolean
+    hasMaxBound?: boolean
+    filingType?: boolean
+    type?: boolean
+    rate?: boolean
+    ammount?: boolean
+  }
+
+  export type TaxBracketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "taxSnapshotId" | "min" | "hasMinBound" | "max" | "hasMaxBound" | "filingType" | "type" | "rate" | "ammount", ExtArgs["result"]["taxBracket"]>
+  export type TaxBracketInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    taxSnapshot?: boolean | TaxSnapshotDefaultArgs<ExtArgs>
+  }
+  export type TaxBracketIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    taxSnapshot?: boolean | TaxSnapshotDefaultArgs<ExtArgs>
+  }
+  export type TaxBracketIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    taxSnapshot?: boolean | TaxSnapshotDefaultArgs<ExtArgs>
+  }
+
+  export type $TaxBracketPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TaxBracket"
+    objects: {
+      taxSnapshot: Prisma.$TaxSnapshotPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      uuid: string
+      taxSnapshotId: string
+      min: Prisma.Decimal
+      hasMinBound: boolean
+      max: Prisma.Decimal
+      hasMaxBound: boolean
+      filingType: $Enums.FilingTypes
+      type: $Enums.TaxType
+      rate: Prisma.Decimal
+      ammount: Prisma.Decimal
+    }, ExtArgs["result"]["taxBracket"]>
+    composites: {}
+  }
+
+  type TaxBracketGetPayload<S extends boolean | null | undefined | TaxBracketDefaultArgs> = $Result.GetResult<Prisma.$TaxBracketPayload, S>
+
+  type TaxBracketCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TaxBracketFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TaxBracketCountAggregateInputType | true
+    }
+
+  export interface TaxBracketDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TaxBracket'], meta: { name: 'TaxBracket' } }
+    /**
+     * Find zero or one TaxBracket that matches the filter.
+     * @param {TaxBracketFindUniqueArgs} args - Arguments to find a TaxBracket
+     * @example
+     * // Get one TaxBracket
+     * const taxBracket = await prisma.taxBracket.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TaxBracketFindUniqueArgs>(args: SelectSubset<T, TaxBracketFindUniqueArgs<ExtArgs>>): Prisma__TaxBracketClient<$Result.GetResult<Prisma.$TaxBracketPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TaxBracket that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TaxBracketFindUniqueOrThrowArgs} args - Arguments to find a TaxBracket
+     * @example
+     * // Get one TaxBracket
+     * const taxBracket = await prisma.taxBracket.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TaxBracketFindUniqueOrThrowArgs>(args: SelectSubset<T, TaxBracketFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TaxBracketClient<$Result.GetResult<Prisma.$TaxBracketPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaxBracket that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxBracketFindFirstArgs} args - Arguments to find a TaxBracket
+     * @example
+     * // Get one TaxBracket
+     * const taxBracket = await prisma.taxBracket.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TaxBracketFindFirstArgs>(args?: SelectSubset<T, TaxBracketFindFirstArgs<ExtArgs>>): Prisma__TaxBracketClient<$Result.GetResult<Prisma.$TaxBracketPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaxBracket that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxBracketFindFirstOrThrowArgs} args - Arguments to find a TaxBracket
+     * @example
+     * // Get one TaxBracket
+     * const taxBracket = await prisma.taxBracket.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TaxBracketFindFirstOrThrowArgs>(args?: SelectSubset<T, TaxBracketFindFirstOrThrowArgs<ExtArgs>>): Prisma__TaxBracketClient<$Result.GetResult<Prisma.$TaxBracketPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TaxBrackets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxBracketFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TaxBrackets
+     * const taxBrackets = await prisma.taxBracket.findMany()
+     * 
+     * // Get first 10 TaxBrackets
+     * const taxBrackets = await prisma.taxBracket.findMany({ take: 10 })
+     * 
+     * // Only select the `uuid`
+     * const taxBracketWithUuidOnly = await prisma.taxBracket.findMany({ select: { uuid: true } })
+     * 
+     */
+    findMany<T extends TaxBracketFindManyArgs>(args?: SelectSubset<T, TaxBracketFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxBracketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TaxBracket.
+     * @param {TaxBracketCreateArgs} args - Arguments to create a TaxBracket.
+     * @example
+     * // Create one TaxBracket
+     * const TaxBracket = await prisma.taxBracket.create({
+     *   data: {
+     *     // ... data to create a TaxBracket
+     *   }
+     * })
+     * 
+     */
+    create<T extends TaxBracketCreateArgs>(args: SelectSubset<T, TaxBracketCreateArgs<ExtArgs>>): Prisma__TaxBracketClient<$Result.GetResult<Prisma.$TaxBracketPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TaxBrackets.
+     * @param {TaxBracketCreateManyArgs} args - Arguments to create many TaxBrackets.
+     * @example
+     * // Create many TaxBrackets
+     * const taxBracket = await prisma.taxBracket.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TaxBracketCreateManyArgs>(args?: SelectSubset<T, TaxBracketCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TaxBrackets and returns the data saved in the database.
+     * @param {TaxBracketCreateManyAndReturnArgs} args - Arguments to create many TaxBrackets.
+     * @example
+     * // Create many TaxBrackets
+     * const taxBracket = await prisma.taxBracket.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TaxBrackets and only return the `uuid`
+     * const taxBracketWithUuidOnly = await prisma.taxBracket.createManyAndReturn({
+     *   select: { uuid: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TaxBracketCreateManyAndReturnArgs>(args?: SelectSubset<T, TaxBracketCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxBracketPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TaxBracket.
+     * @param {TaxBracketDeleteArgs} args - Arguments to delete one TaxBracket.
+     * @example
+     * // Delete one TaxBracket
+     * const TaxBracket = await prisma.taxBracket.delete({
+     *   where: {
+     *     // ... filter to delete one TaxBracket
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TaxBracketDeleteArgs>(args: SelectSubset<T, TaxBracketDeleteArgs<ExtArgs>>): Prisma__TaxBracketClient<$Result.GetResult<Prisma.$TaxBracketPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TaxBracket.
+     * @param {TaxBracketUpdateArgs} args - Arguments to update one TaxBracket.
+     * @example
+     * // Update one TaxBracket
+     * const taxBracket = await prisma.taxBracket.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TaxBracketUpdateArgs>(args: SelectSubset<T, TaxBracketUpdateArgs<ExtArgs>>): Prisma__TaxBracketClient<$Result.GetResult<Prisma.$TaxBracketPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TaxBrackets.
+     * @param {TaxBracketDeleteManyArgs} args - Arguments to filter TaxBrackets to delete.
+     * @example
+     * // Delete a few TaxBrackets
+     * const { count } = await prisma.taxBracket.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TaxBracketDeleteManyArgs>(args?: SelectSubset<T, TaxBracketDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaxBrackets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxBracketUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TaxBrackets
+     * const taxBracket = await prisma.taxBracket.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TaxBracketUpdateManyArgs>(args: SelectSubset<T, TaxBracketUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaxBrackets and returns the data updated in the database.
+     * @param {TaxBracketUpdateManyAndReturnArgs} args - Arguments to update many TaxBrackets.
+     * @example
+     * // Update many TaxBrackets
+     * const taxBracket = await prisma.taxBracket.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TaxBrackets and only return the `uuid`
+     * const taxBracketWithUuidOnly = await prisma.taxBracket.updateManyAndReturn({
+     *   select: { uuid: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TaxBracketUpdateManyAndReturnArgs>(args: SelectSubset<T, TaxBracketUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxBracketPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TaxBracket.
+     * @param {TaxBracketUpsertArgs} args - Arguments to update or create a TaxBracket.
+     * @example
+     * // Update or create a TaxBracket
+     * const taxBracket = await prisma.taxBracket.upsert({
+     *   create: {
+     *     // ... data to create a TaxBracket
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TaxBracket we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TaxBracketUpsertArgs>(args: SelectSubset<T, TaxBracketUpsertArgs<ExtArgs>>): Prisma__TaxBracketClient<$Result.GetResult<Prisma.$TaxBracketPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TaxBrackets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxBracketCountArgs} args - Arguments to filter TaxBrackets to count.
+     * @example
+     * // Count the number of TaxBrackets
+     * const count = await prisma.taxBracket.count({
+     *   where: {
+     *     // ... the filter for the TaxBrackets we want to count
+     *   }
+     * })
+    **/
+    count<T extends TaxBracketCountArgs>(
+      args?: Subset<T, TaxBracketCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TaxBracketCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TaxBracket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxBracketAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TaxBracketAggregateArgs>(args: Subset<T, TaxBracketAggregateArgs>): Prisma.PrismaPromise<GetTaxBracketAggregateType<T>>
+
+    /**
+     * Group by TaxBracket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaxBracketGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TaxBracketGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TaxBracketGroupByArgs['orderBy'] }
+        : { orderBy?: TaxBracketGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TaxBracketGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTaxBracketGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TaxBracket model
+   */
+  readonly fields: TaxBracketFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TaxBracket.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TaxBracketClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    taxSnapshot<T extends TaxSnapshotDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaxSnapshotDefaultArgs<ExtArgs>>): Prisma__TaxSnapshotClient<$Result.GetResult<Prisma.$TaxSnapshotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TaxBracket model
+   */
+  interface TaxBracketFieldRefs {
+    readonly uuid: FieldRef<"TaxBracket", 'String'>
+    readonly taxSnapshotId: FieldRef<"TaxBracket", 'String'>
+    readonly min: FieldRef<"TaxBracket", 'Decimal'>
+    readonly hasMinBound: FieldRef<"TaxBracket", 'Boolean'>
+    readonly max: FieldRef<"TaxBracket", 'Decimal'>
+    readonly hasMaxBound: FieldRef<"TaxBracket", 'Boolean'>
+    readonly filingType: FieldRef<"TaxBracket", 'FilingTypes'>
+    readonly type: FieldRef<"TaxBracket", 'TaxType'>
+    readonly rate: FieldRef<"TaxBracket", 'Decimal'>
+    readonly ammount: FieldRef<"TaxBracket", 'Decimal'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TaxBracket findUnique
+   */
+  export type TaxBracketFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxBracket
+     */
+    select?: TaxBracketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxBracket
+     */
+    omit?: TaxBracketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxBracketInclude<ExtArgs> | null
+    /**
+     * Filter, which TaxBracket to fetch.
+     */
+    where: TaxBracketWhereUniqueInput
+  }
+
+  /**
+   * TaxBracket findUniqueOrThrow
+   */
+  export type TaxBracketFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxBracket
+     */
+    select?: TaxBracketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxBracket
+     */
+    omit?: TaxBracketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxBracketInclude<ExtArgs> | null
+    /**
+     * Filter, which TaxBracket to fetch.
+     */
+    where: TaxBracketWhereUniqueInput
+  }
+
+  /**
+   * TaxBracket findFirst
+   */
+  export type TaxBracketFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxBracket
+     */
+    select?: TaxBracketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxBracket
+     */
+    omit?: TaxBracketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxBracketInclude<ExtArgs> | null
+    /**
+     * Filter, which TaxBracket to fetch.
+     */
+    where?: TaxBracketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaxBrackets to fetch.
+     */
+    orderBy?: TaxBracketOrderByWithRelationInput | TaxBracketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaxBrackets.
+     */
+    cursor?: TaxBracketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaxBrackets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaxBrackets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaxBrackets.
+     */
+    distinct?: TaxBracketScalarFieldEnum | TaxBracketScalarFieldEnum[]
+  }
+
+  /**
+   * TaxBracket findFirstOrThrow
+   */
+  export type TaxBracketFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxBracket
+     */
+    select?: TaxBracketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxBracket
+     */
+    omit?: TaxBracketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxBracketInclude<ExtArgs> | null
+    /**
+     * Filter, which TaxBracket to fetch.
+     */
+    where?: TaxBracketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaxBrackets to fetch.
+     */
+    orderBy?: TaxBracketOrderByWithRelationInput | TaxBracketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaxBrackets.
+     */
+    cursor?: TaxBracketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaxBrackets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaxBrackets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaxBrackets.
+     */
+    distinct?: TaxBracketScalarFieldEnum | TaxBracketScalarFieldEnum[]
+  }
+
+  /**
+   * TaxBracket findMany
+   */
+  export type TaxBracketFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxBracket
+     */
+    select?: TaxBracketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxBracket
+     */
+    omit?: TaxBracketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxBracketInclude<ExtArgs> | null
+    /**
+     * Filter, which TaxBrackets to fetch.
+     */
+    where?: TaxBracketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaxBrackets to fetch.
+     */
+    orderBy?: TaxBracketOrderByWithRelationInput | TaxBracketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TaxBrackets.
+     */
+    cursor?: TaxBracketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaxBrackets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaxBrackets.
+     */
+    skip?: number
+    distinct?: TaxBracketScalarFieldEnum | TaxBracketScalarFieldEnum[]
+  }
+
+  /**
+   * TaxBracket create
+   */
+  export type TaxBracketCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxBracket
+     */
+    select?: TaxBracketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxBracket
+     */
+    omit?: TaxBracketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxBracketInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TaxBracket.
+     */
+    data: XOR<TaxBracketCreateInput, TaxBracketUncheckedCreateInput>
+  }
+
+  /**
+   * TaxBracket createMany
+   */
+  export type TaxBracketCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TaxBrackets.
+     */
+    data: TaxBracketCreateManyInput | TaxBracketCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TaxBracket createManyAndReturn
+   */
+  export type TaxBracketCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxBracket
+     */
+    select?: TaxBracketSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxBracket
+     */
+    omit?: TaxBracketOmit<ExtArgs> | null
+    /**
+     * The data used to create many TaxBrackets.
+     */
+    data: TaxBracketCreateManyInput | TaxBracketCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxBracketIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TaxBracket update
+   */
+  export type TaxBracketUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxBracket
+     */
+    select?: TaxBracketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxBracket
+     */
+    omit?: TaxBracketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxBracketInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TaxBracket.
+     */
+    data: XOR<TaxBracketUpdateInput, TaxBracketUncheckedUpdateInput>
+    /**
+     * Choose, which TaxBracket to update.
+     */
+    where: TaxBracketWhereUniqueInput
+  }
+
+  /**
+   * TaxBracket updateMany
+   */
+  export type TaxBracketUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TaxBrackets.
+     */
+    data: XOR<TaxBracketUpdateManyMutationInput, TaxBracketUncheckedUpdateManyInput>
+    /**
+     * Filter which TaxBrackets to update
+     */
+    where?: TaxBracketWhereInput
+    /**
+     * Limit how many TaxBrackets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaxBracket updateManyAndReturn
+   */
+  export type TaxBracketUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxBracket
+     */
+    select?: TaxBracketSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxBracket
+     */
+    omit?: TaxBracketOmit<ExtArgs> | null
+    /**
+     * The data used to update TaxBrackets.
+     */
+    data: XOR<TaxBracketUpdateManyMutationInput, TaxBracketUncheckedUpdateManyInput>
+    /**
+     * Filter which TaxBrackets to update
+     */
+    where?: TaxBracketWhereInput
+    /**
+     * Limit how many TaxBrackets to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxBracketIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TaxBracket upsert
+   */
+  export type TaxBracketUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxBracket
+     */
+    select?: TaxBracketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxBracket
+     */
+    omit?: TaxBracketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxBracketInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TaxBracket to update in case it exists.
+     */
+    where: TaxBracketWhereUniqueInput
+    /**
+     * In case the TaxBracket found by the `where` argument doesn't exist, create a new TaxBracket with this data.
+     */
+    create: XOR<TaxBracketCreateInput, TaxBracketUncheckedCreateInput>
+    /**
+     * In case the TaxBracket was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TaxBracketUpdateInput, TaxBracketUncheckedUpdateInput>
+  }
+
+  /**
+   * TaxBracket delete
+   */
+  export type TaxBracketDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxBracket
+     */
+    select?: TaxBracketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxBracket
+     */
+    omit?: TaxBracketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxBracketInclude<ExtArgs> | null
+    /**
+     * Filter which TaxBracket to delete.
+     */
+    where: TaxBracketWhereUniqueInput
+  }
+
+  /**
+   * TaxBracket deleteMany
+   */
+  export type TaxBracketDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaxBrackets to delete
+     */
+    where?: TaxBracketWhereInput
+    /**
+     * Limit how many TaxBrackets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaxBracket without action
+   */
+  export type TaxBracketDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaxBracket
+     */
+    select?: TaxBracketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaxBracket
+     */
+    omit?: TaxBracketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaxBracketInclude<ExtArgs> | null
   }
 
 
@@ -16304,6 +20129,7 @@ export namespace Prisma {
     payrollItemId: 'payrollItemId',
     compensationId: 'compensationId',
     hourlyRateId: 'hourlyRateId',
+    taxID: 'taxID',
     type: 'type',
     name: 'name',
     description: 'description',
@@ -16314,6 +20140,44 @@ export namespace Prisma {
   };
 
   export type PayStubItemScalarFieldEnum = (typeof PayStubItemScalarFieldEnum)[keyof typeof PayStubItemScalarFieldEnum]
+
+
+  export const TaxScalarFieldEnum: {
+    uuid: 'uuid',
+    sysAdminControlled: 'sysAdminControlled',
+    organizationID: 'organizationID',
+    name: 'name',
+    description: 'description',
+    archived: 'archived'
+  };
+
+  export type TaxScalarFieldEnum = (typeof TaxScalarFieldEnum)[keyof typeof TaxScalarFieldEnum]
+
+
+  export const TaxSnapshotScalarFieldEnum: {
+    uuid: 'uuid',
+    taxId: 'taxId',
+    effectiveThrough: 'effectiveThrough',
+    description: 'description'
+  };
+
+  export type TaxSnapshotScalarFieldEnum = (typeof TaxSnapshotScalarFieldEnum)[keyof typeof TaxSnapshotScalarFieldEnum]
+
+
+  export const TaxBracketScalarFieldEnum: {
+    uuid: 'uuid',
+    taxSnapshotId: 'taxSnapshotId',
+    min: 'min',
+    hasMinBound: 'hasMinBound',
+    max: 'max',
+    hasMaxBound: 'hasMaxBound',
+    filingType: 'filingType',
+    type: 'type',
+    rate: 'rate',
+    ammount: 'ammount'
+  };
+
+  export type TaxBracketScalarFieldEnum = (typeof TaxBracketScalarFieldEnum)[keyof typeof TaxBracketScalarFieldEnum]
 
 
   export const UserScalarFieldEnum: {
@@ -16504,6 +20368,20 @@ export namespace Prisma {
    * Reference to a field of type 'AbsMaxPeriodTypes[]'
    */
   export type ListEnumAbsMaxPeriodTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AbsMaxPeriodTypes[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TaxType'
+   */
+  export type EnumTaxTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaxType'>
+    
+
+
+  /**
+   * Reference to a field of type 'TaxType[]'
+   */
+  export type ListEnumTaxTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaxType[]'>
     
 
 
@@ -16781,6 +20659,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeListRelationFilter
     memberships?: RoleListRelationFilter
     defaultPayrollItems?: PayrollItemListRelationFilter
+    orgTaxes?: TaxListRelationFilter
   }
 
   export type OrganizationOrderByWithRelationInput = {
@@ -16794,6 +20673,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeOrderByRelationAggregateInput
     memberships?: RoleOrderByRelationAggregateInput
     defaultPayrollItems?: PayrollItemOrderByRelationAggregateInput
+    orgTaxes?: TaxOrderByRelationAggregateInput
   }
 
   export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -16810,6 +20690,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeListRelationFilter
     memberships?: RoleListRelationFilter
     defaultPayrollItems?: PayrollItemListRelationFilter
+    orgTaxes?: TaxListRelationFilter
   }, "uuid" | "uuid">
 
   export type OrganizationOrderByWithAggregationInput = {
@@ -17107,6 +20988,7 @@ export namespace Prisma {
     payrollItemId?: StringNullableFilter<"PayStubItem"> | string | null
     compensationId?: StringNullableFilter<"PayStubItem"> | string | null
     hourlyRateId?: StringNullableFilter<"PayStubItem"> | string | null
+    taxID?: StringNullableFilter<"PayStubItem"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubItem"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubItem"> | string
     description?: StringNullableFilter<"PayStubItem"> | string | null
@@ -17118,6 +21000,7 @@ export namespace Prisma {
     payrollItem?: XOR<PayrollItemNullableScalarRelationFilter, PayrollItemWhereInput> | null
     compensation?: XOR<EmployeeCompensationNullableScalarRelationFilter, EmployeeCompensationWhereInput> | null
     hourlyRate?: XOR<HourlyRateNullableScalarRelationFilter, HourlyRateWhereInput> | null
+    tax?: XOR<TaxSnapshotNullableScalarRelationFilter, TaxSnapshotWhereInput> | null
   }
 
   export type PayStubItemOrderByWithRelationInput = {
@@ -17126,6 +21009,7 @@ export namespace Prisma {
     payrollItemId?: SortOrderInput | SortOrder
     compensationId?: SortOrderInput | SortOrder
     hourlyRateId?: SortOrderInput | SortOrder
+    taxID?: SortOrderInput | SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
@@ -17137,6 +21021,7 @@ export namespace Prisma {
     payrollItem?: PayrollItemOrderByWithRelationInput
     compensation?: EmployeeCompensationOrderByWithRelationInput
     hourlyRate?: HourlyRateOrderByWithRelationInput
+    tax?: TaxSnapshotOrderByWithRelationInput
   }
 
   export type PayStubItemWhereUniqueInput = Prisma.AtLeast<{
@@ -17148,6 +21033,7 @@ export namespace Prisma {
     payrollItemId?: StringNullableFilter<"PayStubItem"> | string | null
     compensationId?: StringNullableFilter<"PayStubItem"> | string | null
     hourlyRateId?: StringNullableFilter<"PayStubItem"> | string | null
+    taxID?: StringNullableFilter<"PayStubItem"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubItem"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubItem"> | string
     description?: StringNullableFilter<"PayStubItem"> | string | null
@@ -17159,6 +21045,7 @@ export namespace Prisma {
     payrollItem?: XOR<PayrollItemNullableScalarRelationFilter, PayrollItemWhereInput> | null
     compensation?: XOR<EmployeeCompensationNullableScalarRelationFilter, EmployeeCompensationWhereInput> | null
     hourlyRate?: XOR<HourlyRateNullableScalarRelationFilter, HourlyRateWhereInput> | null
+    tax?: XOR<TaxSnapshotNullableScalarRelationFilter, TaxSnapshotWhereInput> | null
   }, "uuid">
 
   export type PayStubItemOrderByWithAggregationInput = {
@@ -17167,6 +21054,7 @@ export namespace Prisma {
     payrollItemId?: SortOrderInput | SortOrder
     compensationId?: SortOrderInput | SortOrder
     hourlyRateId?: SortOrderInput | SortOrder
+    taxID?: SortOrderInput | SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
@@ -17190,6 +21078,7 @@ export namespace Prisma {
     payrollItemId?: StringNullableWithAggregatesFilter<"PayStubItem"> | string | null
     compensationId?: StringNullableWithAggregatesFilter<"PayStubItem"> | string | null
     hourlyRateId?: StringNullableWithAggregatesFilter<"PayStubItem"> | string | null
+    taxID?: StringNullableWithAggregatesFilter<"PayStubItem"> | string | null
     type?: EnumPayStubItemTypeWithAggregatesFilter<"PayStubItem"> | $Enums.PayStubItemType
     name?: StringWithAggregatesFilter<"PayStubItem"> | string
     description?: StringNullableWithAggregatesFilter<"PayStubItem"> | string | null
@@ -17197,6 +21086,207 @@ export namespace Prisma {
     rate?: DecimalNullableWithAggregatesFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string | null
     percent?: DecimalNullableWithAggregatesFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalWithAggregatesFilter<"PayStubItem"> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type TaxWhereInput = {
+    AND?: TaxWhereInput | TaxWhereInput[]
+    OR?: TaxWhereInput[]
+    NOT?: TaxWhereInput | TaxWhereInput[]
+    uuid?: StringFilter<"Tax"> | string
+    sysAdminControlled?: BoolFilter<"Tax"> | boolean
+    organizationID?: StringNullableFilter<"Tax"> | string | null
+    name?: StringFilter<"Tax"> | string
+    description?: StringNullableFilter<"Tax"> | string | null
+    archived?: BoolFilter<"Tax"> | boolean
+    organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
+    snapshots?: TaxSnapshotListRelationFilter
+  }
+
+  export type TaxOrderByWithRelationInput = {
+    uuid?: SortOrder
+    sysAdminControlled?: SortOrder
+    organizationID?: SortOrderInput | SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    archived?: SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+    snapshots?: TaxSnapshotOrderByRelationAggregateInput
+  }
+
+  export type TaxWhereUniqueInput = Prisma.AtLeast<{
+    uuid?: string
+    AND?: TaxWhereInput | TaxWhereInput[]
+    OR?: TaxWhereInput[]
+    NOT?: TaxWhereInput | TaxWhereInput[]
+    sysAdminControlled?: BoolFilter<"Tax"> | boolean
+    organizationID?: StringNullableFilter<"Tax"> | string | null
+    name?: StringFilter<"Tax"> | string
+    description?: StringNullableFilter<"Tax"> | string | null
+    archived?: BoolFilter<"Tax"> | boolean
+    organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
+    snapshots?: TaxSnapshotListRelationFilter
+  }, "uuid" | "uuid">
+
+  export type TaxOrderByWithAggregationInput = {
+    uuid?: SortOrder
+    sysAdminControlled?: SortOrder
+    organizationID?: SortOrderInput | SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    archived?: SortOrder
+    _count?: TaxCountOrderByAggregateInput
+    _max?: TaxMaxOrderByAggregateInput
+    _min?: TaxMinOrderByAggregateInput
+  }
+
+  export type TaxScalarWhereWithAggregatesInput = {
+    AND?: TaxScalarWhereWithAggregatesInput | TaxScalarWhereWithAggregatesInput[]
+    OR?: TaxScalarWhereWithAggregatesInput[]
+    NOT?: TaxScalarWhereWithAggregatesInput | TaxScalarWhereWithAggregatesInput[]
+    uuid?: StringWithAggregatesFilter<"Tax"> | string
+    sysAdminControlled?: BoolWithAggregatesFilter<"Tax"> | boolean
+    organizationID?: StringNullableWithAggregatesFilter<"Tax"> | string | null
+    name?: StringWithAggregatesFilter<"Tax"> | string
+    description?: StringNullableWithAggregatesFilter<"Tax"> | string | null
+    archived?: BoolWithAggregatesFilter<"Tax"> | boolean
+  }
+
+  export type TaxSnapshotWhereInput = {
+    AND?: TaxSnapshotWhereInput | TaxSnapshotWhereInput[]
+    OR?: TaxSnapshotWhereInput[]
+    NOT?: TaxSnapshotWhereInput | TaxSnapshotWhereInput[]
+    uuid?: StringFilter<"TaxSnapshot"> | string
+    taxId?: StringFilter<"TaxSnapshot"> | string
+    effectiveThrough?: DateTimeFilter<"TaxSnapshot"> | Date | string
+    description?: StringNullableFilter<"TaxSnapshot"> | string | null
+    tax?: XOR<TaxScalarRelationFilter, TaxWhereInput>
+    brackets?: TaxBracketListRelationFilter
+    paystubItems?: PayStubItemListRelationFilter
+  }
+
+  export type TaxSnapshotOrderByWithRelationInput = {
+    uuid?: SortOrder
+    taxId?: SortOrder
+    effectiveThrough?: SortOrder
+    description?: SortOrderInput | SortOrder
+    tax?: TaxOrderByWithRelationInput
+    brackets?: TaxBracketOrderByRelationAggregateInput
+    paystubItems?: PayStubItemOrderByRelationAggregateInput
+  }
+
+  export type TaxSnapshotWhereUniqueInput = Prisma.AtLeast<{
+    uuid?: string
+    AND?: TaxSnapshotWhereInput | TaxSnapshotWhereInput[]
+    OR?: TaxSnapshotWhereInput[]
+    NOT?: TaxSnapshotWhereInput | TaxSnapshotWhereInput[]
+    taxId?: StringFilter<"TaxSnapshot"> | string
+    effectiveThrough?: DateTimeFilter<"TaxSnapshot"> | Date | string
+    description?: StringNullableFilter<"TaxSnapshot"> | string | null
+    tax?: XOR<TaxScalarRelationFilter, TaxWhereInput>
+    brackets?: TaxBracketListRelationFilter
+    paystubItems?: PayStubItemListRelationFilter
+  }, "uuid" | "uuid">
+
+  export type TaxSnapshotOrderByWithAggregationInput = {
+    uuid?: SortOrder
+    taxId?: SortOrder
+    effectiveThrough?: SortOrder
+    description?: SortOrderInput | SortOrder
+    _count?: TaxSnapshotCountOrderByAggregateInput
+    _max?: TaxSnapshotMaxOrderByAggregateInput
+    _min?: TaxSnapshotMinOrderByAggregateInput
+  }
+
+  export type TaxSnapshotScalarWhereWithAggregatesInput = {
+    AND?: TaxSnapshotScalarWhereWithAggregatesInput | TaxSnapshotScalarWhereWithAggregatesInput[]
+    OR?: TaxSnapshotScalarWhereWithAggregatesInput[]
+    NOT?: TaxSnapshotScalarWhereWithAggregatesInput | TaxSnapshotScalarWhereWithAggregatesInput[]
+    uuid?: StringWithAggregatesFilter<"TaxSnapshot"> | string
+    taxId?: StringWithAggregatesFilter<"TaxSnapshot"> | string
+    effectiveThrough?: DateTimeWithAggregatesFilter<"TaxSnapshot"> | Date | string
+    description?: StringNullableWithAggregatesFilter<"TaxSnapshot"> | string | null
+  }
+
+  export type TaxBracketWhereInput = {
+    AND?: TaxBracketWhereInput | TaxBracketWhereInput[]
+    OR?: TaxBracketWhereInput[]
+    NOT?: TaxBracketWhereInput | TaxBracketWhereInput[]
+    uuid?: StringFilter<"TaxBracket"> | string
+    taxSnapshotId?: StringFilter<"TaxBracket"> | string
+    min?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    hasMinBound?: BoolFilter<"TaxBracket"> | boolean
+    max?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    hasMaxBound?: BoolFilter<"TaxBracket"> | boolean
+    filingType?: EnumFilingTypesFilter<"TaxBracket"> | $Enums.FilingTypes
+    type?: EnumTaxTypeFilter<"TaxBracket"> | $Enums.TaxType
+    rate?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    ammount?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    taxSnapshot?: XOR<TaxSnapshotScalarRelationFilter, TaxSnapshotWhereInput>
+  }
+
+  export type TaxBracketOrderByWithRelationInput = {
+    uuid?: SortOrder
+    taxSnapshotId?: SortOrder
+    min?: SortOrder
+    hasMinBound?: SortOrder
+    max?: SortOrder
+    hasMaxBound?: SortOrder
+    filingType?: SortOrder
+    type?: SortOrder
+    rate?: SortOrder
+    ammount?: SortOrder
+    taxSnapshot?: TaxSnapshotOrderByWithRelationInput
+  }
+
+  export type TaxBracketWhereUniqueInput = Prisma.AtLeast<{
+    uuid?: string
+    AND?: TaxBracketWhereInput | TaxBracketWhereInput[]
+    OR?: TaxBracketWhereInput[]
+    NOT?: TaxBracketWhereInput | TaxBracketWhereInput[]
+    taxSnapshotId?: StringFilter<"TaxBracket"> | string
+    min?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    hasMinBound?: BoolFilter<"TaxBracket"> | boolean
+    max?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    hasMaxBound?: BoolFilter<"TaxBracket"> | boolean
+    filingType?: EnumFilingTypesFilter<"TaxBracket"> | $Enums.FilingTypes
+    type?: EnumTaxTypeFilter<"TaxBracket"> | $Enums.TaxType
+    rate?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    ammount?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    taxSnapshot?: XOR<TaxSnapshotScalarRelationFilter, TaxSnapshotWhereInput>
+  }, "uuid" | "uuid">
+
+  export type TaxBracketOrderByWithAggregationInput = {
+    uuid?: SortOrder
+    taxSnapshotId?: SortOrder
+    min?: SortOrder
+    hasMinBound?: SortOrder
+    max?: SortOrder
+    hasMaxBound?: SortOrder
+    filingType?: SortOrder
+    type?: SortOrder
+    rate?: SortOrder
+    ammount?: SortOrder
+    _count?: TaxBracketCountOrderByAggregateInput
+    _avg?: TaxBracketAvgOrderByAggregateInput
+    _max?: TaxBracketMaxOrderByAggregateInput
+    _min?: TaxBracketMinOrderByAggregateInput
+    _sum?: TaxBracketSumOrderByAggregateInput
+  }
+
+  export type TaxBracketScalarWhereWithAggregatesInput = {
+    AND?: TaxBracketScalarWhereWithAggregatesInput | TaxBracketScalarWhereWithAggregatesInput[]
+    OR?: TaxBracketScalarWhereWithAggregatesInput[]
+    NOT?: TaxBracketScalarWhereWithAggregatesInput | TaxBracketScalarWhereWithAggregatesInput[]
+    uuid?: StringWithAggregatesFilter<"TaxBracket"> | string
+    taxSnapshotId?: StringWithAggregatesFilter<"TaxBracket"> | string
+    min?: DecimalWithAggregatesFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    hasMinBound?: BoolWithAggregatesFilter<"TaxBracket"> | boolean
+    max?: DecimalWithAggregatesFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    hasMaxBound?: BoolWithAggregatesFilter<"TaxBracket"> | boolean
+    filingType?: EnumFilingTypesWithAggregatesFilter<"TaxBracket"> | $Enums.FilingTypes
+    type?: EnumTaxTypeWithAggregatesFilter<"TaxBracket"> | $Enums.TaxType
+    rate?: DecimalWithAggregatesFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    ammount?: DecimalWithAggregatesFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
   }
 
   export type UserWhereInput = {
@@ -17686,6 +21776,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
     memberships?: RoleCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutOrganizationInput
+    orgTaxes?: TaxCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateInput = {
@@ -17699,6 +21790,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
     memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutOrganizationInput
+    orgTaxes?: TaxUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUpdateInput = {
@@ -17712,6 +21804,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutOrganizationNestedInput
+    orgTaxes?: TaxUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateInput = {
@@ -17725,6 +21818,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutOrganizationNestedInput
+    orgTaxes?: TaxUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateManyInput = {
@@ -18048,6 +22142,7 @@ export namespace Prisma {
     payrollItem?: PayrollItemCreateNestedOneWithoutPayStubItemInput
     compensation?: EmployeeCompensationCreateNestedOneWithoutPaystubItemsInput
     hourlyRate?: HourlyRateCreateNestedOneWithoutPaystubItemsInput
+    tax?: TaxSnapshotCreateNestedOneWithoutPaystubItemsInput
   }
 
   export type PayStubItemUncheckedCreateInput = {
@@ -18056,6 +22151,7 @@ export namespace Prisma {
     payrollItemId?: string | null
     compensationId?: string | null
     hourlyRateId?: string | null
+    taxID?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -18078,6 +22174,7 @@ export namespace Prisma {
     payrollItem?: PayrollItemUpdateOneWithoutPayStubItemNestedInput
     compensation?: EmployeeCompensationUpdateOneWithoutPaystubItemsNestedInput
     hourlyRate?: HourlyRateUpdateOneWithoutPaystubItemsNestedInput
+    tax?: TaxSnapshotUpdateOneWithoutPaystubItemsNestedInput
   }
 
   export type PayStubItemUncheckedUpdateInput = {
@@ -18086,6 +22183,7 @@ export namespace Prisma {
     payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
     compensationId?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
+    taxID?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18101,6 +22199,7 @@ export namespace Prisma {
     payrollItemId?: string | null
     compensationId?: string | null
     hourlyRateId?: string | null
+    taxID?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -18127,6 +22226,7 @@ export namespace Prisma {
     payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
     compensationId?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
+    taxID?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18134,6 +22234,218 @@ export namespace Prisma {
     rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type TaxCreateInput = {
+    uuid?: string
+    sysAdminControlled?: boolean
+    name: string
+    description?: string | null
+    archived?: boolean
+    organization?: OrganizationCreateNestedOneWithoutOrgTaxesInput
+    snapshots?: TaxSnapshotCreateNestedManyWithoutTaxInput
+  }
+
+  export type TaxUncheckedCreateInput = {
+    uuid?: string
+    sysAdminControlled?: boolean
+    organizationID?: string | null
+    name: string
+    description?: string | null
+    archived?: boolean
+    snapshots?: TaxSnapshotUncheckedCreateNestedManyWithoutTaxInput
+  }
+
+  export type TaxUpdateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    archived?: BoolFieldUpdateOperationsInput | boolean
+    organization?: OrganizationUpdateOneWithoutOrgTaxesNestedInput
+    snapshots?: TaxSnapshotUpdateManyWithoutTaxNestedInput
+  }
+
+  export type TaxUncheckedUpdateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
+    organizationID?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    archived?: BoolFieldUpdateOperationsInput | boolean
+    snapshots?: TaxSnapshotUncheckedUpdateManyWithoutTaxNestedInput
+  }
+
+  export type TaxCreateManyInput = {
+    uuid?: string
+    sysAdminControlled?: boolean
+    organizationID?: string | null
+    name: string
+    description?: string | null
+    archived?: boolean
+  }
+
+  export type TaxUpdateManyMutationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    archived?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type TaxUncheckedUpdateManyInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
+    organizationID?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    archived?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type TaxSnapshotCreateInput = {
+    uuid?: string
+    effectiveThrough: Date | string
+    description?: string | null
+    tax: TaxCreateNestedOneWithoutSnapshotsInput
+    brackets?: TaxBracketCreateNestedManyWithoutTaxSnapshotInput
+    paystubItems?: PayStubItemCreateNestedManyWithoutTaxInput
+  }
+
+  export type TaxSnapshotUncheckedCreateInput = {
+    uuid?: string
+    taxId: string
+    effectiveThrough: Date | string
+    description?: string | null
+    brackets?: TaxBracketUncheckedCreateNestedManyWithoutTaxSnapshotInput
+    paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutTaxInput
+  }
+
+  export type TaxSnapshotUpdateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tax?: TaxUpdateOneRequiredWithoutSnapshotsNestedInput
+    brackets?: TaxBracketUpdateManyWithoutTaxSnapshotNestedInput
+    paystubItems?: PayStubItemUpdateManyWithoutTaxNestedInput
+  }
+
+  export type TaxSnapshotUncheckedUpdateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    taxId?: StringFieldUpdateOperationsInput | string
+    effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    brackets?: TaxBracketUncheckedUpdateManyWithoutTaxSnapshotNestedInput
+    paystubItems?: PayStubItemUncheckedUpdateManyWithoutTaxNestedInput
+  }
+
+  export type TaxSnapshotCreateManyInput = {
+    uuid?: string
+    taxId: string
+    effectiveThrough: Date | string
+    description?: string | null
+  }
+
+  export type TaxSnapshotUpdateManyMutationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TaxSnapshotUncheckedUpdateManyInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    taxId?: StringFieldUpdateOperationsInput | string
+    effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TaxBracketCreateInput = {
+    uuid?: string
+    min?: Decimal | DecimalJsLike | number | string
+    hasMinBound: boolean
+    max?: Decimal | DecimalJsLike | number | string
+    hasMaxBound: boolean
+    filingType?: $Enums.FilingTypes
+    type?: $Enums.TaxType
+    rate?: Decimal | DecimalJsLike | number | string
+    ammount?: Decimal | DecimalJsLike | number | string
+    taxSnapshot: TaxSnapshotCreateNestedOneWithoutBracketsInput
+  }
+
+  export type TaxBracketUncheckedCreateInput = {
+    uuid?: string
+    taxSnapshotId: string
+    min?: Decimal | DecimalJsLike | number | string
+    hasMinBound: boolean
+    max?: Decimal | DecimalJsLike | number | string
+    hasMaxBound: boolean
+    filingType?: $Enums.FilingTypes
+    type?: $Enums.TaxType
+    rate?: Decimal | DecimalJsLike | number | string
+    ammount?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type TaxBracketUpdateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    min?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMinBound?: BoolFieldUpdateOperationsInput | boolean
+    max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
+    filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
+    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+    rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxSnapshot?: TaxSnapshotUpdateOneRequiredWithoutBracketsNestedInput
+  }
+
+  export type TaxBracketUncheckedUpdateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    taxSnapshotId?: StringFieldUpdateOperationsInput | string
+    min?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMinBound?: BoolFieldUpdateOperationsInput | boolean
+    max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
+    filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
+    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+    rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type TaxBracketCreateManyInput = {
+    uuid?: string
+    taxSnapshotId: string
+    min?: Decimal | DecimalJsLike | number | string
+    hasMinBound: boolean
+    max?: Decimal | DecimalJsLike | number | string
+    hasMaxBound: boolean
+    filingType?: $Enums.FilingTypes
+    type?: $Enums.TaxType
+    rate?: Decimal | DecimalJsLike | number | string
+    ammount?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type TaxBracketUpdateManyMutationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    min?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMinBound?: BoolFieldUpdateOperationsInput | boolean
+    max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
+    filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
+    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+    rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type TaxBracketUncheckedUpdateManyInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    taxSnapshotId?: StringFieldUpdateOperationsInput | string
+    min?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMinBound?: BoolFieldUpdateOperationsInput | boolean
+    max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
+    filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
+    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+    rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type UserCreateInput = {
@@ -18778,6 +23090,12 @@ export namespace Prisma {
     none?: RoleWhereInput
   }
 
+  export type TaxListRelationFilter = {
+    every?: TaxWhereInput
+    some?: TaxWhereInput
+    none?: TaxWhereInput
+  }
+
   export type EmployeeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -18791,6 +23109,10 @@ export namespace Prisma {
   }
 
   export type RoleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TaxOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -19088,12 +23410,18 @@ export namespace Prisma {
     isNot?: HourlyRateWhereInput | null
   }
 
+  export type TaxSnapshotNullableScalarRelationFilter = {
+    is?: TaxSnapshotWhereInput | null
+    isNot?: TaxSnapshotWhereInput | null
+  }
+
   export type PayStubItemCountOrderByAggregateInput = {
     uuid?: SortOrder
     payStubId?: SortOrder
     payrollItemId?: SortOrder
     compensationId?: SortOrder
     hourlyRateId?: SortOrder
+    taxID?: SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrder
@@ -19116,6 +23444,7 @@ export namespace Prisma {
     payrollItemId?: SortOrder
     compensationId?: SortOrder
     hourlyRateId?: SortOrder
+    taxID?: SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrder
@@ -19131,6 +23460,7 @@ export namespace Prisma {
     payrollItemId?: SortOrder
     compensationId?: SortOrder
     hourlyRateId?: SortOrder
+    taxID?: SortOrder
     type?: SortOrder
     name?: SortOrder
     description?: SortOrder
@@ -19145,6 +23475,154 @@ export namespace Prisma {
     rate?: SortOrder
     percent?: SortOrder
     amount?: SortOrder
+  }
+
+  export type TaxSnapshotListRelationFilter = {
+    every?: TaxSnapshotWhereInput
+    some?: TaxSnapshotWhereInput
+    none?: TaxSnapshotWhereInput
+  }
+
+  export type TaxSnapshotOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TaxCountOrderByAggregateInput = {
+    uuid?: SortOrder
+    sysAdminControlled?: SortOrder
+    organizationID?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    archived?: SortOrder
+  }
+
+  export type TaxMaxOrderByAggregateInput = {
+    uuid?: SortOrder
+    sysAdminControlled?: SortOrder
+    organizationID?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    archived?: SortOrder
+  }
+
+  export type TaxMinOrderByAggregateInput = {
+    uuid?: SortOrder
+    sysAdminControlled?: SortOrder
+    organizationID?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    archived?: SortOrder
+  }
+
+  export type TaxScalarRelationFilter = {
+    is?: TaxWhereInput
+    isNot?: TaxWhereInput
+  }
+
+  export type TaxBracketListRelationFilter = {
+    every?: TaxBracketWhereInput
+    some?: TaxBracketWhereInput
+    none?: TaxBracketWhereInput
+  }
+
+  export type TaxBracketOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TaxSnapshotCountOrderByAggregateInput = {
+    uuid?: SortOrder
+    taxId?: SortOrder
+    effectiveThrough?: SortOrder
+    description?: SortOrder
+  }
+
+  export type TaxSnapshotMaxOrderByAggregateInput = {
+    uuid?: SortOrder
+    taxId?: SortOrder
+    effectiveThrough?: SortOrder
+    description?: SortOrder
+  }
+
+  export type TaxSnapshotMinOrderByAggregateInput = {
+    uuid?: SortOrder
+    taxId?: SortOrder
+    effectiveThrough?: SortOrder
+    description?: SortOrder
+  }
+
+  export type EnumTaxTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TaxType | EnumTaxTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTaxTypeFilter<$PrismaModel> | $Enums.TaxType
+  }
+
+  export type TaxSnapshotScalarRelationFilter = {
+    is?: TaxSnapshotWhereInput
+    isNot?: TaxSnapshotWhereInput
+  }
+
+  export type TaxBracketCountOrderByAggregateInput = {
+    uuid?: SortOrder
+    taxSnapshotId?: SortOrder
+    min?: SortOrder
+    hasMinBound?: SortOrder
+    max?: SortOrder
+    hasMaxBound?: SortOrder
+    filingType?: SortOrder
+    type?: SortOrder
+    rate?: SortOrder
+    ammount?: SortOrder
+  }
+
+  export type TaxBracketAvgOrderByAggregateInput = {
+    min?: SortOrder
+    max?: SortOrder
+    rate?: SortOrder
+    ammount?: SortOrder
+  }
+
+  export type TaxBracketMaxOrderByAggregateInput = {
+    uuid?: SortOrder
+    taxSnapshotId?: SortOrder
+    min?: SortOrder
+    hasMinBound?: SortOrder
+    max?: SortOrder
+    hasMaxBound?: SortOrder
+    filingType?: SortOrder
+    type?: SortOrder
+    rate?: SortOrder
+    ammount?: SortOrder
+  }
+
+  export type TaxBracketMinOrderByAggregateInput = {
+    uuid?: SortOrder
+    taxSnapshotId?: SortOrder
+    min?: SortOrder
+    hasMinBound?: SortOrder
+    max?: SortOrder
+    hasMaxBound?: SortOrder
+    filingType?: SortOrder
+    type?: SortOrder
+    rate?: SortOrder
+    ammount?: SortOrder
+  }
+
+  export type TaxBracketSumOrderByAggregateInput = {
+    min?: SortOrder
+    max?: SortOrder
+    rate?: SortOrder
+    ammount?: SortOrder
+  }
+
+  export type EnumTaxTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TaxType | EnumTaxTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTaxTypeWithAggregatesFilter<$PrismaModel> | $Enums.TaxType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTaxTypeFilter<$PrismaModel>
+    _max?: NestedEnumTaxTypeFilter<$PrismaModel>
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -19645,6 +24123,13 @@ export namespace Prisma {
     connect?: PayrollItemWhereUniqueInput | PayrollItemWhereUniqueInput[]
   }
 
+  export type TaxCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<TaxCreateWithoutOrganizationInput, TaxUncheckedCreateWithoutOrganizationInput> | TaxCreateWithoutOrganizationInput[] | TaxUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: TaxCreateOrConnectWithoutOrganizationInput | TaxCreateOrConnectWithoutOrganizationInput[]
+    createMany?: TaxCreateManyOrganizationInputEnvelope
+    connect?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+  }
+
   export type EmployeeUncheckedCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<EmployeeCreateWithoutOrganizationInput, EmployeeUncheckedCreateWithoutOrganizationInput> | EmployeeCreateWithoutOrganizationInput[] | EmployeeUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: EmployeeCreateOrConnectWithoutOrganizationInput | EmployeeCreateOrConnectWithoutOrganizationInput[]
@@ -19678,6 +24163,13 @@ export namespace Prisma {
     connectOrCreate?: PayrollItemCreateOrConnectWithoutOrganizationInput | PayrollItemCreateOrConnectWithoutOrganizationInput[]
     createMany?: PayrollItemCreateManyOrganizationInputEnvelope
     connect?: PayrollItemWhereUniqueInput | PayrollItemWhereUniqueInput[]
+  }
+
+  export type TaxUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<TaxCreateWithoutOrganizationInput, TaxUncheckedCreateWithoutOrganizationInput> | TaxCreateWithoutOrganizationInput[] | TaxUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: TaxCreateOrConnectWithoutOrganizationInput | TaxCreateOrConnectWithoutOrganizationInput[]
+    createMany?: TaxCreateManyOrganizationInputEnvelope
+    connect?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
   }
 
   export type EmployeeUpdateManyWithoutOrganizationNestedInput = {
@@ -19750,6 +24242,20 @@ export namespace Prisma {
     deleteMany?: PayrollItemScalarWhereInput | PayrollItemScalarWhereInput[]
   }
 
+  export type TaxUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<TaxCreateWithoutOrganizationInput, TaxUncheckedCreateWithoutOrganizationInput> | TaxCreateWithoutOrganizationInput[] | TaxUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: TaxCreateOrConnectWithoutOrganizationInput | TaxCreateOrConnectWithoutOrganizationInput[]
+    upsert?: TaxUpsertWithWhereUniqueWithoutOrganizationInput | TaxUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: TaxCreateManyOrganizationInputEnvelope
+    set?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    disconnect?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    delete?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    connect?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    update?: TaxUpdateWithWhereUniqueWithoutOrganizationInput | TaxUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: TaxUpdateManyWithWhereWithoutOrganizationInput | TaxUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: TaxScalarWhereInput | TaxScalarWhereInput[]
+  }
+
   export type EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput = {
     create?: XOR<EmployeeCreateWithoutOrganizationInput, EmployeeUncheckedCreateWithoutOrganizationInput> | EmployeeCreateWithoutOrganizationInput[] | EmployeeUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: EmployeeCreateOrConnectWithoutOrganizationInput | EmployeeCreateOrConnectWithoutOrganizationInput[]
@@ -19818,6 +24324,20 @@ export namespace Prisma {
     update?: PayrollItemUpdateWithWhereUniqueWithoutOrganizationInput | PayrollItemUpdateWithWhereUniqueWithoutOrganizationInput[]
     updateMany?: PayrollItemUpdateManyWithWhereWithoutOrganizationInput | PayrollItemUpdateManyWithWhereWithoutOrganizationInput[]
     deleteMany?: PayrollItemScalarWhereInput | PayrollItemScalarWhereInput[]
+  }
+
+  export type TaxUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<TaxCreateWithoutOrganizationInput, TaxUncheckedCreateWithoutOrganizationInput> | TaxCreateWithoutOrganizationInput[] | TaxUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: TaxCreateOrConnectWithoutOrganizationInput | TaxCreateOrConnectWithoutOrganizationInput[]
+    upsert?: TaxUpsertWithWhereUniqueWithoutOrganizationInput | TaxUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: TaxCreateManyOrganizationInputEnvelope
+    set?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    disconnect?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    delete?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    connect?: TaxWhereUniqueInput | TaxWhereUniqueInput[]
+    update?: TaxUpdateWithWhereUniqueWithoutOrganizationInput | TaxUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: TaxUpdateManyWithWhereWithoutOrganizationInput | TaxUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: TaxScalarWhereInput | TaxScalarWhereInput[]
   }
 
   export type OrganizationCreateNestedOneWithoutPayrollGroupsInput = {
@@ -20104,6 +24624,12 @@ export namespace Prisma {
     connect?: HourlyRateWhereUniqueInput
   }
 
+  export type TaxSnapshotCreateNestedOneWithoutPaystubItemsInput = {
+    create?: XOR<TaxSnapshotCreateWithoutPaystubItemsInput, TaxSnapshotUncheckedCreateWithoutPaystubItemsInput>
+    connectOrCreate?: TaxSnapshotCreateOrConnectWithoutPaystubItemsInput
+    connect?: TaxSnapshotWhereUniqueInput
+  }
+
   export type PayStubUpdateOneRequiredWithoutItemsNestedInput = {
     create?: XOR<PayStubCreateWithoutItemsInput, PayStubUncheckedCreateWithoutItemsInput>
     connectOrCreate?: PayStubCreateOrConnectWithoutItemsInput
@@ -20140,6 +24666,190 @@ export namespace Prisma {
     delete?: HourlyRateWhereInput | boolean
     connect?: HourlyRateWhereUniqueInput
     update?: XOR<XOR<HourlyRateUpdateToOneWithWhereWithoutPaystubItemsInput, HourlyRateUpdateWithoutPaystubItemsInput>, HourlyRateUncheckedUpdateWithoutPaystubItemsInput>
+  }
+
+  export type TaxSnapshotUpdateOneWithoutPaystubItemsNestedInput = {
+    create?: XOR<TaxSnapshotCreateWithoutPaystubItemsInput, TaxSnapshotUncheckedCreateWithoutPaystubItemsInput>
+    connectOrCreate?: TaxSnapshotCreateOrConnectWithoutPaystubItemsInput
+    upsert?: TaxSnapshotUpsertWithoutPaystubItemsInput
+    disconnect?: TaxSnapshotWhereInput | boolean
+    delete?: TaxSnapshotWhereInput | boolean
+    connect?: TaxSnapshotWhereUniqueInput
+    update?: XOR<XOR<TaxSnapshotUpdateToOneWithWhereWithoutPaystubItemsInput, TaxSnapshotUpdateWithoutPaystubItemsInput>, TaxSnapshotUncheckedUpdateWithoutPaystubItemsInput>
+  }
+
+  export type OrganizationCreateNestedOneWithoutOrgTaxesInput = {
+    create?: XOR<OrganizationCreateWithoutOrgTaxesInput, OrganizationUncheckedCreateWithoutOrgTaxesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutOrgTaxesInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type TaxSnapshotCreateNestedManyWithoutTaxInput = {
+    create?: XOR<TaxSnapshotCreateWithoutTaxInput, TaxSnapshotUncheckedCreateWithoutTaxInput> | TaxSnapshotCreateWithoutTaxInput[] | TaxSnapshotUncheckedCreateWithoutTaxInput[]
+    connectOrCreate?: TaxSnapshotCreateOrConnectWithoutTaxInput | TaxSnapshotCreateOrConnectWithoutTaxInput[]
+    createMany?: TaxSnapshotCreateManyTaxInputEnvelope
+    connect?: TaxSnapshotWhereUniqueInput | TaxSnapshotWhereUniqueInput[]
+  }
+
+  export type TaxSnapshotUncheckedCreateNestedManyWithoutTaxInput = {
+    create?: XOR<TaxSnapshotCreateWithoutTaxInput, TaxSnapshotUncheckedCreateWithoutTaxInput> | TaxSnapshotCreateWithoutTaxInput[] | TaxSnapshotUncheckedCreateWithoutTaxInput[]
+    connectOrCreate?: TaxSnapshotCreateOrConnectWithoutTaxInput | TaxSnapshotCreateOrConnectWithoutTaxInput[]
+    createMany?: TaxSnapshotCreateManyTaxInputEnvelope
+    connect?: TaxSnapshotWhereUniqueInput | TaxSnapshotWhereUniqueInput[]
+  }
+
+  export type OrganizationUpdateOneWithoutOrgTaxesNestedInput = {
+    create?: XOR<OrganizationCreateWithoutOrgTaxesInput, OrganizationUncheckedCreateWithoutOrgTaxesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutOrgTaxesInput
+    upsert?: OrganizationUpsertWithoutOrgTaxesInput
+    disconnect?: OrganizationWhereInput | boolean
+    delete?: OrganizationWhereInput | boolean
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutOrgTaxesInput, OrganizationUpdateWithoutOrgTaxesInput>, OrganizationUncheckedUpdateWithoutOrgTaxesInput>
+  }
+
+  export type TaxSnapshotUpdateManyWithoutTaxNestedInput = {
+    create?: XOR<TaxSnapshotCreateWithoutTaxInput, TaxSnapshotUncheckedCreateWithoutTaxInput> | TaxSnapshotCreateWithoutTaxInput[] | TaxSnapshotUncheckedCreateWithoutTaxInput[]
+    connectOrCreate?: TaxSnapshotCreateOrConnectWithoutTaxInput | TaxSnapshotCreateOrConnectWithoutTaxInput[]
+    upsert?: TaxSnapshotUpsertWithWhereUniqueWithoutTaxInput | TaxSnapshotUpsertWithWhereUniqueWithoutTaxInput[]
+    createMany?: TaxSnapshotCreateManyTaxInputEnvelope
+    set?: TaxSnapshotWhereUniqueInput | TaxSnapshotWhereUniqueInput[]
+    disconnect?: TaxSnapshotWhereUniqueInput | TaxSnapshotWhereUniqueInput[]
+    delete?: TaxSnapshotWhereUniqueInput | TaxSnapshotWhereUniqueInput[]
+    connect?: TaxSnapshotWhereUniqueInput | TaxSnapshotWhereUniqueInput[]
+    update?: TaxSnapshotUpdateWithWhereUniqueWithoutTaxInput | TaxSnapshotUpdateWithWhereUniqueWithoutTaxInput[]
+    updateMany?: TaxSnapshotUpdateManyWithWhereWithoutTaxInput | TaxSnapshotUpdateManyWithWhereWithoutTaxInput[]
+    deleteMany?: TaxSnapshotScalarWhereInput | TaxSnapshotScalarWhereInput[]
+  }
+
+  export type TaxSnapshotUncheckedUpdateManyWithoutTaxNestedInput = {
+    create?: XOR<TaxSnapshotCreateWithoutTaxInput, TaxSnapshotUncheckedCreateWithoutTaxInput> | TaxSnapshotCreateWithoutTaxInput[] | TaxSnapshotUncheckedCreateWithoutTaxInput[]
+    connectOrCreate?: TaxSnapshotCreateOrConnectWithoutTaxInput | TaxSnapshotCreateOrConnectWithoutTaxInput[]
+    upsert?: TaxSnapshotUpsertWithWhereUniqueWithoutTaxInput | TaxSnapshotUpsertWithWhereUniqueWithoutTaxInput[]
+    createMany?: TaxSnapshotCreateManyTaxInputEnvelope
+    set?: TaxSnapshotWhereUniqueInput | TaxSnapshotWhereUniqueInput[]
+    disconnect?: TaxSnapshotWhereUniqueInput | TaxSnapshotWhereUniqueInput[]
+    delete?: TaxSnapshotWhereUniqueInput | TaxSnapshotWhereUniqueInput[]
+    connect?: TaxSnapshotWhereUniqueInput | TaxSnapshotWhereUniqueInput[]
+    update?: TaxSnapshotUpdateWithWhereUniqueWithoutTaxInput | TaxSnapshotUpdateWithWhereUniqueWithoutTaxInput[]
+    updateMany?: TaxSnapshotUpdateManyWithWhereWithoutTaxInput | TaxSnapshotUpdateManyWithWhereWithoutTaxInput[]
+    deleteMany?: TaxSnapshotScalarWhereInput | TaxSnapshotScalarWhereInput[]
+  }
+
+  export type TaxCreateNestedOneWithoutSnapshotsInput = {
+    create?: XOR<TaxCreateWithoutSnapshotsInput, TaxUncheckedCreateWithoutSnapshotsInput>
+    connectOrCreate?: TaxCreateOrConnectWithoutSnapshotsInput
+    connect?: TaxWhereUniqueInput
+  }
+
+  export type TaxBracketCreateNestedManyWithoutTaxSnapshotInput = {
+    create?: XOR<TaxBracketCreateWithoutTaxSnapshotInput, TaxBracketUncheckedCreateWithoutTaxSnapshotInput> | TaxBracketCreateWithoutTaxSnapshotInput[] | TaxBracketUncheckedCreateWithoutTaxSnapshotInput[]
+    connectOrCreate?: TaxBracketCreateOrConnectWithoutTaxSnapshotInput | TaxBracketCreateOrConnectWithoutTaxSnapshotInput[]
+    createMany?: TaxBracketCreateManyTaxSnapshotInputEnvelope
+    connect?: TaxBracketWhereUniqueInput | TaxBracketWhereUniqueInput[]
+  }
+
+  export type PayStubItemCreateNestedManyWithoutTaxInput = {
+    create?: XOR<PayStubItemCreateWithoutTaxInput, PayStubItemUncheckedCreateWithoutTaxInput> | PayStubItemCreateWithoutTaxInput[] | PayStubItemUncheckedCreateWithoutTaxInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutTaxInput | PayStubItemCreateOrConnectWithoutTaxInput[]
+    createMany?: PayStubItemCreateManyTaxInputEnvelope
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+  }
+
+  export type TaxBracketUncheckedCreateNestedManyWithoutTaxSnapshotInput = {
+    create?: XOR<TaxBracketCreateWithoutTaxSnapshotInput, TaxBracketUncheckedCreateWithoutTaxSnapshotInput> | TaxBracketCreateWithoutTaxSnapshotInput[] | TaxBracketUncheckedCreateWithoutTaxSnapshotInput[]
+    connectOrCreate?: TaxBracketCreateOrConnectWithoutTaxSnapshotInput | TaxBracketCreateOrConnectWithoutTaxSnapshotInput[]
+    createMany?: TaxBracketCreateManyTaxSnapshotInputEnvelope
+    connect?: TaxBracketWhereUniqueInput | TaxBracketWhereUniqueInput[]
+  }
+
+  export type PayStubItemUncheckedCreateNestedManyWithoutTaxInput = {
+    create?: XOR<PayStubItemCreateWithoutTaxInput, PayStubItemUncheckedCreateWithoutTaxInput> | PayStubItemCreateWithoutTaxInput[] | PayStubItemUncheckedCreateWithoutTaxInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutTaxInput | PayStubItemCreateOrConnectWithoutTaxInput[]
+    createMany?: PayStubItemCreateManyTaxInputEnvelope
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+  }
+
+  export type TaxUpdateOneRequiredWithoutSnapshotsNestedInput = {
+    create?: XOR<TaxCreateWithoutSnapshotsInput, TaxUncheckedCreateWithoutSnapshotsInput>
+    connectOrCreate?: TaxCreateOrConnectWithoutSnapshotsInput
+    upsert?: TaxUpsertWithoutSnapshotsInput
+    connect?: TaxWhereUniqueInput
+    update?: XOR<XOR<TaxUpdateToOneWithWhereWithoutSnapshotsInput, TaxUpdateWithoutSnapshotsInput>, TaxUncheckedUpdateWithoutSnapshotsInput>
+  }
+
+  export type TaxBracketUpdateManyWithoutTaxSnapshotNestedInput = {
+    create?: XOR<TaxBracketCreateWithoutTaxSnapshotInput, TaxBracketUncheckedCreateWithoutTaxSnapshotInput> | TaxBracketCreateWithoutTaxSnapshotInput[] | TaxBracketUncheckedCreateWithoutTaxSnapshotInput[]
+    connectOrCreate?: TaxBracketCreateOrConnectWithoutTaxSnapshotInput | TaxBracketCreateOrConnectWithoutTaxSnapshotInput[]
+    upsert?: TaxBracketUpsertWithWhereUniqueWithoutTaxSnapshotInput | TaxBracketUpsertWithWhereUniqueWithoutTaxSnapshotInput[]
+    createMany?: TaxBracketCreateManyTaxSnapshotInputEnvelope
+    set?: TaxBracketWhereUniqueInput | TaxBracketWhereUniqueInput[]
+    disconnect?: TaxBracketWhereUniqueInput | TaxBracketWhereUniqueInput[]
+    delete?: TaxBracketWhereUniqueInput | TaxBracketWhereUniqueInput[]
+    connect?: TaxBracketWhereUniqueInput | TaxBracketWhereUniqueInput[]
+    update?: TaxBracketUpdateWithWhereUniqueWithoutTaxSnapshotInput | TaxBracketUpdateWithWhereUniqueWithoutTaxSnapshotInput[]
+    updateMany?: TaxBracketUpdateManyWithWhereWithoutTaxSnapshotInput | TaxBracketUpdateManyWithWhereWithoutTaxSnapshotInput[]
+    deleteMany?: TaxBracketScalarWhereInput | TaxBracketScalarWhereInput[]
+  }
+
+  export type PayStubItemUpdateManyWithoutTaxNestedInput = {
+    create?: XOR<PayStubItemCreateWithoutTaxInput, PayStubItemUncheckedCreateWithoutTaxInput> | PayStubItemCreateWithoutTaxInput[] | PayStubItemUncheckedCreateWithoutTaxInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutTaxInput | PayStubItemCreateOrConnectWithoutTaxInput[]
+    upsert?: PayStubItemUpsertWithWhereUniqueWithoutTaxInput | PayStubItemUpsertWithWhereUniqueWithoutTaxInput[]
+    createMany?: PayStubItemCreateManyTaxInputEnvelope
+    set?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    disconnect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    delete?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    update?: PayStubItemUpdateWithWhereUniqueWithoutTaxInput | PayStubItemUpdateWithWhereUniqueWithoutTaxInput[]
+    updateMany?: PayStubItemUpdateManyWithWhereWithoutTaxInput | PayStubItemUpdateManyWithWhereWithoutTaxInput[]
+    deleteMany?: PayStubItemScalarWhereInput | PayStubItemScalarWhereInput[]
+  }
+
+  export type TaxBracketUncheckedUpdateManyWithoutTaxSnapshotNestedInput = {
+    create?: XOR<TaxBracketCreateWithoutTaxSnapshotInput, TaxBracketUncheckedCreateWithoutTaxSnapshotInput> | TaxBracketCreateWithoutTaxSnapshotInput[] | TaxBracketUncheckedCreateWithoutTaxSnapshotInput[]
+    connectOrCreate?: TaxBracketCreateOrConnectWithoutTaxSnapshotInput | TaxBracketCreateOrConnectWithoutTaxSnapshotInput[]
+    upsert?: TaxBracketUpsertWithWhereUniqueWithoutTaxSnapshotInput | TaxBracketUpsertWithWhereUniqueWithoutTaxSnapshotInput[]
+    createMany?: TaxBracketCreateManyTaxSnapshotInputEnvelope
+    set?: TaxBracketWhereUniqueInput | TaxBracketWhereUniqueInput[]
+    disconnect?: TaxBracketWhereUniqueInput | TaxBracketWhereUniqueInput[]
+    delete?: TaxBracketWhereUniqueInput | TaxBracketWhereUniqueInput[]
+    connect?: TaxBracketWhereUniqueInput | TaxBracketWhereUniqueInput[]
+    update?: TaxBracketUpdateWithWhereUniqueWithoutTaxSnapshotInput | TaxBracketUpdateWithWhereUniqueWithoutTaxSnapshotInput[]
+    updateMany?: TaxBracketUpdateManyWithWhereWithoutTaxSnapshotInput | TaxBracketUpdateManyWithWhereWithoutTaxSnapshotInput[]
+    deleteMany?: TaxBracketScalarWhereInput | TaxBracketScalarWhereInput[]
+  }
+
+  export type PayStubItemUncheckedUpdateManyWithoutTaxNestedInput = {
+    create?: XOR<PayStubItemCreateWithoutTaxInput, PayStubItemUncheckedCreateWithoutTaxInput> | PayStubItemCreateWithoutTaxInput[] | PayStubItemUncheckedCreateWithoutTaxInput[]
+    connectOrCreate?: PayStubItemCreateOrConnectWithoutTaxInput | PayStubItemCreateOrConnectWithoutTaxInput[]
+    upsert?: PayStubItemUpsertWithWhereUniqueWithoutTaxInput | PayStubItemUpsertWithWhereUniqueWithoutTaxInput[]
+    createMany?: PayStubItemCreateManyTaxInputEnvelope
+    set?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    disconnect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    delete?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
+    update?: PayStubItemUpdateWithWhereUniqueWithoutTaxInput | PayStubItemUpdateWithWhereUniqueWithoutTaxInput[]
+    updateMany?: PayStubItemUpdateManyWithWhereWithoutTaxInput | PayStubItemUpdateManyWithWhereWithoutTaxInput[]
+    deleteMany?: PayStubItemScalarWhereInput | PayStubItemScalarWhereInput[]
+  }
+
+  export type TaxSnapshotCreateNestedOneWithoutBracketsInput = {
+    create?: XOR<TaxSnapshotCreateWithoutBracketsInput, TaxSnapshotUncheckedCreateWithoutBracketsInput>
+    connectOrCreate?: TaxSnapshotCreateOrConnectWithoutBracketsInput
+    connect?: TaxSnapshotWhereUniqueInput
+  }
+
+  export type EnumTaxTypeFieldUpdateOperationsInput = {
+    set?: $Enums.TaxType
+  }
+
+  export type TaxSnapshotUpdateOneRequiredWithoutBracketsNestedInput = {
+    create?: XOR<TaxSnapshotCreateWithoutBracketsInput, TaxSnapshotUncheckedCreateWithoutBracketsInput>
+    connectOrCreate?: TaxSnapshotCreateOrConnectWithoutBracketsInput
+    upsert?: TaxSnapshotUpsertWithoutBracketsInput
+    connect?: TaxSnapshotWhereUniqueInput
+    update?: XOR<XOR<TaxSnapshotUpdateToOneWithWhereWithoutBracketsInput, TaxSnapshotUpdateWithoutBracketsInput>, TaxSnapshotUncheckedUpdateWithoutBracketsInput>
   }
 
   export type RoleCreateNestedManyWithoutUserInput = {
@@ -20522,6 +25232,23 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumTaxTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TaxType | EnumTaxTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTaxTypeFilter<$PrismaModel> | $Enums.TaxType
+  }
+
+  export type NestedEnumTaxTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TaxType | EnumTaxTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTaxTypeWithAggregatesFilter<$PrismaModel> | $Enums.TaxType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTaxTypeFilter<$PrismaModel>
+    _max?: NestedEnumTaxTypeFilter<$PrismaModel>
+  }
+
   export type OrganizationCreateWithoutEmployeesInput = {
     uuid?: string
     name: string
@@ -20532,6 +25259,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
     memberships?: RoleCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutOrganizationInput
+    orgTaxes?: TaxCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutEmployeesInput = {
@@ -20544,6 +25272,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
     memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutOrganizationInput
+    orgTaxes?: TaxUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutEmployeesInput = {
@@ -20680,6 +25409,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutOrganizationNestedInput
+    orgTaxes?: TaxUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutEmployeesInput = {
@@ -20692,6 +25422,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutOrganizationNestedInput
+    orgTaxes?: TaxUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type EmployeeCompensationUpsertWithWhereUniqueWithoutEmployeeInput = {
@@ -20897,6 +25628,7 @@ export namespace Prisma {
     payStub: PayStubCreateNestedOneWithoutItemsInput
     payrollItem?: PayrollItemCreateNestedOneWithoutPayStubItemInput
     hourlyRate?: HourlyRateCreateNestedOneWithoutPaystubItemsInput
+    tax?: TaxSnapshotCreateNestedOneWithoutPaystubItemsInput
   }
 
   export type PayStubItemUncheckedCreateWithoutCompensationInput = {
@@ -20904,6 +25636,7 @@ export namespace Prisma {
     payStubId: string
     payrollItemId?: string | null
     hourlyRateId?: string | null
+    taxID?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -21057,6 +25790,7 @@ export namespace Prisma {
     payrollItemId?: StringNullableFilter<"PayStubItem"> | string | null
     compensationId?: StringNullableFilter<"PayStubItem"> | string | null
     hourlyRateId?: StringNullableFilter<"PayStubItem"> | string | null
+    taxID?: StringNullableFilter<"PayStubItem"> | string | null
     type?: EnumPayStubItemTypeFilter<"PayStubItem"> | $Enums.PayStubItemType
     name?: StringFilter<"PayStubItem"> | string
     description?: StringNullableFilter<"PayStubItem"> | string | null
@@ -21103,6 +25837,7 @@ export namespace Prisma {
     payStub: PayStubCreateNestedOneWithoutItemsInput
     payrollItem?: PayrollItemCreateNestedOneWithoutPayStubItemInput
     compensation?: EmployeeCompensationCreateNestedOneWithoutPaystubItemsInput
+    tax?: TaxSnapshotCreateNestedOneWithoutPaystubItemsInput
   }
 
   export type PayStubItemUncheckedCreateWithoutHourlyRateInput = {
@@ -21110,6 +25845,7 @@ export namespace Prisma {
     payStubId: string
     payrollItemId?: string | null
     compensationId?: string | null
+    taxID?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -21340,6 +26076,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TaxCreateWithoutOrganizationInput = {
+    uuid?: string
+    sysAdminControlled?: boolean
+    name: string
+    description?: string | null
+    archived?: boolean
+    snapshots?: TaxSnapshotCreateNestedManyWithoutTaxInput
+  }
+
+  export type TaxUncheckedCreateWithoutOrganizationInput = {
+    uuid?: string
+    sysAdminControlled?: boolean
+    name: string
+    description?: string | null
+    archived?: boolean
+    snapshots?: TaxSnapshotUncheckedCreateNestedManyWithoutTaxInput
+  }
+
+  export type TaxCreateOrConnectWithoutOrganizationInput = {
+    where: TaxWhereUniqueInput
+    create: XOR<TaxCreateWithoutOrganizationInput, TaxUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type TaxCreateManyOrganizationInputEnvelope = {
+    data: TaxCreateManyOrganizationInput | TaxCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
   export type EmployeeUpsertWithWhereUniqueWithoutOrganizationInput = {
     where: EmployeeWhereUniqueInput
     update: XOR<EmployeeUpdateWithoutOrganizationInput, EmployeeUncheckedUpdateWithoutOrganizationInput>
@@ -21474,6 +26238,34 @@ export namespace Prisma {
     data: XOR<PayrollItemUpdateManyMutationInput, PayrollItemUncheckedUpdateManyWithoutOrganizationInput>
   }
 
+  export type TaxUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: TaxWhereUniqueInput
+    update: XOR<TaxUpdateWithoutOrganizationInput, TaxUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<TaxCreateWithoutOrganizationInput, TaxUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type TaxUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: TaxWhereUniqueInput
+    data: XOR<TaxUpdateWithoutOrganizationInput, TaxUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type TaxUpdateManyWithWhereWithoutOrganizationInput = {
+    where: TaxScalarWhereInput
+    data: XOR<TaxUpdateManyMutationInput, TaxUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type TaxScalarWhereInput = {
+    AND?: TaxScalarWhereInput | TaxScalarWhereInput[]
+    OR?: TaxScalarWhereInput[]
+    NOT?: TaxScalarWhereInput | TaxScalarWhereInput[]
+    uuid?: StringFilter<"Tax"> | string
+    sysAdminControlled?: BoolFilter<"Tax"> | boolean
+    organizationID?: StringNullableFilter<"Tax"> | string | null
+    name?: StringFilter<"Tax"> | string
+    description?: StringNullableFilter<"Tax"> | string | null
+    archived?: BoolFilter<"Tax"> | boolean
+  }
+
   export type OrganizationCreateWithoutPayrollGroupsInput = {
     uuid?: string
     name: string
@@ -21484,6 +26276,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
     memberships?: RoleCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutOrganizationInput
+    orgTaxes?: TaxCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutPayrollGroupsInput = {
@@ -21496,6 +26289,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
     memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutOrganizationInput
+    orgTaxes?: TaxUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutPayrollGroupsInput = {
@@ -21592,6 +26386,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutOrganizationNestedInput
+    orgTaxes?: TaxUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutPayrollGroupsInput = {
@@ -21604,6 +26399,7 @@ export namespace Prisma {
     inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutOrganizationNestedInput
+    orgTaxes?: TaxUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type EmployeeCompensationUpsertWithWhereUniqueWithoutPayrollGroupInput = {
@@ -21648,6 +26444,7 @@ export namespace Prisma {
     payrollGroups?: PayrollGroupCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
     memberships?: RoleCreateNestedManyWithoutOrganizationInput
+    orgTaxes?: TaxCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutDefaultPayrollItemsInput = {
@@ -21660,6 +26457,7 @@ export namespace Prisma {
     payrollGroups?: PayrollGroupUncheckedCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
     memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
+    orgTaxes?: TaxUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutDefaultPayrollItemsInput = {
@@ -21749,6 +26547,7 @@ export namespace Prisma {
     payStub: PayStubCreateNestedOneWithoutItemsInput
     compensation?: EmployeeCompensationCreateNestedOneWithoutPaystubItemsInput
     hourlyRate?: HourlyRateCreateNestedOneWithoutPaystubItemsInput
+    tax?: TaxSnapshotCreateNestedOneWithoutPaystubItemsInput
   }
 
   export type PayStubItemUncheckedCreateWithoutPayrollItemInput = {
@@ -21756,6 +26555,7 @@ export namespace Prisma {
     payStubId: string
     compensationId?: string | null
     hourlyRateId?: string | null
+    taxID?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -21796,6 +26596,7 @@ export namespace Prisma {
     payrollGroups?: PayrollGroupUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUpdateManyWithoutOrganizationNestedInput
+    orgTaxes?: TaxUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutDefaultPayrollItemsInput = {
@@ -21808,6 +26609,7 @@ export namespace Prisma {
     payrollGroups?: PayrollGroupUncheckedUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
+    orgTaxes?: TaxUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type PayrollGroupUpsertWithoutDefaultPayrollItemsInput = {
@@ -21963,6 +26765,7 @@ export namespace Prisma {
     payrollItem?: PayrollItemCreateNestedOneWithoutPayStubItemInput
     compensation?: EmployeeCompensationCreateNestedOneWithoutPaystubItemsInput
     hourlyRate?: HourlyRateCreateNestedOneWithoutPaystubItemsInput
+    tax?: TaxSnapshotCreateNestedOneWithoutPaystubItemsInput
   }
 
   export type PayStubItemUncheckedCreateWithoutPayStubInput = {
@@ -21970,6 +26773,7 @@ export namespace Prisma {
     payrollItemId?: string | null
     compensationId?: string | null
     hourlyRateId?: string | null
+    taxID?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -22168,6 +26972,27 @@ export namespace Prisma {
     create: XOR<HourlyRateCreateWithoutPaystubItemsInput, HourlyRateUncheckedCreateWithoutPaystubItemsInput>
   }
 
+  export type TaxSnapshotCreateWithoutPaystubItemsInput = {
+    uuid?: string
+    effectiveThrough: Date | string
+    description?: string | null
+    tax: TaxCreateNestedOneWithoutSnapshotsInput
+    brackets?: TaxBracketCreateNestedManyWithoutTaxSnapshotInput
+  }
+
+  export type TaxSnapshotUncheckedCreateWithoutPaystubItemsInput = {
+    uuid?: string
+    taxId: string
+    effectiveThrough: Date | string
+    description?: string | null
+    brackets?: TaxBracketUncheckedCreateNestedManyWithoutTaxSnapshotInput
+  }
+
+  export type TaxSnapshotCreateOrConnectWithoutPaystubItemsInput = {
+    where: TaxSnapshotWhereUniqueInput
+    create: XOR<TaxSnapshotCreateWithoutPaystubItemsInput, TaxSnapshotUncheckedCreateWithoutPaystubItemsInput>
+  }
+
   export type PayStubUpsertWithoutItemsInput = {
     update: XOR<PayStubUpdateWithoutItemsInput, PayStubUncheckedUpdateWithoutItemsInput>
     create: XOR<PayStubCreateWithoutItemsInput, PayStubUncheckedCreateWithoutItemsInput>
@@ -22306,6 +27131,375 @@ export namespace Prisma {
     compensationId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type TaxSnapshotUpsertWithoutPaystubItemsInput = {
+    update: XOR<TaxSnapshotUpdateWithoutPaystubItemsInput, TaxSnapshotUncheckedUpdateWithoutPaystubItemsInput>
+    create: XOR<TaxSnapshotCreateWithoutPaystubItemsInput, TaxSnapshotUncheckedCreateWithoutPaystubItemsInput>
+    where?: TaxSnapshotWhereInput
+  }
+
+  export type TaxSnapshotUpdateToOneWithWhereWithoutPaystubItemsInput = {
+    where?: TaxSnapshotWhereInput
+    data: XOR<TaxSnapshotUpdateWithoutPaystubItemsInput, TaxSnapshotUncheckedUpdateWithoutPaystubItemsInput>
+  }
+
+  export type TaxSnapshotUpdateWithoutPaystubItemsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tax?: TaxUpdateOneRequiredWithoutSnapshotsNestedInput
+    brackets?: TaxBracketUpdateManyWithoutTaxSnapshotNestedInput
+  }
+
+  export type TaxSnapshotUncheckedUpdateWithoutPaystubItemsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    taxId?: StringFieldUpdateOperationsInput | string
+    effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    brackets?: TaxBracketUncheckedUpdateManyWithoutTaxSnapshotNestedInput
+  }
+
+  export type OrganizationCreateWithoutOrgTaxesInput = {
+    uuid?: string
+    name: string
+    notes?: string
+    address?: string
+    isDeleted?: boolean
+    employees?: EmployeeCreateNestedManyWithoutOrganizationInput
+    payrollGroups?: PayrollGroupCreateNestedManyWithoutOrganizationInput
+    inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
+    memberships?: RoleCreateNestedManyWithoutOrganizationInput
+    defaultPayrollItems?: PayrollItemCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutOrgTaxesInput = {
+    uuid?: string
+    name: string
+    notes?: string
+    address?: string
+    isDeleted?: boolean
+    employees?: EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
+    payrollGroups?: PayrollGroupUncheckedCreateNestedManyWithoutOrganizationInput
+    inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
+    memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
+    defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutOrgTaxesInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutOrgTaxesInput, OrganizationUncheckedCreateWithoutOrgTaxesInput>
+  }
+
+  export type TaxSnapshotCreateWithoutTaxInput = {
+    uuid?: string
+    effectiveThrough: Date | string
+    description?: string | null
+    brackets?: TaxBracketCreateNestedManyWithoutTaxSnapshotInput
+    paystubItems?: PayStubItemCreateNestedManyWithoutTaxInput
+  }
+
+  export type TaxSnapshotUncheckedCreateWithoutTaxInput = {
+    uuid?: string
+    effectiveThrough: Date | string
+    description?: string | null
+    brackets?: TaxBracketUncheckedCreateNestedManyWithoutTaxSnapshotInput
+    paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutTaxInput
+  }
+
+  export type TaxSnapshotCreateOrConnectWithoutTaxInput = {
+    where: TaxSnapshotWhereUniqueInput
+    create: XOR<TaxSnapshotCreateWithoutTaxInput, TaxSnapshotUncheckedCreateWithoutTaxInput>
+  }
+
+  export type TaxSnapshotCreateManyTaxInputEnvelope = {
+    data: TaxSnapshotCreateManyTaxInput | TaxSnapshotCreateManyTaxInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrganizationUpsertWithoutOrgTaxesInput = {
+    update: XOR<OrganizationUpdateWithoutOrgTaxesInput, OrganizationUncheckedUpdateWithoutOrgTaxesInput>
+    create: XOR<OrganizationCreateWithoutOrgTaxesInput, OrganizationUncheckedCreateWithoutOrgTaxesInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutOrgTaxesInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutOrgTaxesInput, OrganizationUncheckedUpdateWithoutOrgTaxesInput>
+  }
+
+  export type OrganizationUpdateWithoutOrgTaxesInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    notes?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    employees?: EmployeeUpdateManyWithoutOrganizationNestedInput
+    payrollGroups?: PayrollGroupUpdateManyWithoutOrganizationNestedInput
+    inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
+    memberships?: RoleUpdateManyWithoutOrganizationNestedInput
+    defaultPayrollItems?: PayrollItemUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutOrgTaxesInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    notes?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    employees?: EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
+    payrollGroups?: PayrollGroupUncheckedUpdateManyWithoutOrganizationNestedInput
+    inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
+    memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
+    defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type TaxSnapshotUpsertWithWhereUniqueWithoutTaxInput = {
+    where: TaxSnapshotWhereUniqueInput
+    update: XOR<TaxSnapshotUpdateWithoutTaxInput, TaxSnapshotUncheckedUpdateWithoutTaxInput>
+    create: XOR<TaxSnapshotCreateWithoutTaxInput, TaxSnapshotUncheckedCreateWithoutTaxInput>
+  }
+
+  export type TaxSnapshotUpdateWithWhereUniqueWithoutTaxInput = {
+    where: TaxSnapshotWhereUniqueInput
+    data: XOR<TaxSnapshotUpdateWithoutTaxInput, TaxSnapshotUncheckedUpdateWithoutTaxInput>
+  }
+
+  export type TaxSnapshotUpdateManyWithWhereWithoutTaxInput = {
+    where: TaxSnapshotScalarWhereInput
+    data: XOR<TaxSnapshotUpdateManyMutationInput, TaxSnapshotUncheckedUpdateManyWithoutTaxInput>
+  }
+
+  export type TaxSnapshotScalarWhereInput = {
+    AND?: TaxSnapshotScalarWhereInput | TaxSnapshotScalarWhereInput[]
+    OR?: TaxSnapshotScalarWhereInput[]
+    NOT?: TaxSnapshotScalarWhereInput | TaxSnapshotScalarWhereInput[]
+    uuid?: StringFilter<"TaxSnapshot"> | string
+    taxId?: StringFilter<"TaxSnapshot"> | string
+    effectiveThrough?: DateTimeFilter<"TaxSnapshot"> | Date | string
+    description?: StringNullableFilter<"TaxSnapshot"> | string | null
+  }
+
+  export type TaxCreateWithoutSnapshotsInput = {
+    uuid?: string
+    sysAdminControlled?: boolean
+    name: string
+    description?: string | null
+    archived?: boolean
+    organization?: OrganizationCreateNestedOneWithoutOrgTaxesInput
+  }
+
+  export type TaxUncheckedCreateWithoutSnapshotsInput = {
+    uuid?: string
+    sysAdminControlled?: boolean
+    organizationID?: string | null
+    name: string
+    description?: string | null
+    archived?: boolean
+  }
+
+  export type TaxCreateOrConnectWithoutSnapshotsInput = {
+    where: TaxWhereUniqueInput
+    create: XOR<TaxCreateWithoutSnapshotsInput, TaxUncheckedCreateWithoutSnapshotsInput>
+  }
+
+  export type TaxBracketCreateWithoutTaxSnapshotInput = {
+    uuid?: string
+    min?: Decimal | DecimalJsLike | number | string
+    hasMinBound: boolean
+    max?: Decimal | DecimalJsLike | number | string
+    hasMaxBound: boolean
+    filingType?: $Enums.FilingTypes
+    type?: $Enums.TaxType
+    rate?: Decimal | DecimalJsLike | number | string
+    ammount?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type TaxBracketUncheckedCreateWithoutTaxSnapshotInput = {
+    uuid?: string
+    min?: Decimal | DecimalJsLike | number | string
+    hasMinBound: boolean
+    max?: Decimal | DecimalJsLike | number | string
+    hasMaxBound: boolean
+    filingType?: $Enums.FilingTypes
+    type?: $Enums.TaxType
+    rate?: Decimal | DecimalJsLike | number | string
+    ammount?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type TaxBracketCreateOrConnectWithoutTaxSnapshotInput = {
+    where: TaxBracketWhereUniqueInput
+    create: XOR<TaxBracketCreateWithoutTaxSnapshotInput, TaxBracketUncheckedCreateWithoutTaxSnapshotInput>
+  }
+
+  export type TaxBracketCreateManyTaxSnapshotInputEnvelope = {
+    data: TaxBracketCreateManyTaxSnapshotInput | TaxBracketCreateManyTaxSnapshotInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PayStubItemCreateWithoutTaxInput = {
+    uuid?: string
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+    payStub: PayStubCreateNestedOneWithoutItemsInput
+    payrollItem?: PayrollItemCreateNestedOneWithoutPayStubItemInput
+    compensation?: EmployeeCompensationCreateNestedOneWithoutPaystubItemsInput
+    hourlyRate?: HourlyRateCreateNestedOneWithoutPaystubItemsInput
+  }
+
+  export type PayStubItemUncheckedCreateWithoutTaxInput = {
+    uuid?: string
+    payStubId: string
+    payrollItemId?: string | null
+    compensationId?: string | null
+    hourlyRateId?: string | null
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemCreateOrConnectWithoutTaxInput = {
+    where: PayStubItemWhereUniqueInput
+    create: XOR<PayStubItemCreateWithoutTaxInput, PayStubItemUncheckedCreateWithoutTaxInput>
+  }
+
+  export type PayStubItemCreateManyTaxInputEnvelope = {
+    data: PayStubItemCreateManyTaxInput | PayStubItemCreateManyTaxInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TaxUpsertWithoutSnapshotsInput = {
+    update: XOR<TaxUpdateWithoutSnapshotsInput, TaxUncheckedUpdateWithoutSnapshotsInput>
+    create: XOR<TaxCreateWithoutSnapshotsInput, TaxUncheckedCreateWithoutSnapshotsInput>
+    where?: TaxWhereInput
+  }
+
+  export type TaxUpdateToOneWithWhereWithoutSnapshotsInput = {
+    where?: TaxWhereInput
+    data: XOR<TaxUpdateWithoutSnapshotsInput, TaxUncheckedUpdateWithoutSnapshotsInput>
+  }
+
+  export type TaxUpdateWithoutSnapshotsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    archived?: BoolFieldUpdateOperationsInput | boolean
+    organization?: OrganizationUpdateOneWithoutOrgTaxesNestedInput
+  }
+
+  export type TaxUncheckedUpdateWithoutSnapshotsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
+    organizationID?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    archived?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type TaxBracketUpsertWithWhereUniqueWithoutTaxSnapshotInput = {
+    where: TaxBracketWhereUniqueInput
+    update: XOR<TaxBracketUpdateWithoutTaxSnapshotInput, TaxBracketUncheckedUpdateWithoutTaxSnapshotInput>
+    create: XOR<TaxBracketCreateWithoutTaxSnapshotInput, TaxBracketUncheckedCreateWithoutTaxSnapshotInput>
+  }
+
+  export type TaxBracketUpdateWithWhereUniqueWithoutTaxSnapshotInput = {
+    where: TaxBracketWhereUniqueInput
+    data: XOR<TaxBracketUpdateWithoutTaxSnapshotInput, TaxBracketUncheckedUpdateWithoutTaxSnapshotInput>
+  }
+
+  export type TaxBracketUpdateManyWithWhereWithoutTaxSnapshotInput = {
+    where: TaxBracketScalarWhereInput
+    data: XOR<TaxBracketUpdateManyMutationInput, TaxBracketUncheckedUpdateManyWithoutTaxSnapshotInput>
+  }
+
+  export type TaxBracketScalarWhereInput = {
+    AND?: TaxBracketScalarWhereInput | TaxBracketScalarWhereInput[]
+    OR?: TaxBracketScalarWhereInput[]
+    NOT?: TaxBracketScalarWhereInput | TaxBracketScalarWhereInput[]
+    uuid?: StringFilter<"TaxBracket"> | string
+    taxSnapshotId?: StringFilter<"TaxBracket"> | string
+    min?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    hasMinBound?: BoolFilter<"TaxBracket"> | boolean
+    max?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    hasMaxBound?: BoolFilter<"TaxBracket"> | boolean
+    filingType?: EnumFilingTypesFilter<"TaxBracket"> | $Enums.FilingTypes
+    type?: EnumTaxTypeFilter<"TaxBracket"> | $Enums.TaxType
+    rate?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+    ammount?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemUpsertWithWhereUniqueWithoutTaxInput = {
+    where: PayStubItemWhereUniqueInput
+    update: XOR<PayStubItemUpdateWithoutTaxInput, PayStubItemUncheckedUpdateWithoutTaxInput>
+    create: XOR<PayStubItemCreateWithoutTaxInput, PayStubItemUncheckedCreateWithoutTaxInput>
+  }
+
+  export type PayStubItemUpdateWithWhereUniqueWithoutTaxInput = {
+    where: PayStubItemWhereUniqueInput
+    data: XOR<PayStubItemUpdateWithoutTaxInput, PayStubItemUncheckedUpdateWithoutTaxInput>
+  }
+
+  export type PayStubItemUpdateManyWithWhereWithoutTaxInput = {
+    where: PayStubItemScalarWhereInput
+    data: XOR<PayStubItemUpdateManyMutationInput, PayStubItemUncheckedUpdateManyWithoutTaxInput>
+  }
+
+  export type TaxSnapshotCreateWithoutBracketsInput = {
+    uuid?: string
+    effectiveThrough: Date | string
+    description?: string | null
+    tax: TaxCreateNestedOneWithoutSnapshotsInput
+    paystubItems?: PayStubItemCreateNestedManyWithoutTaxInput
+  }
+
+  export type TaxSnapshotUncheckedCreateWithoutBracketsInput = {
+    uuid?: string
+    taxId: string
+    effectiveThrough: Date | string
+    description?: string | null
+    paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutTaxInput
+  }
+
+  export type TaxSnapshotCreateOrConnectWithoutBracketsInput = {
+    where: TaxSnapshotWhereUniqueInput
+    create: XOR<TaxSnapshotCreateWithoutBracketsInput, TaxSnapshotUncheckedCreateWithoutBracketsInput>
+  }
+
+  export type TaxSnapshotUpsertWithoutBracketsInput = {
+    update: XOR<TaxSnapshotUpdateWithoutBracketsInput, TaxSnapshotUncheckedUpdateWithoutBracketsInput>
+    create: XOR<TaxSnapshotCreateWithoutBracketsInput, TaxSnapshotUncheckedCreateWithoutBracketsInput>
+    where?: TaxSnapshotWhereInput
+  }
+
+  export type TaxSnapshotUpdateToOneWithWhereWithoutBracketsInput = {
+    where?: TaxSnapshotWhereInput
+    data: XOR<TaxSnapshotUpdateWithoutBracketsInput, TaxSnapshotUncheckedUpdateWithoutBracketsInput>
+  }
+
+  export type TaxSnapshotUpdateWithoutBracketsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tax?: TaxUpdateOneRequiredWithoutSnapshotsNestedInput
+    paystubItems?: PayStubItemUpdateManyWithoutTaxNestedInput
+  }
+
+  export type TaxSnapshotUncheckedUpdateWithoutBracketsInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    taxId?: StringFieldUpdateOperationsInput | string
+    effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    paystubItems?: PayStubItemUncheckedUpdateManyWithoutTaxNestedInput
+  }
+
   export type RoleCreateWithoutUserInput = {
     uuid?: string
     role?: string
@@ -22356,6 +27550,7 @@ export namespace Prisma {
     payrollGroups?: PayrollGroupCreateNestedManyWithoutOrganizationInput
     memberships?: RoleCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutOrganizationInput
+    orgTaxes?: TaxCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutInviteCodesInput = {
@@ -22368,6 +27563,7 @@ export namespace Prisma {
     payrollGroups?: PayrollGroupUncheckedCreateNestedManyWithoutOrganizationInput
     memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutOrganizationInput
+    orgTaxes?: TaxUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutInviteCodesInput = {
@@ -22396,6 +27592,7 @@ export namespace Prisma {
     payrollGroups?: PayrollGroupUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutOrganizationNestedInput
+    orgTaxes?: TaxUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutInviteCodesInput = {
@@ -22408,6 +27605,7 @@ export namespace Prisma {
     payrollGroups?: PayrollGroupUncheckedUpdateManyWithoutOrganizationNestedInput
     memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutOrganizationNestedInput
+    orgTaxes?: TaxUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserCreateWithoutMembershipsInput = {
@@ -22447,6 +27645,7 @@ export namespace Prisma {
     payrollGroups?: PayrollGroupCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutOrganizationInput
+    orgTaxes?: TaxCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutMembershipsInput = {
@@ -22459,6 +27658,7 @@ export namespace Prisma {
     payrollGroups?: PayrollGroupUncheckedCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutOrganizationInput
+    orgTaxes?: TaxUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutMembershipsInput = {
@@ -22520,6 +27720,7 @@ export namespace Prisma {
     payrollGroups?: PayrollGroupUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutOrganizationNestedInput
+    orgTaxes?: TaxUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutMembershipsInput = {
@@ -22532,6 +27733,7 @@ export namespace Prisma {
     payrollGroups?: PayrollGroupUncheckedUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutOrganizationNestedInput
+    orgTaxes?: TaxUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type EmployeeCompensationCreateManyEmployeeInput = {
@@ -22694,6 +27896,7 @@ export namespace Prisma {
     payStubId: string
     payrollItemId?: string | null
     hourlyRateId?: string | null
+    taxID?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -22738,6 +27941,7 @@ export namespace Prisma {
     payStub?: PayStubUpdateOneRequiredWithoutItemsNestedInput
     payrollItem?: PayrollItemUpdateOneWithoutPayStubItemNestedInput
     hourlyRate?: HourlyRateUpdateOneWithoutPaystubItemsNestedInput
+    tax?: TaxSnapshotUpdateOneWithoutPaystubItemsNestedInput
   }
 
   export type PayStubItemUncheckedUpdateWithoutCompensationInput = {
@@ -22745,6 +27949,7 @@ export namespace Prisma {
     payStubId?: StringFieldUpdateOperationsInput | string
     payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
+    taxID?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22759,6 +27964,7 @@ export namespace Prisma {
     payStubId?: StringFieldUpdateOperationsInput | string
     payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
+    taxID?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22773,6 +27979,7 @@ export namespace Prisma {
     payStubId: string
     payrollItemId?: string | null
     compensationId?: string | null
+    taxID?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -22794,6 +28001,7 @@ export namespace Prisma {
     payStub?: PayStubUpdateOneRequiredWithoutItemsNestedInput
     payrollItem?: PayrollItemUpdateOneWithoutPayStubItemNestedInput
     compensation?: EmployeeCompensationUpdateOneWithoutPaystubItemsNestedInput
+    tax?: TaxSnapshotUpdateOneWithoutPaystubItemsNestedInput
   }
 
   export type PayStubItemUncheckedUpdateWithoutHourlyRateInput = {
@@ -22801,6 +28009,7 @@ export namespace Prisma {
     payStubId?: StringFieldUpdateOperationsInput | string
     payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
     compensationId?: NullableStringFieldUpdateOperationsInput | string | null
+    taxID?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22815,6 +28024,7 @@ export namespace Prisma {
     payStubId?: StringFieldUpdateOperationsInput | string
     payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
     compensationId?: NullableStringFieldUpdateOperationsInput | string | null
+    taxID?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22873,6 +28083,14 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     absMaxPeriod?: $Enums.AbsMaxPeriodTypes
     absMax?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type TaxCreateManyOrganizationInput = {
+    uuid?: string
+    sysAdminControlled?: boolean
+    name: string
+    description?: string | null
+    archived?: boolean
   }
 
   export type EmployeeUpdateWithoutOrganizationInput = {
@@ -23040,6 +28258,32 @@ export namespace Prisma {
     absMax?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
+  export type TaxUpdateWithoutOrganizationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    archived?: BoolFieldUpdateOperationsInput | boolean
+    snapshots?: TaxSnapshotUpdateManyWithoutTaxNestedInput
+  }
+
+  export type TaxUncheckedUpdateWithoutOrganizationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    archived?: BoolFieldUpdateOperationsInput | boolean
+    snapshots?: TaxSnapshotUncheckedUpdateManyWithoutTaxNestedInput
+  }
+
+  export type TaxUncheckedUpdateManyWithoutOrganizationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    sysAdminControlled?: BoolFieldUpdateOperationsInput | boolean
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    archived?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type EmployeeCompensationCreateManyPayrollGroupInput = {
     uuid?: string
     employeeId: string
@@ -23135,6 +28379,7 @@ export namespace Prisma {
     payStubId: string
     compensationId?: string | null
     hourlyRateId?: string | null
+    taxID?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -23156,6 +28401,7 @@ export namespace Prisma {
     payStub?: PayStubUpdateOneRequiredWithoutItemsNestedInput
     compensation?: EmployeeCompensationUpdateOneWithoutPaystubItemsNestedInput
     hourlyRate?: HourlyRateUpdateOneWithoutPaystubItemsNestedInput
+    tax?: TaxSnapshotUpdateOneWithoutPaystubItemsNestedInput
   }
 
   export type PayStubItemUncheckedUpdateWithoutPayrollItemInput = {
@@ -23163,6 +28409,7 @@ export namespace Prisma {
     payStubId?: StringFieldUpdateOperationsInput | string
     compensationId?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
+    taxID?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23177,6 +28424,7 @@ export namespace Prisma {
     payStubId?: StringFieldUpdateOperationsInput | string
     compensationId?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
+    taxID?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23191,6 +28439,7 @@ export namespace Prisma {
     payrollItemId?: string | null
     compensationId?: string | null
     hourlyRateId?: string | null
+    taxID?: string | null
     type: $Enums.PayStubItemType
     name: string
     description?: string | null
@@ -23212,10 +28461,148 @@ export namespace Prisma {
     payrollItem?: PayrollItemUpdateOneWithoutPayStubItemNestedInput
     compensation?: EmployeeCompensationUpdateOneWithoutPaystubItemsNestedInput
     hourlyRate?: HourlyRateUpdateOneWithoutPaystubItemsNestedInput
+    tax?: TaxSnapshotUpdateOneWithoutPaystubItemsNestedInput
   }
 
   export type PayStubItemUncheckedUpdateWithoutPayStubInput = {
     uuid?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    compensationId?: NullableStringFieldUpdateOperationsInput | string | null
+    hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
+    taxID?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemUncheckedUpdateManyWithoutPayStubInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
+    compensationId?: NullableStringFieldUpdateOperationsInput | string | null
+    hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
+    taxID?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type TaxSnapshotCreateManyTaxInput = {
+    uuid?: string
+    effectiveThrough: Date | string
+    description?: string | null
+  }
+
+  export type TaxSnapshotUpdateWithoutTaxInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    brackets?: TaxBracketUpdateManyWithoutTaxSnapshotNestedInput
+    paystubItems?: PayStubItemUpdateManyWithoutTaxNestedInput
+  }
+
+  export type TaxSnapshotUncheckedUpdateWithoutTaxInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    brackets?: TaxBracketUncheckedUpdateManyWithoutTaxSnapshotNestedInput
+    paystubItems?: PayStubItemUncheckedUpdateManyWithoutTaxNestedInput
+  }
+
+  export type TaxSnapshotUncheckedUpdateManyWithoutTaxInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TaxBracketCreateManyTaxSnapshotInput = {
+    uuid?: string
+    min?: Decimal | DecimalJsLike | number | string
+    hasMinBound: boolean
+    max?: Decimal | DecimalJsLike | number | string
+    hasMaxBound: boolean
+    filingType?: $Enums.FilingTypes
+    type?: $Enums.TaxType
+    rate?: Decimal | DecimalJsLike | number | string
+    ammount?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemCreateManyTaxInput = {
+    uuid?: string
+    payStubId: string
+    payrollItemId?: string | null
+    compensationId?: string | null
+    hourlyRateId?: string | null
+    type: $Enums.PayStubItemType
+    name: string
+    description?: string | null
+    hours?: Decimal | DecimalJsLike | number | string | null
+    rate?: Decimal | DecimalJsLike | number | string | null
+    percent?: Decimal | DecimalJsLike | number | string | null
+    amount: Decimal | DecimalJsLike | number | string
+  }
+
+  export type TaxBracketUpdateWithoutTaxSnapshotInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    min?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMinBound?: BoolFieldUpdateOperationsInput | boolean
+    max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
+    filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
+    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+    rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type TaxBracketUncheckedUpdateWithoutTaxSnapshotInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    min?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMinBound?: BoolFieldUpdateOperationsInput | boolean
+    max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
+    filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
+    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+    rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type TaxBracketUncheckedUpdateManyWithoutTaxSnapshotInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    min?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMinBound?: BoolFieldUpdateOperationsInput | boolean
+    max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
+    filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
+    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
+    rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type PayStubItemUpdateWithoutTaxInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    type?: EnumPayStubItemTypeFieldUpdateOperationsInput | $Enums.PayStubItemType
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    hours?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    rate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    percent?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payStub?: PayStubUpdateOneRequiredWithoutItemsNestedInput
+    payrollItem?: PayrollItemUpdateOneWithoutPayStubItemNestedInput
+    compensation?: EmployeeCompensationUpdateOneWithoutPaystubItemsNestedInput
+    hourlyRate?: HourlyRateUpdateOneWithoutPaystubItemsNestedInput
+  }
+
+  export type PayStubItemUncheckedUpdateWithoutTaxInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    payStubId?: StringFieldUpdateOperationsInput | string
     payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
     compensationId?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23228,8 +28615,9 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
-  export type PayStubItemUncheckedUpdateManyWithoutPayStubInput = {
+  export type PayStubItemUncheckedUpdateManyWithoutTaxInput = {
     uuid?: StringFieldUpdateOperationsInput | string
+    payStubId?: StringFieldUpdateOperationsInput | string
     payrollItemId?: NullableStringFieldUpdateOperationsInput | string | null
     compensationId?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRateId?: NullableStringFieldUpdateOperationsInput | string | null

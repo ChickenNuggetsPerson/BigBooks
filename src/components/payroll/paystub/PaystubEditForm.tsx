@@ -66,6 +66,7 @@ function getNewItem(): PayStubItem {
         compensationId: null,
         hourlyRateId: null,
         payrollItemId: null,
+        taxID: null,
         type: "Earning",
         description: null,
         hours: null,

@@ -5,6 +5,54 @@ enum FilingTypes {
 
 enum AvaliableStates {
     Other
-    
     Utah
+}
+
+enum TaxType {
+    FlatRate
+    FlatAmmount
+}
+
+model Tax {
+    uuid               String  @id @unique @default(uuid())
+    sysAdminControlled Boolean @default(false)
+
+    organization   Organization? @relation(fields: [organizationID], references: [uuid], onDelete: Cascade)
+    organizationID String?
+
+    name        String
+    description String?
+    archived    Boolean @default(false)
+
+    snapshots TaxSnapshot[]
+}
+
+model TaxSnapshot {
+    uuid  String @id @unique @default(uuid())
+    tax   Tax    @relation(fields: [taxId], references: [uuid])
+    taxId String
+
+    effectiveThrough DateTime
+
+    description String?
+    brackets    TaxBracket[]
+
+    paystubItems PayStubItem[]
+}
+
+model TaxBracket {
+    uuid          String      @id @unique @default(uuid())
+    taxSnapshot   TaxSnapshot @relation(fields: [taxSnapshotId], references: [uuid])
+    taxSnapshotId String
+
+    min         Decimal @default(0)
+    hasMinBound Boolean
+    max         Decimal @default(0)
+    hasMaxBound Boolean
+
+    filingType FilingTypes @default(Single)
+
+    type    TaxType @default(FlatRate)
+    rate    Decimal @default(0)
+    ammount Decimal @default(0)
 }

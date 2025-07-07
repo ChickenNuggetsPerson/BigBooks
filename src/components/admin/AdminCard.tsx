@@ -25,6 +25,10 @@ export default function AdminCard({ }) {
                 Payroll Groups
             </Link>
 
+            <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/organization/admin/taxes"}>
+                Organization Taxes
+            </Link>
+
             <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/organization/admin/users"}>
                 Configure Users
             </Link>

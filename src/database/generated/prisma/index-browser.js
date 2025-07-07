@@ -207,6 +207,7 @@ exports.Prisma.PayStubItemScalarFieldEnum = {
   payrollItemId: 'payrollItemId',
   compensationId: 'compensationId',
   hourlyRateId: 'hourlyRateId',
+  taxID: 'taxID',
   type: 'type',
   name: 'name',
   description: 'description',
@@ -214,6 +215,35 @@ exports.Prisma.PayStubItemScalarFieldEnum = {
   rate: 'rate',
   percent: 'percent',
   amount: 'amount'
+};
+
+exports.Prisma.TaxScalarFieldEnum = {
+  uuid: 'uuid',
+  sysAdminControlled: 'sysAdminControlled',
+  organizationID: 'organizationID',
+  name: 'name',
+  description: 'description',
+  archived: 'archived'
+};
+
+exports.Prisma.TaxSnapshotScalarFieldEnum = {
+  uuid: 'uuid',
+  taxId: 'taxId',
+  effectiveThrough: 'effectiveThrough',
+  description: 'description'
+};
+
+exports.Prisma.TaxBracketScalarFieldEnum = {
+  uuid: 'uuid',
+  taxSnapshotId: 'taxSnapshotId',
+  min: 'min',
+  hasMinBound: 'hasMinBound',
+  max: 'max',
+  hasMaxBound: 'hasMaxBound',
+  filingType: 'filingType',
+  type: 'type',
+  rate: 'rate',
+  ammount: 'ammount'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -283,6 +313,11 @@ exports.AbsMaxPeriodTypes = exports.$Enums.AbsMaxPeriodTypes = {
   Year: 'Year'
 };
 
+exports.TaxType = exports.$Enums.TaxType = {
+  FlatRate: 'FlatRate',
+  FlatAmmount: 'FlatAmmount'
+};
+
 exports.Prisma.ModelName = {
   Employee: 'Employee',
   EmployeeCompensation: 'EmployeeCompensation',
@@ -292,6 +327,9 @@ exports.Prisma.ModelName = {
   PayrollItem: 'PayrollItem',
   PayStub: 'PayStub',
   PayStubItem: 'PayStubItem',
+  Tax: 'Tax',
+  TaxSnapshot: 'TaxSnapshot',
+  TaxBracket: 'TaxBracket',
   User: 'User',
   RegistrationCode: 'RegistrationCode',
   InviteCode: 'InviteCode',
