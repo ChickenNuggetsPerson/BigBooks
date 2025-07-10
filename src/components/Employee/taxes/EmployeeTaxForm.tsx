@@ -108,7 +108,9 @@ export default function EmployeeTaxForm({ empUUID }: EmployeeTaxFormProps) {
 
                 <TextInput id="uuid" val={empUUID} label="Employee UUID" disabled />
 
-                <button type="submit" className="bg-primary rounded-md text-white w-full text-xl font-bold p-1">Submit</button>
+                <div className="w-full">
+                    <button type="submit" className="primary-button w-full">Submit</button>
+                </div>
             </div>
 
         </form>
