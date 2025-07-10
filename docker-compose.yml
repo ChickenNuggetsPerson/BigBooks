@@ -36,7 +36,7 @@ services:
           \"name\": \"latency\",
           \"type\": \"latency\",
           \"stream\": \"downstream\",
-          \"attributes\": {\"latency\": 0}
+          \"attributes\": {\"latency\": 10}
         }'
       "
 

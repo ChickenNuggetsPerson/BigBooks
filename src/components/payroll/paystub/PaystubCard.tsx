@@ -122,7 +122,7 @@ export function PaystubCard({
                 }
             </div>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 smallCard" style={{ padding: 6 }}>
                 <PaystubItemGroupView name={"Earnings"} items={earnings} total={paystub.grossEarnings.toNumber()} />
                 <PaystubItemGroupView name={"Taxes"} items={tax} total={paystub.totalTaxes.toNumber()} />
                 <PaystubItemGroupView name={"Other Items"} items={other} total={paystub.totalExtras.toNumber()} />
