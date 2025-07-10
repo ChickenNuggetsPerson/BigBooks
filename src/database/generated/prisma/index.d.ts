@@ -129,7 +129,8 @@ export type AvaliableStates = (typeof AvaliableStates)[keyof typeof AvaliableSta
 
 export const TaxType: {
   FlatRate: 'FlatRate',
-  FlatAmmount: 'FlatAmmount'
+  FlatAmmount: 'FlatAmmount',
+  ProgressiveRate: 'ProgressiveRate'
 };
 
 export type TaxType = (typeof TaxType)[keyof typeof TaxType]
@@ -13553,6 +13554,7 @@ export namespace Prisma {
     taxId: string | null
     effectiveThrough: Date | null
     supportsJoint: boolean | null
+    taxType: $Enums.TaxType | null
     description: string | null
   }
 
@@ -13561,6 +13563,7 @@ export namespace Prisma {
     taxId: string | null
     effectiveThrough: Date | null
     supportsJoint: boolean | null
+    taxType: $Enums.TaxType | null
     description: string | null
   }
 
@@ -13569,6 +13572,7 @@ export namespace Prisma {
     taxId: number
     effectiveThrough: number
     supportsJoint: number
+    taxType: number
     description: number
     _all: number
   }
@@ -13579,6 +13583,7 @@ export namespace Prisma {
     taxId?: true
     effectiveThrough?: true
     supportsJoint?: true
+    taxType?: true
     description?: true
   }
 
@@ -13587,6 +13592,7 @@ export namespace Prisma {
     taxId?: true
     effectiveThrough?: true
     supportsJoint?: true
+    taxType?: true
     description?: true
   }
 
@@ -13595,6 +13601,7 @@ export namespace Prisma {
     taxId?: true
     effectiveThrough?: true
     supportsJoint?: true
+    taxType?: true
     description?: true
     _all?: true
   }
@@ -13676,6 +13683,7 @@ export namespace Prisma {
     taxId: string
     effectiveThrough: Date
     supportsJoint: boolean
+    taxType: $Enums.TaxType
     description: string | null
     _count: TaxSnapshotCountAggregateOutputType | null
     _min: TaxSnapshotMinAggregateOutputType | null
@@ -13701,6 +13709,7 @@ export namespace Prisma {
     taxId?: boolean
     effectiveThrough?: boolean
     supportsJoint?: boolean
+    taxType?: boolean
     description?: boolean
     tax?: boolean | TaxDefaultArgs<ExtArgs>
     brackets?: boolean | TaxSnapshot$bracketsArgs<ExtArgs>
@@ -13713,6 +13722,7 @@ export namespace Prisma {
     taxId?: boolean
     effectiveThrough?: boolean
     supportsJoint?: boolean
+    taxType?: boolean
     description?: boolean
     tax?: boolean | TaxDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taxSnapshot"]>
@@ -13722,6 +13732,7 @@ export namespace Prisma {
     taxId?: boolean
     effectiveThrough?: boolean
     supportsJoint?: boolean
+    taxType?: boolean
     description?: boolean
     tax?: boolean | TaxDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taxSnapshot"]>
@@ -13731,10 +13742,11 @@ export namespace Prisma {
     taxId?: boolean
     effectiveThrough?: boolean
     supportsJoint?: boolean
+    taxType?: boolean
     description?: boolean
   }
 
-  export type TaxSnapshotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "taxId" | "effectiveThrough" | "supportsJoint" | "description", ExtArgs["result"]["taxSnapshot"]>
+  export type TaxSnapshotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "taxId" | "effectiveThrough" | "supportsJoint" | "taxType" | "description", ExtArgs["result"]["taxSnapshot"]>
   export type TaxSnapshotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tax?: boolean | TaxDefaultArgs<ExtArgs>
     brackets?: boolean | TaxSnapshot$bracketsArgs<ExtArgs>
@@ -13760,6 +13772,7 @@ export namespace Prisma {
       taxId: string
       effectiveThrough: Date
       supportsJoint: boolean
+      taxType: $Enums.TaxType
       description: string | null
     }, ExtArgs["result"]["taxSnapshot"]>
     composites: {}
@@ -14191,6 +14204,7 @@ export namespace Prisma {
     readonly taxId: FieldRef<"TaxSnapshot", 'String'>
     readonly effectiveThrough: FieldRef<"TaxSnapshot", 'DateTime'>
     readonly supportsJoint: FieldRef<"TaxSnapshot", 'Boolean'>
+    readonly taxType: FieldRef<"TaxSnapshot", 'TaxType'>
     readonly description: FieldRef<"TaxSnapshot", 'String'>
   }
     
@@ -14688,7 +14702,6 @@ export namespace Prisma {
     max: Decimal | null
     hasMaxBound: boolean | null
     filingType: $Enums.FilingTypes | null
-    type: $Enums.TaxType | null
     rate: Decimal | null
     ammount: Decimal | null
   }
@@ -14701,7 +14714,6 @@ export namespace Prisma {
     max: Decimal | null
     hasMaxBound: boolean | null
     filingType: $Enums.FilingTypes | null
-    type: $Enums.TaxType | null
     rate: Decimal | null
     ammount: Decimal | null
   }
@@ -14714,7 +14726,6 @@ export namespace Prisma {
     max: number
     hasMaxBound: number
     filingType: number
-    type: number
     rate: number
     ammount: number
     _all: number
@@ -14743,7 +14754,6 @@ export namespace Prisma {
     max?: true
     hasMaxBound?: true
     filingType?: true
-    type?: true
     rate?: true
     ammount?: true
   }
@@ -14756,7 +14766,6 @@ export namespace Prisma {
     max?: true
     hasMaxBound?: true
     filingType?: true
-    type?: true
     rate?: true
     ammount?: true
   }
@@ -14769,7 +14778,6 @@ export namespace Prisma {
     max?: true
     hasMaxBound?: true
     filingType?: true
-    type?: true
     rate?: true
     ammount?: true
     _all?: true
@@ -14869,7 +14877,6 @@ export namespace Prisma {
     max: Decimal
     hasMaxBound: boolean
     filingType: $Enums.FilingTypes
-    type: $Enums.TaxType
     rate: Decimal
     ammount: Decimal
     _count: TaxBracketCountAggregateOutputType | null
@@ -14901,7 +14908,6 @@ export namespace Prisma {
     max?: boolean
     hasMaxBound?: boolean
     filingType?: boolean
-    type?: boolean
     rate?: boolean
     ammount?: boolean
     taxSnapshot?: boolean | TaxSnapshotDefaultArgs<ExtArgs>
@@ -14915,7 +14921,6 @@ export namespace Prisma {
     max?: boolean
     hasMaxBound?: boolean
     filingType?: boolean
-    type?: boolean
     rate?: boolean
     ammount?: boolean
     taxSnapshot?: boolean | TaxSnapshotDefaultArgs<ExtArgs>
@@ -14929,7 +14934,6 @@ export namespace Prisma {
     max?: boolean
     hasMaxBound?: boolean
     filingType?: boolean
-    type?: boolean
     rate?: boolean
     ammount?: boolean
     taxSnapshot?: boolean | TaxSnapshotDefaultArgs<ExtArgs>
@@ -14943,12 +14947,11 @@ export namespace Prisma {
     max?: boolean
     hasMaxBound?: boolean
     filingType?: boolean
-    type?: boolean
     rate?: boolean
     ammount?: boolean
   }
 
-  export type TaxBracketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "taxSnapshotId" | "min" | "hasMinBound" | "max" | "hasMaxBound" | "filingType" | "type" | "rate" | "ammount", ExtArgs["result"]["taxBracket"]>
+  export type TaxBracketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "taxSnapshotId" | "min" | "hasMinBound" | "max" | "hasMaxBound" | "filingType" | "rate" | "ammount", ExtArgs["result"]["taxBracket"]>
   export type TaxBracketInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     taxSnapshot?: boolean | TaxSnapshotDefaultArgs<ExtArgs>
   }
@@ -14972,7 +14975,6 @@ export namespace Prisma {
       max: Prisma.Decimal
       hasMaxBound: boolean
       filingType: $Enums.FilingTypes
-      type: $Enums.TaxType
       rate: Prisma.Decimal
       ammount: Prisma.Decimal
     }, ExtArgs["result"]["taxBracket"]>
@@ -15406,7 +15408,6 @@ export namespace Prisma {
     readonly max: FieldRef<"TaxBracket", 'Decimal'>
     readonly hasMaxBound: FieldRef<"TaxBracket", 'Boolean'>
     readonly filingType: FieldRef<"TaxBracket", 'FilingTypes'>
-    readonly type: FieldRef<"TaxBracket", 'TaxType'>
     readonly rate: FieldRef<"TaxBracket", 'Decimal'>
     readonly ammount: FieldRef<"TaxBracket", 'Decimal'>
   }
@@ -20186,6 +20187,7 @@ export namespace Prisma {
     taxId: 'taxId',
     effectiveThrough: 'effectiveThrough',
     supportsJoint: 'supportsJoint',
+    taxType: 'taxType',
     description: 'description'
   };
 
@@ -20200,7 +20202,6 @@ export namespace Prisma {
     max: 'max',
     hasMaxBound: 'hasMaxBound',
     filingType: 'filingType',
-    type: 'type',
     rate: 'rate',
     ammount: 'ammount'
   };
@@ -21192,6 +21193,7 @@ export namespace Prisma {
     taxId?: StringFilter<"TaxSnapshot"> | string
     effectiveThrough?: DateTimeFilter<"TaxSnapshot"> | Date | string
     supportsJoint?: BoolFilter<"TaxSnapshot"> | boolean
+    taxType?: EnumTaxTypeFilter<"TaxSnapshot"> | $Enums.TaxType
     description?: StringNullableFilter<"TaxSnapshot"> | string | null
     tax?: XOR<TaxScalarRelationFilter, TaxWhereInput>
     brackets?: TaxBracketListRelationFilter
@@ -21203,6 +21205,7 @@ export namespace Prisma {
     taxId?: SortOrder
     effectiveThrough?: SortOrder
     supportsJoint?: SortOrder
+    taxType?: SortOrder
     description?: SortOrderInput | SortOrder
     tax?: TaxOrderByWithRelationInput
     brackets?: TaxBracketOrderByRelationAggregateInput
@@ -21217,6 +21220,7 @@ export namespace Prisma {
     taxId?: StringFilter<"TaxSnapshot"> | string
     effectiveThrough?: DateTimeFilter<"TaxSnapshot"> | Date | string
     supportsJoint?: BoolFilter<"TaxSnapshot"> | boolean
+    taxType?: EnumTaxTypeFilter<"TaxSnapshot"> | $Enums.TaxType
     description?: StringNullableFilter<"TaxSnapshot"> | string | null
     tax?: XOR<TaxScalarRelationFilter, TaxWhereInput>
     brackets?: TaxBracketListRelationFilter
@@ -21228,6 +21232,7 @@ export namespace Prisma {
     taxId?: SortOrder
     effectiveThrough?: SortOrder
     supportsJoint?: SortOrder
+    taxType?: SortOrder
     description?: SortOrderInput | SortOrder
     _count?: TaxSnapshotCountOrderByAggregateInput
     _max?: TaxSnapshotMaxOrderByAggregateInput
@@ -21242,6 +21247,7 @@ export namespace Prisma {
     taxId?: StringWithAggregatesFilter<"TaxSnapshot"> | string
     effectiveThrough?: DateTimeWithAggregatesFilter<"TaxSnapshot"> | Date | string
     supportsJoint?: BoolWithAggregatesFilter<"TaxSnapshot"> | boolean
+    taxType?: EnumTaxTypeWithAggregatesFilter<"TaxSnapshot"> | $Enums.TaxType
     description?: StringNullableWithAggregatesFilter<"TaxSnapshot"> | string | null
   }
 
@@ -21256,7 +21262,6 @@ export namespace Prisma {
     max?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
     hasMaxBound?: BoolFilter<"TaxBracket"> | boolean
     filingType?: EnumFilingTypesFilter<"TaxBracket"> | $Enums.FilingTypes
-    type?: EnumTaxTypeFilter<"TaxBracket"> | $Enums.TaxType
     rate?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
     ammount?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
     taxSnapshot?: XOR<TaxSnapshotScalarRelationFilter, TaxSnapshotWhereInput>
@@ -21270,7 +21275,6 @@ export namespace Prisma {
     max?: SortOrder
     hasMaxBound?: SortOrder
     filingType?: SortOrder
-    type?: SortOrder
     rate?: SortOrder
     ammount?: SortOrder
     taxSnapshot?: TaxSnapshotOrderByWithRelationInput
@@ -21287,7 +21291,6 @@ export namespace Prisma {
     max?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
     hasMaxBound?: BoolFilter<"TaxBracket"> | boolean
     filingType?: EnumFilingTypesFilter<"TaxBracket"> | $Enums.FilingTypes
-    type?: EnumTaxTypeFilter<"TaxBracket"> | $Enums.TaxType
     rate?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
     ammount?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
     taxSnapshot?: XOR<TaxSnapshotScalarRelationFilter, TaxSnapshotWhereInput>
@@ -21301,7 +21304,6 @@ export namespace Prisma {
     max?: SortOrder
     hasMaxBound?: SortOrder
     filingType?: SortOrder
-    type?: SortOrder
     rate?: SortOrder
     ammount?: SortOrder
     _count?: TaxBracketCountOrderByAggregateInput
@@ -21322,7 +21324,6 @@ export namespace Prisma {
     max?: DecimalWithAggregatesFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
     hasMaxBound?: BoolWithAggregatesFilter<"TaxBracket"> | boolean
     filingType?: EnumFilingTypesWithAggregatesFilter<"TaxBracket"> | $Enums.FilingTypes
-    type?: EnumTaxTypeWithAggregatesFilter<"TaxBracket"> | $Enums.TaxType
     rate?: DecimalWithAggregatesFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
     ammount?: DecimalWithAggregatesFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
   }
@@ -22351,6 +22352,7 @@ export namespace Prisma {
     uuid?: string
     effectiveThrough: Date | string
     supportsJoint?: boolean
+    taxType?: $Enums.TaxType
     description?: string | null
     tax: TaxCreateNestedOneWithoutSnapshotsInput
     brackets?: TaxBracketCreateNestedManyWithoutTaxSnapshotInput
@@ -22362,6 +22364,7 @@ export namespace Prisma {
     taxId: string
     effectiveThrough: Date | string
     supportsJoint?: boolean
+    taxType?: $Enums.TaxType
     description?: string | null
     brackets?: TaxBracketUncheckedCreateNestedManyWithoutTaxSnapshotInput
     paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutTaxInput
@@ -22371,6 +22374,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
     supportsJoint?: BoolFieldUpdateOperationsInput | boolean
+    taxType?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tax?: TaxUpdateOneRequiredWithoutSnapshotsNestedInput
     brackets?: TaxBracketUpdateManyWithoutTaxSnapshotNestedInput
@@ -22382,6 +22386,7 @@ export namespace Prisma {
     taxId?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
     supportsJoint?: BoolFieldUpdateOperationsInput | boolean
+    taxType?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brackets?: TaxBracketUncheckedUpdateManyWithoutTaxSnapshotNestedInput
     paystubItems?: PayStubItemUncheckedUpdateManyWithoutTaxNestedInput
@@ -22392,6 +22397,7 @@ export namespace Prisma {
     taxId: string
     effectiveThrough: Date | string
     supportsJoint?: boolean
+    taxType?: $Enums.TaxType
     description?: string | null
   }
 
@@ -22399,6 +22405,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
     supportsJoint?: BoolFieldUpdateOperationsInput | boolean
+    taxType?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -22407,6 +22414,7 @@ export namespace Prisma {
     taxId?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
     supportsJoint?: BoolFieldUpdateOperationsInput | boolean
+    taxType?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -22417,7 +22425,6 @@ export namespace Prisma {
     max?: Decimal | DecimalJsLike | number | string
     hasMaxBound: boolean
     filingType?: $Enums.FilingTypes
-    type?: $Enums.TaxType
     rate?: Decimal | DecimalJsLike | number | string
     ammount?: Decimal | DecimalJsLike | number | string
     taxSnapshot: TaxSnapshotCreateNestedOneWithoutBracketsInput
@@ -22431,7 +22438,6 @@ export namespace Prisma {
     max?: Decimal | DecimalJsLike | number | string
     hasMaxBound: boolean
     filingType?: $Enums.FilingTypes
-    type?: $Enums.TaxType
     rate?: Decimal | DecimalJsLike | number | string
     ammount?: Decimal | DecimalJsLike | number | string
   }
@@ -22443,7 +22449,6 @@ export namespace Prisma {
     max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
     filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
-    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxSnapshot?: TaxSnapshotUpdateOneRequiredWithoutBracketsNestedInput
@@ -22457,7 +22462,6 @@ export namespace Prisma {
     max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
     filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
-    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
@@ -22470,7 +22474,6 @@ export namespace Prisma {
     max?: Decimal | DecimalJsLike | number | string
     hasMaxBound: boolean
     filingType?: $Enums.FilingTypes
-    type?: $Enums.TaxType
     rate?: Decimal | DecimalJsLike | number | string
     ammount?: Decimal | DecimalJsLike | number | string
   }
@@ -22482,7 +22485,6 @@ export namespace Prisma {
     max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
     filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
-    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
@@ -22495,7 +22497,6 @@ export namespace Prisma {
     max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
     filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
-    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
@@ -23569,6 +23570,13 @@ export namespace Prisma {
     archived?: SortOrder
   }
 
+  export type EnumTaxTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TaxType | EnumTaxTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTaxTypeFilter<$PrismaModel> | $Enums.TaxType
+  }
+
   export type TaxScalarRelationFilter = {
     is?: TaxWhereInput
     isNot?: TaxWhereInput
@@ -23589,6 +23597,7 @@ export namespace Prisma {
     taxId?: SortOrder
     effectiveThrough?: SortOrder
     supportsJoint?: SortOrder
+    taxType?: SortOrder
     description?: SortOrder
   }
 
@@ -23597,6 +23606,7 @@ export namespace Prisma {
     taxId?: SortOrder
     effectiveThrough?: SortOrder
     supportsJoint?: SortOrder
+    taxType?: SortOrder
     description?: SortOrder
   }
 
@@ -23605,14 +23615,18 @@ export namespace Prisma {
     taxId?: SortOrder
     effectiveThrough?: SortOrder
     supportsJoint?: SortOrder
+    taxType?: SortOrder
     description?: SortOrder
   }
 
-  export type EnumTaxTypeFilter<$PrismaModel = never> = {
+  export type EnumTaxTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.TaxType | EnumTaxTypeFieldRefInput<$PrismaModel>
     in?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumTaxTypeFilter<$PrismaModel> | $Enums.TaxType
+    not?: NestedEnumTaxTypeWithAggregatesFilter<$PrismaModel> | $Enums.TaxType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTaxTypeFilter<$PrismaModel>
+    _max?: NestedEnumTaxTypeFilter<$PrismaModel>
   }
 
   export type TaxSnapshotScalarRelationFilter = {
@@ -23628,7 +23642,6 @@ export namespace Prisma {
     max?: SortOrder
     hasMaxBound?: SortOrder
     filingType?: SortOrder
-    type?: SortOrder
     rate?: SortOrder
     ammount?: SortOrder
   }
@@ -23648,7 +23661,6 @@ export namespace Prisma {
     max?: SortOrder
     hasMaxBound?: SortOrder
     filingType?: SortOrder
-    type?: SortOrder
     rate?: SortOrder
     ammount?: SortOrder
   }
@@ -23661,7 +23673,6 @@ export namespace Prisma {
     max?: SortOrder
     hasMaxBound?: SortOrder
     filingType?: SortOrder
-    type?: SortOrder
     rate?: SortOrder
     ammount?: SortOrder
   }
@@ -23671,16 +23682,6 @@ export namespace Prisma {
     max?: SortOrder
     rate?: SortOrder
     ammount?: SortOrder
-  }
-
-  export type EnumTaxTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.TaxType | EnumTaxTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.TaxType[] | ListEnumTaxTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumTaxTypeWithAggregatesFilter<$PrismaModel> | $Enums.TaxType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumTaxTypeFilter<$PrismaModel>
-    _max?: NestedEnumTaxTypeFilter<$PrismaModel>
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -24828,6 +24829,10 @@ export namespace Prisma {
     connect?: PayStubItemWhereUniqueInput | PayStubItemWhereUniqueInput[]
   }
 
+  export type EnumTaxTypeFieldUpdateOperationsInput = {
+    set?: $Enums.TaxType
+  }
+
   export type TaxUpdateOneRequiredWithoutSnapshotsNestedInput = {
     create?: XOR<TaxCreateWithoutSnapshotsInput, TaxUncheckedCreateWithoutSnapshotsInput>
     connectOrCreate?: TaxCreateOrConnectWithoutSnapshotsInput
@@ -24896,10 +24901,6 @@ export namespace Prisma {
     create?: XOR<TaxSnapshotCreateWithoutBracketsInput, TaxSnapshotUncheckedCreateWithoutBracketsInput>
     connectOrCreate?: TaxSnapshotCreateOrConnectWithoutBracketsInput
     connect?: TaxSnapshotWhereUniqueInput
-  }
-
-  export type EnumTaxTypeFieldUpdateOperationsInput = {
-    set?: $Enums.TaxType
   }
 
   export type TaxSnapshotUpdateOneRequiredWithoutBracketsNestedInput = {
@@ -27037,6 +27038,7 @@ export namespace Prisma {
     uuid?: string
     effectiveThrough: Date | string
     supportsJoint?: boolean
+    taxType?: $Enums.TaxType
     description?: string | null
     tax: TaxCreateNestedOneWithoutSnapshotsInput
     brackets?: TaxBracketCreateNestedManyWithoutTaxSnapshotInput
@@ -27047,6 +27049,7 @@ export namespace Prisma {
     taxId: string
     effectiveThrough: Date | string
     supportsJoint?: boolean
+    taxType?: $Enums.TaxType
     description?: string | null
     brackets?: TaxBracketUncheckedCreateNestedManyWithoutTaxSnapshotInput
   }
@@ -27209,6 +27212,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
     supportsJoint?: BoolFieldUpdateOperationsInput | boolean
+    taxType?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tax?: TaxUpdateOneRequiredWithoutSnapshotsNestedInput
     brackets?: TaxBracketUpdateManyWithoutTaxSnapshotNestedInput
@@ -27219,6 +27223,7 @@ export namespace Prisma {
     taxId?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
     supportsJoint?: BoolFieldUpdateOperationsInput | boolean
+    taxType?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brackets?: TaxBracketUncheckedUpdateManyWithoutTaxSnapshotNestedInput
   }
@@ -27258,6 +27263,7 @@ export namespace Prisma {
     uuid?: string
     effectiveThrough: Date | string
     supportsJoint?: boolean
+    taxType?: $Enums.TaxType
     description?: string | null
     brackets?: TaxBracketCreateNestedManyWithoutTaxSnapshotInput
     paystubItems?: PayStubItemCreateNestedManyWithoutTaxInput
@@ -27267,6 +27273,7 @@ export namespace Prisma {
     uuid?: string
     effectiveThrough: Date | string
     supportsJoint?: boolean
+    taxType?: $Enums.TaxType
     description?: string | null
     brackets?: TaxBracketUncheckedCreateNestedManyWithoutTaxSnapshotInput
     paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutTaxInput
@@ -27343,6 +27350,7 @@ export namespace Prisma {
     taxId?: StringFilter<"TaxSnapshot"> | string
     effectiveThrough?: DateTimeFilter<"TaxSnapshot"> | Date | string
     supportsJoint?: BoolFilter<"TaxSnapshot"> | boolean
+    taxType?: EnumTaxTypeFilter<"TaxSnapshot"> | $Enums.TaxType
     description?: StringNullableFilter<"TaxSnapshot"> | string | null
   }
 
@@ -27378,7 +27386,6 @@ export namespace Prisma {
     max?: Decimal | DecimalJsLike | number | string
     hasMaxBound: boolean
     filingType?: $Enums.FilingTypes
-    type?: $Enums.TaxType
     rate?: Decimal | DecimalJsLike | number | string
     ammount?: Decimal | DecimalJsLike | number | string
   }
@@ -27390,7 +27397,6 @@ export namespace Prisma {
     max?: Decimal | DecimalJsLike | number | string
     hasMaxBound: boolean
     filingType?: $Enums.FilingTypes
-    type?: $Enums.TaxType
     rate?: Decimal | DecimalJsLike | number | string
     ammount?: Decimal | DecimalJsLike | number | string
   }
@@ -27503,7 +27509,6 @@ export namespace Prisma {
     max?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
     hasMaxBound?: BoolFilter<"TaxBracket"> | boolean
     filingType?: EnumFilingTypesFilter<"TaxBracket"> | $Enums.FilingTypes
-    type?: EnumTaxTypeFilter<"TaxBracket"> | $Enums.TaxType
     rate?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
     ammount?: DecimalFilter<"TaxBracket"> | Decimal | DecimalJsLike | number | string
   }
@@ -27528,6 +27533,7 @@ export namespace Prisma {
     uuid?: string
     effectiveThrough: Date | string
     supportsJoint?: boolean
+    taxType?: $Enums.TaxType
     description?: string | null
     tax: TaxCreateNestedOneWithoutSnapshotsInput
     paystubItems?: PayStubItemCreateNestedManyWithoutTaxInput
@@ -27538,6 +27544,7 @@ export namespace Prisma {
     taxId: string
     effectiveThrough: Date | string
     supportsJoint?: boolean
+    taxType?: $Enums.TaxType
     description?: string | null
     paystubItems?: PayStubItemUncheckedCreateNestedManyWithoutTaxInput
   }
@@ -27562,6 +27569,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
     supportsJoint?: BoolFieldUpdateOperationsInput | boolean
+    taxType?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     description?: NullableStringFieldUpdateOperationsInput | string | null
     tax?: TaxUpdateOneRequiredWithoutSnapshotsNestedInput
     paystubItems?: PayStubItemUpdateManyWithoutTaxNestedInput
@@ -27572,6 +27580,7 @@ export namespace Prisma {
     taxId?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
     supportsJoint?: BoolFieldUpdateOperationsInput | boolean
+    taxType?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     description?: NullableStringFieldUpdateOperationsInput | string | null
     paystubItems?: PayStubItemUncheckedUpdateManyWithoutTaxNestedInput
   }
@@ -28578,6 +28587,7 @@ export namespace Prisma {
     uuid?: string
     effectiveThrough: Date | string
     supportsJoint?: boolean
+    taxType?: $Enums.TaxType
     description?: string | null
   }
 
@@ -28585,6 +28595,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
     supportsJoint?: BoolFieldUpdateOperationsInput | boolean
+    taxType?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brackets?: TaxBracketUpdateManyWithoutTaxSnapshotNestedInput
     paystubItems?: PayStubItemUpdateManyWithoutTaxNestedInput
@@ -28594,6 +28605,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
     supportsJoint?: BoolFieldUpdateOperationsInput | boolean
+    taxType?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     description?: NullableStringFieldUpdateOperationsInput | string | null
     brackets?: TaxBracketUncheckedUpdateManyWithoutTaxSnapshotNestedInput
     paystubItems?: PayStubItemUncheckedUpdateManyWithoutTaxNestedInput
@@ -28603,6 +28615,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     effectiveThrough?: DateTimeFieldUpdateOperationsInput | Date | string
     supportsJoint?: BoolFieldUpdateOperationsInput | boolean
+    taxType?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -28613,7 +28626,6 @@ export namespace Prisma {
     max?: Decimal | DecimalJsLike | number | string
     hasMaxBound: boolean
     filingType?: $Enums.FilingTypes
-    type?: $Enums.TaxType
     rate?: Decimal | DecimalJsLike | number | string
     ammount?: Decimal | DecimalJsLike | number | string
   }
@@ -28640,7 +28652,6 @@ export namespace Prisma {
     max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
     filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
-    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
@@ -28652,7 +28663,6 @@ export namespace Prisma {
     max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
     filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
-    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
@@ -28664,7 +28674,6 @@ export namespace Prisma {
     max?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     hasMaxBound?: BoolFieldUpdateOperationsInput | boolean
     filingType?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
-    type?: EnumTaxTypeFieldUpdateOperationsInput | $Enums.TaxType
     rate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     ammount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }

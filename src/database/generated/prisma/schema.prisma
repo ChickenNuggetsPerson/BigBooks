@@ -166,7 +166,6 @@ model PayStubItem {
 
   tax   TaxSnapshot? @relation(fields: [taxID], references: [uuid], onDelete: SetNull)
   taxID String?
-  // TODO: Once the taxes are added, make sure to update paystub edit form to allow linking to taxes.
 
   type        PayStubItemType
   name        String
@@ -191,6 +190,7 @@ enum AvaliableStates {
 enum TaxType {
   FlatRate
   FlatAmmount
+  ProgressiveRate
 }
 
 model Tax {
@@ -216,6 +216,7 @@ model TaxSnapshot {
 
   effectiveThrough DateTime
   supportsJoint    Boolean  @default(false)
+  taxType          TaxType  @default(ProgressiveRate)
 
   description String?
   brackets    TaxBracket[]
@@ -235,7 +236,6 @@ model TaxBracket {
 
   filingType FilingTypes @default(Single)
 
-  type    TaxType @default(FlatRate)
   rate    Decimal @default(0)
   ammount Decimal @default(0)
 }

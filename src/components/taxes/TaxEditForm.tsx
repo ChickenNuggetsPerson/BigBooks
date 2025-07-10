@@ -43,6 +43,12 @@ export type TaxWithSnapshots = Prisma.TaxGetPayload<{
 // Extracts the type of a single snapshot from the `snapshots` array
 export type SnapshotWithBrackets = TaxWithSnapshots['snapshots'][number]
 
+const taxTypeOptions = [
+    { id: TaxType.ProgressiveRate, label: "Progressive Tax" },
+    { id: TaxType.FlatAmmount, label: "Flat Ammount" },
+    { id: TaxType.FlatRate, label: "Flat Rate" }
+]
+
 function makeNewBracket(type: FilingTypes): TaxBracket {
     return {
         uuid: crypto.randomUUID(),
@@ -52,7 +58,6 @@ function makeNewBracket(type: FilingTypes): TaxBracket {
         max: new Prisma.Decimal(0),
         hasMaxBound: false,
         filingType: type,
-        type: TaxType.FlatRate,
         rate: new Prisma.Decimal(0),
         ammount: new Prisma.Decimal(0)
     }
@@ -154,7 +159,7 @@ export default function TaxEditForm({
             headerName: 'Min',
             editable: true,
             type: "number",
-            width: 120,
+            width: 150,
             valueFormatter: (value: number, row) => row.hasMinBound ? MoneyToStr(value) : ""
         },
         {
@@ -162,39 +167,45 @@ export default function TaxEditForm({
             headerName: 'Max',
             editable: true,
             type: "number",
-            width: 120,
+            width: 150,
             valueFormatter: (value: number, row) => row.hasMaxBound ? MoneyToStr(value) : ""
-        },
-        {
+        }
+    ]
+
+    if (selectedSnapshot?.taxType == TaxType.FlatAmmount) {
+        bracketColumns.push({
             field: 'ammount',
             headerName: 'Flat Ammount',
             editable: true,
             type: "number",
             width: 120,
-            valueFormatter: (value: number, row) => row.type == TaxType.FlatAmmount ? MoneyToStr(value) : ""
-        },
-        {
+            valueFormatter: (value: number) => MoneyToStr(value)
+        })
+    } else {
+        bracketColumns.push({
             field: 'rate',
             headerName: 'Rate',
             editable: true,
             type: "number",
-            width: 90,
-            valueFormatter: (value: number, row) => row.type == TaxType.FlatRate ? percentToStr(value) : ""
-        },
-        {
-            field: 'actions',
-            type: 'actions',
-            headerName: 'Actions',
-            width: 75,
-            getActions: (params: GridRowParams<TaxBracket>) => [
-                <GridActionsCellItem key={params.row.uuid + "-delete"} icon={
-                    <X />
-                } onClick={() => {
-                    deleteBracket(params.row)
-                }} label="Delete" />,
-            ]
-        }
-    ]
+            width: 120,
+            valueFormatter: (value: number) => percentToStr(value)
+        })
+    }
+
+
+    bracketColumns.push({ // Add Actions Column
+        field: 'actions',
+        type: 'actions',
+        headerName: 'Actions',
+        width: 100,
+        getActions: (params: GridRowParams<TaxBracket>) => [
+            <GridActionsCellItem key={params.row.uuid + "-delete"} icon={
+                <X />
+            } onClick={() => {
+                deleteBracket(params.row)
+            }} label="Delete" />,
+        ]
+    })
 
     function updateBracket(bracket: TaxBracket) {
         if (!selectedSnapshot) { throw new Error("No Snapshot Selected") }
@@ -211,7 +222,6 @@ export default function TaxEditForm({
 
         bracket.rate = new Prisma.Decimal(bracket.rate ?? 0)
         bracket.ammount = new Prisma.Decimal(bracket.ammount ?? 0)
-        bracket.type = bracket.ammount.equals(0) ? TaxType.FlatRate : TaxType.FlatAmmount
 
         brackets[index] = bracket
         setSelectedSnapshot({
@@ -250,16 +260,15 @@ export default function TaxEditForm({
     function newSnapshot() {
         if (!selectedTax) { return }
 
-        toast.promise(async () => {
-            await upsertTaxSnapshot(serializeData({
-                uuid: "",
-                description: "New Snapshot",
-                taxId: selectedTax.uuid,
-                effectiveThrough: new Date(),
-                supportsJoint: false,
-                brackets: []
-            }))
-        }, {
+        toast.promise(upsertTaxSnapshot(serializeData({
+            uuid: "",
+            description: "New Snapshot",
+            taxId: selectedTax.uuid,
+            effectiveThrough: new Date(),
+            supportsJoint: false,
+            brackets: [],
+            taxType: TaxType.ProgressiveRate
+        })), {
             loading: "Creating Tax Snapshot",
             success: "Tax Snapshot Created",
             error: "Error Creating Tax Snapshot"
@@ -335,8 +344,8 @@ export default function TaxEditForm({
                 <motion.div
                     className="h-fit w-md smallCard"
                     style={{ padding: 15 }}
-                    animate={{ 
-                        filter: `blur(${selectedTax ? 2 : 0}px)`, 
+                    animate={{
+                        filter: `blur(${selectedTax ? 2 : 0}px)`,
                         pointerEvents: selectedTax ? "none" : "auto",
                         opacity: selectedTax ? 0.5 : 1
                     }}
@@ -478,21 +487,23 @@ export default function TaxEditForm({
                             </div>
 
 
-                            <div className="flex flex-row w-full justify-between gap-4">
-
-                                <div className="flex flex-row gap-4">
-                                    <DateInput label="Valid Through: " val={selectedSnapshot.effectiveThrough} onChange={(val) => setSelectedSnapshot({ ...selectedSnapshot, effectiveThrough: val })} />
-                                    <div className="w-full">
-                                        <CheckboxInput label="Supports Joint" val={selectedSnapshot.supportsJoint} changeCB={(val) => setSelectedSnapshot({ ...selectedSnapshot, supportsJoint: val })} />
-                                    </div>
+                            <div className="flex flex-row gap-4 mb-4">
+                                <div className="w-1/3">
+                                    <SelectInput label="Tax Type:" val={selectedSnapshot.taxType} options={taxTypeOptions} changeCB={(val) => setSelectedSnapshot({ ...selectedSnapshot, taxType: val as TaxType })} />
                                 </div>
-
-                                <div className="flex flex-row gap-4">
-                                    <p className="font-semibold text-xl mt-1">{selectedSnapshot.supportsJoint ? "Single Brackets:" : "Brackets:"}</p>
-                                    <button className="icon h-fit" onClick={() => setSelectedSnapshot({ ...selectedSnapshot, brackets: [...selectedSnapshot.brackets, makeNewBracket(FilingTypes.Single)] })}>
-                                        <Plus />
-                                    </button>
+                                <DateInput label="Valid Through: " val={selectedSnapshot.effectiveThrough} onChange={(val) => setSelectedSnapshot({ ...selectedSnapshot, effectiveThrough: val })} />
+                                <div className="w-full">
+                                    <CheckboxInput label="Supports Joint" val={selectedSnapshot.supportsJoint} changeCB={(val) => setSelectedSnapshot({ ...selectedSnapshot, supportsJoint: val })} />
                                 </div>
+                            </div>
+
+                            <Divider />
+
+                            <div className="flex flex-row gap-4 mb-2">
+                                <p className="font-semibold text-xl mt-1">{selectedSnapshot.supportsJoint ? "Single Brackets:" : "Brackets:"}</p>
+                                <button className="icon h-fit" onClick={() => setSelectedSnapshot({ ...selectedSnapshot, brackets: [...selectedSnapshot.brackets, makeNewBracket(FilingTypes.Single)] })}>
+                                    <Plus />
+                                </button>
                             </div>
 
                             <DataGrid
@@ -531,7 +542,7 @@ export default function TaxEditForm({
                                     transition={{ type: "spring" }}
                                 >
                                     <Divider />
-                                    <div className="flex flex-row w-full justify-end gap-4 mb-2">
+                                    <div className="flex flex-row w-full gap-4 mb-2">
                                         <p className="font-semibold text-xl mt-1">Joint Brackets: </p>
                                         <button className="icon h-fit" onClick={() => setSelectedSnapshot({ ...selectedSnapshot, brackets: [...selectedSnapshot.brackets, makeNewBracket(FilingTypes.Joint)] })}>
                                             <Plus />
@@ -680,15 +691,15 @@ function EditTaxModal({
                 </div>
 
                 {canDelete &&
-                    <button type="submit" className={`danger-button`} onClick={clickedDeleteTax}>Delete</button>
+                    <button type="submit" className={`danger-button w-4/9 opacity-70`} onClick={clickedDeleteTax}>Delete</button>
                 }
                 {!canDelete &&
                     <>
                         {taxState.archived &&
-                            <button type="submit" className={`primary-button`} onClick={clickedArchive}>Unarchive</button>
+                            <button type="submit" className={`primary-button w-4/9 opacity-70`} onClick={clickedArchive}>Unarchive</button>
                         }
                         {!taxState.archived &&
-                            <button type="submit" className={`danger-button`} onClick={clickedArchive}>Archive</button>
+                            <button type="submit" className={`danger-button w-4/9 opacity-70`} onClick={clickedArchive}>Archive</button>
                         }
                     </>
                 }

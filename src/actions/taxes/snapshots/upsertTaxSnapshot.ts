@@ -40,12 +40,14 @@ export default async function upsertTaxSnapshot(data: SerializationResult<TaxSna
             taxId: tax.uuid,
             effectiveThrough: snapshotData.effectiveThrough,
             description: snapshotData.description,
-            supportsJoint: snapshotData.supportsJoint
+            supportsJoint: snapshotData.supportsJoint,
+            taxType: snapshotData.taxType
         },
         update: {
             effectiveThrough: snapshotData.effectiveThrough,
             description: snapshotData.description,
-            supportsJoint: snapshotData.supportsJoint
+            supportsJoint: snapshotData.supportsJoint,
+            taxType: snapshotData.taxType
         }
     })
 
@@ -53,6 +55,7 @@ export default async function upsertTaxSnapshot(data: SerializationResult<TaxSna
     if (!snapshotData.supportsJoint) { // Remove joint brackets if the snapshot no longer supports them
         bracketsData = bracketsData.filter(b => b.filingType == FilingTypes.Single)
     }
+    bracketsData = bracketsData.filter(b => !(b.ammount.equals(0) && b.rate.lessThanOrEqualTo(0))) // Remove empty brackets
     const currentBrackets = await prisma.taxBracket.findMany({ where: { taxSnapshotId: currentSnapshot.uuid } })
 
     // New / Edit items
@@ -69,7 +72,6 @@ export default async function upsertTaxSnapshot(data: SerializationResult<TaxSna
                 max: bracket.max,
                 hasMaxBound: bracket.hasMaxBound,
                 filingType: bracket.filingType,
-                type: bracket.type,
                 rate: bracket.rate,
                 ammount: bracket.ammount
             },
@@ -79,7 +81,6 @@ export default async function upsertTaxSnapshot(data: SerializationResult<TaxSna
                 max: bracket.max,
                 hasMaxBound: bracket.hasMaxBound,
                 filingType: bracket.filingType,
-                type: bracket.type,
                 rate: bracket.rate,
                 ammount: bracket.ammount
             }

@@ -232,6 +232,7 @@ exports.Prisma.TaxSnapshotScalarFieldEnum = {
   taxId: 'taxId',
   effectiveThrough: 'effectiveThrough',
   supportsJoint: 'supportsJoint',
+  taxType: 'taxType',
   description: 'description'
 };
 
@@ -243,7 +244,6 @@ exports.Prisma.TaxBracketScalarFieldEnum = {
   max: 'max',
   hasMaxBound: 'hasMaxBound',
   filingType: 'filingType',
-  type: 'type',
   rate: 'rate',
   ammount: 'ammount'
 };
@@ -317,7 +317,8 @@ exports.AbsMaxPeriodTypes = exports.$Enums.AbsMaxPeriodTypes = {
 
 exports.TaxType = exports.$Enums.TaxType = {
   FlatRate: 'FlatRate',
-  FlatAmmount: 'FlatAmmount'
+  FlatAmmount: 'FlatAmmount',
+  ProgressiveRate: 'ProgressiveRate'
 };
 
 exports.Prisma.ModelName = {

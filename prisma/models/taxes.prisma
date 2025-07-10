@@ -11,6 +11,7 @@ enum AvaliableStates {
 enum TaxType {
     FlatRate
     FlatAmmount
+    ProgressiveRate
 }
 
 model Tax {
@@ -36,6 +37,7 @@ model TaxSnapshot {
 
     effectiveThrough DateTime
     supportsJoint    Boolean  @default(false)
+    taxType          TaxType  @default(ProgressiveRate)
 
     description String?
     brackets    TaxBracket[]
@@ -55,7 +57,6 @@ model TaxBracket {
 
     filingType FilingTypes @default(Single)
 
-    type    TaxType @default(FlatRate)
     rate    Decimal @default(0)
     ammount Decimal @default(0)
 }
