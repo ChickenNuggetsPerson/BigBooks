@@ -15,7 +15,7 @@ import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { nextOccurence, timesPerYear } from "@/utils/functions/Date";
+import { nextPayrollOccurence, timesPerYear } from "@/utils/functions/Date";
 import Link from "next/link";
 import { CardProp } from "@/components/Forms/CardProp";
 
@@ -206,6 +206,7 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
         )
     }
 
+    const period = nextPayrollOccurence(selected.periodRefDate, selected.payRefDate, selected.payFrequency)
 
     return (
         <motion.div
@@ -244,8 +245,8 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
 
             <div className="flex flex-row justify-between">
                 <div>
-                    <CardProp label={"Next Period End:"} val={nextOccurence(selected.periodRefDate, selected.payFrequency).toLocaleDateString()} />
-                    <CardProp label={"Next Paydate:"} val={nextOccurence(selected.payRefDate, selected.payFrequency).toLocaleDateString()} />
+                    <CardProp label={"Next Period End:"} val={period.periodEnd.toLocaleDateString()} />
+                    <CardProp label={"Next Paydate:"} val={period.payDate.toLocaleDateString()} />
                     <CardProp label="Paydates Per Year:" val={timesPerYear(selected.payFrequency)} />
                 </div>
 

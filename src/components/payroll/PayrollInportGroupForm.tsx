@@ -6,7 +6,7 @@ import { PayrollGroup } from "@/database/generated/prisma"
 import getOrgPayrollGroups from "@/actions/payrollGroup/getOrgPayrollGroups"
 import SelectInput from "../Forms/SelectInput"
 import { Divider } from "../Forms/Divider"
-import { nextOccurence } from "@/utils/functions/Date"
+import { nextPayrollOccurence } from "@/utils/functions/Date"
 import toast from "react-hot-toast"
 
 
@@ -43,16 +43,12 @@ export default function PayrollInportGroupForm({ initialPeriod, changeCB }: { in
         const group = groups.find(v => v.uuid == val)
         if (!group) { return }
 
-        const nextEnd = nextOccurence(group.periodRefDate, group.payFrequency)
-        const nextStart = new Date(nextEnd)
-        nextStart.setDate(nextEnd.getDate() - group.payFrequency + 1) // Shift forward one day to avoid day overlap
-
-        const pay = nextOccurence(group.payRefDate, group.payFrequency)
+        const period = nextPayrollOccurence(group.periodRefDate, group.payRefDate, group.payFrequency)
 
         setState({
-            start: nextStart,
-            end: nextEnd,
-            pay: pay
+            start: period.periodStart,
+            end: period.periodEnd,
+            pay: period.payDate
         })
     }
 

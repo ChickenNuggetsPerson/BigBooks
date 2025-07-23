@@ -26,3 +26,21 @@ export function nextOccurence(refDate: Date, daysPerOccurence: number, now?: Dat
 export function timesPerYear(daysPerOccurence: number) {
     return Math.floor(365 / daysPerOccurence)
 }
+
+
+export function nextPayrollOccurence(periodRefDate: Date, payRefDate: Date, payFrequency: number, now?: Date) {
+    if (!periodRefDate || !payRefDate || !payFrequency) { return {
+        periodStart: new Date(),
+        periodEnd: new Date(),
+        payDate: new Date()
+    }}
+
+    const dDays = (payRefDate.getTime() - periodRefDate.getTime()) / (1000 * 60 * 60 * 24);
+    const nextPeriodEnd = nextOccurence(periodRefDate, payFrequency, now)
+
+    return {
+        periodStart: addDays(nextPeriodEnd, 1 - payFrequency),
+        periodEnd: nextPeriodEnd,
+        payDate: addDays(nextPeriodEnd, dDays)
+    }
+}
