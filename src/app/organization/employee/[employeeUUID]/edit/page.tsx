@@ -1,6 +1,6 @@
 import Loading from "@/app/Loading";
 import { RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
+import { throwIfInsufficientPerms } from "@/auth/permissions/throwIfInsufficientPerms";
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import EmployeeForm from "@/components/Employee/EmployeeForm";
 import { MoveLeft } from "lucide-react";

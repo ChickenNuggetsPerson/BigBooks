@@ -1,8 +1,7 @@
 import { getUserFromSession } from "@/auth/auth"
-import getOrgRole from "@/auth/roles/getOrgRole"
 import Link from "next/link"
 import { UserRoleIcon } from "./UserRoleIcon"
-import { Role_Viewer, RoleTypes } from "@/auth/roles/Roles"
+import { getOrgMembership } from "@/auth/permissions/PermissionsFunctions"
 
 
 export function InteractiveUserIcon_Loading() {
@@ -10,12 +9,10 @@ export function InteractiveUserIcon_Loading() {
     return (
         <div className="flex flex-row justify-between smallCard h-fit animate-pulse" style={{ paddingLeft: 10, paddingRight: 5 }}>
 
-                <p className="font-semibold text-xl pt-1">
-                    Loading
-                </p>
+            <p className="font-semibold text-xl pt-1">
+                Loading...
+            </p>
 
-
-            <UserRoleIcon role={Role_Viewer} />
         </div>
     )
 }
@@ -23,29 +20,21 @@ export function InteractiveUserIcon_Loading() {
 export default async function InteractiveUserIcon() {
 
     const user = await getUserFromSession()
-    const role = await getOrgRole()
+    const membership = await getOrgMembership()
 
-    if (!user) {
+    if (!user || !membership) {
         return (<p>Error...</p>)
     }
 
     return (
         <div className="flex flex-row justify-between smallCard h-fit" style={{ paddingLeft: 10, paddingRight: 5 }}>
 
-            {role.type == RoleTypes.SysAdmin &&
-                <Link href={"/user"} className="font-semibold text-xl pt-1">
-                    ADMIN
-                </Link>
-            }
-
-            {role.type !== RoleTypes.SysAdmin &&
-                <Link href={"/user"} className="font-semibold text-xl pt-1">
-                    {user.firstName + " " + user.lastName}
-                </Link>
-            }
+            <Link href={"/user"} className="font-semibold text-xl pt-1">
+                {user.firstName + " " + user.lastName}
+            </Link>
 
 
-            <UserRoleIcon role={role} />
+            <UserRoleIcon perms={membership.permissions} />
         </div>
     )
 }

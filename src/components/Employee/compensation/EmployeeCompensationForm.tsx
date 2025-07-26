@@ -5,7 +5,7 @@ import EmployeeCompensationAddButton from "./EmployeeCompensationAddButton";
 import EmployeeCompensationFormCard from "./EmployeeCompensationFormCard";
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
 import { RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
+import { throwIfInsufficientPerms } from "@/auth/permissions/throwIfInsufficientPerms";
 
 
 

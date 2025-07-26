@@ -1,13 +1,13 @@
 'use server'
 
-import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { PayrollItem, PayStubItem, PayStubItemType, Prisma } from "@/database/generated/prisma"
 import { prisma } from "@/database/prisma"
 import { CalcStubSalary } from "@/database/Taxes/SalaryCalc"
 import { serializeData } from "@/utils/serialization"
 import { randomUUID } from "crypto"
 import { OvertimePrefix } from "./PayrollItemConsts"
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
 
 
 
@@ -46,7 +46,10 @@ export default async function getEmployeePayrollItems(empUUID: string) {
     }
 
     try {
-        await throwIfInsufficientPerms(RoleTypes.Editor) // This data is only avaliable to editors using the paystub edit form.
+        await throwIfInsufficientPerms(Permissions.admin.orgItem.edit)
+        await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.items.edit)
+        await throwIfInsufficientPerms(Permissions.employee.items.edit)
+        await throwIfInsufficientPerms(Permissions.employee.compensation.view)
     } catch {
         return serializeData(data) // Return empty data
     }

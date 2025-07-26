@@ -1,8 +1,8 @@
 'use server'
 
 import { getSession } from "@/auth/auth";
-import { RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import { Prisma } from "@/database/generated/prisma";
 import { prisma } from "@/database/prisma";
 import { deserializeData, SerializationResult } from "@/utils/serialization";
@@ -15,7 +15,7 @@ export default async function upsertEmployeeCompensation(data: CompData) {
 
     const compData = deserializeData(data)
 
-    await throwIfInsufficientPerms(RoleTypes.Editor)
+    await throwIfInsufficientPerms(Permissions.employee.compensation.edit)
     const session = await getSession()
     if (!session) { return }
 

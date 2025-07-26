@@ -1,8 +1,8 @@
 'use server'
 
 import { getSession } from "@/auth/auth";
-import { RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import { PayrollGroup } from "@/database/generated/prisma";
 import { prisma } from "@/database/prisma";
 
@@ -10,13 +10,14 @@ import { prisma } from "@/database/prisma";
 
 export default async function upsertPayrollGroup(group: PayrollGroup) {
 
-    await throwIfInsufficientPerms(RoleTypes.Admin)
+    await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.view)
 
     const g = await prisma.payrollGroup.findUnique({ where: { uuid: group.uuid } })
     const session = await getSession()
     if (!session) { return }
 
     if (g) {
+        await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.edit)
         await prisma.payrollGroup.update({
             where: { uuid: group.uuid },
             data: {
@@ -29,6 +30,7 @@ export default async function upsertPayrollGroup(group: PayrollGroup) {
             }
         })
     } else {
+        await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.create)
         await prisma.payrollGroup.create({
             data: {
                 name: group.name,

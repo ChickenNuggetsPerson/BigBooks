@@ -1,10 +1,10 @@
 'use server'
 
 import { getSession } from "@/auth/auth"
-import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
+import { throwIfInsufficientPerms, throwIfNotSYSAdmin } from "@/auth/permissions/PermissionsFunctions"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
 
 
 
@@ -16,15 +16,21 @@ export default async function setTaxArchive(taxUUID: string, isArchived: boolean
     }
 
     const tax = await prisma.tax.findUnique({ where: { uuid: taxUUID } })
-    if (!tax) { 
+    if (!tax) {
         throw new Error("Invalid UUID")
     }
 
     // Check permissions and make sure orgUUID's arent messed with
     if (tax.sysAdminControlled) {
-        await throwIfInsufficientPerms(RoleTypes.SysAdmin)
+        await throwIfNotSYSAdmin()
+        tax.organizationID = ""
     } else {
-        await throwIfInsufficientPerms(RoleTypes.Admin)
+        if (isArchived) {
+            await throwIfInsufficientPerms(Permissions.admin.taxes.activate)
+        } else {
+            await throwIfInsufficientPerms(Permissions.admin.taxes.deactivate)
+        }
+
         if (session.orgUUID !== tax.organizationID) {
             throw new Error("Unmatched OrgUUIDs")
         }

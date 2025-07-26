@@ -1,9 +1,8 @@
 'use server'
 
-import { getSession } from "@/auth/auth"
+import { throwIfNotSYSAdmin } from "@/auth/permissions/PermissionsFunctions"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
 
 
 
@@ -11,10 +10,7 @@ import { redirect } from "next/navigation"
 
 export default async function setUserAllocatedOrgs(userUUID: string, amt: number) {
 
-    const session = await getSession()
-    if (!session) { redirect("/user/login") }
-
-    if (!session.isAdmin) { return }
+    await throwIfNotSYSAdmin()
 
     await prisma.user.update({
         where: { uuid: userUUID },

@@ -1,5 +1,5 @@
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
-import OrganizationAdminToolsCard from "@/components/Organization/OverviewPage/OrganizationAdminToolsCard";
+import OrganizationAdminToolsCard, { OrganizationAdminToolsCard_Loading } from "@/components/Organization/OverviewPage/OrganizationAdminToolsCard";
 import OrganizationDetailsCard, { OrganizationDetailsCard_Loading } from "@/components/Organization/OverviewPage/OrganizationDetailsCard";
 import OrganizationPayrollCard, { OrganizationPayrollCard_Loading } from "@/components/Organization/OverviewPage/OrganizationPayrollCard";
 import OrganizationStatsCard, { OrganizationStatsCard_Loading } from "@/components/Organization/OverviewPage/OrganizationStatsCard";
@@ -28,7 +28,7 @@ export default function Overview() {
                     <OrganizationStatsCard />
                 </Suspense>
 
-                <Suspense>
+                <Suspense fallback={<OrganizationAdminToolsCard_Loading />}>
                     <OrganizationAdminToolsCard />
                 </Suspense>
             </div>

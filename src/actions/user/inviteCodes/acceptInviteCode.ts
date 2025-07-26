@@ -1,8 +1,7 @@
 'use server'
 
 import { getUserFromSession } from "@/auth/auth"
-import getOrgRole from "@/auth/roles/getOrgRole"
-import { getRoleFromID, RoleTypes } from "@/auth/roles/Roles"
+import { getOrgMembership } from "@/auth/permissions/PermissionsFunctions"
 import { prisma } from "@/database/prisma"
 import { redirect } from "next/navigation"
 
@@ -26,34 +25,19 @@ export default async function acceptInviteCode(codeID: string) {
         return { message: "Code is expired", success: false }
     }
 
-    const currentRole = await getOrgRole(code.organizationId)
-    if (currentRole.level >= getRoleFromID(code.role).level) {
+    const currentMembership = await getOrgMembership(code.organizationId)
+    if (currentMembership) {
         await prisma.inviteCode.delete({ where: { uuid: code.uuid } })
-        return { message: "You already have these permissions", success: false }
+        return { message: "You already belong to this organization", success: false }
     }
 
-    if (currentRole.type == RoleTypes.Error) { // They are not a part of the organization
-
-        await prisma.role.create({ // Create the role
-            data: {
-                userId: user.uuid,
-                organizationId: code.organizationId,
-                role: code.role
-            }
-        })
-
-    } else {
-
-        await prisma.role.updateMany({ // Otherwise update the stored role
-            where: {
-                userId: user.uuid,
-                organizationId: code.organizationId
-            },
-            data: {
-                role: code.role
-            }
-        })
-    }
+    await prisma.membership.create({ // Create the role
+        data: {
+            userId: user.uuid,
+            organizationId: code.organizationId,
+            permissions: code.perms
+        }
+    })
 
 
     await prisma.inviteCode.delete({ where: { uuid: code.uuid } })

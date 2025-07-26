@@ -1,8 +1,8 @@
 'use server'
 
 import { getSession } from "@/auth/auth"
-import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
+import { throwIfNotSYSAdmin, throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
 
@@ -27,9 +27,10 @@ export default async function deleteTax(taxUUID: string) {
 
     // Check permissions and make sure orgUUID's arent messed with
     if (tax.sysAdminControlled) {
-        await throwIfInsufficientPerms(RoleTypes.SysAdmin)
+        await throwIfNotSYSAdmin()
+        tax.organizationID = ""
     } else {
-        await throwIfInsufficientPerms(RoleTypes.Admin)
+        await throwIfInsufficientPerms(Permissions.admin.taxes.del)
         if (session.orgUUID !== tax.organizationID) {
             throw new Error("Unmatched OrgUUIDs")
         }
@@ -37,7 +38,7 @@ export default async function deleteTax(taxUUID: string) {
 
     for (let i = 0; i < tax.snapshots.length; i++) {
         const snapshot = tax.snapshots[i]
-        const count = await prisma.payStubItem.count({ where: { taxID: snapshot.uuid }})
+        const count = await prisma.payStubItem.count({ where: { taxID: snapshot.uuid } })
         if (count > 0) {
             throw new Error("Tax is linked to paystubs")
         }

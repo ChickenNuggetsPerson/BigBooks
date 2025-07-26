@@ -1,7 +1,7 @@
 import getOrgDetails from "@/actions/organization/getOrgDetails"
 import { getSession } from "@/auth/auth"
-import getOrgRole from "@/auth/roles/getOrgRole"
-import { Role_Admin } from "@/auth/roles/Roles"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
+import { userHasPermission } from "@/auth/permissions/PermissionsFunctions"
 import EditableDiv from "@/components/Decorative/EditableDiv"
 import LoadingBlock from "@/components/Decorative/LoadingBlock"
 
@@ -25,8 +25,8 @@ export function OrganizationDetailsCard_Loading() {
 export default async function OrganizationDetailsCard() {
 
     const session = await getSession()
-    const role = await getOrgRole()
     const details = await getOrgDetails(session?.orgUUID ?? " ")
+    const editable = await userHasPermission({ perm: Permissions.org.edit })
 
     if (!details) {
         return <div className="card h-fit">
@@ -35,7 +35,7 @@ export default async function OrganizationDetailsCard() {
     }
 
     return (
-        <EditableDiv className="card h-fit" url={"/organization/admin/configure"} enabled={role.level >= Role_Admin.level}>
+        <EditableDiv className="card h-fit" url={"/organization/admin/configure"} enabled={editable}>
 
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{details.name}</h5>
             {details.isDeleted && <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 opacity-50">{"[ Deactivated ]"}</h5>}

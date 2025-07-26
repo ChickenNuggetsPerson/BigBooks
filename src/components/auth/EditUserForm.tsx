@@ -50,8 +50,6 @@ export default function EditUserForm({ userID }: EditUserFormProps) {
             <TextInput id={"lastName"} label={"Last Name"} val={userProps.lastName} placeholder={""} disabled={false} />
             <TextInput id={"email"} label={"Email"} val={userProps.email} placeholder={""} disabled={false} />
 
-            <TextInput id={"uuid"} label={"UUID"} val={userProps.uuid} placeholder={""} disabled={true} />
-
             <div className="flex flex-row justify-between">
 
                 <Link href={"/user"} className="w-4/9">

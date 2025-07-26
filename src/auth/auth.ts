@@ -166,3 +166,18 @@ export async function invalidateSession() {
 
     cookieStore.delete("session")
 }
+
+
+export async function throwIfNotSYSAdmin() {
+    const result = await isSYSAdmin()
+    if (!result) {
+        throw new Error("Not System Admin")
+    }
+}
+export async function isSYSAdmin() {
+    const session = await getSession()
+    if (!session) {
+        throw new Error("Invalid Session")
+    }
+    return session.isAdmin
+}

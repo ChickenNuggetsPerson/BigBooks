@@ -1,8 +1,8 @@
 'use server'
 
 import { getSession } from "@/auth/auth"
-import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
+import { throwIfInsufficientPerms, throwIfNotSYSAdmin } from "@/auth/permissions/PermissionsFunctions"
 import { FilingTypes, Prisma } from "@/database/generated/prisma"
 import { prisma } from "@/database/prisma"
 import { deserializeData, SerializationResult } from "@/utils/serialization"
@@ -25,9 +25,10 @@ export default async function upsertTaxSnapshot(data: SerializationResult<TaxSna
 
     // Check permissions and make sure orgUUID's arent messed with
     if (tax.sysAdminControlled) {
-        await throwIfInsufficientPerms(RoleTypes.SysAdmin)
+        await throwIfNotSYSAdmin()
+        tax.organizationID = ""
     } else {
-        await throwIfInsufficientPerms(RoleTypes.Admin)
+        await throwIfInsufficientPerms(Permissions.admin.taxes.edit)
         if (session.orgUUID !== tax.organizationID) {
             throw new Error("Unmatched OrgUUIDs")
         }

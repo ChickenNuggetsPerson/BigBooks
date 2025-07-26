@@ -6,7 +6,7 @@ import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { DispRole, getRoleFromID, RoleTypes } from "@/auth/roles/Roles";
 import ClickableDiv from "@/components/Decorative/ClickableDiv";
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
-import RoleModal from "./RoleModal";
+import PermissionModal from "./PermissionModal";
 import { useEffect, useState } from "react";
 
 
@@ -82,7 +82,7 @@ export function OrgUserList({
         addModal({
             title: "Edit Permissions:",
             required: false,
-            component: () => <RoleModal role={role} user={user} orgUUID={context?.companyUUID ?? ""} orgName={context?.companyName ?? ""} />
+            component: () => <PermissionModal role={role} user={user} orgUUID={context?.companyUUID ?? ""} orgName={context?.companyName ?? ""} />
         })
     }
 

@@ -1,23 +1,21 @@
 'use client'
 
-import createUserRole from "@/actions/user/roles/createUserRole"
-import deleteUserRole from "@/actions/user/roles/deleteUserRole"
-import editUserRole from "@/actions/user/roles/editUserRole"
-import { DispRole, RoleTypes } from "@/auth/roles/Roles"
+import createUserRole from "@/actions/user/permissions/createUserPerms"
+import deleteUserRole from "@/actions/user/permissions/deleteUserPerms"
+import editUserRole from "@/actions/user/permissions/editUserPerms"
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
 import SelectInput from "@/components/Forms/SelectInput"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { getRoleDescription, selectableRoles } from "./RoleModalProps"
 import { User } from "@/database/generated/prisma"
 import toast from "react-hot-toast"
 
 
 
-export default function RoleModal({ role, user, orgUUID, orgName }: { role: DispRole | null, user: User, orgUUID: string, orgName: string }) {
+export default function PermissionModal({ perms, user, orgUUID, orgName }: { perms: string[], user: User, orgUUID: string, orgName: string }) {
 
     const { popModal } = useModalManager()
-    const [selectedRole, setRole] = useState(role?.type ?? RoleTypes.Error)
+    const [selectedPerms, setSelectedPerms] = useState(perms)
 
     const isNew = role == null
 

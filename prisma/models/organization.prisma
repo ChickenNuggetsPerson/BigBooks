@@ -9,7 +9,7 @@ model Organization {
     payrollGroups PayrollGroup[]
 
     inviteCodes InviteCode[]
-    memberships Role[]
+    memberships Membership[]
 
     defaultPayrollItems PayrollItem[]
 

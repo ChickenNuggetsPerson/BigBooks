@@ -1,12 +1,12 @@
 'use server'
 
 import { getSession } from "@/auth/auth";
-import { RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
 import { PayStubItem, Prisma } from "@/database/generated/prisma";
 import { prisma } from "@/database/prisma";
 import { deserializeData, SerializationResult } from "@/utils/serialization";
 import { updatePaystubTotals } from "./PaystubFunctions";
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
 
 
 
@@ -14,17 +14,19 @@ type PaystubWithItems = Prisma.PayStubGetPayload<{ include: { items: true } }>
 
 export default async function upsertEmployeePaystub(data: SerializationResult<PaystubWithItems>) {
 
-    await throwIfInsufficientPerms(RoleTypes.Editor)
+    await throwIfInsufficientPerms(Permissions.payroll.paystub.edit)
     const session = await getSession()
     if (!session) { return }
 
     let paystub = deserializeData(data)
     const currentStub = await prisma.payStub.findUnique({ where: { uuid: paystub.uuid }, include: { items: true } })
-    if (currentStub?.locked) { 
-        return 
+    if (currentStub?.locked) {
+        return
     }
     if (currentStub?.lockedTime || currentStub?.submittedTime) {
-        await throwIfInsufficientPerms(RoleTypes.Admin)
+        await throwIfInsufficientPerms(Permissions.payroll.paystub.unlock)
+        await throwIfInsufficientPerms(Permissions.payroll.paystub.lock)
+        await throwIfInsufficientPerms(Permissions.payroll.paystub.submit)
     }
 
     // Calc totals 

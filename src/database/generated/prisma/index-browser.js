@@ -267,15 +267,16 @@ exports.Prisma.RegistrationCodeScalarFieldEnum = {
 exports.Prisma.InviteCodeScalarFieldEnum = {
   uuid: 'uuid',
   organizationId: 'organizationId',
-  role: 'role',
+  perms: 'perms',
   expires: 'expires'
 };
 
-exports.Prisma.RoleScalarFieldEnum = {
+exports.Prisma.MembershipScalarFieldEnum = {
   uuid: 'uuid',
   userId: 'userId',
   organizationId: 'organizationId',
-  role: 'role',
+  orgAdmin: 'orgAdmin',
+  permissions: 'permissions',
   joinedAt: 'joinedAt'
 };
 
@@ -336,7 +337,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   RegistrationCode: 'RegistrationCode',
   InviteCode: 'InviteCode',
-  Role: 'Role'
+  Membership: 'Membership'
 };
 
 /**

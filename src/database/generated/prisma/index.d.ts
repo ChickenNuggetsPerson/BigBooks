@@ -84,10 +84,10 @@ export type RegistrationCode = $Result.DefaultSelection<Prisma.$RegistrationCode
  */
 export type InviteCode = $Result.DefaultSelection<Prisma.$InviteCodePayload>
 /**
- * Model Role
+ * Model Membership
  * 
  */
-export type Role = $Result.DefaultSelection<Prisma.$RolePayload>
+export type Membership = $Result.DefaultSelection<Prisma.$MembershipPayload>
 
 /**
  * Enums
@@ -423,14 +423,14 @@ export class PrismaClient<
   get inviteCode(): Prisma.InviteCodeDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.role`: Exposes CRUD operations for the **Role** model.
+   * `prisma.membership`: Exposes CRUD operations for the **Membership** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Roles
-    * const roles = await prisma.role.findMany()
+    * // Fetch zero or more Memberships
+    * const memberships = await prisma.membership.findMany()
     * ```
     */
-  get role(): Prisma.RoleDelegate<ExtArgs, ClientOptions>;
+  get membership(): Prisma.MembershipDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -885,7 +885,7 @@ export namespace Prisma {
     User: 'User',
     RegistrationCode: 'RegistrationCode',
     InviteCode: 'InviteCode',
-    Role: 'Role'
+    Membership: 'Membership'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -904,7 +904,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "employee" | "employeeCompensation" | "hourlyRate" | "organization" | "payrollGroup" | "payrollItem" | "payStub" | "payStubItem" | "tax" | "taxSnapshot" | "taxBracket" | "user" | "registrationCode" | "inviteCode" | "role"
+      modelProps: "employee" | "employeeCompensation" | "hourlyRate" | "organization" | "payrollGroup" | "payrollItem" | "payStub" | "payStubItem" | "tax" | "taxSnapshot" | "taxBracket" | "user" | "registrationCode" | "inviteCode" | "membership"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1944,77 +1944,77 @@ export namespace Prisma {
           }
         }
       }
-      Role: {
-        payload: Prisma.$RolePayload<ExtArgs>
-        fields: Prisma.RoleFieldRefs
+      Membership: {
+        payload: Prisma.$MembershipPayload<ExtArgs>
+        fields: Prisma.MembershipFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.RoleFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload> | null
+            args: Prisma.MembershipFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.RoleFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+            args: Prisma.MembershipFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>
           }
           findFirst: {
-            args: Prisma.RoleFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload> | null
+            args: Prisma.MembershipFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.RoleFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+            args: Prisma.MembershipFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>
           }
           findMany: {
-            args: Prisma.RoleFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
+            args: Prisma.MembershipFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>[]
           }
           create: {
-            args: Prisma.RoleCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+            args: Prisma.MembershipCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>
           }
           createMany: {
-            args: Prisma.RoleCreateManyArgs<ExtArgs>
+            args: Prisma.MembershipCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.RoleCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
+            args: Prisma.MembershipCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>[]
           }
           delete: {
-            args: Prisma.RoleDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+            args: Prisma.MembershipDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>
           }
           update: {
-            args: Prisma.RoleUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+            args: Prisma.MembershipUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>
           }
           deleteMany: {
-            args: Prisma.RoleDeleteManyArgs<ExtArgs>
+            args: Prisma.MembershipDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.RoleUpdateManyArgs<ExtArgs>
+            args: Prisma.MembershipUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.RoleUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
+            args: Prisma.MembershipUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>[]
           }
           upsert: {
-            args: Prisma.RoleUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+            args: Prisma.MembershipUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>
           }
           aggregate: {
-            args: Prisma.RoleAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateRole>
+            args: Prisma.MembershipAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMembership>
           }
           groupBy: {
-            args: Prisma.RoleGroupByArgs<ExtArgs>
-            result: $Utils.Optional<RoleGroupByOutputType>[]
+            args: Prisma.MembershipGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MembershipGroupByOutputType>[]
           }
           count: {
-            args: Prisma.RoleCountArgs<ExtArgs>
-            result: $Utils.Optional<RoleCountAggregateOutputType> | number
+            args: Prisma.MembershipCountArgs<ExtArgs>
+            result: $Utils.Optional<MembershipCountAggregateOutputType> | number
           }
         }
       }
@@ -2116,7 +2116,7 @@ export namespace Prisma {
     user?: UserOmit
     registrationCode?: RegistrationCodeOmit
     inviteCode?: InviteCodeOmit
-    role?: RoleOmit
+    membership?: MembershipOmit
   }
 
   /* Types for Logging */
@@ -2384,7 +2384,7 @@ export namespace Prisma {
    * OrganizationCountOutputType without action
    */
   export type OrganizationCountOutputTypeCountMembershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoleWhereInput
+    where?: MembershipWhereInput
   }
 
   /**
@@ -2602,7 +2602,7 @@ export namespace Prisma {
    * UserCountOutputType without action
    */
   export type UserCountOutputTypeCountMembershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoleWhereInput
+    where?: MembershipWhereInput
   }
 
 
@@ -6414,7 +6414,7 @@ export namespace Prisma {
       employees: Prisma.$EmployeePayload<ExtArgs>[]
       payrollGroups: Prisma.$PayrollGroupPayload<ExtArgs>[]
       inviteCodes: Prisma.$InviteCodePayload<ExtArgs>[]
-      memberships: Prisma.$RolePayload<ExtArgs>[]
+      memberships: Prisma.$MembershipPayload<ExtArgs>[]
       defaultPayrollItems: Prisma.$PayrollItemPayload<ExtArgs>[]
       orgTaxes: Prisma.$TaxPayload<ExtArgs>[]
     }
@@ -6821,7 +6821,7 @@ export namespace Prisma {
     employees<T extends Organization$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payrollGroups<T extends Organization$payrollGroupsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$payrollGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayrollGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inviteCodes<T extends Organization$inviteCodesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$inviteCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InviteCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    memberships<T extends Organization$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    memberships<T extends Organization$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     defaultPayrollItems<T extends Organization$defaultPayrollItemsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$defaultPayrollItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayrollItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     orgTaxes<T extends Organization$orgTaxesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$orgTaxesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaxPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -7322,23 +7322,23 @@ export namespace Prisma {
    */
   export type Organization$membershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleInclude<ExtArgs> | null
-    where?: RoleWhereInput
-    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
-    cursor?: RoleWhereUniqueInput
+    include?: MembershipInclude<ExtArgs> | null
+    where?: MembershipWhereInput
+    orderBy?: MembershipOrderByWithRelationInput | MembershipOrderByWithRelationInput[]
+    cursor?: MembershipWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+    distinct?: MembershipScalarFieldEnum | MembershipScalarFieldEnum[]
   }
 
   /**
@@ -16094,7 +16094,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      memberships: Prisma.$RolePayload<ExtArgs>[]
+      memberships: Prisma.$MembershipPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       uuid: string
@@ -16499,7 +16499,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    memberships<T extends User$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, User$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    memberships<T extends User$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, User$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16929,23 +16929,23 @@ export namespace Prisma {
    */
   export type User$membershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleInclude<ExtArgs> | null
-    where?: RoleWhereInput
-    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
-    cursor?: RoleWhereUniqueInput
+    include?: MembershipInclude<ExtArgs> | null
+    where?: MembershipWhereInput
+    orderBy?: MembershipOrderByWithRelationInput | MembershipOrderByWithRelationInput[]
+    cursor?: MembershipWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+    distinct?: MembershipScalarFieldEnum | MembershipScalarFieldEnum[]
   }
 
   /**
@@ -17936,21 +17936,19 @@ export namespace Prisma {
   export type InviteCodeMinAggregateOutputType = {
     uuid: string | null
     organizationId: string | null
-    role: string | null
     expires: Date | null
   }
 
   export type InviteCodeMaxAggregateOutputType = {
     uuid: string | null
     organizationId: string | null
-    role: string | null
     expires: Date | null
   }
 
   export type InviteCodeCountAggregateOutputType = {
     uuid: number
     organizationId: number
-    role: number
+    perms: number
     expires: number
     _all: number
   }
@@ -17959,21 +17957,19 @@ export namespace Prisma {
   export type InviteCodeMinAggregateInputType = {
     uuid?: true
     organizationId?: true
-    role?: true
     expires?: true
   }
 
   export type InviteCodeMaxAggregateInputType = {
     uuid?: true
     organizationId?: true
-    role?: true
     expires?: true
   }
 
   export type InviteCodeCountAggregateInputType = {
     uuid?: true
     organizationId?: true
-    role?: true
+    perms?: true
     expires?: true
     _all?: true
   }
@@ -18053,7 +18049,7 @@ export namespace Prisma {
   export type InviteCodeGroupByOutputType = {
     uuid: string
     organizationId: string
-    role: string
+    perms: string[]
     expires: Date
     _count: InviteCodeCountAggregateOutputType | null
     _min: InviteCodeMinAggregateOutputType | null
@@ -18077,7 +18073,7 @@ export namespace Prisma {
   export type InviteCodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     uuid?: boolean
     organizationId?: boolean
-    role?: boolean
+    perms?: boolean
     expires?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["inviteCode"]>
@@ -18085,7 +18081,7 @@ export namespace Prisma {
   export type InviteCodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     uuid?: boolean
     organizationId?: boolean
-    role?: boolean
+    perms?: boolean
     expires?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["inviteCode"]>
@@ -18093,7 +18089,7 @@ export namespace Prisma {
   export type InviteCodeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     uuid?: boolean
     organizationId?: boolean
-    role?: boolean
+    perms?: boolean
     expires?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["inviteCode"]>
@@ -18101,11 +18097,11 @@ export namespace Prisma {
   export type InviteCodeSelectScalar = {
     uuid?: boolean
     organizationId?: boolean
-    role?: boolean
+    perms?: boolean
     expires?: boolean
   }
 
-  export type InviteCodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "organizationId" | "role" | "expires", ExtArgs["result"]["inviteCode"]>
+  export type InviteCodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "organizationId" | "perms" | "expires", ExtArgs["result"]["inviteCode"]>
   export type InviteCodeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }
@@ -18124,7 +18120,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       uuid: string
       organizationId: string
-      role: string
+      perms: string[]
       expires: Date
     }, ExtArgs["result"]["inviteCode"]>
     composites: {}
@@ -18552,7 +18548,7 @@ export namespace Prisma {
   interface InviteCodeFieldRefs {
     readonly uuid: FieldRef<"InviteCode", 'String'>
     readonly organizationId: FieldRef<"InviteCode", 'String'>
-    readonly role: FieldRef<"InviteCode", 'String'>
+    readonly perms: FieldRef<"InviteCode", 'String[]'>
     readonly expires: FieldRef<"InviteCode", 'DateTime'>
   }
     
@@ -18969,217 +18965,224 @@ export namespace Prisma {
 
 
   /**
-   * Model Role
+   * Model Membership
    */
 
-  export type AggregateRole = {
-    _count: RoleCountAggregateOutputType | null
-    _min: RoleMinAggregateOutputType | null
-    _max: RoleMaxAggregateOutputType | null
+  export type AggregateMembership = {
+    _count: MembershipCountAggregateOutputType | null
+    _min: MembershipMinAggregateOutputType | null
+    _max: MembershipMaxAggregateOutputType | null
   }
 
-  export type RoleMinAggregateOutputType = {
+  export type MembershipMinAggregateOutputType = {
     uuid: string | null
     userId: string | null
     organizationId: string | null
-    role: string | null
+    orgAdmin: boolean | null
     joinedAt: Date | null
   }
 
-  export type RoleMaxAggregateOutputType = {
+  export type MembershipMaxAggregateOutputType = {
     uuid: string | null
     userId: string | null
     organizationId: string | null
-    role: string | null
+    orgAdmin: boolean | null
     joinedAt: Date | null
   }
 
-  export type RoleCountAggregateOutputType = {
+  export type MembershipCountAggregateOutputType = {
     uuid: number
     userId: number
     organizationId: number
-    role: number
+    orgAdmin: number
+    permissions: number
     joinedAt: number
     _all: number
   }
 
 
-  export type RoleMinAggregateInputType = {
+  export type MembershipMinAggregateInputType = {
     uuid?: true
     userId?: true
     organizationId?: true
-    role?: true
+    orgAdmin?: true
     joinedAt?: true
   }
 
-  export type RoleMaxAggregateInputType = {
+  export type MembershipMaxAggregateInputType = {
     uuid?: true
     userId?: true
     organizationId?: true
-    role?: true
+    orgAdmin?: true
     joinedAt?: true
   }
 
-  export type RoleCountAggregateInputType = {
+  export type MembershipCountAggregateInputType = {
     uuid?: true
     userId?: true
     organizationId?: true
-    role?: true
+    orgAdmin?: true
+    permissions?: true
     joinedAt?: true
     _all?: true
   }
 
-  export type RoleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Role to aggregate.
+     * Filter which Membership to aggregate.
      */
-    where?: RoleWhereInput
+    where?: MembershipWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Roles to fetch.
+     * Determine the order of Memberships to fetch.
      */
-    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    orderBy?: MembershipOrderByWithRelationInput | MembershipOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: RoleWhereUniqueInput
+    cursor?: MembershipWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Roles from the position of the cursor.
+     * Take `±n` Memberships from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Roles.
+     * Skip the first `n` Memberships.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Roles
+     * Count returned Memberships
     **/
-    _count?: true | RoleCountAggregateInputType
+    _count?: true | MembershipCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: RoleMinAggregateInputType
+    _min?: MembershipMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: RoleMaxAggregateInputType
+    _max?: MembershipMaxAggregateInputType
   }
 
-  export type GetRoleAggregateType<T extends RoleAggregateArgs> = {
-        [P in keyof T & keyof AggregateRole]: P extends '_count' | 'count'
+  export type GetMembershipAggregateType<T extends MembershipAggregateArgs> = {
+        [P in keyof T & keyof AggregateMembership]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateRole[P]>
-      : GetScalarType<T[P], AggregateRole[P]>
+        : GetScalarType<T[P], AggregateMembership[P]>
+      : GetScalarType<T[P], AggregateMembership[P]>
   }
 
 
 
 
-  export type RoleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoleWhereInput
-    orderBy?: RoleOrderByWithAggregationInput | RoleOrderByWithAggregationInput[]
-    by: RoleScalarFieldEnum[] | RoleScalarFieldEnum
-    having?: RoleScalarWhereWithAggregatesInput
+  export type MembershipGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MembershipWhereInput
+    orderBy?: MembershipOrderByWithAggregationInput | MembershipOrderByWithAggregationInput[]
+    by: MembershipScalarFieldEnum[] | MembershipScalarFieldEnum
+    having?: MembershipScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: RoleCountAggregateInputType | true
-    _min?: RoleMinAggregateInputType
-    _max?: RoleMaxAggregateInputType
+    _count?: MembershipCountAggregateInputType | true
+    _min?: MembershipMinAggregateInputType
+    _max?: MembershipMaxAggregateInputType
   }
 
-  export type RoleGroupByOutputType = {
+  export type MembershipGroupByOutputType = {
     uuid: string
     userId: string
     organizationId: string
-    role: string
+    orgAdmin: boolean
+    permissions: string[]
     joinedAt: Date
-    _count: RoleCountAggregateOutputType | null
-    _min: RoleMinAggregateOutputType | null
-    _max: RoleMaxAggregateOutputType | null
+    _count: MembershipCountAggregateOutputType | null
+    _min: MembershipMinAggregateOutputType | null
+    _max: MembershipMaxAggregateOutputType | null
   }
 
-  type GetRoleGroupByPayload<T extends RoleGroupByArgs> = Prisma.PrismaPromise<
+  type GetMembershipGroupByPayload<T extends MembershipGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<RoleGroupByOutputType, T['by']> &
+      PickEnumerable<MembershipGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof RoleGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof MembershipGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], RoleGroupByOutputType[P]>
-            : GetScalarType<T[P], RoleGroupByOutputType[P]>
+              : GetScalarType<T[P], MembershipGroupByOutputType[P]>
+            : GetScalarType<T[P], MembershipGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type RoleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MembershipSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     uuid?: boolean
     userId?: boolean
     organizationId?: boolean
-    role?: boolean
+    orgAdmin?: boolean
+    permissions?: boolean
     joinedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["role"]>
+  }, ExtArgs["result"]["membership"]>
 
-  export type RoleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MembershipSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     uuid?: boolean
     userId?: boolean
     organizationId?: boolean
-    role?: boolean
+    orgAdmin?: boolean
+    permissions?: boolean
     joinedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["role"]>
+  }, ExtArgs["result"]["membership"]>
 
-  export type RoleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MembershipSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     uuid?: boolean
     userId?: boolean
     organizationId?: boolean
-    role?: boolean
+    orgAdmin?: boolean
+    permissions?: boolean
     joinedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["role"]>
+  }, ExtArgs["result"]["membership"]>
 
-  export type RoleSelectScalar = {
+  export type MembershipSelectScalar = {
     uuid?: boolean
     userId?: boolean
     organizationId?: boolean
-    role?: boolean
+    orgAdmin?: boolean
+    permissions?: boolean
     joinedAt?: boolean
   }
 
-  export type RoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "userId" | "organizationId" | "role" | "joinedAt", ExtArgs["result"]["role"]>
-  export type RoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "userId" | "organizationId" | "orgAdmin" | "permissions" | "joinedAt", ExtArgs["result"]["membership"]>
+  export type MembershipInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }
-  export type RoleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }
-  export type RoleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }
 
-  export type $RolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Role"
+  export type $MembershipPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Membership"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       organization: Prisma.$OrganizationPayload<ExtArgs>
@@ -19188,138 +19191,139 @@ export namespace Prisma {
       uuid: string
       userId: string
       organizationId: string
-      role: string
+      orgAdmin: boolean
+      permissions: string[]
       joinedAt: Date
-    }, ExtArgs["result"]["role"]>
+    }, ExtArgs["result"]["membership"]>
     composites: {}
   }
 
-  type RoleGetPayload<S extends boolean | null | undefined | RoleDefaultArgs> = $Result.GetResult<Prisma.$RolePayload, S>
+  type MembershipGetPayload<S extends boolean | null | undefined | MembershipDefaultArgs> = $Result.GetResult<Prisma.$MembershipPayload, S>
 
-  type RoleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<RoleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: RoleCountAggregateInputType | true
+  type MembershipCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MembershipFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MembershipCountAggregateInputType | true
     }
 
-  export interface RoleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Role'], meta: { name: 'Role' } }
+  export interface MembershipDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Membership'], meta: { name: 'Membership' } }
     /**
-     * Find zero or one Role that matches the filter.
-     * @param {RoleFindUniqueArgs} args - Arguments to find a Role
+     * Find zero or one Membership that matches the filter.
+     * @param {MembershipFindUniqueArgs} args - Arguments to find a Membership
      * @example
-     * // Get one Role
-     * const role = await prisma.role.findUnique({
+     * // Get one Membership
+     * const membership = await prisma.membership.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends RoleFindUniqueArgs>(args: SelectSubset<T, RoleFindUniqueArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends MembershipFindUniqueArgs>(args: SelectSubset<T, MembershipFindUniqueArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Role that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Membership that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {RoleFindUniqueOrThrowArgs} args - Arguments to find a Role
+     * @param {MembershipFindUniqueOrThrowArgs} args - Arguments to find a Membership
      * @example
-     * // Get one Role
-     * const role = await prisma.role.findUniqueOrThrow({
+     * // Get one Membership
+     * const membership = await prisma.membership.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends RoleFindUniqueOrThrowArgs>(args: SelectSubset<T, RoleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends MembershipFindUniqueOrThrowArgs>(args: SelectSubset<T, MembershipFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Role that matches the filter.
+     * Find the first Membership that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoleFindFirstArgs} args - Arguments to find a Role
+     * @param {MembershipFindFirstArgs} args - Arguments to find a Membership
      * @example
-     * // Get one Role
-     * const role = await prisma.role.findFirst({
+     * // Get one Membership
+     * const membership = await prisma.membership.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends RoleFindFirstArgs>(args?: SelectSubset<T, RoleFindFirstArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends MembershipFindFirstArgs>(args?: SelectSubset<T, MembershipFindFirstArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Role that matches the filter or
+     * Find the first Membership that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoleFindFirstOrThrowArgs} args - Arguments to find a Role
+     * @param {MembershipFindFirstOrThrowArgs} args - Arguments to find a Membership
      * @example
-     * // Get one Role
-     * const role = await prisma.role.findFirstOrThrow({
+     * // Get one Membership
+     * const membership = await prisma.membership.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends RoleFindFirstOrThrowArgs>(args?: SelectSubset<T, RoleFindFirstOrThrowArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends MembershipFindFirstOrThrowArgs>(args?: SelectSubset<T, MembershipFindFirstOrThrowArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Roles that matches the filter.
+     * Find zero or more Memberships that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {MembershipFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Roles
-     * const roles = await prisma.role.findMany()
+     * // Get all Memberships
+     * const memberships = await prisma.membership.findMany()
      * 
-     * // Get first 10 Roles
-     * const roles = await prisma.role.findMany({ take: 10 })
+     * // Get first 10 Memberships
+     * const memberships = await prisma.membership.findMany({ take: 10 })
      * 
      * // Only select the `uuid`
-     * const roleWithUuidOnly = await prisma.role.findMany({ select: { uuid: true } })
+     * const membershipWithUuidOnly = await prisma.membership.findMany({ select: { uuid: true } })
      * 
      */
-    findMany<T extends RoleFindManyArgs>(args?: SelectSubset<T, RoleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends MembershipFindManyArgs>(args?: SelectSubset<T, MembershipFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Role.
-     * @param {RoleCreateArgs} args - Arguments to create a Role.
+     * Create a Membership.
+     * @param {MembershipCreateArgs} args - Arguments to create a Membership.
      * @example
-     * // Create one Role
-     * const Role = await prisma.role.create({
+     * // Create one Membership
+     * const Membership = await prisma.membership.create({
      *   data: {
-     *     // ... data to create a Role
+     *     // ... data to create a Membership
      *   }
      * })
      * 
      */
-    create<T extends RoleCreateArgs>(args: SelectSubset<T, RoleCreateArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends MembershipCreateArgs>(args: SelectSubset<T, MembershipCreateArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Roles.
-     * @param {RoleCreateManyArgs} args - Arguments to create many Roles.
+     * Create many Memberships.
+     * @param {MembershipCreateManyArgs} args - Arguments to create many Memberships.
      * @example
-     * // Create many Roles
-     * const role = await prisma.role.createMany({
+     * // Create many Memberships
+     * const membership = await prisma.membership.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends RoleCreateManyArgs>(args?: SelectSubset<T, RoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends MembershipCreateManyArgs>(args?: SelectSubset<T, MembershipCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Roles and returns the data saved in the database.
-     * @param {RoleCreateManyAndReturnArgs} args - Arguments to create many Roles.
+     * Create many Memberships and returns the data saved in the database.
+     * @param {MembershipCreateManyAndReturnArgs} args - Arguments to create many Memberships.
      * @example
-     * // Create many Roles
-     * const role = await prisma.role.createManyAndReturn({
+     * // Create many Memberships
+     * const membership = await prisma.membership.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Roles and only return the `uuid`
-     * const roleWithUuidOnly = await prisma.role.createManyAndReturn({
+     * // Create many Memberships and only return the `uuid`
+     * const membershipWithUuidOnly = await prisma.membership.createManyAndReturn({
      *   select: { uuid: true },
      *   data: [
      *     // ... provide data here
@@ -19329,28 +19333,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends RoleCreateManyAndReturnArgs>(args?: SelectSubset<T, RoleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends MembershipCreateManyAndReturnArgs>(args?: SelectSubset<T, MembershipCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Role.
-     * @param {RoleDeleteArgs} args - Arguments to delete one Role.
+     * Delete a Membership.
+     * @param {MembershipDeleteArgs} args - Arguments to delete one Membership.
      * @example
-     * // Delete one Role
-     * const Role = await prisma.role.delete({
+     * // Delete one Membership
+     * const Membership = await prisma.membership.delete({
      *   where: {
-     *     // ... filter to delete one Role
+     *     // ... filter to delete one Membership
      *   }
      * })
      * 
      */
-    delete<T extends RoleDeleteArgs>(args: SelectSubset<T, RoleDeleteArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends MembershipDeleteArgs>(args: SelectSubset<T, MembershipDeleteArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Role.
-     * @param {RoleUpdateArgs} args - Arguments to update one Role.
+     * Update one Membership.
+     * @param {MembershipUpdateArgs} args - Arguments to update one Membership.
      * @example
-     * // Update one Role
-     * const role = await prisma.role.update({
+     * // Update one Membership
+     * const membership = await prisma.membership.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -19360,30 +19364,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends RoleUpdateArgs>(args: SelectSubset<T, RoleUpdateArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends MembershipUpdateArgs>(args: SelectSubset<T, MembershipUpdateArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Roles.
-     * @param {RoleDeleteManyArgs} args - Arguments to filter Roles to delete.
+     * Delete zero or more Memberships.
+     * @param {MembershipDeleteManyArgs} args - Arguments to filter Memberships to delete.
      * @example
-     * // Delete a few Roles
-     * const { count } = await prisma.role.deleteMany({
+     * // Delete a few Memberships
+     * const { count } = await prisma.membership.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends RoleDeleteManyArgs>(args?: SelectSubset<T, RoleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends MembershipDeleteManyArgs>(args?: SelectSubset<T, MembershipDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Roles.
+     * Update zero or more Memberships.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {MembershipUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Roles
-     * const role = await prisma.role.updateMany({
+     * // Update many Memberships
+     * const membership = await prisma.membership.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -19393,14 +19397,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends RoleUpdateManyArgs>(args: SelectSubset<T, RoleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends MembershipUpdateManyArgs>(args: SelectSubset<T, MembershipUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Roles and returns the data updated in the database.
-     * @param {RoleUpdateManyAndReturnArgs} args - Arguments to update many Roles.
+     * Update zero or more Memberships and returns the data updated in the database.
+     * @param {MembershipUpdateManyAndReturnArgs} args - Arguments to update many Memberships.
      * @example
-     * // Update many Roles
-     * const role = await prisma.role.updateManyAndReturn({
+     * // Update many Memberships
+     * const membership = await prisma.membership.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -19409,8 +19413,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Roles and only return the `uuid`
-     * const roleWithUuidOnly = await prisma.role.updateManyAndReturn({
+     * // Update zero or more Memberships and only return the `uuid`
+     * const membershipWithUuidOnly = await prisma.membership.updateManyAndReturn({
      *   select: { uuid: true },
      *   where: {
      *     // ... provide filter here
@@ -19423,56 +19427,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends RoleUpdateManyAndReturnArgs>(args: SelectSubset<T, RoleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends MembershipUpdateManyAndReturnArgs>(args: SelectSubset<T, MembershipUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Role.
-     * @param {RoleUpsertArgs} args - Arguments to update or create a Role.
+     * Create or update one Membership.
+     * @param {MembershipUpsertArgs} args - Arguments to update or create a Membership.
      * @example
-     * // Update or create a Role
-     * const role = await prisma.role.upsert({
+     * // Update or create a Membership
+     * const membership = await prisma.membership.upsert({
      *   create: {
-     *     // ... data to create a Role
+     *     // ... data to create a Membership
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Role we want to update
+     *     // ... the filter for the Membership we want to update
      *   }
      * })
      */
-    upsert<T extends RoleUpsertArgs>(args: SelectSubset<T, RoleUpsertArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends MembershipUpsertArgs>(args: SelectSubset<T, MembershipUpsertArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Roles.
+     * Count the number of Memberships.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoleCountArgs} args - Arguments to filter Roles to count.
+     * @param {MembershipCountArgs} args - Arguments to filter Memberships to count.
      * @example
-     * // Count the number of Roles
-     * const count = await prisma.role.count({
+     * // Count the number of Memberships
+     * const count = await prisma.membership.count({
      *   where: {
-     *     // ... the filter for the Roles we want to count
+     *     // ... the filter for the Memberships we want to count
      *   }
      * })
     **/
-    count<T extends RoleCountArgs>(
-      args?: Subset<T, RoleCountArgs>,
+    count<T extends MembershipCountArgs>(
+      args?: Subset<T, MembershipCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], RoleCountAggregateOutputType>
+          : GetScalarType<T['select'], MembershipCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Role.
+     * Allows you to perform aggregations operations on a Membership.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {MembershipAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -19492,13 +19496,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends RoleAggregateArgs>(args: Subset<T, RoleAggregateArgs>): Prisma.PrismaPromise<GetRoleAggregateType<T>>
+    aggregate<T extends MembershipAggregateArgs>(args: Subset<T, MembershipAggregateArgs>): Prisma.PrismaPromise<GetMembershipAggregateType<T>>
 
     /**
-     * Group by Role.
+     * Group by Membership.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {RoleGroupByArgs} args - Group by arguments.
+     * @param {MembershipGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -19513,14 +19517,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends RoleGroupByArgs,
+      T extends MembershipGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: RoleGroupByArgs['orderBy'] }
-        : { orderBy?: RoleGroupByArgs['orderBy'] },
+        ? { orderBy: MembershipGroupByArgs['orderBy'] }
+        : { orderBy?: MembershipGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -19569,20 +19573,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, RoleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRoleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, MembershipGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMembershipGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Role model
+   * Fields of the Membership model
    */
-  readonly fields: RoleFieldRefs;
+  readonly fields: MembershipFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Role.
+   * The delegate class that acts as a "Promise-like" for Membership.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__RoleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__MembershipClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -19612,425 +19616,426 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Role model
+   * Fields of the Membership model
    */
-  interface RoleFieldRefs {
-    readonly uuid: FieldRef<"Role", 'String'>
-    readonly userId: FieldRef<"Role", 'String'>
-    readonly organizationId: FieldRef<"Role", 'String'>
-    readonly role: FieldRef<"Role", 'String'>
-    readonly joinedAt: FieldRef<"Role", 'DateTime'>
+  interface MembershipFieldRefs {
+    readonly uuid: FieldRef<"Membership", 'String'>
+    readonly userId: FieldRef<"Membership", 'String'>
+    readonly organizationId: FieldRef<"Membership", 'String'>
+    readonly orgAdmin: FieldRef<"Membership", 'Boolean'>
+    readonly permissions: FieldRef<"Membership", 'String[]'>
+    readonly joinedAt: FieldRef<"Membership", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Role findUnique
+   * Membership findUnique
    */
-  export type RoleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * Filter, which Role to fetch.
+     * Filter, which Membership to fetch.
      */
-    where: RoleWhereUniqueInput
+    where: MembershipWhereUniqueInput
   }
 
   /**
-   * Role findUniqueOrThrow
+   * Membership findUniqueOrThrow
    */
-  export type RoleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * Filter, which Role to fetch.
+     * Filter, which Membership to fetch.
      */
-    where: RoleWhereUniqueInput
+    where: MembershipWhereUniqueInput
   }
 
   /**
-   * Role findFirst
+   * Membership findFirst
    */
-  export type RoleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * Filter, which Role to fetch.
+     * Filter, which Membership to fetch.
      */
-    where?: RoleWhereInput
+    where?: MembershipWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Roles to fetch.
+     * Determine the order of Memberships to fetch.
      */
-    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    orderBy?: MembershipOrderByWithRelationInput | MembershipOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Roles.
+     * Sets the position for searching for Memberships.
      */
-    cursor?: RoleWhereUniqueInput
+    cursor?: MembershipWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Roles from the position of the cursor.
+     * Take `±n` Memberships from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Roles.
+     * Skip the first `n` Memberships.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Roles.
+     * Filter by unique combinations of Memberships.
      */
-    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+    distinct?: MembershipScalarFieldEnum | MembershipScalarFieldEnum[]
   }
 
   /**
-   * Role findFirstOrThrow
+   * Membership findFirstOrThrow
    */
-  export type RoleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * Filter, which Role to fetch.
+     * Filter, which Membership to fetch.
      */
-    where?: RoleWhereInput
+    where?: MembershipWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Roles to fetch.
+     * Determine the order of Memberships to fetch.
      */
-    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    orderBy?: MembershipOrderByWithRelationInput | MembershipOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Roles.
+     * Sets the position for searching for Memberships.
      */
-    cursor?: RoleWhereUniqueInput
+    cursor?: MembershipWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Roles from the position of the cursor.
+     * Take `±n` Memberships from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Roles.
+     * Skip the first `n` Memberships.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Roles.
+     * Filter by unique combinations of Memberships.
      */
-    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+    distinct?: MembershipScalarFieldEnum | MembershipScalarFieldEnum[]
   }
 
   /**
-   * Role findMany
+   * Membership findMany
    */
-  export type RoleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * Filter, which Roles to fetch.
+     * Filter, which Memberships to fetch.
      */
-    where?: RoleWhereInput
+    where?: MembershipWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Roles to fetch.
+     * Determine the order of Memberships to fetch.
      */
-    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    orderBy?: MembershipOrderByWithRelationInput | MembershipOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Roles.
+     * Sets the position for listing Memberships.
      */
-    cursor?: RoleWhereUniqueInput
+    cursor?: MembershipWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Roles from the position of the cursor.
+     * Take `±n` Memberships from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Roles.
+     * Skip the first `n` Memberships.
      */
     skip?: number
-    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+    distinct?: MembershipScalarFieldEnum | MembershipScalarFieldEnum[]
   }
 
   /**
-   * Role create
+   * Membership create
    */
-  export type RoleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * The data needed to create a Role.
+     * The data needed to create a Membership.
      */
-    data: XOR<RoleCreateInput, RoleUncheckedCreateInput>
+    data: XOR<MembershipCreateInput, MembershipUncheckedCreateInput>
   }
 
   /**
-   * Role createMany
+   * Membership createMany
    */
-  export type RoleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Roles.
+     * The data used to create many Memberships.
      */
-    data: RoleCreateManyInput | RoleCreateManyInput[]
+    data: MembershipCreateManyInput | MembershipCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Role createManyAndReturn
+   * Membership createManyAndReturn
    */
-  export type RoleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelectCreateManyAndReturn<ExtArgs> | null
+    select?: MembershipSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
-     * The data used to create many Roles.
+     * The data used to create many Memberships.
      */
-    data: RoleCreateManyInput | RoleCreateManyInput[]
+    data: MembershipCreateManyInput | MembershipCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: MembershipIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Role update
+   * Membership update
    */
-  export type RoleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * The data needed to update a Role.
+     * The data needed to update a Membership.
      */
-    data: XOR<RoleUpdateInput, RoleUncheckedUpdateInput>
+    data: XOR<MembershipUpdateInput, MembershipUncheckedUpdateInput>
     /**
-     * Choose, which Role to update.
+     * Choose, which Membership to update.
      */
-    where: RoleWhereUniqueInput
+    where: MembershipWhereUniqueInput
   }
 
   /**
-   * Role updateMany
+   * Membership updateMany
    */
-  export type RoleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Roles.
+     * The data used to update Memberships.
      */
-    data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyInput>
+    data: XOR<MembershipUpdateManyMutationInput, MembershipUncheckedUpdateManyInput>
     /**
-     * Filter which Roles to update
+     * Filter which Memberships to update
      */
-    where?: RoleWhereInput
+    where?: MembershipWhereInput
     /**
-     * Limit how many Roles to update.
+     * Limit how many Memberships to update.
      */
     limit?: number
   }
 
   /**
-   * Role updateManyAndReturn
+   * Membership updateManyAndReturn
    */
-  export type RoleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: MembershipSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
-     * The data used to update Roles.
+     * The data used to update Memberships.
      */
-    data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyInput>
+    data: XOR<MembershipUpdateManyMutationInput, MembershipUncheckedUpdateManyInput>
     /**
-     * Filter which Roles to update
+     * Filter which Memberships to update
      */
-    where?: RoleWhereInput
+    where?: MembershipWhereInput
     /**
-     * Limit how many Roles to update.
+     * Limit how many Memberships to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: MembershipIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Role upsert
+   * Membership upsert
    */
-  export type RoleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * The filter to search for the Role to update in case it exists.
+     * The filter to search for the Membership to update in case it exists.
      */
-    where: RoleWhereUniqueInput
+    where: MembershipWhereUniqueInput
     /**
-     * In case the Role found by the `where` argument doesn't exist, create a new Role with this data.
+     * In case the Membership found by the `where` argument doesn't exist, create a new Membership with this data.
      */
-    create: XOR<RoleCreateInput, RoleUncheckedCreateInput>
+    create: XOR<MembershipCreateInput, MembershipUncheckedCreateInput>
     /**
-     * In case the Role was found with the provided `where` argument, update it with this data.
+     * In case the Membership was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<RoleUpdateInput, RoleUncheckedUpdateInput>
+    update: XOR<MembershipUpdateInput, MembershipUncheckedUpdateInput>
   }
 
   /**
-   * Role delete
+   * Membership delete
    */
-  export type RoleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * Filter which Role to delete.
+     * Filter which Membership to delete.
      */
-    where: RoleWhereUniqueInput
+    where: MembershipWhereUniqueInput
   }
 
   /**
-   * Role deleteMany
+   * Membership deleteMany
    */
-  export type RoleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Roles to delete
+     * Filter which Memberships to delete
      */
-    where?: RoleWhereInput
+    where?: MembershipWhereInput
     /**
-     * Limit how many Roles to delete.
+     * Limit how many Memberships to delete.
      */
     limit?: number
   }
 
   /**
-   * Role without action
+   * Membership without action
    */
-  export type RoleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Role
+     * Select specific fields to fetch from the Membership
      */
-    select?: RoleSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Role
+     * Omit specific fields from the Membership
      */
-    omit?: RoleOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoleInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
   }
 
 
@@ -20234,22 +20239,23 @@ export namespace Prisma {
   export const InviteCodeScalarFieldEnum: {
     uuid: 'uuid',
     organizationId: 'organizationId',
-    role: 'role',
+    perms: 'perms',
     expires: 'expires'
   };
 
   export type InviteCodeScalarFieldEnum = (typeof InviteCodeScalarFieldEnum)[keyof typeof InviteCodeScalarFieldEnum]
 
 
-  export const RoleScalarFieldEnum: {
+  export const MembershipScalarFieldEnum: {
     uuid: 'uuid',
     userId: 'userId',
     organizationId: 'organizationId',
-    role: 'role',
+    orgAdmin: 'orgAdmin',
+    permissions: 'permissions',
     joinedAt: 'joinedAt'
   };
 
-  export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
+  export type MembershipScalarFieldEnum = (typeof MembershipScalarFieldEnum)[keyof typeof MembershipScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -20686,7 +20692,7 @@ export namespace Prisma {
     employees?: EmployeeListRelationFilter
     payrollGroups?: PayrollGroupListRelationFilter
     inviteCodes?: InviteCodeListRelationFilter
-    memberships?: RoleListRelationFilter
+    memberships?: MembershipListRelationFilter
     defaultPayrollItems?: PayrollItemListRelationFilter
     orgTaxes?: TaxListRelationFilter
   }
@@ -20700,7 +20706,7 @@ export namespace Prisma {
     employees?: EmployeeOrderByRelationAggregateInput
     payrollGroups?: PayrollGroupOrderByRelationAggregateInput
     inviteCodes?: InviteCodeOrderByRelationAggregateInput
-    memberships?: RoleOrderByRelationAggregateInput
+    memberships?: MembershipOrderByRelationAggregateInput
     defaultPayrollItems?: PayrollItemOrderByRelationAggregateInput
     orgTaxes?: TaxOrderByRelationAggregateInput
   }
@@ -20717,7 +20723,7 @@ export namespace Prisma {
     employees?: EmployeeListRelationFilter
     payrollGroups?: PayrollGroupListRelationFilter
     inviteCodes?: InviteCodeListRelationFilter
-    memberships?: RoleListRelationFilter
+    memberships?: MembershipListRelationFilter
     defaultPayrollItems?: PayrollItemListRelationFilter
     orgTaxes?: TaxListRelationFilter
   }, "uuid" | "uuid">
@@ -21340,7 +21346,7 @@ export namespace Prisma {
     username?: StringFilter<"User"> | string
     passHash?: StringFilter<"User"> | string
     allocatedOrganizations?: IntFilter<"User"> | number
-    memberships?: RoleListRelationFilter
+    memberships?: MembershipListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -21352,7 +21358,7 @@ export namespace Prisma {
     username?: SortOrder
     passHash?: SortOrder
     allocatedOrganizations?: SortOrder
-    memberships?: RoleOrderByRelationAggregateInput
+    memberships?: MembershipOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -21367,7 +21373,7 @@ export namespace Prisma {
     lastName?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     allocatedOrganizations?: IntFilter<"User"> | number
-    memberships?: RoleListRelationFilter
+    memberships?: MembershipListRelationFilter
   }, "uuid" | "uuid" | "username" | "passHash">
 
   export type UserOrderByWithAggregationInput = {
@@ -21443,7 +21449,7 @@ export namespace Prisma {
     NOT?: InviteCodeWhereInput | InviteCodeWhereInput[]
     uuid?: StringFilter<"InviteCode"> | string
     organizationId?: StringFilter<"InviteCode"> | string
-    role?: StringFilter<"InviteCode"> | string
+    perms?: StringNullableListFilter<"InviteCode">
     expires?: DateTimeFilter<"InviteCode"> | Date | string
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
   }
@@ -21451,7 +21457,7 @@ export namespace Prisma {
   export type InviteCodeOrderByWithRelationInput = {
     uuid?: SortOrder
     organizationId?: SortOrder
-    role?: SortOrder
+    perms?: SortOrder
     expires?: SortOrder
     organization?: OrganizationOrderByWithRelationInput
   }
@@ -21462,7 +21468,7 @@ export namespace Prisma {
     OR?: InviteCodeWhereInput[]
     NOT?: InviteCodeWhereInput | InviteCodeWhereInput[]
     organizationId?: StringFilter<"InviteCode"> | string
-    role?: StringFilter<"InviteCode"> | string
+    perms?: StringNullableListFilter<"InviteCode">
     expires?: DateTimeFilter<"InviteCode"> | Date | string
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
   }, "uuid" | "uuid">
@@ -21470,7 +21476,7 @@ export namespace Prisma {
   export type InviteCodeOrderByWithAggregationInput = {
     uuid?: SortOrder
     organizationId?: SortOrder
-    role?: SortOrder
+    perms?: SortOrder
     expires?: SortOrder
     _count?: InviteCodeCountOrderByAggregateInput
     _max?: InviteCodeMaxOrderByAggregateInput
@@ -21483,67 +21489,72 @@ export namespace Prisma {
     NOT?: InviteCodeScalarWhereWithAggregatesInput | InviteCodeScalarWhereWithAggregatesInput[]
     uuid?: StringWithAggregatesFilter<"InviteCode"> | string
     organizationId?: StringWithAggregatesFilter<"InviteCode"> | string
-    role?: StringWithAggregatesFilter<"InviteCode"> | string
+    perms?: StringNullableListFilter<"InviteCode">
     expires?: DateTimeWithAggregatesFilter<"InviteCode"> | Date | string
   }
 
-  export type RoleWhereInput = {
-    AND?: RoleWhereInput | RoleWhereInput[]
-    OR?: RoleWhereInput[]
-    NOT?: RoleWhereInput | RoleWhereInput[]
-    uuid?: StringFilter<"Role"> | string
-    userId?: StringFilter<"Role"> | string
-    organizationId?: StringFilter<"Role"> | string
-    role?: StringFilter<"Role"> | string
-    joinedAt?: DateTimeFilter<"Role"> | Date | string
+  export type MembershipWhereInput = {
+    AND?: MembershipWhereInput | MembershipWhereInput[]
+    OR?: MembershipWhereInput[]
+    NOT?: MembershipWhereInput | MembershipWhereInput[]
+    uuid?: StringFilter<"Membership"> | string
+    userId?: StringFilter<"Membership"> | string
+    organizationId?: StringFilter<"Membership"> | string
+    orgAdmin?: BoolFilter<"Membership"> | boolean
+    permissions?: StringNullableListFilter<"Membership">
+    joinedAt?: DateTimeFilter<"Membership"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
   }
 
-  export type RoleOrderByWithRelationInput = {
+  export type MembershipOrderByWithRelationInput = {
     uuid?: SortOrder
     userId?: SortOrder
     organizationId?: SortOrder
-    role?: SortOrder
+    orgAdmin?: SortOrder
+    permissions?: SortOrder
     joinedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     organization?: OrganizationOrderByWithRelationInput
   }
 
-  export type RoleWhereUniqueInput = Prisma.AtLeast<{
+  export type MembershipWhereUniqueInput = Prisma.AtLeast<{
     uuid?: string
-    userId_organizationId?: RoleUserIdOrganizationIdCompoundUniqueInput
-    AND?: RoleWhereInput | RoleWhereInput[]
-    OR?: RoleWhereInput[]
-    NOT?: RoleWhereInput | RoleWhereInput[]
-    userId?: StringFilter<"Role"> | string
-    organizationId?: StringFilter<"Role"> | string
-    role?: StringFilter<"Role"> | string
-    joinedAt?: DateTimeFilter<"Role"> | Date | string
+    userId_organizationId?: MembershipUserIdOrganizationIdCompoundUniqueInput
+    AND?: MembershipWhereInput | MembershipWhereInput[]
+    OR?: MembershipWhereInput[]
+    NOT?: MembershipWhereInput | MembershipWhereInput[]
+    userId?: StringFilter<"Membership"> | string
+    organizationId?: StringFilter<"Membership"> | string
+    orgAdmin?: BoolFilter<"Membership"> | boolean
+    permissions?: StringNullableListFilter<"Membership">
+    joinedAt?: DateTimeFilter<"Membership"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
   }, "uuid" | "userId_organizationId">
 
-  export type RoleOrderByWithAggregationInput = {
+  export type MembershipOrderByWithAggregationInput = {
     uuid?: SortOrder
     userId?: SortOrder
     organizationId?: SortOrder
-    role?: SortOrder
+    orgAdmin?: SortOrder
+    permissions?: SortOrder
     joinedAt?: SortOrder
-    _count?: RoleCountOrderByAggregateInput
-    _max?: RoleMaxOrderByAggregateInput
-    _min?: RoleMinOrderByAggregateInput
+    _count?: MembershipCountOrderByAggregateInput
+    _max?: MembershipMaxOrderByAggregateInput
+    _min?: MembershipMinOrderByAggregateInput
   }
 
-  export type RoleScalarWhereWithAggregatesInput = {
-    AND?: RoleScalarWhereWithAggregatesInput | RoleScalarWhereWithAggregatesInput[]
-    OR?: RoleScalarWhereWithAggregatesInput[]
-    NOT?: RoleScalarWhereWithAggregatesInput | RoleScalarWhereWithAggregatesInput[]
-    uuid?: StringWithAggregatesFilter<"Role"> | string
-    userId?: StringWithAggregatesFilter<"Role"> | string
-    organizationId?: StringWithAggregatesFilter<"Role"> | string
-    role?: StringWithAggregatesFilter<"Role"> | string
-    joinedAt?: DateTimeWithAggregatesFilter<"Role"> | Date | string
+  export type MembershipScalarWhereWithAggregatesInput = {
+    AND?: MembershipScalarWhereWithAggregatesInput | MembershipScalarWhereWithAggregatesInput[]
+    OR?: MembershipScalarWhereWithAggregatesInput[]
+    NOT?: MembershipScalarWhereWithAggregatesInput | MembershipScalarWhereWithAggregatesInput[]
+    uuid?: StringWithAggregatesFilter<"Membership"> | string
+    userId?: StringWithAggregatesFilter<"Membership"> | string
+    organizationId?: StringWithAggregatesFilter<"Membership"> | string
+    orgAdmin?: BoolWithAggregatesFilter<"Membership"> | boolean
+    permissions?: StringNullableListFilter<"Membership">
+    joinedAt?: DateTimeWithAggregatesFilter<"Membership"> | Date | string
   }
 
   export type EmployeeCreateInput = {
@@ -21813,7 +21824,7 @@ export namespace Prisma {
     employees?: EmployeeCreateNestedManyWithoutOrganizationInput
     payrollGroups?: PayrollGroupCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
-    memberships?: RoleCreateNestedManyWithoutOrganizationInput
+    memberships?: MembershipCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutOrganizationInput
     orgTaxes?: TaxCreateNestedManyWithoutOrganizationInput
   }
@@ -21827,7 +21838,7 @@ export namespace Prisma {
     employees?: EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
     payrollGroups?: PayrollGroupUncheckedCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
-    memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutOrganizationInput
     orgTaxes?: TaxUncheckedCreateNestedManyWithoutOrganizationInput
   }
@@ -21841,7 +21852,7 @@ export namespace Prisma {
     employees?: EmployeeUpdateManyWithoutOrganizationNestedInput
     payrollGroups?: PayrollGroupUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
-    memberships?: RoleUpdateManyWithoutOrganizationNestedInput
+    memberships?: MembershipUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutOrganizationNestedInput
     orgTaxes?: TaxUpdateManyWithoutOrganizationNestedInput
   }
@@ -21855,7 +21866,7 @@ export namespace Prisma {
     employees?: EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
     payrollGroups?: PayrollGroupUncheckedUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
-    memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutOrganizationNestedInput
     orgTaxes?: TaxUncheckedUpdateManyWithoutOrganizationNestedInput
   }
@@ -22510,7 +22521,7 @@ export namespace Prisma {
     username: string
     passHash: string
     allocatedOrganizations?: number
-    memberships?: RoleCreateNestedManyWithoutUserInput
+    memberships?: MembershipCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -22522,7 +22533,7 @@ export namespace Prisma {
     username: string
     passHash: string
     allocatedOrganizations?: number
-    memberships?: RoleUncheckedCreateNestedManyWithoutUserInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -22534,7 +22545,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     passHash?: StringFieldUpdateOperationsInput | string
     allocatedOrganizations?: IntFieldUpdateOperationsInput | number
-    memberships?: RoleUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -22546,7 +22557,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     passHash?: StringFieldUpdateOperationsInput | string
     allocatedOrganizations?: IntFieldUpdateOperationsInput | number
-    memberships?: RoleUncheckedUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -22619,7 +22630,7 @@ export namespace Prisma {
 
   export type InviteCodeCreateInput = {
     uuid?: string
-    role: string
+    perms?: InviteCodeCreatepermsInput | string[]
     expires: Date | string
     organization: OrganizationCreateNestedOneWithoutInviteCodesInput
   }
@@ -22627,13 +22638,13 @@ export namespace Prisma {
   export type InviteCodeUncheckedCreateInput = {
     uuid?: string
     organizationId: string
-    role: string
+    perms?: InviteCodeCreatepermsInput | string[]
     expires: Date | string
   }
 
   export type InviteCodeUpdateInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    perms?: InviteCodeUpdatepermsInput | string[]
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutInviteCodesNestedInput
   }
@@ -22641,81 +22652,88 @@ export namespace Prisma {
   export type InviteCodeUncheckedUpdateInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     organizationId?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    perms?: InviteCodeUpdatepermsInput | string[]
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InviteCodeCreateManyInput = {
     uuid?: string
     organizationId: string
-    role: string
+    perms?: InviteCodeCreatepermsInput | string[]
     expires: Date | string
   }
 
   export type InviteCodeUpdateManyMutationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    perms?: InviteCodeUpdatepermsInput | string[]
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InviteCodeUncheckedUpdateManyInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     organizationId?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    perms?: InviteCodeUpdatepermsInput | string[]
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RoleCreateInput = {
+  export type MembershipCreateInput = {
     uuid?: string
-    role?: string
+    orgAdmin?: boolean
+    permissions?: MembershipCreatepermissionsInput | string[]
     joinedAt?: Date | string
     user: UserCreateNestedOneWithoutMembershipsInput
     organization: OrganizationCreateNestedOneWithoutMembershipsInput
   }
 
-  export type RoleUncheckedCreateInput = {
+  export type MembershipUncheckedCreateInput = {
     uuid?: string
     userId: string
     organizationId: string
-    role?: string
+    orgAdmin?: boolean
+    permissions?: MembershipCreatepermissionsInput | string[]
     joinedAt?: Date | string
   }
 
-  export type RoleUpdateInput = {
+  export type MembershipUpdateInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    orgAdmin?: BoolFieldUpdateOperationsInput | boolean
+    permissions?: MembershipUpdatepermissionsInput | string[]
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutMembershipsNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutMembershipsNestedInput
   }
 
-  export type RoleUncheckedUpdateInput = {
+  export type MembershipUncheckedUpdateInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     organizationId?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    orgAdmin?: BoolFieldUpdateOperationsInput | boolean
+    permissions?: MembershipUpdatepermissionsInput | string[]
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RoleCreateManyInput = {
+  export type MembershipCreateManyInput = {
     uuid?: string
     userId: string
     organizationId: string
-    role?: string
+    orgAdmin?: boolean
+    permissions?: MembershipCreatepermissionsInput | string[]
     joinedAt?: Date | string
   }
 
-  export type RoleUpdateManyMutationInput = {
+  export type MembershipUpdateManyMutationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    orgAdmin?: BoolFieldUpdateOperationsInput | boolean
+    permissions?: MembershipUpdatepermissionsInput | string[]
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RoleUncheckedUpdateManyInput = {
+  export type MembershipUncheckedUpdateManyInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     organizationId?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    orgAdmin?: BoolFieldUpdateOperationsInput | boolean
+    permissions?: MembershipUpdatepermissionsInput | string[]
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -23137,10 +23155,10 @@ export namespace Prisma {
     none?: InviteCodeWhereInput
   }
 
-  export type RoleListRelationFilter = {
-    every?: RoleWhereInput
-    some?: RoleWhereInput
-    none?: RoleWhereInput
+  export type MembershipListRelationFilter = {
+    every?: MembershipWhereInput
+    some?: MembershipWhereInput
+    none?: MembershipWhereInput
   }
 
   export type TaxListRelationFilter = {
@@ -23161,7 +23179,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type RoleOrderByRelationAggregateInput = {
+  export type MembershipOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -23740,24 +23758,30 @@ export namespace Prisma {
     expires?: SortOrder
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type InviteCodeCountOrderByAggregateInput = {
     uuid?: SortOrder
     organizationId?: SortOrder
-    role?: SortOrder
+    perms?: SortOrder
     expires?: SortOrder
   }
 
   export type InviteCodeMaxOrderByAggregateInput = {
     uuid?: SortOrder
     organizationId?: SortOrder
-    role?: SortOrder
     expires?: SortOrder
   }
 
   export type InviteCodeMinOrderByAggregateInput = {
     uuid?: SortOrder
     organizationId?: SortOrder
-    role?: SortOrder
     expires?: SortOrder
   }
 
@@ -23766,32 +23790,33 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type RoleUserIdOrganizationIdCompoundUniqueInput = {
+  export type MembershipUserIdOrganizationIdCompoundUniqueInput = {
     userId: string
     organizationId: string
   }
 
-  export type RoleCountOrderByAggregateInput = {
+  export type MembershipCountOrderByAggregateInput = {
     uuid?: SortOrder
     userId?: SortOrder
     organizationId?: SortOrder
-    role?: SortOrder
+    orgAdmin?: SortOrder
+    permissions?: SortOrder
     joinedAt?: SortOrder
   }
 
-  export type RoleMaxOrderByAggregateInput = {
+  export type MembershipMaxOrderByAggregateInput = {
     uuid?: SortOrder
     userId?: SortOrder
     organizationId?: SortOrder
-    role?: SortOrder
+    orgAdmin?: SortOrder
     joinedAt?: SortOrder
   }
 
-  export type RoleMinOrderByAggregateInput = {
+  export type MembershipMinOrderByAggregateInput = {
     uuid?: SortOrder
     userId?: SortOrder
     organizationId?: SortOrder
-    role?: SortOrder
+    orgAdmin?: SortOrder
     joinedAt?: SortOrder
   }
 
@@ -24168,11 +24193,11 @@ export namespace Prisma {
     connect?: InviteCodeWhereUniqueInput | InviteCodeWhereUniqueInput[]
   }
 
-  export type RoleCreateNestedManyWithoutOrganizationInput = {
-    create?: XOR<RoleCreateWithoutOrganizationInput, RoleUncheckedCreateWithoutOrganizationInput> | RoleCreateWithoutOrganizationInput[] | RoleUncheckedCreateWithoutOrganizationInput[]
-    connectOrCreate?: RoleCreateOrConnectWithoutOrganizationInput | RoleCreateOrConnectWithoutOrganizationInput[]
-    createMany?: RoleCreateManyOrganizationInputEnvelope
-    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+  export type MembershipCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<MembershipCreateWithoutOrganizationInput, MembershipUncheckedCreateWithoutOrganizationInput> | MembershipCreateWithoutOrganizationInput[] | MembershipUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutOrganizationInput | MembershipCreateOrConnectWithoutOrganizationInput[]
+    createMany?: MembershipCreateManyOrganizationInputEnvelope
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
   }
 
   export type PayrollItemCreateNestedManyWithoutOrganizationInput = {
@@ -24210,11 +24235,11 @@ export namespace Prisma {
     connect?: InviteCodeWhereUniqueInput | InviteCodeWhereUniqueInput[]
   }
 
-  export type RoleUncheckedCreateNestedManyWithoutOrganizationInput = {
-    create?: XOR<RoleCreateWithoutOrganizationInput, RoleUncheckedCreateWithoutOrganizationInput> | RoleCreateWithoutOrganizationInput[] | RoleUncheckedCreateWithoutOrganizationInput[]
-    connectOrCreate?: RoleCreateOrConnectWithoutOrganizationInput | RoleCreateOrConnectWithoutOrganizationInput[]
-    createMany?: RoleCreateManyOrganizationInputEnvelope
-    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+  export type MembershipUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<MembershipCreateWithoutOrganizationInput, MembershipUncheckedCreateWithoutOrganizationInput> | MembershipCreateWithoutOrganizationInput[] | MembershipUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutOrganizationInput | MembershipCreateOrConnectWithoutOrganizationInput[]
+    createMany?: MembershipCreateManyOrganizationInputEnvelope
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
   }
 
   export type PayrollItemUncheckedCreateNestedManyWithoutOrganizationInput = {
@@ -24273,18 +24298,18 @@ export namespace Prisma {
     deleteMany?: InviteCodeScalarWhereInput | InviteCodeScalarWhereInput[]
   }
 
-  export type RoleUpdateManyWithoutOrganizationNestedInput = {
-    create?: XOR<RoleCreateWithoutOrganizationInput, RoleUncheckedCreateWithoutOrganizationInput> | RoleCreateWithoutOrganizationInput[] | RoleUncheckedCreateWithoutOrganizationInput[]
-    connectOrCreate?: RoleCreateOrConnectWithoutOrganizationInput | RoleCreateOrConnectWithoutOrganizationInput[]
-    upsert?: RoleUpsertWithWhereUniqueWithoutOrganizationInput | RoleUpsertWithWhereUniqueWithoutOrganizationInput[]
-    createMany?: RoleCreateManyOrganizationInputEnvelope
-    set?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    disconnect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    delete?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    update?: RoleUpdateWithWhereUniqueWithoutOrganizationInput | RoleUpdateWithWhereUniqueWithoutOrganizationInput[]
-    updateMany?: RoleUpdateManyWithWhereWithoutOrganizationInput | RoleUpdateManyWithWhereWithoutOrganizationInput[]
-    deleteMany?: RoleScalarWhereInput | RoleScalarWhereInput[]
+  export type MembershipUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<MembershipCreateWithoutOrganizationInput, MembershipUncheckedCreateWithoutOrganizationInput> | MembershipCreateWithoutOrganizationInput[] | MembershipUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutOrganizationInput | MembershipCreateOrConnectWithoutOrganizationInput[]
+    upsert?: MembershipUpsertWithWhereUniqueWithoutOrganizationInput | MembershipUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: MembershipCreateManyOrganizationInputEnvelope
+    set?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    disconnect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    delete?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    update?: MembershipUpdateWithWhereUniqueWithoutOrganizationInput | MembershipUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: MembershipUpdateManyWithWhereWithoutOrganizationInput | MembershipUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
   }
 
   export type PayrollItemUpdateManyWithoutOrganizationNestedInput = {
@@ -24357,18 +24382,18 @@ export namespace Prisma {
     deleteMany?: InviteCodeScalarWhereInput | InviteCodeScalarWhereInput[]
   }
 
-  export type RoleUncheckedUpdateManyWithoutOrganizationNestedInput = {
-    create?: XOR<RoleCreateWithoutOrganizationInput, RoleUncheckedCreateWithoutOrganizationInput> | RoleCreateWithoutOrganizationInput[] | RoleUncheckedCreateWithoutOrganizationInput[]
-    connectOrCreate?: RoleCreateOrConnectWithoutOrganizationInput | RoleCreateOrConnectWithoutOrganizationInput[]
-    upsert?: RoleUpsertWithWhereUniqueWithoutOrganizationInput | RoleUpsertWithWhereUniqueWithoutOrganizationInput[]
-    createMany?: RoleCreateManyOrganizationInputEnvelope
-    set?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    disconnect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    delete?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    update?: RoleUpdateWithWhereUniqueWithoutOrganizationInput | RoleUpdateWithWhereUniqueWithoutOrganizationInput[]
-    updateMany?: RoleUpdateManyWithWhereWithoutOrganizationInput | RoleUpdateManyWithWhereWithoutOrganizationInput[]
-    deleteMany?: RoleScalarWhereInput | RoleScalarWhereInput[]
+  export type MembershipUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<MembershipCreateWithoutOrganizationInput, MembershipUncheckedCreateWithoutOrganizationInput> | MembershipCreateWithoutOrganizationInput[] | MembershipUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutOrganizationInput | MembershipCreateOrConnectWithoutOrganizationInput[]
+    upsert?: MembershipUpsertWithWhereUniqueWithoutOrganizationInput | MembershipUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: MembershipCreateManyOrganizationInputEnvelope
+    set?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    disconnect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    delete?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    update?: MembershipUpdateWithWhereUniqueWithoutOrganizationInput | MembershipUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: MembershipUpdateManyWithWhereWithoutOrganizationInput | MembershipUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
   }
 
   export type PayrollItemUncheckedUpdateManyWithoutOrganizationNestedInput = {
@@ -24911,46 +24936,50 @@ export namespace Prisma {
     update?: XOR<XOR<TaxSnapshotUpdateToOneWithWhereWithoutBracketsInput, TaxSnapshotUpdateWithoutBracketsInput>, TaxSnapshotUncheckedUpdateWithoutBracketsInput>
   }
 
-  export type RoleCreateNestedManyWithoutUserInput = {
-    create?: XOR<RoleCreateWithoutUserInput, RoleUncheckedCreateWithoutUserInput> | RoleCreateWithoutUserInput[] | RoleUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RoleCreateOrConnectWithoutUserInput | RoleCreateOrConnectWithoutUserInput[]
-    createMany?: RoleCreateManyUserInputEnvelope
-    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+  export type MembershipCreateNestedManyWithoutUserInput = {
+    create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
+    createMany?: MembershipCreateManyUserInputEnvelope
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
   }
 
-  export type RoleUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<RoleCreateWithoutUserInput, RoleUncheckedCreateWithoutUserInput> | RoleCreateWithoutUserInput[] | RoleUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RoleCreateOrConnectWithoutUserInput | RoleCreateOrConnectWithoutUserInput[]
-    createMany?: RoleCreateManyUserInputEnvelope
-    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+  export type MembershipUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
+    createMany?: MembershipCreateManyUserInputEnvelope
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
   }
 
-  export type RoleUpdateManyWithoutUserNestedInput = {
-    create?: XOR<RoleCreateWithoutUserInput, RoleUncheckedCreateWithoutUserInput> | RoleCreateWithoutUserInput[] | RoleUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RoleCreateOrConnectWithoutUserInput | RoleCreateOrConnectWithoutUserInput[]
-    upsert?: RoleUpsertWithWhereUniqueWithoutUserInput | RoleUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: RoleCreateManyUserInputEnvelope
-    set?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    disconnect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    delete?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    update?: RoleUpdateWithWhereUniqueWithoutUserInput | RoleUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: RoleUpdateManyWithWhereWithoutUserInput | RoleUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: RoleScalarWhereInput | RoleScalarWhereInput[]
+  export type MembershipUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
+    upsert?: MembershipUpsertWithWhereUniqueWithoutUserInput | MembershipUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MembershipCreateManyUserInputEnvelope
+    set?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    disconnect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    delete?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    update?: MembershipUpdateWithWhereUniqueWithoutUserInput | MembershipUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MembershipUpdateManyWithWhereWithoutUserInput | MembershipUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
   }
 
-  export type RoleUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<RoleCreateWithoutUserInput, RoleUncheckedCreateWithoutUserInput> | RoleCreateWithoutUserInput[] | RoleUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RoleCreateOrConnectWithoutUserInput | RoleCreateOrConnectWithoutUserInput[]
-    upsert?: RoleUpsertWithWhereUniqueWithoutUserInput | RoleUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: RoleCreateManyUserInputEnvelope
-    set?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    disconnect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    delete?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
-    update?: RoleUpdateWithWhereUniqueWithoutUserInput | RoleUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: RoleUpdateManyWithWhereWithoutUserInput | RoleUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: RoleScalarWhereInput | RoleScalarWhereInput[]
+  export type MembershipUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
+    upsert?: MembershipUpsertWithWhereUniqueWithoutUserInput | MembershipUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MembershipCreateManyUserInputEnvelope
+    set?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    disconnect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    delete?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    update?: MembershipUpdateWithWhereUniqueWithoutUserInput | MembershipUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MembershipUpdateManyWithWhereWithoutUserInput | MembershipUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
+  }
+
+  export type InviteCodeCreatepermsInput = {
+    set: string[]
   }
 
   export type OrganizationCreateNestedOneWithoutInviteCodesInput = {
@@ -24959,12 +24988,21 @@ export namespace Prisma {
     connect?: OrganizationWhereUniqueInput
   }
 
+  export type InviteCodeUpdatepermsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
   export type OrganizationUpdateOneRequiredWithoutInviteCodesNestedInput = {
     create?: XOR<OrganizationCreateWithoutInviteCodesInput, OrganizationUncheckedCreateWithoutInviteCodesInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutInviteCodesInput
     upsert?: OrganizationUpsertWithoutInviteCodesInput
     connect?: OrganizationWhereUniqueInput
     update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutInviteCodesInput, OrganizationUpdateWithoutInviteCodesInput>, OrganizationUncheckedUpdateWithoutInviteCodesInput>
+  }
+
+  export type MembershipCreatepermissionsInput = {
+    set: string[]
   }
 
   export type UserCreateNestedOneWithoutMembershipsInput = {
@@ -24977,6 +25015,11 @@ export namespace Prisma {
     create?: XOR<OrganizationCreateWithoutMembershipsInput, OrganizationUncheckedCreateWithoutMembershipsInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutMembershipsInput
     connect?: OrganizationWhereUniqueInput
+  }
+
+  export type MembershipUpdatepermissionsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type UserUpdateOneRequiredWithoutMembershipsNestedInput = {
@@ -25316,7 +25359,7 @@ export namespace Prisma {
     isDeleted?: boolean
     payrollGroups?: PayrollGroupCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
-    memberships?: RoleCreateNestedManyWithoutOrganizationInput
+    memberships?: MembershipCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutOrganizationInput
     orgTaxes?: TaxCreateNestedManyWithoutOrganizationInput
   }
@@ -25329,7 +25372,7 @@ export namespace Prisma {
     isDeleted?: boolean
     payrollGroups?: PayrollGroupUncheckedCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
-    memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutOrganizationInput
     orgTaxes?: TaxUncheckedCreateNestedManyWithoutOrganizationInput
   }
@@ -25466,7 +25509,7 @@ export namespace Prisma {
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     payrollGroups?: PayrollGroupUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
-    memberships?: RoleUpdateManyWithoutOrganizationNestedInput
+    memberships?: MembershipUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutOrganizationNestedInput
     orgTaxes?: TaxUpdateManyWithoutOrganizationNestedInput
   }
@@ -25479,7 +25522,7 @@ export namespace Prisma {
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     payrollGroups?: PayrollGroupUncheckedUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
-    memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutOrganizationNestedInput
     orgTaxes?: TaxUncheckedUpdateManyWithoutOrganizationNestedInput
   }
@@ -26053,13 +26096,13 @@ export namespace Prisma {
 
   export type InviteCodeCreateWithoutOrganizationInput = {
     uuid?: string
-    role: string
+    perms?: InviteCodeCreatepermsInput | string[]
     expires: Date | string
   }
 
   export type InviteCodeUncheckedCreateWithoutOrganizationInput = {
     uuid?: string
-    role: string
+    perms?: InviteCodeCreatepermsInput | string[]
     expires: Date | string
   }
 
@@ -26073,27 +26116,29 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type RoleCreateWithoutOrganizationInput = {
+  export type MembershipCreateWithoutOrganizationInput = {
     uuid?: string
-    role?: string
+    orgAdmin?: boolean
+    permissions?: MembershipCreatepermissionsInput | string[]
     joinedAt?: Date | string
     user: UserCreateNestedOneWithoutMembershipsInput
   }
 
-  export type RoleUncheckedCreateWithoutOrganizationInput = {
+  export type MembershipUncheckedCreateWithoutOrganizationInput = {
     uuid?: string
     userId: string
-    role?: string
+    orgAdmin?: boolean
+    permissions?: MembershipCreatepermissionsInput | string[]
     joinedAt?: Date | string
   }
 
-  export type RoleCreateOrConnectWithoutOrganizationInput = {
-    where: RoleWhereUniqueInput
-    create: XOR<RoleCreateWithoutOrganizationInput, RoleUncheckedCreateWithoutOrganizationInput>
+  export type MembershipCreateOrConnectWithoutOrganizationInput = {
+    where: MembershipWhereUniqueInput
+    create: XOR<MembershipCreateWithoutOrganizationInput, MembershipUncheckedCreateWithoutOrganizationInput>
   }
 
-  export type RoleCreateManyOrganizationInputEnvelope = {
-    data: RoleCreateManyOrganizationInput | RoleCreateManyOrganizationInput[]
+  export type MembershipCreateManyOrganizationInputEnvelope = {
+    data: MembershipCreateManyOrganizationInput | MembershipCreateManyOrganizationInput[]
     skipDuplicates?: boolean
   }
 
@@ -26252,35 +26297,36 @@ export namespace Prisma {
     NOT?: InviteCodeScalarWhereInput | InviteCodeScalarWhereInput[]
     uuid?: StringFilter<"InviteCode"> | string
     organizationId?: StringFilter<"InviteCode"> | string
-    role?: StringFilter<"InviteCode"> | string
+    perms?: StringNullableListFilter<"InviteCode">
     expires?: DateTimeFilter<"InviteCode"> | Date | string
   }
 
-  export type RoleUpsertWithWhereUniqueWithoutOrganizationInput = {
-    where: RoleWhereUniqueInput
-    update: XOR<RoleUpdateWithoutOrganizationInput, RoleUncheckedUpdateWithoutOrganizationInput>
-    create: XOR<RoleCreateWithoutOrganizationInput, RoleUncheckedCreateWithoutOrganizationInput>
+  export type MembershipUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: MembershipWhereUniqueInput
+    update: XOR<MembershipUpdateWithoutOrganizationInput, MembershipUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<MembershipCreateWithoutOrganizationInput, MembershipUncheckedCreateWithoutOrganizationInput>
   }
 
-  export type RoleUpdateWithWhereUniqueWithoutOrganizationInput = {
-    where: RoleWhereUniqueInput
-    data: XOR<RoleUpdateWithoutOrganizationInput, RoleUncheckedUpdateWithoutOrganizationInput>
+  export type MembershipUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: MembershipWhereUniqueInput
+    data: XOR<MembershipUpdateWithoutOrganizationInput, MembershipUncheckedUpdateWithoutOrganizationInput>
   }
 
-  export type RoleUpdateManyWithWhereWithoutOrganizationInput = {
-    where: RoleScalarWhereInput
-    data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyWithoutOrganizationInput>
+  export type MembershipUpdateManyWithWhereWithoutOrganizationInput = {
+    where: MembershipScalarWhereInput
+    data: XOR<MembershipUpdateManyMutationInput, MembershipUncheckedUpdateManyWithoutOrganizationInput>
   }
 
-  export type RoleScalarWhereInput = {
-    AND?: RoleScalarWhereInput | RoleScalarWhereInput[]
-    OR?: RoleScalarWhereInput[]
-    NOT?: RoleScalarWhereInput | RoleScalarWhereInput[]
-    uuid?: StringFilter<"Role"> | string
-    userId?: StringFilter<"Role"> | string
-    organizationId?: StringFilter<"Role"> | string
-    role?: StringFilter<"Role"> | string
-    joinedAt?: DateTimeFilter<"Role"> | Date | string
+  export type MembershipScalarWhereInput = {
+    AND?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
+    OR?: MembershipScalarWhereInput[]
+    NOT?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
+    uuid?: StringFilter<"Membership"> | string
+    userId?: StringFilter<"Membership"> | string
+    organizationId?: StringFilter<"Membership"> | string
+    orgAdmin?: BoolFilter<"Membership"> | boolean
+    permissions?: StringNullableListFilter<"Membership">
+    joinedAt?: DateTimeFilter<"Membership"> | Date | string
   }
 
   export type PayrollItemUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -26336,7 +26382,7 @@ export namespace Prisma {
     isDeleted?: boolean
     employees?: EmployeeCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
-    memberships?: RoleCreateNestedManyWithoutOrganizationInput
+    memberships?: MembershipCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutOrganizationInput
     orgTaxes?: TaxCreateNestedManyWithoutOrganizationInput
   }
@@ -26349,7 +26395,7 @@ export namespace Prisma {
     isDeleted?: boolean
     employees?: EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
-    memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutOrganizationInput
     orgTaxes?: TaxUncheckedCreateNestedManyWithoutOrganizationInput
   }
@@ -26446,7 +26492,7 @@ export namespace Prisma {
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     employees?: EmployeeUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
-    memberships?: RoleUpdateManyWithoutOrganizationNestedInput
+    memberships?: MembershipUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutOrganizationNestedInput
     orgTaxes?: TaxUpdateManyWithoutOrganizationNestedInput
   }
@@ -26459,7 +26505,7 @@ export namespace Prisma {
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     employees?: EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
-    memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutOrganizationNestedInput
     orgTaxes?: TaxUncheckedUpdateManyWithoutOrganizationNestedInput
   }
@@ -26505,7 +26551,7 @@ export namespace Prisma {
     employees?: EmployeeCreateNestedManyWithoutOrganizationInput
     payrollGroups?: PayrollGroupCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
-    memberships?: RoleCreateNestedManyWithoutOrganizationInput
+    memberships?: MembershipCreateNestedManyWithoutOrganizationInput
     orgTaxes?: TaxCreateNestedManyWithoutOrganizationInput
   }
 
@@ -26518,7 +26564,7 @@ export namespace Prisma {
     employees?: EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
     payrollGroups?: PayrollGroupUncheckedCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
-    memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutOrganizationInput
     orgTaxes?: TaxUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
@@ -26657,7 +26703,7 @@ export namespace Prisma {
     employees?: EmployeeUpdateManyWithoutOrganizationNestedInput
     payrollGroups?: PayrollGroupUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
-    memberships?: RoleUpdateManyWithoutOrganizationNestedInput
+    memberships?: MembershipUpdateManyWithoutOrganizationNestedInput
     orgTaxes?: TaxUpdateManyWithoutOrganizationNestedInput
   }
 
@@ -26670,7 +26716,7 @@ export namespace Prisma {
     employees?: EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
     payrollGroups?: PayrollGroupUncheckedUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
-    memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutOrganizationNestedInput
     orgTaxes?: TaxUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
@@ -27237,7 +27283,7 @@ export namespace Prisma {
     employees?: EmployeeCreateNestedManyWithoutOrganizationInput
     payrollGroups?: PayrollGroupCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeCreateNestedManyWithoutOrganizationInput
-    memberships?: RoleCreateNestedManyWithoutOrganizationInput
+    memberships?: MembershipCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutOrganizationInput
   }
 
@@ -27250,7 +27296,7 @@ export namespace Prisma {
     employees?: EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
     payrollGroups?: PayrollGroupUncheckedCreateNestedManyWithoutOrganizationInput
     inviteCodes?: InviteCodeUncheckedCreateNestedManyWithoutOrganizationInput
-    memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
@@ -27309,7 +27355,7 @@ export namespace Prisma {
     employees?: EmployeeUpdateManyWithoutOrganizationNestedInput
     payrollGroups?: PayrollGroupUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUpdateManyWithoutOrganizationNestedInput
-    memberships?: RoleUpdateManyWithoutOrganizationNestedInput
+    memberships?: MembershipUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutOrganizationNestedInput
   }
 
@@ -27322,7 +27368,7 @@ export namespace Prisma {
     employees?: EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
     payrollGroups?: PayrollGroupUncheckedUpdateManyWithoutOrganizationNestedInput
     inviteCodes?: InviteCodeUncheckedUpdateManyWithoutOrganizationNestedInput
-    memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
@@ -27585,44 +27631,46 @@ export namespace Prisma {
     paystubItems?: PayStubItemUncheckedUpdateManyWithoutTaxNestedInput
   }
 
-  export type RoleCreateWithoutUserInput = {
+  export type MembershipCreateWithoutUserInput = {
     uuid?: string
-    role?: string
+    orgAdmin?: boolean
+    permissions?: MembershipCreatepermissionsInput | string[]
     joinedAt?: Date | string
     organization: OrganizationCreateNestedOneWithoutMembershipsInput
   }
 
-  export type RoleUncheckedCreateWithoutUserInput = {
+  export type MembershipUncheckedCreateWithoutUserInput = {
     uuid?: string
     organizationId: string
-    role?: string
+    orgAdmin?: boolean
+    permissions?: MembershipCreatepermissionsInput | string[]
     joinedAt?: Date | string
   }
 
-  export type RoleCreateOrConnectWithoutUserInput = {
-    where: RoleWhereUniqueInput
-    create: XOR<RoleCreateWithoutUserInput, RoleUncheckedCreateWithoutUserInput>
+  export type MembershipCreateOrConnectWithoutUserInput = {
+    where: MembershipWhereUniqueInput
+    create: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput>
   }
 
-  export type RoleCreateManyUserInputEnvelope = {
-    data: RoleCreateManyUserInput | RoleCreateManyUserInput[]
+  export type MembershipCreateManyUserInputEnvelope = {
+    data: MembershipCreateManyUserInput | MembershipCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
-  export type RoleUpsertWithWhereUniqueWithoutUserInput = {
-    where: RoleWhereUniqueInput
-    update: XOR<RoleUpdateWithoutUserInput, RoleUncheckedUpdateWithoutUserInput>
-    create: XOR<RoleCreateWithoutUserInput, RoleUncheckedCreateWithoutUserInput>
+  export type MembershipUpsertWithWhereUniqueWithoutUserInput = {
+    where: MembershipWhereUniqueInput
+    update: XOR<MembershipUpdateWithoutUserInput, MembershipUncheckedUpdateWithoutUserInput>
+    create: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput>
   }
 
-  export type RoleUpdateWithWhereUniqueWithoutUserInput = {
-    where: RoleWhereUniqueInput
-    data: XOR<RoleUpdateWithoutUserInput, RoleUncheckedUpdateWithoutUserInput>
+  export type MembershipUpdateWithWhereUniqueWithoutUserInput = {
+    where: MembershipWhereUniqueInput
+    data: XOR<MembershipUpdateWithoutUserInput, MembershipUncheckedUpdateWithoutUserInput>
   }
 
-  export type RoleUpdateManyWithWhereWithoutUserInput = {
-    where: RoleScalarWhereInput
-    data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyWithoutUserInput>
+  export type MembershipUpdateManyWithWhereWithoutUserInput = {
+    where: MembershipScalarWhereInput
+    data: XOR<MembershipUpdateManyMutationInput, MembershipUncheckedUpdateManyWithoutUserInput>
   }
 
   export type OrganizationCreateWithoutInviteCodesInput = {
@@ -27633,7 +27681,7 @@ export namespace Prisma {
     isDeleted?: boolean
     employees?: EmployeeCreateNestedManyWithoutOrganizationInput
     payrollGroups?: PayrollGroupCreateNestedManyWithoutOrganizationInput
-    memberships?: RoleCreateNestedManyWithoutOrganizationInput
+    memberships?: MembershipCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutOrganizationInput
     orgTaxes?: TaxCreateNestedManyWithoutOrganizationInput
   }
@@ -27646,7 +27694,7 @@ export namespace Prisma {
     isDeleted?: boolean
     employees?: EmployeeUncheckedCreateNestedManyWithoutOrganizationInput
     payrollGroups?: PayrollGroupUncheckedCreateNestedManyWithoutOrganizationInput
-    memberships?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutOrganizationInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutOrganizationInput
     orgTaxes?: TaxUncheckedCreateNestedManyWithoutOrganizationInput
   }
@@ -27675,7 +27723,7 @@ export namespace Prisma {
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     employees?: EmployeeUpdateManyWithoutOrganizationNestedInput
     payrollGroups?: PayrollGroupUpdateManyWithoutOrganizationNestedInput
-    memberships?: RoleUpdateManyWithoutOrganizationNestedInput
+    memberships?: MembershipUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutOrganizationNestedInput
     orgTaxes?: TaxUpdateManyWithoutOrganizationNestedInput
   }
@@ -27688,7 +27736,7 @@ export namespace Prisma {
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     employees?: EmployeeUncheckedUpdateManyWithoutOrganizationNestedInput
     payrollGroups?: PayrollGroupUncheckedUpdateManyWithoutOrganizationNestedInput
-    memberships?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutOrganizationNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutOrganizationNestedInput
     orgTaxes?: TaxUncheckedUpdateManyWithoutOrganizationNestedInput
   }
@@ -28146,14 +28194,15 @@ export namespace Prisma {
 
   export type InviteCodeCreateManyOrganizationInput = {
     uuid?: string
-    role: string
+    perms?: InviteCodeCreatepermsInput | string[]
     expires: Date | string
   }
 
-  export type RoleCreateManyOrganizationInput = {
+  export type MembershipCreateManyOrganizationInput = {
     uuid?: string
     userId: string
-    role?: string
+    orgAdmin?: boolean
+    permissions?: MembershipCreatepermissionsInput | string[]
     joinedAt?: Date | string
   }
 
@@ -28266,40 +28315,43 @@ export namespace Prisma {
 
   export type InviteCodeUpdateWithoutOrganizationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    perms?: InviteCodeUpdatepermsInput | string[]
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InviteCodeUncheckedUpdateWithoutOrganizationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    perms?: InviteCodeUpdatepermsInput | string[]
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InviteCodeUncheckedUpdateManyWithoutOrganizationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    perms?: InviteCodeUpdatepermsInput | string[]
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RoleUpdateWithoutOrganizationInput = {
+  export type MembershipUpdateWithoutOrganizationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    orgAdmin?: BoolFieldUpdateOperationsInput | boolean
+    permissions?: MembershipUpdatepermissionsInput | string[]
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutMembershipsNestedInput
   }
 
-  export type RoleUncheckedUpdateWithoutOrganizationInput = {
+  export type MembershipUncheckedUpdateWithoutOrganizationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    orgAdmin?: BoolFieldUpdateOperationsInput | boolean
+    permissions?: MembershipUpdatepermissionsInput | string[]
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RoleUncheckedUpdateManyWithoutOrganizationInput = {
+  export type MembershipUncheckedUpdateManyWithoutOrganizationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    orgAdmin?: BoolFieldUpdateOperationsInput | boolean
+    permissions?: MembershipUpdatepermissionsInput | string[]
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -28723,31 +28775,35 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
-  export type RoleCreateManyUserInput = {
+  export type MembershipCreateManyUserInput = {
     uuid?: string
     organizationId: string
-    role?: string
+    orgAdmin?: boolean
+    permissions?: MembershipCreatepermissionsInput | string[]
     joinedAt?: Date | string
   }
 
-  export type RoleUpdateWithoutUserInput = {
+  export type MembershipUpdateWithoutUserInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    orgAdmin?: BoolFieldUpdateOperationsInput | boolean
+    permissions?: MembershipUpdatepermissionsInput | string[]
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organization?: OrganizationUpdateOneRequiredWithoutMembershipsNestedInput
   }
 
-  export type RoleUncheckedUpdateWithoutUserInput = {
+  export type MembershipUncheckedUpdateWithoutUserInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     organizationId?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    orgAdmin?: BoolFieldUpdateOperationsInput | boolean
+    permissions?: MembershipUpdatepermissionsInput | string[]
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RoleUncheckedUpdateManyWithoutUserInput = {
+  export type MembershipUncheckedUpdateManyWithoutUserInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     organizationId?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    orgAdmin?: BoolFieldUpdateOperationsInput | boolean
+    permissions?: MembershipUpdatepermissionsInput | string[]
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

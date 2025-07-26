@@ -5,7 +5,7 @@ import TextInput from "../Forms/TextInput"
 import { useEffect, useState } from "react"
 import getOrgDetails from "@/actions/organization/getOrgDetails"
 import Link from "next/link"
-import deactivateOrganization from "@/actions/organization/deactivateOrg"
+import changeOrganizationStatus from "@/actions/organization/changeOrganizationStatus"
 import { useCompany } from "@/app/CompanyContext"
 import { useRouter } from "next/navigation"
 import LargeTextInput from "../Forms/LargeTextInput"
@@ -93,7 +93,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
         <form onSubmit={handleSubmit} className="max-w-md mx-auto card mb-5 relative" >
 
             <div className="absolute top-5 right-0">
-                {!newOrganization && <button onClick={() => { deactivateOrganization(props.uuid, !props.isDeleted) }} className={`mx-5 ${props.isDeleted ? "primary-button" : "danger-button"}`} >{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
+                {!newOrganization && <button onClick={() => { changeOrganizationStatus(props.uuid, !props.isDeleted) }} className={`mx-5 ${props.isDeleted ? "primary-button" : "danger-button"}`} >{props.isDeleted ? "Reactivate" : "Deactivate"}</button>}
             </div>
 
             <h5 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 ">{newOrganization ? "Create Organization:" : "Edit Organization:"}</h5>

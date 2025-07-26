@@ -1,8 +1,8 @@
 'use server'
 
 import { getSession } from "@/auth/auth"
-import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
+import { throwIfInsufficientPerms, throwIfNotSYSAdmin } from "@/auth/permissions/PermissionsFunctions"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
 
@@ -29,9 +29,10 @@ export default async function deleteTaxSnapshot(snapshotUUID: string) {
 
     // Check permissions and make sure orgUUID's arent messed with
     if (snapshot.tax.sysAdminControlled) {
-        await throwIfInsufficientPerms(RoleTypes.SysAdmin)
+        await throwIfNotSYSAdmin()
+        snapshot.tax.organizationID = ""
     } else {
-        await throwIfInsufficientPerms(RoleTypes.Admin)
+        await throwIfInsufficientPerms(Permissions.admin.taxes.del)
         if (session.orgUUID !== snapshot.tax.organizationID) {
             throw new Error("Unmatched OrgUUIDs")
         }

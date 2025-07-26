@@ -2,8 +2,8 @@
 
 import { generateCompanyContext } from "@/app/CompanyProps"
 import { getSession, getUserFromSession, redirectIfInvalidSession } from "@/auth/auth"
-import { getIDFromRoleType, RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
@@ -44,7 +44,7 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
             }
         })
 
-        if (!session.isAdmin) {
+        if (!session.isAdmin) { // Add user as member 
 
             await prisma.user.update({
                 where: { uuid: user.uuid },
@@ -53,11 +53,12 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
                 }
             })
 
-            await prisma.role.create({
+            await prisma.membership.create({
                 data: {
                     userId: user.uuid,
                     organizationId: organization.uuid,
-                    role: getIDFromRoleType(RoleTypes.Admin)
+                    permissions: [],
+                    orgAdmin: true // They are the org admin by default
                 }
             }) // Add the user to the organization
         }
@@ -68,7 +69,7 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
     } else {
         try { // Edit page
 
-            await throwIfInsufficientPerms(RoleTypes.Admin)
+            await throwIfInsufficientPerms(Permissions.org.edit)
 
             if (name.trim() == "" || address.trim() == "") {
                 throw new Error("Did not include name and address.")

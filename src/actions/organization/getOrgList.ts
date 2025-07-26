@@ -1,14 +1,12 @@
 'use server'
 
 import { getSession, redirectIfInvalidSession } from "@/auth/auth";
-import { DispRole, getRoleFromID, Role_Admin, Role_SysAdmin } from "@/auth/roles/Roles";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
 import { Organization } from "@/database/generated/prisma";
 import { prisma } from "@/database/prisma";
 
 
-export type OrgWithRole = Organization & { role: DispRole }
-
-export default async function getOrgList(showDeleted: boolean): Promise<OrgWithRole[]> {
+export default async function getOrgList(showDeleted: boolean): Promise<Organization[]> {
 
     await redirectIfInvalidSession()
     const session = await getSession()
@@ -23,11 +21,7 @@ export default async function getOrgList(showDeleted: boolean): Promise<OrgWithR
             }
             return !o.isDeleted
         })
-        const orgsWithRoles = orgs.map(o => {
-            return { ...o, role: Role_SysAdmin } as OrgWithRole
-        })
-
-        return orgsWithRoles
+        return orgs
 
     }
 
@@ -38,16 +32,17 @@ export default async function getOrgList(showDeleted: boolean): Promise<OrgWithR
 
     let list = []
     for (let i = 0; i < user.memberships.length; i++) {
+        const membership = user.memberships[i]
         const org = await prisma.organization.findUnique({ where: { uuid: user.memberships[i].organizationId } })
         if (!org) { continue }
 
-        const role = getRoleFromID(user.memberships[i].role)
-
-        if (org.isDeleted && (role.level < Role_Admin.level)) {
-            continue
+        if (org.isDeleted) {
+            if (membership.permissions.includes(Permissions.admin.organization.activate)) {
+                list.push(org)
+            }
+        } else { // Isn't deactivated
+            list.push(org)
         }
-
-        list.push({...org, role: role} as OrgWithRole)
     }
 
     if (!showDeleted) {

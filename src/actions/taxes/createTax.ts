@@ -1,12 +1,12 @@
 'use server'
 
 import { getSession } from "@/auth/auth";
-import { RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
 import { Tax } from "@/database/generated/prisma";
 import { prisma } from "@/database/prisma";
 import { deserializeData, SerializationResult } from "@/utils/serialization";
 import { revalidatePath } from "next/cache";
+import { throwIfInsufficientPerms, throwIfNotSYSAdmin } from "@/auth/permissions/PermissionsFunctions";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
 
 
 
@@ -20,11 +20,10 @@ export default async function createTax(data: SerializationResult<Tax>) {
 
     // Check permissions and make sure orgUUID's arent messed with
     if (tax.sysAdminControlled) {
-        await throwIfInsufficientPerms(RoleTypes.SysAdmin)
-        tax.organizationID = "" // Org
+        await throwIfNotSYSAdmin()
+        tax.organizationID = ""
     } else {
-        await throwIfInsufficientPerms(RoleTypes.Admin)
-        console.log(session.orgUUID, tax.organizationID)
+        await throwIfInsufficientPerms(Permissions.admin.taxes.create)
         if (session.orgUUID !== tax.organizationID) {
             throw new Error("Unmatched OrgUUIDs")
         }

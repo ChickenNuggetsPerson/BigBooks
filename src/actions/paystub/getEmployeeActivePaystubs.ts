@@ -1,7 +1,7 @@
 'use server'
 
-import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import { prisma } from "@/database/prisma"
 import { serializeData } from "@/utils/serialization"
 
@@ -10,7 +10,7 @@ import { serializeData } from "@/utils/serialization"
 // Returns a list of unlocked paystubs the employee has
 export default async function getEmployeeActivePaystubs(empUUID: string) {
 
-    await throwIfInsufficientPerms(RoleTypes.Editor)
+    await throwIfInsufficientPerms(Permissions.payroll.paystub.view)    
 
     const stub = await prisma.payStub.findMany({
         where: {

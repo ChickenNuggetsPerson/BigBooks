@@ -1,17 +1,22 @@
 'use server'
 
 import { redirectIfInvalidSession } from "@/auth/auth";
-import { RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import { prisma } from "@/database/prisma";
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
 
-export default async function deactivateOrganization(orgUUID: string, deactivate: boolean) {
+export default async function changeOrganizationStatus(orgUUID: string, deactivate: boolean) {
 
     await redirectIfInvalidSession()
-    await throwIfInsufficientPerms(RoleTypes.Admin)
+    
+    if (deactivate) {
+        await throwIfInsufficientPerms(Permissions.admin.organization.deactivate)
+    } else {
+        await throwIfInsufficientPerms(Permissions.admin.organization.activate)
+    }
 
     try {
         await prisma.organization.update({

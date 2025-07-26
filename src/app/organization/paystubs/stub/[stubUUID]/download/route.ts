@@ -1,6 +1,6 @@
 import { getSession } from "@/auth/auth";
 import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
+import { throwIfInsufficientPerms } from "@/auth/permissions/throwIfInsufficientPerms"
 import { prisma } from "@/database/prisma";
 import { hideSSN } from "@/utils/functions/SSNStr";
 import { NextRequest, NextResponse } from "next/server"

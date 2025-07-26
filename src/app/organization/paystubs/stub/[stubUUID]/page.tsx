@@ -1,7 +1,7 @@
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { prisma } from "@/database/prisma";
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
+import { throwIfInsufficientPerms } from "@/auth/permissions/throwIfInsufficientPerms";
 import { RoleTypes } from "@/auth/roles/Roles";
 import { PaystubCard } from "@/components/payroll/paystub/PaystubCard";
 import { serializeData } from "@/utils/serialization";

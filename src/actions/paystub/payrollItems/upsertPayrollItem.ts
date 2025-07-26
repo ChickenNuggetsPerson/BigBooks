@@ -1,7 +1,8 @@
 'use server'
 
-import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
+
+import { Permissions } from "@/auth/permissions/PermissionsDef"
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import { PayrollItem } from "@/database/generated/prisma"
 import { prisma } from "@/database/prisma"
 import { deserializeData, SerializationResult } from "@/utils/serialization"
@@ -20,16 +21,22 @@ export default async function upsertPayrollItem(item: SerializationResult<Payrol
     let nullCount = 0
     if (paystubItem.organizationId == null) { nullCount++ }
     if (paystubItem.payrollGroupId == null) { nullCount++ }
-    if (paystubItem.employeeId     == null) { nullCount++ }
-
-    // Check permissions
-    if (paystubItem.organizationId || paystubItem.payrollGroupId) {
-        await throwIfInsufficientPerms(RoleTypes.Admin)
-    } else {
-        await throwIfInsufficientPerms(RoleTypes.Editor)
-    }
+    if (paystubItem.employeeId == null) { nullCount++ }
 
     if (nullCount !== 2) { throw new Error("Not Linked correctly") } // Only one uuid can be linked
+
+    
+    // Check perms
+    if (paystubItem.organizationId) {
+        await throwIfInsufficientPerms(Permissions.admin.orgItem.edit)
+    }
+    if (paystubItem.payrollGroupId) {
+        await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.items.edit)
+    }
+    if (paystubItem.employeeId) {
+        await throwIfInsufficientPerms(Permissions.employee.items.edit)
+    }
+
 
     // Make sure connection is valid
     if (paystubItem.organizationId) {

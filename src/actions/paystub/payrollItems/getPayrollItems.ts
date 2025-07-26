@@ -1,7 +1,7 @@
 'use server'
 
-import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import { Prisma } from "@/database/generated/prisma"
 import { prisma } from "@/database/prisma"
 import { serializeData } from "@/utils/serialization"
@@ -18,7 +18,15 @@ export type PayrollItemWithCount = Prisma.PayrollItemGetPayload<{ include: { _co
 
 export default async function getPayrollItems(options: PaystubItemSelector) {
 
-    await throwIfInsufficientPerms(RoleTypes.Viewer)
+    if (options.organizationId) {
+        await throwIfInsufficientPerms(Permissions.admin.orgItem.view)
+    }
+    if (options.payrollGroupId) {
+        await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.items.view)
+    }
+    if (options.employeeId) {
+        await throwIfInsufficientPerms(Permissions.employee.items.view)
+    }
 
     const data = {
         organization: [] as PayrollItemWithCount[],

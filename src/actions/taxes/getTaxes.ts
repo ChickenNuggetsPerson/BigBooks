@@ -1,8 +1,8 @@
 'use server'
 
 import { getSession } from "@/auth/auth";
-import { RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import { TaxWithSnapshots } from "@/components/taxes/TaxEditForm";
 import { prisma } from "@/database/prisma";
 import { SerializationResult, serializeData } from "@/utils/serialization";
@@ -19,7 +19,7 @@ export default async function getTaxes(options: {
     options.system = options.system ?? false
     options.show = options.show ?? "active"
 
-    await throwIfInsufficientPerms(RoleTypes.Viewer) // You can view taxes regardless of permissions
+    await throwIfInsufficientPerms(Permissions.org.view) // You can view taxes regardless of permissions
     const session = await getSession()
     if (!session) { throw new Error("Invalid Session") }
 

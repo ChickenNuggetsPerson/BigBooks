@@ -9,7 +9,7 @@ import PayrollItemAddBtn from "./PayrollItemAddBtn"
 import PayrollItemInfoBtn from "./PayrollItemInfoBtn"
 import { prisma } from "@/database/prisma"
 import { deserializeData, serializeData } from "@/utils/serialization"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
+import { throwIfInsufficientPerms } from "@/auth/permissions/throwIfInsufficientPerms"
 import { RoleTypes } from "@/auth/roles/Roles"
 
 

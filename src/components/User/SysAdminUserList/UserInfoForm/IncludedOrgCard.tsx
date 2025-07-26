@@ -3,7 +3,7 @@
 
 import { DispRole } from "@/auth/roles/Roles";
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
-import RoleModal from "../../OrgAdmin/RoleModal";
+import PermissionModal from "../../OrgAdmin/PermissionModal";
 import { Organization, User } from "@/database/generated/prisma";
 
 
@@ -17,7 +17,7 @@ export default function IncludedOrgCard({ role, org, user }: { role: DispRole, o
         addModal({
             title: "Edit Permissions:",
             required: false,
-            component: () => <RoleModal role={role} user={user} orgUUID={org.uuid} orgName={org.name}/>
+            component: () => <PermissionModal role={role} user={user} orgUUID={org.uuid} orgName={org.name}/>
         })
     }
 

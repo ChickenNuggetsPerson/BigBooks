@@ -2,8 +2,8 @@
 
 
 import { redirectIfInvalidSession } from "@/auth/auth";
-import { RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import { prisma } from "@/database/prisma";
 
 
@@ -13,7 +13,7 @@ import { prisma } from "@/database/prisma";
 export default async function getOrgDetails(uuid: string) {
 
     await redirectIfInvalidSession()
-    await throwIfInsufficientPerms(RoleTypes.Viewer)
+    await throwIfInsufficientPerms(Permissions.org.view)
 
     const organization = await prisma.organization.findUnique({ where: { uuid: uuid }})
     return organization

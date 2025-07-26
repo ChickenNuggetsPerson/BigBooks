@@ -2,7 +2,7 @@
 
 
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
-import RoleModal from "../../OrgAdmin/RoleModal";
+import PermissionModal from "../../OrgAdmin/PermissionModal";
 import { Organization, User } from "@/database/generated/prisma";
 
 
@@ -17,7 +17,7 @@ export default function UnincludedOrgCard({ org, user }: { org: Organization, us
         addModal({
             title: "Add Permissions:",
             required: false,
-            component: () => <RoleModal role={null} user={user} orgUUID={org.uuid} orgName={org.name} />
+            component: () => <PermissionModal role={null} user={user} orgUUID={org.uuid} orgName={org.name} />
         })
     }
 

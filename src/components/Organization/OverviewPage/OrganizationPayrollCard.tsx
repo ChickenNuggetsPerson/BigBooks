@@ -1,6 +1,6 @@
 import getOrgPayrollGroups from "@/actions/payrollGroup/getOrgPayrollGroups"
-import getOrgRole from "@/auth/roles/getOrgRole"
-import { Role_Admin } from "@/auth/roles/Roles"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
+import { userHasPermission } from "@/auth/permissions/PermissionsFunctions"
 import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv"
 import EditableDiv from "@/components/Decorative/EditableDiv"
 import LoadingBlock from "@/components/Decorative/LoadingBlock"
@@ -26,11 +26,11 @@ export function OrganizationPayrollCard_Loading() {
 
 export default async function OrganizationPayrollCard() {
 
-    const role = await getOrgRole()
     const groups = await getOrgPayrollGroups()
+    const editable = await userHasPermission({ perm: Permissions.payroll.payrollGroup.edit })
 
     return (
-        <EditableDiv className="card" url={"/organization/admin/groups"} enabled={role.level >= Role_Admin.level}>
+        <EditableDiv className="card" url={"/organization/admin/groups"} enabled={editable}>
             <h5 className="mb-2 text-2xl font-normal text-gray-700 ">Payroll Groups:</h5>
             <Divider />
 

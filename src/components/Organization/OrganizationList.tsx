@@ -2,10 +2,11 @@
 
 
 import { useEffect, useState } from "react";
-import getOrgList, { OrgWithRole } from "@/actions/organization/getOrgList";
+import getOrgList from "@/actions/organization/getOrgList";
 import CheckboxInput from "../Forms/CheckboxInput";
 import { useChangeSelectedOrg } from "./changeSelectedOrg";
 import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowParams } from "@mui/x-data-grid";
+import { Organization } from "@/database/generated/prisma";
 
 
 
@@ -21,8 +22,8 @@ export default function OrganizationList({
     const changeSelectOrg = useChangeSelectedOrg()
 
     const [loading, setLoading] = useState(false)
-    const [orgs, setOrgs] = useState([] as OrgWithRole[])
-    const [filteredList, setFilteredList] = useState([] as OrgWithRole[])
+    const [orgs, setOrgs] = useState([] as Organization[])
+    const [filteredList, setFilteredList] = useState([] as Organization[])
     const [showDeleted, setShowDeleted] = useState(false)
 
     useEffect(() => {
@@ -47,27 +48,27 @@ export default function OrganizationList({
     };
 
     const columns: GridColDef[] = [
-        {
-            field: 'role',
-            headerName: 'Role',
-            type: "custom",
-            width: 120,
-            renderCell: (params: GridRenderCellParams<OrgWithRole, unknown>) => {
-                const role = params.row.role
-                return (
-                    <div className="flex flex-col justify-center px-3 pt-2" style={{ opacity: params.row.isDeleted ? 0.5 : 1 }}>
-                        <div className="w-fit h-fit px-2 py-1 select-none text-white font-bold text-center rounded-xl text-lg" style={{ backgroundColor: role.color }}>
-                            {role.type}
-                        </div>
-                    </div>
-                )
-            },
-        },
+        // {
+        //     field: 'role',
+        //     headerName: 'Role',
+        //     type: "custom",
+        //     width: 120,
+        //     renderCell: (params: GridRenderCellParams<Organization, unknown>) => {
+        //         const role = params.row
+        //         return (
+        //             <div className="flex flex-col justify-center px-3 pt-2" style={{ opacity: params.row.isDeleted ? 0.5 : 1 }}>
+        //                 <div className="w-fit h-fit px-2 py-1 select-none text-white font-bold text-center rounded-xl text-lg" style={{ backgroundColor: role.color }}>
+        //                     {role.type}
+        //                 </div>
+        //             </div>
+        //         )
+        //     },
+        // },
         {
             field: 'name',
             headerName: 'Name',
             width: 200,
-            renderCell: (params: GridRenderCellParams<OrgWithRole, string>) => (
+            renderCell: (params: GridRenderCellParams<Organization, string>) => (
                 <p style={{ color: params.row.isDeleted ? "red" : "black" }}>{params.row.name}</p>
             ),
         },
@@ -75,13 +76,13 @@ export default function OrganizationList({
             field: 'address',
             headerName: 'Address',
             width: 200,
-            renderCell: (params: GridRenderCellParams<OrgWithRole, string>) => (
+            renderCell: (params: GridRenderCellParams<Organization, string>) => (
                 <p style={{ color: params.row.isDeleted ? "red" : "black" }}>{params.row.address}</p>
             ),
         },
     ]
 
-    const handleEvent: GridEventListener<'rowClick'> = (params: GridRowParams<OrgWithRole>) => {
+    const handleEvent: GridEventListener<'rowClick'> = (params: GridRowParams<Organization>) => {
         changeSelectOrg(params.row.uuid, params.row.name)
         refreshCB()
     };

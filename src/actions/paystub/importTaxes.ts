@@ -1,8 +1,8 @@
 'use server'
 
 import { getSession } from "@/auth/auth"
-import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import { prisma } from "@/database/prisma"
 import { serializeData } from "@/utils/serialization"
 import { calcTaxRates } from "@/utils/taxes/calcTaxRates"
@@ -13,7 +13,7 @@ import { calcTaxRates } from "@/utils/taxes/calcTaxRates"
 
 export default async function genEmployeeTaxRates(empUUID: string, orgUUID: string, payDate: Date) {
 
-    await throwIfInsufficientPerms(RoleTypes.Editor)
+    await throwIfInsufficientPerms(Permissions.employee.tax.view)
     const session = await getSession()
     if (!session) { throw new Error("") }
 

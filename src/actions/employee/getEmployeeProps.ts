@@ -2,8 +2,8 @@
 
 
 import { redirectIfInvalidSession } from "@/auth/auth"
-import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import { prisma } from "@/database/prisma"
 import { hideSSN } from "@/utils/functions/SSNStr"
 
@@ -15,11 +15,11 @@ import { hideSSN } from "@/utils/functions/SSNStr"
 export default async function getEmployeeProps(empUUID: string, stripSensitive: boolean) {
 
     await redirectIfInvalidSession()
-    await throwIfInsufficientPerms(RoleTypes.Viewer)
+    await throwIfInsufficientPerms(Permissions.employee.personal.view)
 
     try {
         if (!stripSensitive) {
-            await throwIfInsufficientPerms(RoleTypes.Editor)
+            await throwIfInsufficientPerms(Permissions.employee.personal.edit)
         }
 
         const employee = await prisma.employee.findUniqueOrThrow({where: {uuid: empUUID}})

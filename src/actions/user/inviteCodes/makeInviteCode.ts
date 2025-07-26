@@ -1,17 +1,17 @@
 'use server'
 
 import { getSession } from "@/auth/auth";
-import { getIDFromRoleType, RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/roles/throwIfInsufficientPerms";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import { prisma } from "@/database/prisma";
 import { addDays } from "@/utils/functions/Date";
 
 
 
 
-export default async function makeInviteCode(roleType: RoleTypes) {
+export default async function makeInviteCode(perms: string[]) {
     
-    await throwIfInsufficientPerms(RoleTypes.Admin)
+    await throwIfInsufficientPerms(Permissions.admin.users.create)
     const session = await getSession()
     if (!session) { return }
 
@@ -20,7 +20,7 @@ export default async function makeInviteCode(roleType: RoleTypes) {
 
     await prisma.inviteCode.create({
         data: {
-            role: getIDFromRoleType(roleType),
+            perms: perms,
             expires: addDays(new Date(), 7),
             organizationId: org.uuid
         }
