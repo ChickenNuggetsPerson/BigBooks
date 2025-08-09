@@ -2,13 +2,11 @@
 
 
 import makeInviteCode from "@/actions/user/inviteCodes/makeInviteCode"
-import { RoleTypes } from "@/auth/roles/Roles"
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
-import SelectInput from "@/components/Forms/SelectInput"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { getRoleDescription, selectableRoles } from "./RoleModalProps"
 import toast from "react-hot-toast"
+import UserPermissionsTree from "../Permissions/UserPermissionsTree"
 
 
 
@@ -38,14 +36,14 @@ export default function OrgUserCreateInviteButton() {
 function CreateInviteForm() {
 
     const { popModal } = useModalManager()
-    const [selectedRole, setRole] = useState(RoleTypes.Viewer)
+    const [permissions, setPermissions] = useState([] as string[])
 
     const router = useRouter()
 
     function save() {
         toast.promise(
             async () => {
-                await makeInviteCode(selectedRole)
+                await makeInviteCode(permissions)
                 router.refresh()
             },
             {
@@ -60,10 +58,7 @@ function CreateInviteForm() {
 
     return (
         <div className="mt-5">
-            <div className="flex flex-row">
-                <SelectInput id={""} label={"Organization Role:"} val={selectedRole} disabled={false} options={selectableRoles} changeCB={(val) => { setRole(val as RoleTypes) }} searchable={false} />
-                <p className="p-5 w-sm h-40">{getRoleDescription(selectedRole)}</p>
-            </div>
+            <UserPermissionsTree activePerms={permissions} changeCB={(perms) => setPermissions(perms)}/>
 
             <div className="flex flex-row justify-between">
                 <button onClick={popModal} className="accent-button">Cancel</button>

@@ -111,7 +111,7 @@ export default function UserPermissionsTree({
     }
 
     return (
-        <div className="w-xl h-70">
+        <div className="h-70" style={{ width: 590 }}>
             <div className="flex flex-row gap-4 w-full h-full font-mono">
 
                 <RenderBranch branch={Tree} />

@@ -1,6 +1,6 @@
 import { getUserFromSession } from "@/auth/auth"
 import Link from "next/link"
-import { UserRoleIcon } from "./UserRoleIcon"
+import { UserMembershipIcon } from "./UserMembershipIcon"
 import { getOrgMembership } from "@/auth/permissions/PermissionsFunctions"
 
 
@@ -34,7 +34,7 @@ export default async function InteractiveUserIcon() {
             </Link>
 
 
-            <UserRoleIcon perms={membership.permissions} />
+            <UserMembershipIcon membership={membership} />
         </div>
     )
 }

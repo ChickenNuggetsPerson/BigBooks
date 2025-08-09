@@ -17,11 +17,9 @@ export default async function makeOrgAdmin(orgUUID: string, userUUID: string) {
         throw new Error("Invalid Parms")
     }
 
-    const memebers = await prisma.membership.findMany({ where: { organizationId: orgUUID } })
+    const memebers = await prisma.membership.findMany({ where: { organizationId: orgUUID, orgAdmin: true } })
     for (let i = 0; i < memebers.length; i++) { // Clear org admins
         const member = memebers[i]
-
-        if (!member.orgAdmin) { continue }
         await prisma.membership.updateMany({
             where: { organizationId: member.organizationId, userId: member.userId },
             data: {
@@ -30,6 +28,13 @@ export default async function makeOrgAdmin(orgUUID: string, userUUID: string) {
         })
         revalidatePath("/user/users/" + member.userId)
     }
+
+    await prisma.membership.update({
+        where: { uuid: m.uuid },
+        data: {
+            orgAdmin: true
+        }
+    })
 
     // Assign new org admin
     revalidatePath("/organization/admin/users")

@@ -1,8 +1,6 @@
 'use client'
 
 import { InviteCode } from "@/database/generated/prisma";
-import { UserRoleIcon } from "../UserRoleIcon";
-import { getRoleFromID } from "@/auth/roles/Roles";
 import ClickableDiv from "@/components/Decorative/ClickableDiv";
 import deleteInviteCode from "@/actions/user/inviteCodes/deleteInviteCode";
 import { useRouter } from "next/navigation";
@@ -41,9 +39,9 @@ export default function OrgInviteCodeCard({ code }: { code: InviteCode }) {
 
     return (
         <div className="smallCard flex flex-row justify-between select-none w-full mb-2">
-            <ClickableDiv onClick={clicked}>
+            {/* <ClickableDiv onClick={clicked}>
                 <UserRoleIcon role={getRoleFromID(code.role)} />
-            </ClickableDiv>
+            </ClickableDiv> */}
 
             <ClickableDiv onClick={clicked} className="flex flex-col justify-center">
                 <p className="font-mono mt-1">{code.expires.toLocaleDateString()}</p>

@@ -2,8 +2,8 @@ import getOrgUsers from "@/actions/user/getOrgUsers"
 import getInviteCodes from "@/actions/user/inviteCodes/getInviteCodes"
 import Loading from "@/app/Loading"
 import { getSession } from "@/auth/auth"
-import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/permissions/throwIfInsufficientPerms"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import OrgInviteCodeCard from "@/components/User/OrgAdmin/OrgInviteCodeCard"
 import OrgUserCreateInviteButton from "@/components/User/OrgAdmin/OrgUserCreateInviteButton"
 import { OrgUserList } from "@/components/User/OrgAdmin/OrgUserList"
@@ -29,7 +29,7 @@ async function Page() {
     if (!session) { return <div></div> }
 
     try {
-        await throwIfInsufficientPerms(RoleTypes.Admin)
+        await throwIfInsufficientPerms(Permissions.admin.users.view)
     } catch {
         return (
             <div className="h-fit w-fit">

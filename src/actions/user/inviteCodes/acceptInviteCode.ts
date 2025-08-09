@@ -28,7 +28,7 @@ export default async function acceptInviteCode(codeID: string) {
     const currentMembership = await getOrgMembership(code.organizationId)
     if (currentMembership) {
         await prisma.inviteCode.delete({ where: { uuid: code.uuid } })
-        return { message: "You already belong to this organization", success: false }
+        return { message: "You are already in this organization", success: false }
     }
 
     await prisma.membership.create({ // Create the role
@@ -38,7 +38,6 @@ export default async function acceptInviteCode(codeID: string) {
             permissions: code.perms
         }
     })
-
 
     await prisma.inviteCode.delete({ where: { uuid: code.uuid } })
 

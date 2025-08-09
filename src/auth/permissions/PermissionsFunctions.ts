@@ -43,14 +43,18 @@ export function canControlUsers(membership: Membership) {
     return p.includes(Permissions.admin.users.create) || p.includes(Permissions.admin.users.del) || p.includes(Permissions.admin.users.edit)
 }
 
-export async function throwIfNotOrgAdmin() {
-    const membership = await getOrgMembership()
+export async function isOrgAdmin(orgUUID?: string) {
+    const session = await getSession()
+    if (session?.isAdmin) { return true }
+
+    const membership = await getOrgMembership(orgUUID)
     if (!membership) {
-        throw new Error("Not Org Admin")
+        return false
     }
-    if (!membership.orgAdmin) {
-        throw new Error("Not Org Admin")
-    }
+    return membership.orgAdmin
+}
+export async function throwIfNotOrgAdmin() {
+    if (!await isOrgAdmin()) { throw new Error("Not Org Admin") }
 }
 
 

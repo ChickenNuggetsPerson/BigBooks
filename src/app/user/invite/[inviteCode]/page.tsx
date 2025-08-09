@@ -1,7 +1,5 @@
 import { getUserFromSession, redirectIfInvalidSession } from "@/auth/auth";
-import { getRoleFromID } from "@/auth/roles/Roles";
 import InviteButtons from "@/components/User/OrgAdmin/InviteButtons";
-import { UserRoleIcon } from "@/components/User/UserRoleIcon";
 import { prisma } from "@/database/prisma";
 
 
@@ -60,12 +58,17 @@ export default async function InvitePage({ params }: { params: Promise<{ inviteC
                         </div>
 
                         <div className="flex flex-row justify-end mt-auto mb-1">
-                            <p className="mr-2 mt-auto font-mono">Role:</p>
-                            <UserRoleIcon role={getRoleFromID(code.role)} />
+                            <p className="mr-2 mt-auto font-mono">Permissions:</p>
                         </div>
                     </div>
 
                     <div className="bg-accent h-px mb-4"></div>
+
+                    <div className="bg-gray-300/40 p-2 rounded-xl mb-4 overflow-y-scroll h-25">
+                        {code.perms.map((perm) => (
+                            <p key={perm}>{perm}</p>
+                        ))}
+                    </div>
 
                     <InviteButtons inviteID={code.uuid} />
 

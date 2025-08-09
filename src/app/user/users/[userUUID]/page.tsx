@@ -20,7 +20,7 @@ export default async function editUserPage({ params }: { params: Promise<{ userU
 
                 <div>
                     <Link href={`/user/users`} className="text-black font-medium text-lg" >
-                        <MoveLeft color="white" />
+                        <MoveLeft color="black" />
                     </Link>
 
                     <UserInfoForm userID={userUUID} />

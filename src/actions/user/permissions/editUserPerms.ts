@@ -2,7 +2,7 @@
 
 import { getSession } from "@/auth/auth"
 import { Permissions } from "@/auth/permissions/PermissionsDef"
-import { canControlUsers, throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
+import { canControlUsers, isOrgAdmin, throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
 
@@ -19,7 +19,11 @@ export default async function editUserPerms(userUUID: string, orgUUID: string, p
     const membership = await prisma.membership.findFirst({ where: { userId: userUUID, organizationId: orgUUID } })
     if (!membership) { throw new Error("") }
 
-    if (canControlUsers(membership) && !membership.orgAdmin && !session.isAdmin) {
+    if (membership.orgAdmin && !session.isAdmin) {
+        throw new Error("Cannot edit user")
+    }
+
+    if (canControlUsers(membership) && (!await isOrgAdmin(orgUUID))) {
         throw new Error("Cannot edit user")
     }
 

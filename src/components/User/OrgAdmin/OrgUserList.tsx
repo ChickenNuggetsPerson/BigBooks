@@ -1,13 +1,13 @@
 'use client'
 
 import { useCompany } from "@/app/CompanyContext";
-import { Prisma } from "@/database/generated/prisma";
+import { Membership, Prisma } from "@/database/generated/prisma";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import { DispRole, getRoleFromID, RoleTypes } from "@/auth/roles/Roles";
 import ClickableDiv from "@/components/Decorative/ClickableDiv";
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
-import PermissionModal from "./PermissionModal";
 import { useEffect, useState } from "react";
+import UserPermissionEditor from "../Permissions/UserPermissionEditor";
+import { useRouter } from "next/navigation";
 
 
 
@@ -18,9 +18,10 @@ export function OrgUserList({
     users
 }: { users: UserData[] }) {
 
+    const router = useRouter()
     const { context } = useCompany()
     const { addModal } = useModalManager()
-    
+
     const [dispUsers, setDispUsers] = useState([] as UserData[])
     useEffect(() => {
         setDispUsers(users)
@@ -30,39 +31,35 @@ export function OrgUserList({
         {
             field: '',
             headerName: 'Name',
-            width: 150,
+            width: 200,
             renderCell: (params: GridRenderCellParams<UserData, string>) => (
-                <p>{`${params.row.firstName} ${params.row.lastName}`}</p>
+                <p>{`${params.row.memberships[0].orgAdmin ? "(Org Admin) ": ""}${params.row.firstName} ${params.row.lastName}`}</p>
             ),
         },
         {
             field: 'email',
             headerName: 'Email',
-            width: 200
+            width: 180
         },
         {
             field: 'role',
-            headerName: 'Role',
+            headerName: 'Edit',
             type: "custom",
-            width: 120,
+            width: 190,
             renderCell: (params: GridRenderCellParams<UserData, unknown>) => {
 
-                const index = params.row.memberships.findIndex((m) => m.organizationId == context?.companyUUID)
-                if (index == -1) { return (<div></div>) }
-                const membership = params.row.memberships[index]
-                const role = getRoleFromID(membership.role)
-                role.userUUID = params.row.uuid
-                role.orgUUID = context?.companyUUID ?? ""
+                const membership = params.row.memberships[0]
+                if (!membership) { return (<div></div>)}
 
                 return (
                     <ClickableDiv
-                        onClick={() => {rolePressed(role)}}
+                        onClick={() => { membershipPressed(membership) }}
                         className="h-full w-full px-2 flex flex-row justify-center"
 
                     >
                         <div className="flex flex-col justify-center">
-                            <div className="w-fit h-fit px-2 py-1 select-none text-white font-bold text-center rounded-xl text-lg" style={{ backgroundColor: role.color }}>
-                                {role.type}
+                            <div className="w-fit h-fit px-2 py-1 select-none text-white font-bold text-center rounded-xl text-lg bg-primary/60">
+                                Edit Permissions
                             </div>
                         </div>
                     </ClickableDiv>
@@ -72,17 +69,18 @@ export function OrgUserList({
 
     ]
 
-    async function rolePressed(role: DispRole) {
-        if (role.type == RoleTypes.Error) { return }
-
-        const index = dispUsers.findIndex(u => u.uuid == role.userUUID)
-        if (index == -1) { return }
-        const user = dispUsers[index]
+    async function membershipPressed(membership: Membership) {
 
         addModal({
-            title: "Edit Permissions:",
-            required: false,
-            component: () => <PermissionModal role={role} user={user} orgUUID={context?.companyUUID ?? ""} orgName={context?.companyName ?? ""} />
+            component: (push, pop) => <UserPermissionEditor
+                userUUID={membership.userId}
+                orgUUID={membership.organizationId}
+                isOrgAdmin
+                cb={() => {
+                    pop()
+                    router.refresh()
+                }}
+            />
         })
     }
 

@@ -16,7 +16,7 @@ export default async function CodesPage() {
 
                 <div>
                     <Link href={`/user`}>
-                        <MoveLeft color="white" />
+                        <MoveLeft color="black" />
                     </Link>
 
 
