@@ -1,6 +1,6 @@
 import Loading from "@/app/Loading";
-import { RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/permissions/throwIfInsufficientPerms";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import EmployeeForm from "@/components/Employee/EmployeeForm";
 import { MoveLeft } from "lucide-react";
@@ -39,7 +39,7 @@ export default async function EmployeeView({ params }: { params: Promise<{ emplo
 
 async function EditForm({ employeeUUID }: { employeeUUID: string }) {
     try {
-        await throwIfInsufficientPerms(RoleTypes.Editor)
+        await throwIfInsufficientPerms(Permissions.employee.personal.edit)
     } catch {
 
         return (

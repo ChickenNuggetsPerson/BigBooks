@@ -1,12 +1,12 @@
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { prisma } from "@/database/prisma";
-import { throwIfInsufficientPerms } from "@/auth/permissions/throwIfInsufficientPerms";
-import { RoleTypes } from "@/auth/roles/Roles";
 import { PaystubCard } from "@/components/payroll/paystub/PaystubCard";
 import { serializeData } from "@/utils/serialization";
 import { Suspense } from "react";
 import Loading from "@/app/Loading";
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
 
 
 export default async function ViewPaystubPage({
@@ -34,7 +34,7 @@ export default async function ViewPaystubPage({
 
 async function ViewStub({ paystubUUID }: { paystubUUID: string }) {
 
-    await throwIfInsufficientPerms(RoleTypes.Viewer)
+    await throwIfInsufficientPerms(Permissions.payroll.paystub.view)
 
     const stub = await prisma.payStub.findUnique({
         where: { uuid: paystubUUID },

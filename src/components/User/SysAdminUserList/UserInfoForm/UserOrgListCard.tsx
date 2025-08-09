@@ -22,7 +22,7 @@ export default function UserOrgListCard({ org, user, included }: { org: Organiza
     async function clicked() {
         if (included) {
             addModal({
-                component: (push, pop) => <UserPermissionEditor userUUID={user.uuid} orgUUID={org.uuid} cb={() => {
+                component: (push, pop) => <UserPermissionEditor userUUID={user.uuid} orgUUID={org.uuid} isOrgAdmin cb={() => {
                     pop()
                     router.refresh()
                 }} />

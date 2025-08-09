@@ -1,8 +1,8 @@
 'use server'
 
-import { getSession } from "@/auth/auth"
+import { getSession, throwIfNotSYSAdmin } from "@/auth/auth"
 import { Permissions } from "@/auth/permissions/PermissionsDef"
-import { throwIfInsufficientPerms, throwIfNotSYSAdmin } from "@/auth/permissions/PermissionsFunctions"
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import { FilingTypes, Prisma } from "@/database/generated/prisma"
 import { prisma } from "@/database/prisma"
 import { deserializeData, SerializationResult } from "@/utils/serialization"

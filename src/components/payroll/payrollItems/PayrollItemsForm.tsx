@@ -9,8 +9,8 @@ import PayrollItemAddBtn from "./PayrollItemAddBtn"
 import PayrollItemInfoBtn from "./PayrollItemInfoBtn"
 import { prisma } from "@/database/prisma"
 import { deserializeData, serializeData } from "@/utils/serialization"
-import { throwIfInsufficientPerms } from "@/auth/permissions/throwIfInsufficientPerms"
-import { RoleTypes } from "@/auth/roles/Roles"
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
+import { Permissions } from "@/auth/permissions/PermissionsDef"
 
 
 
@@ -30,7 +30,15 @@ export default async function PayrollItemsForm({
 }) {
 
     try {
-        await throwIfInsufficientPerms(RoleTypes.Editor)
+        if (organization) {
+            await throwIfInsufficientPerms(Permissions.admin.orgItem.edit)
+        }
+        if (group) {
+            await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.items.edit)
+        }
+        if (employee) {
+            await throwIfInsufficientPerms(Permissions.employee.items.edit)
+        }
     } catch {
         return (
             <div className="items-center min-h-screen p-8 pb-20 gap-16">

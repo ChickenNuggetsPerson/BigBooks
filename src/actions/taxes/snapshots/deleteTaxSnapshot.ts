@@ -1,8 +1,8 @@
 'use server'
 
-import { getSession } from "@/auth/auth"
+import { getSession, throwIfNotSYSAdmin } from "@/auth/auth"
 import { Permissions } from "@/auth/permissions/PermissionsDef"
-import { throwIfInsufficientPerms, throwIfNotSYSAdmin } from "@/auth/permissions/PermissionsFunctions"
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
 

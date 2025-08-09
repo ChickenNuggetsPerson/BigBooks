@@ -1,7 +1,7 @@
 import getOrgPayrollGroups from "@/actions/payrollGroup/getOrgPayrollGroups";
 import Loading from "@/app/Loading";
-import { RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/permissions/throwIfInsufficientPerms";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import PayrollGroupAminList from "@/components/payroll/groups/PayrollGroupAminList";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
@@ -32,7 +32,7 @@ export default async function OrgGroupsPage() {
 
 async function Page() {
 
-    await throwIfInsufficientPerms(RoleTypes.Admin)
+    await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.view)
     const groups = await getOrgPayrollGroups()
     
     return (<PayrollGroupAminList groups={groups}/>)

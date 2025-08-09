@@ -4,8 +4,8 @@ import { deserializeData, serializeData } from "@/utils/serialization";
 import EmployeeCompensationAddButton from "./EmployeeCompensationAddButton";
 import EmployeeCompensationFormCard from "./EmployeeCompensationFormCard";
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
-import { RoleTypes } from "@/auth/roles/Roles";
-import { throwIfInsufficientPerms } from "@/auth/permissions/throwIfInsufficientPerms";
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
 
 
 
@@ -14,7 +14,7 @@ export default async function EmployeeCompensationForm({ employeeUUID }: { emplo
 
 
     try {
-        await throwIfInsufficientPerms(RoleTypes.Editor)
+        await throwIfInsufficientPerms(Permissions.employee.compensation.edit)
     } catch {
         return (
             <div className="items-center min-h-screen p-8 pb-20 gap-16">

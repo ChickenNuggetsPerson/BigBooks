@@ -4,7 +4,6 @@ import getUser from "@/actions/user/getUser"
 import UserAllocatedBtn from "./UserAllocatedBtn"
 import { Organization } from "@/database/generated/prisma"
 import UserOrgListCard from "./UserOrgListCard"
-import UserPermissionsTree from "../../Permissions/UserPermissionsTree"
 
 
 

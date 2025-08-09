@@ -1,6 +1,6 @@
 import { getSession } from "@/auth/auth";
-import { RoleTypes } from "@/auth/roles/Roles"
-import { throwIfInsufficientPerms } from "@/auth/permissions/throwIfInsufficientPerms"
+import { Permissions } from "@/auth/permissions/PermissionsDef";
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import { prisma } from "@/database/prisma";
 import { hideSSN } from "@/utils/functions/SSNStr";
 import { NextRequest, NextResponse } from "next/server"
@@ -16,7 +16,7 @@ export async function GET(
 
     let paystub;
     try {
-        await throwIfInsufficientPerms(RoleTypes.Viewer)
+        await throwIfInsufficientPerms(Permissions.payroll.paystub.view)
         const session = await getSession()
         paystub = await prisma.payStub.findUniqueOrThrow({ where: { uuid: stubUUID }, include: { employee: true, items: true } })
         if (paystub.employee.organizationId !== session?.orgUUID) { throw new Error("") }
