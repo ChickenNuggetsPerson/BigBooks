@@ -12,7 +12,6 @@ import SelectInput from "@/components/Forms/SelectInput";
 import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight } from "lucide-react";
 import NumericText from "@/components/Decorative/NumericText/NumericText";
 import { limitString } from "@/utils/functions/StringFunctions";
-import Loading from "@/components/Decorative/Loading/Loading";
 import { Employee } from "@/database/generated/prisma";
 import { useUrlState } from "state-in-url";
 
