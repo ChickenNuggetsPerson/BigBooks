@@ -10,26 +10,21 @@ import { revalidatePath } from "next/cache"
 
 
 
-export default async function editUserRole(userUUID: string, orgUUID: string, perms: string[]) {
+export default async function editUserPerms(userUUID: string, orgUUID: string, perms: string[]) {
 
     const session = await getSession()
     if (!session) { throw new Error("Invalid Session") }
     await throwIfInsufficientPerms(Permissions.admin.users.edit)
 
-    const user = await prisma.membership.findFirst({ where: { userId: userUUID, organizationId: orgUUID } })
-    if (!user) { throw new Error("") }
+    const membership = await prisma.membership.findFirst({ where: { userId: userUUID, organizationId: orgUUID } })
+    if (!membership) { throw new Error("") }
 
-    const m = await prisma.membership.findFirst({ where: { userId: userUUID, organizationId: orgUUID } })
-    if (!m) {
-        throw new Error("Membership does not exist")
-    }
-
-    if (canControlUsers(user) && !user.orgAdmin && !session.isAdmin) {
+    if (canControlUsers(membership) && !membership.orgAdmin && !session.isAdmin) {
         throw new Error("Cannot edit user")
     }
 
     await prisma.membership.update({
-        where: { uuid: m.uuid },
+        where: { uuid: membership.uuid },
         data: {
             permissions: perms
         }

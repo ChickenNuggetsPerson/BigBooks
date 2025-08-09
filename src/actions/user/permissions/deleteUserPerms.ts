@@ -17,10 +17,10 @@ export default async function deleteUserPerms(userUUID: string, orgUUID: string)
     if (!session) { throw new Error("Invalid Session")  }
     await throwIfInsufficientPerms(Permissions.admin.users.del)
 
-    const user = await prisma.membership.findFirst({ where: { userId: userUUID, organizationId: orgUUID } })
-    if (!user) { throw new Error("") }
+    const membership = await prisma.membership.findFirst({ where: { userId: userUUID, organizationId: orgUUID } })
+    if (!membership) { throw new Error("") }
 
-    if (canControlUsers(user) && !user.orgAdmin && !session.isAdmin) {
+    if (canControlUsers(membership) && !membership.orgAdmin && !session.isAdmin) {
         throw new Error("Cannot edit user")
     }
 

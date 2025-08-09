@@ -1,11 +1,10 @@
 import getOrgList from "@/actions/organization/getOrgList"
 import UserActiveBtn from "../UserActiveBtn"
 import getUser from "@/actions/user/getUser"
-import UnincludedOrgCard from "./UnincludedOrgCard"
-import IncludedOrgCard from "./IncludedOrgCard"
 import UserAllocatedBtn from "./UserAllocatedBtn"
 import { Organization } from "@/database/generated/prisma"
-import { getRoleFromID } from "@/auth/roles/Roles"
+import UserOrgListCard from "./UserOrgListCard"
+import UserPermissionsTree from "../../Permissions/UserPermissionsTree"
 
 
 
@@ -63,23 +62,23 @@ export default async function UserInfoForm({ userID }: { userID: string }) {
                 <div className="flex flex-row w-full h-50">
 
                     <div className="card w-1/2 overflow-y-scroll">
-                        <h1>Unincluded Orgs:</h1>
+                        <h1 className="font-semibold">Unincluded Orgs:</h1>
                         <div className="bg-accent h-px mb-1"></div>
 
                         <div>
                             {orgsNotIncluded.map((org) => (
-                                <UnincludedOrgCard org={org} user={user} key={org.uuid} />
+                                <UserOrgListCard org={org} user={user} key={org.uuid} included={false} />
                             ))}
                         </div>
 
                     </div>
                     <div className="card w-1/2 overflow-y-scroll">
-                        <h1>Belongs To:</h1>
+                        <h1 className="font-semibold">Belongs To:</h1>
                         <div className="bg-accent h-px mb-1"></div>
 
                         <div>
-                            {user.memberships.map((role) => (
-                                <IncludedOrgCard role={getRoleFromID(role.role)} org={getOrg(role.organizationId)} key={role.userId + role.organizationId} user={user} />
+                            {user.memberships.map((membership) => (
+                                <UserOrgListCard org={getOrg(membership.organizationId)} user={user} key={membership.uuid} included={true} />
                             ))}
 
                         </div>

@@ -1,6 +1,6 @@
 'use server'
 
-import { throwIfNotSYSAdmin } from "@/auth/permissions/PermissionsFunctions"
+import { throwIfNotSYSAdmin } from "@/auth/auth"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
 
