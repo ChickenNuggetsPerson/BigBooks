@@ -7,7 +7,7 @@ import { useCompany } from "@/app/CompanyContext";
 import TextInput, { InputMasks } from "@/components/Forms/TextInput";
 import { useEffect, useState } from "react";
 import LargeTextInput from "../Forms/LargeTextInput";
-import Loading from "@/app/Loading";
+import Loading from "@/components/Decorative/Loading/Loading";
 import { Employee } from "@/database/generated/prisma";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -48,11 +48,7 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
 
 
     if (loading) {
-        return (
-            <div className="mx-auto card w-fit"> 
-                <Loading hCenter vCenter />
-            </div>
-        )
+        return (<Loading hCenter vCenter />)
     }
     if (error) {
         return (

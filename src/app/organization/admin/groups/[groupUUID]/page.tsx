@@ -1,4 +1,4 @@
-import Loading from "@/app/Loading"
+import Loading from "@/components/Decorative/Loading/Loading"
 import AnimateChildren from "@/components/Decorative/AnimateChildren"
 import PayrollItemsForm from "@/components/payroll/payrollItems/PayrollItemsForm"
 import { MoveLeft } from "lucide-react"
@@ -26,7 +26,7 @@ export default async function GroupPayrollItemEditPage({
 
             <AnimateChildren y={-20}>
 
-                <Suspense fallback={<div className="mx-auto card w-fit"><Loading vCenter hCenter /></div>}>
+                <Suspense fallback={<Loading vCenter hCenter />}>
                     <PayrollItemsForm group groupUUID={groupUUID} />
                 </Suspense>
 

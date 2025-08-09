@@ -3,7 +3,7 @@ import Link from "next/link";
 import { prisma } from "@/database/prisma";
 import PaystubEditForm from "@/components/payroll/paystub/PaystubEditForm";
 import { Suspense } from "react";
-import Loading from "@/app/Loading";
+import Loading from "@/components/Decorative/Loading/Loading";
 import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import { Permissions } from "@/auth/permissions/PermissionsDef";
 
@@ -20,7 +20,7 @@ export default async function EditPaystubPage({
 
         <div>
 
-            <Suspense fallback={<div className="mx-auto card w-fit"><Loading hCenter vCenter /></div>}>
+            <Suspense fallback={<Loading hCenter vCenter />}>
                 <Page paystubUUID={paystubUUID} />
             </Suspense>
 

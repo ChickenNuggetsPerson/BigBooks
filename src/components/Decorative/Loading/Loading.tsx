@@ -1,9 +1,8 @@
 'use client'
 
-import NumericText from "@/components/Decorative/NumericText/NumericText"
+
+import Gauge from "../Gauge"
 import { ReactNode, useEffect, useState } from "react"
-
-
 
 
 
@@ -15,21 +14,31 @@ export default function Loading({
     hCenter?: boolean
 }) {
 
+    const [percent, setPercent] = useState(0.12)
 
-    const [text, setText] = useState("Loading")
+    function iterate() {
+        setPercent(Math.random())
+    }
+
     useEffect(() => {
+
         const id = setInterval(() => {
-            setText(text + ".")
+            iterate()
         }, 1000);
-        return () => clearInterval(id)
-    })
+
+        return () => {
+            clearInterval(id)
+        }
+    }, [])
 
     return (
         <TogleableClassnames className="flex m-auto justify-center" enabled={hCenter}>
             <TogleableClassnames className="h-full flex flex-col" enabled={vCenter}>
-                <div className="font-mono font-bold text-xl">
-                    <NumericText val={text} spacing={-4} expand />
+                <div className="card font-mono font-bold text-xl w-fit">
+                    <div className="animate-pulse ml-2">Loading...</div>
+                    <div className="mx-auto"><Gauge percent={percent} size={120}/></div>
                 </div>
+
             </TogleableClassnames>
         </TogleableClassnames>
     )

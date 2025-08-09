@@ -7,7 +7,7 @@ import getUser from "@/actions/user/getUser";
 import editUser from "@/actions/user/editUser";
 import Link from "next/link";
 import { Prisma } from "@/database/generated/prisma";
-import Loading from "@/app/Loading";
+import Loading from "@/components/Decorative/Loading/Loading";
 
 
 
@@ -34,11 +34,7 @@ export default function EditUserForm({ userID }: EditUserFormProps) {
 
 
     if (loading) {
-        return (
-            <div className="mx-auto card w-fit">
-                <Loading hCenter vCenter />
-            </div>
-        )
+        return (<Loading hCenter vCenter />)
     }
 
     return (

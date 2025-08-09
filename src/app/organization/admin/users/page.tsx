@@ -1,6 +1,6 @@
 import getOrgUsers from "@/actions/user/getOrgUsers"
 import getInviteCodes from "@/actions/user/inviteCodes/getInviteCodes"
-import Loading from "@/app/Loading"
+import Loading from "@/components/Decorative/Loading/Loading"
 import { getSession } from "@/auth/auth"
 import { Permissions } from "@/auth/permissions/PermissionsDef"
 import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
@@ -16,7 +16,7 @@ export default function AdminUserPage() {
 
 
     return (
-        <Suspense fallback={<div className="mx-auto card w-fit"><Loading vCenter hCenter /></div>}>
+        <Suspense fallback={<Loading vCenter hCenter />}>
             <Page />
         </Suspense>
     )

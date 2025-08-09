@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import Loading from "../Loading";
+import Loading from "../../components/Decorative/Loading/Loading";
 import IconBackground from "@/components/Decorative/IconBackground/IconBackground";
 
 export const metadata: Metadata = {

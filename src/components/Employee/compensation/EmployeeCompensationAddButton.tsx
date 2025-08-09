@@ -2,7 +2,7 @@
 
 import upsertEmployeeCompensation from "@/actions/employeeCompensation/upsertEmployeeCompensation";
 import getEmployeeUnincludedGroups from "@/actions/payrollGroup/getEmployeeUnincludedGroups";
-import Loading from "@/app/Loading";
+import Loading from "@/components/Decorative/Loading/Loading";
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
 import SelectInput from "@/components/Forms/SelectInput";
 import { Employee, PayrollGroup } from "@/database/generated/prisma";

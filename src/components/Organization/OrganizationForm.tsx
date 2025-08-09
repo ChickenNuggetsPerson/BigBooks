@@ -9,7 +9,7 @@ import changeOrganizationStatus from "@/actions/organization/changeOrganizationS
 import { useCompany } from "@/app/CompanyContext"
 import { useRouter } from "next/navigation"
 import LargeTextInput from "../Forms/LargeTextInput"
-import Loading from "@/app/Loading"
+import Loading from "@/components/Decorative/Loading/Loading"
 import { Organization } from "@/database/generated/prisma"
 import toast from "react-hot-toast"
 
@@ -28,12 +28,14 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
 
     useEffect(() => {
         setLoading(true)
+        setError(false)
         async function load() {
 
             if (!newOrganization) {
                 const organization = await getOrgDetails(orgUUID)
                 if (organization) {
                     setProps(organization)
+                    setError(false)
                 } else {
                     setError(true)
                 }
@@ -53,9 +55,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
     }
 
     if (loading) {
-        return (
-            <div className="mx-auto card w-fit"><Loading hCenter vCenter /></div>
-        )
+        return (<Loading hCenter vCenter />)
     }
 
     function cancelURL(isNew: boolean) {

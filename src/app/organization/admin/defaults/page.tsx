@@ -1,4 +1,4 @@
-import Loading from "@/app/Loading"
+import Loading from "@/components/Decorative/Loading/Loading"
 import { Permissions } from "@/auth/permissions/PermissionsDef"
 import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import PaystubDefaultsForm from "@/components/payroll/payrollItems/PayrollItemsForm"
@@ -23,7 +23,7 @@ export default async function OrgGroupsPage() {
             </Link>
 
             <div className="w-full flex flex-row justify-center">
-                <Suspense fallback={<div className="mx-auto card w-fit"><Loading vCenter hCenter/></div>}>
+                <Suspense fallback={<Loading vCenter hCenter/>}>
                     <PaystubDefaultsForm organization/>
                 </Suspense>
             </div>

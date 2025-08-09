@@ -1,4 +1,4 @@
-import Loading from "@/app/Loading";
+import Loading from "@/components/Decorative/Loading/Loading";
 import { Permissions } from "@/auth/permissions/PermissionsDef";
 import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
@@ -22,7 +22,7 @@ export default async function EmployeeSalaryPage({ params }: { params: Promise<{
 
             <AnimateChildren y={-20} className="mx-20">
 
-                <Suspense fallback={<div className="mx-auto card w-fit"><Loading hCenter vCenter /></div>}>
+                <Suspense fallback={<Loading hCenter vCenter />}>
                     <EditForm employeeUUID={employeeUUID}/>
                 </Suspense>
 

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import SelectInput from "../../Forms/SelectInput";
 import NumberInput from "../../Forms/NumberInput";
 import { Divider } from "../../Forms/Divider";
-import Loading from "@/app/Loading";
+import Loading from "@/components/Decorative/Loading/Loading";
 import { Employee, FilingTypes } from "@/database/generated/prisma";
 import TextInput from "../../Forms/TextInput";
 import toast from "react-hot-toast";
@@ -65,9 +65,7 @@ export default function EmployeeTaxForm({ empUUID }: EmployeeTaxFormProps) {
     }
 
     if (loading) {
-        return (
-            <div className="mx-auto card w-fit"><Loading hCenter vCenter /></div>
-        )
+        return (<Loading hCenter vCenter />)
     }
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {

@@ -1,4 +1,4 @@
-import Loading from "@/app/Loading";
+import Loading from "@/components/Decorative/Loading/Loading";
 import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import EmployeeCompensationForm from "@/components/Employee/compensation/EmployeeCompensationForm";
 import { MoveLeft } from "lucide-react";
@@ -19,7 +19,7 @@ export default async function EmployeeSalaryPage({ params }: { params: Promise<{
             </Link>
 
             <AnimateChildren y={-20} className="mx-20">
-                <Suspense fallback={<div className="mx-auto card w-fit"><Loading hCenter vCenter /></div>}>
+                <Suspense fallback={<Loading hCenter vCenter />}>
                     <EmployeeCompensationForm employeeUUID={employeeUUID} />
                 </Suspense>
             </AnimateChildren>
