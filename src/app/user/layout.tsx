@@ -17,7 +17,7 @@ export default function UserPageLayout({
         <>
             <IconBackground />
 
-            <Suspense fallback={<Loading/>}>
+            <Suspense fallback={<Loading hCenter vCenter/>}>
                 {children}
             </Suspense>
             

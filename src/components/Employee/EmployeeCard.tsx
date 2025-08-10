@@ -6,9 +6,27 @@ import ClickableDiv from "../Decorative/ClickableDiv"
 import toast from "react-hot-toast"
 import { Employee } from "@/database/generated/prisma"
 import { CardProp } from "../Forms/CardProp"
+import LoadingBlock from "../Decorative/LoadingBlock"
 
 
 
+export function EmployeeCard_Loading() {
+    return (
+        <div className="w-xs h-fit">
+
+            <LoadingBlock w={"full"} h={10} />
+
+            <Divider />
+
+            <LoadingBlock w={"full"} h={6} className="mb-4"/>
+
+            <CardProp label="Email:" loading />
+            <CardProp label="Phone:" loading />
+            <CardProp label="SSN:" loading />
+
+        </div>
+    )
+}
 
 export default function EmployeeCard({ employee }: { employee: Employee }) {
 

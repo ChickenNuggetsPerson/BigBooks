@@ -1,8 +1,10 @@
 'use client'
 
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useUrlState } from 'state-in-url';
+import AnimateChildren from "./AnimateChildren";
+import { motion } from "framer-motion";
 
 
 type TabGroupProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -10,7 +12,7 @@ type TabGroupProps = React.HTMLAttributes<HTMLDivElement> & {
     verticalTabs?: boolean
 }
 
-function longestStrLength(strs: string[]) : number {
+function longestStrLength(strs: string[]): number {
     let max = 0
     strs.forEach(str => {
         if (str.length > max) { max = str.length }
@@ -22,16 +24,29 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(
     ({ tabNames, verticalTabs = false, children, ...rest }, ref) => {
 
         const { urlState, setUrl } = useUrlState({ selected: 0 });
+        const tabsRef = useRef(null as null | HTMLDivElement)
+        const insideRef = useRef(null as null | HTMLDivElement)
+        const [height, setHeight] = useState<number | undefined>(undefined);
+        const [oversized, setOversized] = useState(false)
 
         const maxLength = longestStrLength(tabNames)
+
+        useEffect(() => {
+            if (insideRef.current && tabsRef.current) {
+                const inside = insideRef.current.clientHeight + 50
+                const tabBar = tabsRef.current.clientHeight
+                setOversized(inside > tabBar)
+                setHeight(Math.max(inside, tabBar));
+            }
+        }, [urlState.selected, children]);
 
         return (
             <div ref={ref} style={{ ...rest.style }} {...rest}>
 
                 <div className={`h-fit flex ${verticalTabs ? "flex-row" : "flex-col"}`}>
-                    
+
                     {/* Tabs */}
-                    <div className={`flex ${verticalTabs ? "flex-col w-fit" : "flex-row w-full"} select-none`}>
+                    <div className={`flex ${verticalTabs ? "flex-col w-fit h-fit" : "flex-row w-full"} select-none`} ref={tabsRef}>
                         {tabNames.map((name, i) => (
                             <div
                                 key={name}
@@ -51,17 +66,27 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(
                         ))}
                     </div>
 
-                    <div
+                    <motion.div
                         className="card w-fit"
                         style={{
                             borderTopLeftRadius: 0,
                             borderTopRightRadius: verticalTabs ? undefined : 0,
-                            borderBottomLeftRadius: verticalTabs ? 0 : undefined,
                             zIndex: 200
                         }}
+
+                        animate={{ 
+                            height: height,
+                            borderBottomLeftRadius: verticalTabs ? (oversized ? undefined : 0 ) : undefined,
+                        }}
+
+                        transition={{ duration: .3 }}
                     >
-                        {React.Children.toArray(children)[urlState.selected]}
-                    </div>
+                        <div ref={insideRef}>
+                            <AnimateChildren y={-5} fade>
+                                {React.Children.toArray(children)[urlState.selected]}
+                            </AnimateChildren>
+                        </div>
+                    </motion.div>
                 </div>
 
             </div>

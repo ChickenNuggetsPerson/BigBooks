@@ -2,7 +2,6 @@
 
 import toast from "react-hot-toast"
 import ClickableDiv from "../Decorative/ClickableDiv"
-import LoadingBlock from "../Decorative/LoadingBlock"
 
 
 
@@ -33,7 +32,7 @@ export function CardProp({
                 </ClickableDiv>
             }
             {loading &&
-                <LoadingBlock w={20} h={6} className="mb-1"/>
+                <div className="bg-gray-200/50 animate-pulse rounded-lg w-20 h-$6 ml-2 mb-1"></div>
             }
         </div>
     )

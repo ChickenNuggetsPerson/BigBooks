@@ -7,6 +7,7 @@ import CheckboxInput from "../Forms/CheckboxInput";
 import { useChangeSelectedOrg } from "./changeSelectedOrg";
 import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowParams } from "@mui/x-data-grid";
 import { Organization } from "@/database/generated/prisma";
+import CollapsibleDiv from "../Decorative/CollapsibleDiv";
 
 
 
@@ -48,22 +49,6 @@ export default function OrganizationList({
     };
 
     const columns: GridColDef[] = [
-        // {
-        //     field: 'role',
-        //     headerName: 'Role',
-        //     type: "custom",
-        //     width: 120,
-        //     renderCell: (params: GridRenderCellParams<Organization, unknown>) => {
-        //         const role = params.row
-        //         return (
-        //             <div className="flex flex-col justify-center px-3 pt-2" style={{ opacity: params.row.isDeleted ? 0.5 : 1 }}>
-        //                 <div className="w-fit h-fit px-2 py-1 select-none text-white font-bold text-center rounded-xl text-lg" style={{ backgroundColor: role.color }}>
-        //                     {role.type}
-        //                 </div>
-        //             </div>
-        //         )
-        //     },
-        // },
         {
             field: 'name',
             headerName: 'Name',
@@ -89,10 +74,10 @@ export default function OrganizationList({
 
 
     return (
-        <div className={`flex flex-col gap-4 ${showBackground ? "smallCard" : ""}`} style={{ padding: 10 }}>
-            <div className="card w-xl">
+        <div className={`flex flex-col gap-4 select-none ${showBackground ? "smallCard" : ""}`} style={{ padding: 10 }}>
+            <CollapsibleDiv className="card w-xl" title={
                 <h5 className="mb-2 text-2xl font-normal text-gray-900">Select An Organization:</h5>
-                <div className="h-px bg-accent"></div>
+            }>
 
                 <div className="flex flex-row w-full h-20 p-5">
                     <div className="relative z-0 w-full mb-5 group pr-10">
@@ -105,7 +90,7 @@ export default function OrganizationList({
                     </div>
                 </div>
 
-            </div>
+            </CollapsibleDiv>
 
             <div className="card w-xl">
                 <DataGrid
