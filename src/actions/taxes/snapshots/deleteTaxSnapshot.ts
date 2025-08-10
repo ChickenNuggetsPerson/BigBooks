@@ -44,8 +44,7 @@ export default async function deleteTaxSnapshot(snapshotUUID: string) {
     await prisma.taxSnapshot.delete({ where: { uuid: snapshotUUID } })
 
     if (snapshot.tax.sysAdminControlled) {
-        // TODO: Add sysadmin tax path 
-        revalidatePath("/user/taxes")
+        revalidatePath("/admin/taxes")
     } else {
         revalidatePath("/organization/admin/taxes")
     }

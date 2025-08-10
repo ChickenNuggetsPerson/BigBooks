@@ -18,7 +18,7 @@ export default async function UserList() {
 
             <div className="flex flex-col gap-2 h-60 overflow-y-scroll p-2">
                 {list.map((user) => (
-                    <EditableDiv url={`/user/users/${user.uuid}`} key={user.uuid} className="smallCard" style={{ padding: 10 }}>
+                    <EditableDiv url={`/admin/user/${user.uuid}`} key={user.uuid} className="smallCard" style={{ padding: 10 }}>
                         <p className={user.isActive ? "" : " text-red-700"}>{user.firstName + " " + user.lastName}</p>
                     </EditableDiv>
                 ))}

@@ -47,8 +47,7 @@ export default async function deleteTax(taxUUID: string) {
     await prisma.tax.delete({ where: { uuid: tax.uuid } })
 
     if (tax.sysAdminControlled) {
-        // TODO: Add sysadmin tax path 
-        revalidatePath("/user/taxes")
+        revalidatePath("/admin/taxes")
     } else {
         revalidatePath("/organization/admin/taxes")
     }

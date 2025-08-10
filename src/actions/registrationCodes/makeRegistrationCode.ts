@@ -24,6 +24,6 @@ export default async function makeRegistrationCode() {
 
     await prisma.registrationCode.create({ data: { expires: expires } })
 
-    revalidatePath("/user/users")
-    redirect("/user/users")
+    revalidatePath("/admin/user")
+    redirect("/admin/user")
 }

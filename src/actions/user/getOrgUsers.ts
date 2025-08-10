@@ -16,6 +16,9 @@ export default async function getOrgUsers(orgUUID: string) {
         where: { organizationId: orgUUID },
         include: {
             user: true
+        },
+        orderBy: {
+            joinedAt: "asc"
         }
     })
     const users = [] as Prisma.UserGetPayload<{ include: { memberships: true } }>[]

@@ -37,8 +37,7 @@ export default async function updateTax(tax: Tax) {
     })
 
     if (tax.sysAdminControlled) {
-        // TODO: Add sysadmin tax path 
-        revalidatePath("/user/taxes")
+        revalidatePath("/admin/taxes")
     } else {
         revalidatePath("/organization/admin/taxes")
     }

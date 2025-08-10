@@ -95,8 +95,7 @@ export default async function upsertTaxSnapshot(data: SerializationResult<TaxSna
 
 
     if (tax.sysAdminControlled) {
-        // TODO: Add sysadmin tax path 
-        revalidatePath("/user/taxes")
+        revalidatePath("/admin/taxes")
     } else {
         revalidatePath("/organization/admin/taxes")
     }

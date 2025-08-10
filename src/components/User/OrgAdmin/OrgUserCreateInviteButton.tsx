@@ -60,9 +60,9 @@ function CreateInviteForm() {
         <div className="mt-5">
             <UserPermissionsTree activePerms={permissions} changeCB={(perms) => setPermissions(perms)}/>
 
-            <div className="flex flex-row justify-between">
-                <button onClick={popModal} className="accent-button">Cancel</button>
-                <button onClick={save} className="primary-button">Save Changes</button>
+            <div className="flex gap-4 mt-8">
+                <button onClick={popModal} className="accent-button w-full">Cancel</button>
+                <button onClick={save} className="primary-button w-full">Create Invite</button>
             </div>
         </div>
     )

@@ -65,31 +65,27 @@ export default async function UserPageColumn() {
                     }
                 </CollapsibleDiv>
             }
-
-            {
-                session?.isAdmin &&
-                <Link href={"/user/taxes"}>
-                    <div className="w-full primary-button text-center mt-2">System Taxes</div>
-                </Link>
-            }
-
-            {
-                session?.isAdmin &&
-                <div className="flex flex-row justify-between">
-
-                    <Link href={"/user/users"} className="w-4/9">
-                        <div className="w-full danger-button text-center">All Users</div>
-                    </Link>
-
-                    <Link href={"/user/newOrganization"} className="w-4/9">
-                        <div className="w-full secondary-button text-center">New Organization</div>
-                    </Link>
-
-                </div>
-            }
-
             <button className="accent-button" onClick={logout}>Logout</button>
 
+            {session?.isAdmin &&
+                <div className="smallCard">
+                    <Link href={"/admin/taxes"}>
+                        <div className="w-full primary-button text-center">System Taxes</div>
+                    </Link>
+
+                    <div className="flex flex-row justify-between mt-4">
+
+                        <Link href={"/admin/user"} className="w-4/9">
+                            <div className="w-full danger-button text-center">All Users</div>
+                        </Link>
+
+                        <Link href={"/user/newOrganization"} className="w-4/9">
+                            <div className="w-full secondary-button text-center">New Organization</div>
+                        </Link>
+
+                    </div>
+                </div>
+            }
 
         </div>
     )

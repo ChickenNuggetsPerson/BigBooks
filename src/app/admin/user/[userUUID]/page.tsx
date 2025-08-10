@@ -19,7 +19,7 @@ export default async function editUserPage({ params }: { params: Promise<{ userU
 
 
                 <div>
-                    <Link href={`/user/users`} className="text-black font-medium text-lg" >
+                    <Link href={`/admin/user`} className="text-black font-medium text-lg" >
                         <MoveLeft color="black" />
                     </Link>
 
