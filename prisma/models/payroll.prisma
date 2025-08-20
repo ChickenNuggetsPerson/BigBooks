@@ -43,3 +43,19 @@ model PayrollItem {
 
     PayStubItem PayStubItem[]
 }
+
+model PayrollDraft {
+    uuid String @id @unique @default(uuid())
+
+    membership          Membership  @relation(fields: [membershipId], references: [uuid])
+    membershipId        String
+    activeForMembership Membership? @relation("ActiveDraft")
+
+    startedDate DateTime @default(now())
+
+    periodStart   DateTime
+    periodEnd     DateTime
+    periodPaydate DateTime
+
+    employees Employee[]
+}

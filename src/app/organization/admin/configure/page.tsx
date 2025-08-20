@@ -1,18 +1,20 @@
-'use client'
-
-import { useCompany } from "@/app/CompanyContext"
+import { getSession } from "@/auth/auth"
 import AnimateChildren from "@/components/Decorative/AnimateChildren"
 import OrganizationForm from "@/components/Organization/OrganizationForm"
+import { redirect } from "next/navigation"
 
 
 
-export default function EditPage() {
+export default async function EditPage() {
 
-    const { context } = useCompany()
+    const session = await getSession()
+    if (!session) {
+        redirect("/user/login")
+    }
 
     return (
         <AnimateChildren x={0} y={-20}>
-            <OrganizationForm orgUUID={context?.companyUUID ?? "asdf"} />
+            <OrganizationForm orgUUID={session.orgUUID} />
         </AnimateChildren>
     )
 }

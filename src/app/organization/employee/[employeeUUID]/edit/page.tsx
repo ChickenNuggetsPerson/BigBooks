@@ -38,19 +38,6 @@ export default async function EmployeeView({ params }: { params: Promise<{ emplo
 }
 
 async function EditForm({ employeeUUID }: { employeeUUID: string }) {
-    try {
-        await throwIfInsufficientPerms(Permissions.employee.personal.edit)
-    } catch {
-
-        return (
-            <div className="items-center min-h-screen p-8 pb-20 gap-16">
-                <div className="card max-w-sm">
-                    Insufficient Permissions
-                </div>
-            </div>
-        )
-
-    }
-
+    await throwIfInsufficientPerms(Permissions.employee.personal.edit)
     return (<EmployeeForm empUUID={employeeUUID}></EmployeeForm>)
 }

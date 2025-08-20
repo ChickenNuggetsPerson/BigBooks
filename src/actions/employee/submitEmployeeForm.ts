@@ -6,7 +6,7 @@ import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunction
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
 
-
+// TODO: Make this function work without form data
 export default async function submitEmployeeForm(newEmployee: boolean, formData: FormData) {
 
     await redirectIfInvalidSession()

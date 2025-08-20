@@ -11,13 +11,20 @@ import { Search, Trash2, X } from "lucide-react"
 import { deserializeData } from "@/utils/serialization"
 import { Divider } from "@/components/Forms/Divider"
 import toast from "react-hot-toast"
+import { areSetsEqual } from "@/utils/functions/Sets"
+import { useRouter } from "next/navigation"
+import { PayrollSteps } from "@/components/payroll/draftsystem/DraftPaths"
+
+
+
 
 
 export default function SelectableEmployeeList({ selectCB, preSelected }: {
-    selectCB: (selected: { id: string, label: string }[]) => void, preSelected: { id: string, label: string }[]
+    selectCB: (selected: string[]) => void, preSelected: string[]
 }) {
 
     const { context } = useCompany()
+    const router = useRouter()
     const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>({ type: 'include', ids: new Set() });
     const [employees, setEmployees] = useState([] as Prisma.EmployeeGetPayload<{ include: { compensations: true } }>[])
 
@@ -44,16 +51,32 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
         load()
     }, [context?.companyUUID])
 
-    const columns: GridColDef[] = [
+    const columns: GridColDef<Employee>[] = [
         { field: 'firstName', headerName: 'First', width: 100 },
         { field: 'lastName', headerName: 'Last', width: 100 },
         { field: 'email', headerName: 'Email', width: 200 },
-        { field: 'groups', headerName: 'Group', width: 300 },
+        { field: 'groups', headerName: 'Group', width: 160 },
+        {
+            field: 'included', headerName: 'Remove', width: 300,
+            renderCell(params) {
+
+                const included = selected.has(params.row.uuid)
+
+                if (!included) {
+                    return (<></>)
+                }
+                return (
+                    <button onClick={() => removeEmployee(params.row)}>
+                        <Trash2 className="icon" />
+                    </button>
+                )
+            },
+        },
     ]
 
 
     useEffect(() => {
-        setSelected(new Set(preSelected.map((p) => p.id)))
+        setSelected(new Set(preSelected))
     }, [preSelected])
 
     function add() {
@@ -70,7 +93,6 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
             type: "include",
             ids: new Set<string>()
         })
-        callCB(newSelection)
         toast.success("Added to Selection")
     }
 
@@ -80,8 +102,10 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
             type: "include",
             ids: new Set<string>()
         })
-        selectCB([])
-        toast.success("Cleared Selection")
+    }
+
+    function saveSelection() {
+        callCB(selected)
     }
 
     function removeEmployee(e: Employee) {
@@ -95,91 +119,87 @@ export default function SelectableEmployeeList({ selectCB, preSelected }: {
             type: "include",
             ids: new Set<string>()
         })
-        callCB(newSelection)
-        toast.success(`Removed ${e.firstName}`)
     }
 
     function callCB(newSelection: Set<string>) {
-        const arr = [...newSelection].map((sel) => {
-            const emp = employees.find((e) => e.uuid == sel)
-            return { id: sel, label: `${emp?.firstName} ${emp?.lastName}` }
-        })
-        arr.sort((a, b) => a.label.localeCompare(b.label))
-        selectCB(arr)
+        selectCB([...newSelection])
     }
 
-    const canSave = rowSelectionModel.ids.size !== 0
+    const canSave = !areSetsEqual(new Set(preSelected), selected)
+    const canAdd = rowSelectionModel.ids.size !== 0
+    const canClear = selected.size !== 0
 
     return (
-        <div className="flex flex-row gap-5">
+        <div className="flex flex-row gap-5 w-lg">
 
-            <DataGrid
-                checkboxSelection
-                showToolbar
-                rows={employees}
-                columns={columns}
-                getRowId={(row) => row.uuid}
-                onRowSelectionModelChange={(newRowSelectionModel) => {
-                    setRowSelectionModel(newRowSelectionModel);
-                }}
-                rowSelectionModel={rowSelectionModel}
-                slots={{ toolbar: CustomToolbar }}
-                isRowSelectable={(params) => !selected.has(params.id as string)}
+            <div className="card w-3xl" style={{ paddingBottom: 90 }}>
+                <div className="flex justify-end w-full gap-4 mb-4">
+                    <motion.button
+                        className="primary-button"
+                        onClick={add}
+                        disabled={!canAdd}
+                        animate={{ opacity: canAdd ? 1 : .5 }}
+                    >
+                        Add To Selection
+                    </motion.button>
 
-                loading={loading}
-                slotProps={{
-                    loadingOverlay: {
-                        variant: 'linear-progress',
-                        noRowsVariant: 'linear-progress',
-                    },
-                }}
-            />
+                    <motion.button
+                        className="secondary-button"
+                        onClick={clear}
+                        disabled={!canClear}
+                        animate={{ opacity: canClear ? 1 : .5 }}
+                    >
+                        Clear Selection
+                    </motion.button>
+                </div>
+
+                <DataGrid
+                    checkboxSelection
+                    showToolbar
+                    rows={employees}
+                    columns={columns}
+                    getRowId={(row) => row.uuid}
+                    onRowSelectionModelChange={(newRowSelectionModel) => {
+                        setRowSelectionModel(newRowSelectionModel);
+                    }}
+                    rowSelectionModel={rowSelectionModel}
+                    slots={{ toolbar: CustomToolbar }}
+                    isRowSelectable={(params) => !selected.has(params.id as string)}
+
+                    loading={loading}
+                    slotProps={{
+                        loadingOverlay: {
+                            variant: 'linear-progress',
+                            noRowsVariant: 'linear-progress',
+                        },
+                    }}
+                />
+            </div>
 
             <div>
-                <div className="card h-fit mb-5" style={{ width: 270 }}>
+                <div className="card h-fit mb-5 select-none" style={{ width: 270 }}>
 
                     <p className="mb-2">
                         Select employees to do payroll for.
                     </p>
 
+                    <Divider />
+
                     <motion.div
-                        animate={{ opacity: canSave ? 1 : 0.5 }}
-                        key={"save button"}
+                        animate={{ opacity: canSave ? 1 : .5 }}
                     >
-                        <button className="primary-button flex flex-row" disabled={!canSave} onClick={add}>
-                            Add To Selection
+                        <button className="primary-button flex flex-row" disabled={!canSave} onClick={saveSelection}>
+                            Save Selection
                         </button>
                     </motion.div>
 
-                    <Divider />
-
-                    <button className="secondary-button flex flex-row" onClick={clear}>
-                        Clear Selection
-                    </button>
-
                 </div>
 
-                {selected.size !== 0 &&
-                    <div style={{ width: 270 }} className="card select-none">
-                        <h1 className="font-semibold">Selected: </h1>
-                        <Divider />
-                        <div className="bg-gray-100 rounded-md p-2 overflow-y-scroll max-h-30">
-                            {[...selected].map((uuid => {
-
-                                const employee = employees.find((e) => e.uuid == uuid)
-                                if (!employee) { return <div key={uuid}></div> }
-
-                                return (
-                                    <div key={uuid} className="flex flex-row w-full pb-1">
-                                        <Trash2 className="mr-2" onClick={() => { removeEmployee(employee) }} />
-                                        {`${employee?.firstName} ${employee?.lastName}`}
-                                    </div>
-                                )
-                            }))}
-                        </div>
-                    </div>
-                }
-
+                <button className="accent-button w-full" onClick={() => {
+                    router.push(`/organization/payroll/${PayrollSteps[2].path}`)
+                }}>
+                    Next Page
+                </button>
             </div>
         </div>
     )

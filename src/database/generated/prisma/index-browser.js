@@ -186,6 +186,15 @@ exports.Prisma.PayrollItemScalarFieldEnum = {
   absMax: 'absMax'
 };
 
+exports.Prisma.PayrollDraftScalarFieldEnum = {
+  uuid: 'uuid',
+  membershipId: 'membershipId',
+  startedDate: 'startedDate',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  periodPaydate: 'periodPaydate'
+};
+
 exports.Prisma.PayStubScalarFieldEnum = {
   uuid: 'uuid',
   payDate: 'payDate',
@@ -277,7 +286,8 @@ exports.Prisma.MembershipScalarFieldEnum = {
   organizationId: 'organizationId',
   orgAdmin: 'orgAdmin',
   permissions: 'permissions',
-  joinedAt: 'joinedAt'
+  joinedAt: 'joinedAt',
+  activeDraftId: 'activeDraftId'
 };
 
 exports.Prisma.SortOrder = {
@@ -329,6 +339,7 @@ exports.Prisma.ModelName = {
   Organization: 'Organization',
   PayrollGroup: 'PayrollGroup',
   PayrollItem: 'PayrollItem',
+  PayrollDraft: 'PayrollDraft',
   PayStub: 'PayStub',
   PayStubItem: 'PayStubItem',
   Tax: 'Tax',

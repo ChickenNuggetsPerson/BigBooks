@@ -1,4 +1,4 @@
-import { getSession, getUserFromSession } from "../auth";
+import { getSession } from "../auth";
 import { Membership } from "@/database/generated/prisma";
 import { prisma } from "@/database/prisma";
 import { Permissions } from "./PermissionsDef";
@@ -8,9 +8,15 @@ import { Permissions } from "./PermissionsDef";
 
 // To be run in server functions
 export async function throwIfInsufficientPerms(perm: string, orgUUID: string = "") {
+
+    const session = await getSession()
+    if (!session) {
+        throw new Error("Not Logged In")
+    }
+
     const result = await userHasPermission({ perm, orgUUID })
     if (!result) {
-        throw new Error(`Insufficient Permissions For Action: ${perm}`);
+        throw new Error(`Insufficient Permissions for Action: ${perm}`);
     }
 }
 
@@ -66,24 +72,12 @@ export async function getOrgMembership(orgUUID: string = ""): Promise<Membership
         return null
     }
 
-    const user = await getUserFromSession()
-
-    if (!user) {
-        return null
-    }
-
-    const membership = await prisma.membership.findFirst({
+    return await prisma.membership.findFirst({
         where: {
             organizationId: (orgUUID == "") ? session.orgUUID : orgUUID,
-            userId: user.uuid
+            userId: session.userID
         }
     })
-
-    if (!membership) {
-        return null
-    }
-
-    return membership
 }
 
 

@@ -32,19 +32,6 @@ export default async function EmployeeSalaryPage({ params }: { params: Promise<{
 }
 
 async function EditForm({ employeeUUID }: { employeeUUID: string }) {
-    try {
-        await throwIfInsufficientPerms(Permissions.employee.tax.edit)
-    } catch {
-
-        return (
-            <div className="items-center min-h-screen p-8 pb-20 gap-16">
-                <div className="card max-w-sm">
-                    Insufficient Permissions
-                </div>
-            </div>
-        )
-
-    }
-
+    await throwIfInsufficientPerms(Permissions.employee.tax.edit)
     return (<EmployeeTaxForm empUUID={employeeUUID}></EmployeeTaxForm>)
 }

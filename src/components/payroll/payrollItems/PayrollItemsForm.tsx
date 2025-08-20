@@ -29,24 +29,14 @@ export default async function PayrollItemsForm({
     groupUUID?: string
 }) {
 
-    try {
-        if (organization) {
-            await throwIfInsufficientPerms(Permissions.admin.orgItem.edit)
-        }
-        if (group) {
-            await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.items.edit)
-        }
-        if (employee) {
-            await throwIfInsufficientPerms(Permissions.employee.items.edit)
-        }
-    } catch {
-        return (
-            <div className="items-center min-h-screen p-8 pb-20 gap-16">
-                <div className="card max-w-sm">
-                    Insufficient Permissions
-                </div>
-            </div>
-        )
+    if (organization) {
+        await throwIfInsufficientPerms(Permissions.admin.orgItem.edit)
+    }
+    if (group) {
+        await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.items.edit)
+    }
+    if (employee) {
+        await throwIfInsufficientPerms(Permissions.employee.items.edit)
     }
 
     const session = await getSession()
@@ -77,8 +67,8 @@ export default async function PayrollItemsForm({
         }
     })
 
-    if (employee && employeeUUID === "") { return (<div>Error...</div>) }
-    if (group && groupUUID === "") { return (<div>Error...</div>) }
+    if (employee && employeeUUID === "") { throw new Error("Invalid Props") }
+    if (group && groupUUID === "") { throw new Error("Invalid Props") }
 
     return (
         <div className="h-fit w-fit flex flex-row gap-4">

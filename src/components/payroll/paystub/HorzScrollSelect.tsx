@@ -1,6 +1,7 @@
 'use client'
 
 import ClickableDiv from "@/components/Decorative/ClickableDiv"
+import NumericText from "@/components/Decorative/NumericText/NumericText"
 import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight } from "lucide-react"
 import { useEffect, useState } from "react"
 
@@ -55,8 +56,7 @@ export default function HorzScrollSelect({
             <ClickableDiv className="smallCard" style={{ padding: 10 }} onClick={prev} > <ChevronLeft /> </ClickableDiv>
 
             <div className="font-semibold text-lg smallCard w-full flex flex-row justify-center my-auto h-11">
-                {/* <NumericText val={`${sel + 1}/${ops.length}: ${ops[sel]}`} /> */}
-                {`${sel + 1}/${ops.length}: ${ops[sel]}`}
+                <NumericText val={`${sel + 1}/${ops.length}: ${ops[sel]}`} spacing={-4} animDelta={50} expand/>
             </div>
 
             <ClickableDiv className="smallCard" style={{ padding: 10 }} onClick={next} > <ChevronRight /> </ClickableDiv>

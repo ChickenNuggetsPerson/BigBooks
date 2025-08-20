@@ -13,20 +13,21 @@ import submitPaystub from "@/actions/paystub/submitPaystub"
 
 
 
-export default function ActivePaystubList({ editStub = () => { } }: { editStub?: (empUUID: string) => void }) {
+export default function ActivePaystubList({ editStub }: { editStub?: (empUUID: string) => void }) {
 
     const [paystubs, setPaystubs] = useState([] as Prisma.PayStubGetPayload<{ select: { employee: true, uuid: true } }>[])
     const [index, setIndex] = useState(undefined as number | undefined)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        setLoading(true)
-        async function load() {
-            setPaystubs(deserializeData(await getActivePaystubs()))
-            setLoading(false)
-        }
         load()
     }, [])
+
+    async function load() {
+        setLoading(true)
+        setPaystubs(deserializeData(await getActivePaystubs()))
+        setLoading(false)
+    }
 
     function saveStub() {
         if (index === undefined) { return }
@@ -37,8 +38,8 @@ export default function ActivePaystubList({ editStub = () => { } }: { editStub?:
             async () => {
                 await submitPaystub(uuid)
                 setTimeout(() => {
-                    location.reload()
-                }, 2000);
+                    load()
+                }, 1000);
             },
             {
                 loading: "Submitting Paystub",
@@ -52,7 +53,9 @@ export default function ActivePaystubList({ editStub = () => { } }: { editStub?:
         if (index === undefined) { return }
         if (index < 0 || index >= paystubs.length) { return }
         const uuid = paystubs[index].employee.uuid
-        editStub(uuid)
+        if (editStub) {
+            editStub(uuid)
+        }
     }
 
     return (
@@ -85,14 +88,16 @@ export default function ActivePaystubList({ editStub = () => { } }: { editStub?:
                         <p className="font-semibold text-lg my-auto ml-3">Review Paystub:</p>
 
                         <div className="flex flex-row gap-4">
-                            <button style={{ borderRadius: 12 }} className="accent-button" onClick={editStubBtn} >Make Changes</button>
+                            {editStub &&
+                                <button style={{ borderRadius: 12 }} className="accent-button" onClick={editStubBtn} >Make Changes</button>
+                            }
                             <button style={{ borderRadius: 12 }} className="primary-button" onClick={saveStub} >Save and Lock</button>
                         </div>
                     </div>
                 }
 
                 {(index !== undefined) && (index < paystubs.length) &&
-                    <PaystubCard stubUUID={paystubs[index].uuid} />
+                    <PaystubCard stubUUID={paystubs[index].uuid} editable />
                 }
             </div>
 

@@ -7,6 +7,7 @@ import EmployeeCompensationCard from "@/components/Employee/compensation/Employe
 import TabGroup from "@/components/Decorative/TabGroup";
 import getEmployeePaystubs from "@/actions/paystub/getEmployeePaystubs";
 import LoadingBlock from "@/components/Decorative/LoadingBlock";
+import { notFound } from "next/navigation";
 
 
 
@@ -35,11 +36,7 @@ export default async function EmployeeView({ empUUID }: { empUUID: string }) {
     const employee = await getEmployeeProps(empUUID, true)
 
     if (!employee) {
-        return (
-            <div className="card h-fit w-fit">
-                Invalid Employee UUID
-            </div>
-        )
+        notFound()
     }
 
     const stubs = await getEmployeePaystubs(empUUID)

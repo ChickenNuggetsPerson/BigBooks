@@ -10,7 +10,7 @@ import Loading from "@/components/Decorative/Loading/Loading";
 import { Employee, FilingTypes } from "@/database/generated/prisma";
 import TextInput from "../../Forms/TextInput";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { StateOptions } from "@/utils/taxes/calcTaxRates";
 
 
@@ -57,11 +57,7 @@ export default function EmployeeTaxForm({ empUUID }: EmployeeTaxFormProps) {
 
 
     if (error) {
-        return (
-            <div className="mx-auto card w-fit">
-                Error Fetching Employee
-            </div>
-        )
+        notFound()
     }
 
     if (loading) {

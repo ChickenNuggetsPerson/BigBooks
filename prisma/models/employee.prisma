@@ -22,6 +22,8 @@ model Employee {
     payStubs      PayStub[]
 
     defaultPayrollItems PayrollItem[]
+
+    payrollDrafts PayrollDraft[]
 }
 
 model EmployeeCompensation {

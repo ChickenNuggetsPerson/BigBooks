@@ -43,5 +43,9 @@ model Membership {
     permissions String[]
     joinedAt    DateTime @default(now())
 
+    payrollDrafts PayrollDraft[]
+    activeDraft   PayrollDraft?  @relation("ActiveDraft", fields: [activeDraftId], references: [uuid])
+    activeDraftId String?        @unique
+
     @@unique([userId, organizationId]) // Prevents duplicate entries
 }

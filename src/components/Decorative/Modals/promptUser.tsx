@@ -4,7 +4,7 @@ import { ModalProps } from "../Modal/Modal"
 
 interface buttonOptions {
     title: string,
-    type: string
+    type: 'primary' | 'secondary' | 'accent' | 'danger'
 }
 interface promptUserOptions {
     addModal: (modal: ModalProps) => void,

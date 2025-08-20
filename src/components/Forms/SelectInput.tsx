@@ -56,7 +56,7 @@ export default function SelectInput({
                 <Autocomplete
                     disablePortal
                     options={ops}
-                    sx={{ minWidth: 150 }}
+                    sx={{ minWidth: 180 }}
 
                     id={id}
                     value={selected}

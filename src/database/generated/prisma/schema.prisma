@@ -22,6 +22,8 @@ model Employee {
   payStubs      PayStub[]
 
   defaultPayrollItems PayrollItem[]
+
+  payrollDrafts PayrollDraft[]
 }
 
 model EmployeeCompensation {
@@ -118,6 +120,22 @@ model PayrollItem {
   absMax       Decimal           @default(0)
 
   PayStubItem PayStubItem[]
+}
+
+model PayrollDraft {
+  uuid String @id @unique @default(uuid())
+
+  membership          Membership  @relation(fields: [membershipId], references: [uuid])
+  membershipId        String
+  activeForMembership Membership? @relation("ActiveDraft")
+
+  startedDate DateTime @default(now())
+
+  periodStart   DateTime
+  periodEnd     DateTime
+  periodPaydate DateTime
+
+  employees Employee[]
 }
 
 model PayStub {
@@ -284,6 +302,10 @@ model Membership {
   orgAdmin    Boolean  @default(false)
   permissions String[]
   joinedAt    DateTime @default(now())
+
+  payrollDrafts PayrollDraft[]
+  activeDraft   PayrollDraft?  @relation("ActiveDraft", fields: [activeDraftId], references: [uuid])
+  activeDraftId String?        @unique
 
   @@unique([userId, organizationId]) // Prevents duplicate entries
 }

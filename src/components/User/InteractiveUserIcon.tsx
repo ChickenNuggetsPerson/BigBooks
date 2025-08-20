@@ -37,7 +37,7 @@ export default async function InteractiveUserIcon() {
     const membership = await getOrgMembership()
 
     if (!user || !membership) {
-        return (<p>Error...</p>)
+        return (<p>Not Logged In...</p>)
     }
 
     return (

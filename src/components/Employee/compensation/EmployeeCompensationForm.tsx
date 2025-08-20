@@ -6,6 +6,7 @@ import EmployeeCompensationFormCard from "./EmployeeCompensationFormCard";
 import getEmployeeProps from "@/actions/employee/getEmployeeProps";
 import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import { Permissions } from "@/auth/permissions/PermissionsDef";
+import { notFound } from "next/navigation";
 
 
 
@@ -13,27 +14,11 @@ import { Permissions } from "@/auth/permissions/PermissionsDef";
 export default async function EmployeeCompensationForm({ employeeUUID }: { employeeUUID: string }) {
 
 
-    try {
-        await throwIfInsufficientPerms(Permissions.employee.compensation.edit)
-    } catch {
-        return (
-            <div className="items-center min-h-screen p-8 pb-20 gap-16">
-                <div className="card max-w-sm">
-                    Insufficient Permissions
-                </div>
-            </div>
-        )
-    }
+    await throwIfInsufficientPerms(Permissions.employee.compensation.edit)
 
     const employee = await getEmployeeProps(employeeUUID, true)
     if (!employee) {
-        return (
-            <div className="items-center min-h-screen p-8 pb-20 gap-16">
-                <div className="card max-w-sm">
-                    Invalid Employee
-                </div>
-            </div>
-        )
+        notFound()
     }
     const comps = deserializeData(await getEmployeeCompensations(employee.uuid)).map(c => {
         return {

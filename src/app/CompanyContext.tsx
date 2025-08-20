@@ -37,7 +37,7 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
     );
 }
 
-export function useCompany() {
+export function useCompany() { // TODO: Eventually remove the company context system
     const context = useContext(CompanyContext);
     if (!context) {
         throw new Error("useCompany must be used within a CompanyProvider");

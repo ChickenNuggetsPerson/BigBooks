@@ -10,7 +10,7 @@ import LargeTextInput from "../Forms/LargeTextInput";
 import Loading from "@/components/Decorative/Loading/Loading";
 import { Employee } from "@/database/generated/prisma";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 
 
 
@@ -51,11 +51,7 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
         return (<Loading hCenter vCenter />)
     }
     if (error) {
-        return (
-            <div className="mx-auto card w-fit">
-                Error Fetching Employee
-            </div>
-        )
+        notFound()
     }
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {

@@ -1,10 +1,6 @@
 import Sidebar from "@/components/Decorative/Sidebar";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Big Books",
-  description: "",
-};
+
 
 export default function OrganizationLayout({
   children,
@@ -25,3 +21,7 @@ export default function OrganizationLayout({
     </>
   );
 }
+
+
+
+

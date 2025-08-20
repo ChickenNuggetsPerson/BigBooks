@@ -61,7 +61,7 @@ const NumberDisplay = ({ value, animDelay, expand }: DisplayParms) => {
     const [isNew, setNew] = useState(true)
 
     const [transitionClass, setClass] = useState("numeric-text fade-in")
-    const [width, setWidth] = useState(expand ? "0rem" : "1rem")
+    const [width, setWidth] = useState(expand ? "0px" : "1rem")
 
     useEffect(() => {
 

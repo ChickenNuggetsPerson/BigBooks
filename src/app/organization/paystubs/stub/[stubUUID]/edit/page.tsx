@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import Loading from "@/components/Decorative/Loading/Loading";
 import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import { Permissions } from "@/auth/permissions/PermissionsDef";
+import { notFound } from "next/navigation";
 
 
 export default async function EditPaystubPage({
@@ -39,11 +40,7 @@ async function Page({ paystubUUID }: { paystubUUID: string }) {
     })
 
     if (!stub) {
-        return (
-            <div className="card w-fit h-fit">
-                Invalid Paystub ID
-            </div>
-        )
+        notFound()
     }
 
     return (

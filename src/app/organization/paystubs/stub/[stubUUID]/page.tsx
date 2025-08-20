@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import Loading from "@/components/Decorative/Loading/Loading";
 import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import { Permissions } from "@/auth/permissions/PermissionsDef";
+import { notFound } from "next/navigation";
 
 
 export default async function ViewPaystubPage({
@@ -16,8 +17,6 @@ export default async function ViewPaystubPage({
 }) {
 
     const paystubUUID = (await params).stubUUID
-
-
 
     return (
 
@@ -42,11 +41,7 @@ async function ViewStub({ paystubUUID }: { paystubUUID: string }) {
     })
 
     if (!stub) {
-        return (
-            <div className="card w-fit h-fit">
-                Invalid Paystub UUID
-            </div>
-        )
+        notFound()
     }
 
     const data = serializeData(stub)
