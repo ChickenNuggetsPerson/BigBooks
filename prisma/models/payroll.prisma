@@ -7,7 +7,7 @@ model PayrollGroup {
     payRefDate    DateTime @default(now())
     periodRefDate DateTime @default(now())
 
-    organization   Organization @relation(fields: [organizationId], references: [uuid])
+    organization   Organization @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
     organizationId String
 
     compensations EmployeeCompensation[]
@@ -47,7 +47,7 @@ model PayrollItem {
 model PayrollDraft {
     uuid String @id @unique @default(uuid())
 
-    membership          Membership  @relation(fields: [membershipId], references: [uuid])
+    membership          Membership  @relation(fields: [membershipId], references: [uuid], onDelete: Cascade)
     membershipId        String
     activeForMembership Membership? @relation("ActiveDraft")
 
@@ -58,4 +58,5 @@ model PayrollDraft {
     periodPaydate DateTime
 
     employees Employee[]
+    paystubs  PayStub[]
 }

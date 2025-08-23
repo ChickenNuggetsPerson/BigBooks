@@ -36,8 +36,6 @@ export default async function upsertPayrollDraft(draft: PayrollDraftWithEmployee
         const dbEmps = new Set(dbDraft.employees.map(e => e.uuid))
         const newEmps = new Set(draft.employees.map(e => e.uuid))
 
-        console.log(dbEmps, newEmps)
-
         const removed = getSetDifference(dbEmps, newEmps)
         const added =  getSetDifference(newEmps, dbEmps)
 

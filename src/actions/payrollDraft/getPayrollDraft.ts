@@ -3,11 +3,11 @@
 import { Permissions } from "@/auth/permissions/PermissionsDef"
 import { getOrgMembership, throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import { prisma } from "@/database/prisma"
-import { PayrollDraftWithEmployees } from "./types"
+import { PayrollDraftWithEmployeesAndStubs } from "./types"
 
 
 
-export default async function getPayrollDraft(draftUUID: string) : Promise<PayrollDraftWithEmployees | null> {
+export default async function getPayrollDraft(draftUUID: string) : Promise<PayrollDraftWithEmployeesAndStubs | null> {
 
     await throwIfInsufficientPerms(Permissions.payroll.paystub.edit)
     const membership = await getOrgMembership()
@@ -24,6 +24,18 @@ export default async function getPayrollDraft(draftUUID: string) : Promise<Payro
                     uuid: true,
                     firstName: true,
                     lastName: true
+                }
+            },
+            paystubs: {
+                select: {
+                    uuid: true,
+                    employee: {
+                        select: {
+                            uuid: true,
+                            firstName: true,
+                            lastName: true
+                        }
+                    }
                 }
             }
         }

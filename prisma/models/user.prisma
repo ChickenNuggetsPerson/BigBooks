@@ -23,7 +23,7 @@ model RegistrationCode {
 model InviteCode {
     uuid String @id @unique @default(uuid())
 
-    organization   Organization @relation(fields: [organizationId], references: [uuid])
+    organization   Organization @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
     organizationId String
 
     perms String[]
@@ -33,10 +33,10 @@ model InviteCode {
 
 model Membership {
     uuid   String @id @default(uuid())
-    user   User   @relation(fields: [userId], references: [uuid])
+    user   User   @relation(fields: [userId], references: [uuid], onDelete: Cascade)
     userId String
 
-    organization   Organization @relation(fields: [organizationId], references: [uuid])
+    organization   Organization @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
     organizationId String
 
     orgAdmin    Boolean  @default(false)

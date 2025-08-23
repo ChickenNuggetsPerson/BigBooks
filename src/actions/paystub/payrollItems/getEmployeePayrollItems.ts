@@ -46,9 +46,9 @@ export default async function getEmployeePayrollItems(empUUID: string) {
     }
 
     try {
-        await throwIfInsufficientPerms(Permissions.admin.orgItem.edit)
-        await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.items.edit)
-        await throwIfInsufficientPerms(Permissions.employee.items.edit)
+        await throwIfInsufficientPerms(Permissions.admin.orgItem.view)
+        await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.items.view)
+        await throwIfInsufficientPerms(Permissions.employee.items.view)
         await throwIfInsufficientPerms(Permissions.employee.compensation.view)
     } catch {
         return serializeData(data) // Return empty data

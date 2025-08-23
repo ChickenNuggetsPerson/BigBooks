@@ -10,14 +10,13 @@ import { prisma } from "@/database/prisma";
 
 export default async function upsertPayrollGroup(group: PayrollGroup) {
 
-    await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.view)
+    await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.edit)
 
     const g = await prisma.payrollGroup.findUnique({ where: { uuid: group.uuid } })
     const session = await getSession()
     if (!session) { return }
 
     if (g) {
-        await throwIfInsufficientPerms(Permissions.payroll.payrollGroup.edit)
         await prisma.payrollGroup.update({
             where: { uuid: group.uuid },
             data: {

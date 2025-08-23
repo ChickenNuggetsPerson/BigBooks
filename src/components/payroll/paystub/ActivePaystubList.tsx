@@ -2,30 +2,31 @@
 
 import getActivePaystubs from "@/actions/paystub/getActivePaystubs"
 import { Divider } from "@/components/Forms/Divider"
-import { Prisma } from "@/database/generated/prisma"
 import { deserializeData } from "@/utils/serialization"
 import { useEffect, useState } from "react"
 import { PaystubCard } from "./PaystubCard"
 import toast from "react-hot-toast"
 import submitPaystub from "@/actions/paystub/submitPaystub"
+import { PaystubUUIDWithEmployee } from "@/actions/paystub/types"
 
 
 
 
 
-export default function ActivePaystubList({ editStub }: { editStub?: (empUUID: string) => void }) {
+export default function ActivePaystubList({ editStub, useActiveDraft }: { editStub?: (empUUID: string) => void, useActiveDraft?: boolean }) {
 
-    const [paystubs, setPaystubs] = useState([] as Prisma.PayStubGetPayload<{ select: { employee: true, uuid: true } }>[])
+    const [paystubs, setPaystubs] = useState([] as PaystubUUIDWithEmployee[])
     const [index, setIndex] = useState(undefined as number | undefined)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         load()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     async function load() {
         setLoading(true)
-        setPaystubs(deserializeData(await getActivePaystubs()))
+        setPaystubs(deserializeData(await getActivePaystubs(useActiveDraft ?? false)))
         setLoading(false)
     }
 

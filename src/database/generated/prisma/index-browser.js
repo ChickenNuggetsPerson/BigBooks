@@ -207,7 +207,8 @@ exports.Prisma.PayStubScalarFieldEnum = {
   totalTaxes: 'totalTaxes',
   totalExtras: 'totalExtras',
   netPay: 'netPay',
-  employeeId: 'employeeId'
+  employeeId: 'employeeId',
+  relatedPayrollDraftId: 'relatedPayrollDraftId'
 };
 
 exports.Prisma.PayStubItemScalarFieldEnum = {

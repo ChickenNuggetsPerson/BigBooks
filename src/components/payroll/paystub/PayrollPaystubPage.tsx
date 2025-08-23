@@ -27,6 +27,7 @@ export default function PayrollPaystubPage({ draft }: { draft: PayrollDraftWithE
                     stubEnd={draft.periodEnd}
                     stubPaydate={draft.periodPaydate}
                     canCreateNewStub
+                    payrollDraftUUID={draft.uuid}
                 />
             }
         </div>

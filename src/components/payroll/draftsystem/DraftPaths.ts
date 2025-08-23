@@ -3,7 +3,7 @@
 
 export const PayrollSteps = [
     {
-        label: "Select Draft",
+        label: "Edit Draft",
         path: "draft"
     },
     {

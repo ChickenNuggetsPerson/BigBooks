@@ -14,7 +14,7 @@ type PaystubWithItems = Prisma.PayStubGetPayload<{ include: { items: true } }>
 
 export default async function upsertEmployeePaystub(data: SerializationResult<PaystubWithItems>) {
 
-    await throwIfInsufficientPerms(Permissions.payroll.paystub.edit)
+    await throwIfInsufficientPerms(Permissions.payroll.paystub.edit) // Permissions
     const session = await getSession()
     if (!session) { return }
 
@@ -58,6 +58,7 @@ export default async function upsertEmployeePaystub(data: SerializationResult<Pa
         const stub = await prisma.payStub.create({
             data: {
                 employeeId: paystub.employeeId,
+                relatedPayrollDraftId: paystub.relatedPayrollDraftId,
                 locked: false,
 
                 payDate: paystub.payDate,

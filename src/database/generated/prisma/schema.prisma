@@ -15,7 +15,7 @@ model Employee {
 
   isDeleted Boolean @default(false)
 
-  organization   Organization @relation(fields: [organizationId], references: [uuid])
+  organization   Organization @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
   organizationId String
 
   compensations EmployeeCompensation[]
@@ -28,10 +28,10 @@ model Employee {
 
 model EmployeeCompensation {
   uuid       String   @id @default(uuid())
-  employee   Employee @relation(fields: [employeeId], references: [uuid])
+  employee   Employee @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
   employeeId String
 
-  payrollGroup   PayrollGroup @relation(fields: [payrollGroupId], references: [uuid])
+  payrollGroup   PayrollGroup @relation(fields: [payrollGroupId], references: [uuid], onDelete: Cascade)
   payrollGroupId String
 
   isSalary     Boolean      @default(true)
@@ -52,7 +52,7 @@ model HourlyRate {
   rate        Decimal
   canOvertime Boolean
 
-  compensation   EmployeeCompensation @relation(fields: [compensationId], references: [uuid])
+  compensation   EmployeeCompensation @relation(fields: [compensationId], references: [uuid], onDelete: Cascade)
   compensationId String
 
   paystubItems PayStubItem[]
@@ -85,7 +85,7 @@ model PayrollGroup {
   payRefDate    DateTime @default(now())
   periodRefDate DateTime @default(now())
 
-  organization   Organization @relation(fields: [organizationId], references: [uuid])
+  organization   Organization @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
   organizationId String
 
   compensations EmployeeCompensation[]
@@ -125,7 +125,7 @@ model PayrollItem {
 model PayrollDraft {
   uuid String @id @unique @default(uuid())
 
-  membership          Membership  @relation(fields: [membershipId], references: [uuid])
+  membership          Membership  @relation(fields: [membershipId], references: [uuid], onDelete: Cascade)
   membershipId        String
   activeForMembership Membership? @relation("ActiveDraft")
 
@@ -136,6 +136,7 @@ model PayrollDraft {
   periodPaydate DateTime
 
   employees Employee[]
+  paystubs  PayStub[]
 }
 
 model PayStub {
@@ -154,11 +155,14 @@ model PayStub {
   totalExtras   Decimal @default(0)
   netPay        Decimal @default(0)
 
-  employee   Employee @relation(fields: [employeeId], references: [uuid])
+  employee   Employee @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
   employeeId String
 
   // Children:
   items PayStubItem[]
+
+  relatedPayrollDraft   PayrollDraft? @relation(fields: [relatedPayrollDraftId], references: [uuid], onDelete: SetNull)
+  relatedPayrollDraftId String?
 }
 
 enum PayStubItemType {
@@ -283,7 +287,7 @@ model RegistrationCode {
 model InviteCode {
   uuid String @id @unique @default(uuid())
 
-  organization   Organization @relation(fields: [organizationId], references: [uuid])
+  organization   Organization @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
   organizationId String
 
   perms String[]
@@ -293,10 +297,10 @@ model InviteCode {
 
 model Membership {
   uuid   String @id @default(uuid())
-  user   User   @relation(fields: [userId], references: [uuid])
+  user   User   @relation(fields: [userId], references: [uuid], onDelete: Cascade)
   userId String
 
-  organization   Organization @relation(fields: [organizationId], references: [uuid])
+  organization   Organization @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
   organizationId String
 
   orgAdmin    Boolean  @default(false)

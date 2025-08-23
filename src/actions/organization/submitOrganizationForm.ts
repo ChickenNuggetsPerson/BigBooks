@@ -6,9 +6,9 @@ import { Permissions } from "@/auth/permissions/PermissionsDef"
 import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import { prisma } from "@/database/prisma"
 import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
 
 
+// TODO: Change this to a better system
 export default async function submitOrganizationForm(newOrganization: boolean, formData: FormData) {
 
     await redirectIfInvalidSession()
@@ -64,7 +64,6 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
         }
 
         revalidatePath("/user")
-        redirect("/user")
 
     } else {
         try { // Edit page

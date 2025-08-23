@@ -38,10 +38,12 @@ function getNewPaystub(
     empUUID: string,
     periodStart = new Date(),
     periodEnd = new Date(),
-    payDate = new Date()
+    payDate = new Date(),
+    draftUUID: string | undefined
 ): Prisma.PayStubGetPayload<{ include: { items: true } }> {
     return {
         uuid: "",
+        relatedPayrollDraftId: draftUUID ?? null,
         employeeId: empUUID,
         payDate: payDate,
         periodStart: periodStart,
@@ -85,7 +87,8 @@ export default function PaystubEditForm({
     stubEnd,
     stubPaydate,
     forceLock = false,
-    canCreateNewStub = false
+    canCreateNewStub = false,
+    payrollDraftUUID
 }: {
     empUUID: string,
     stubUUID?: string,
@@ -93,14 +96,15 @@ export default function PaystubEditForm({
     stubEnd?: Date,
     stubPaydate?: Date,
     forceLock?: boolean,
-    canCreateNewStub?: boolean
+    canCreateNewStub?: boolean,
+    payrollDraftUUID?: string
 }) {
 
     const { context } = useCompany()
     const { addModal } = useModalManager()
 
     const [activeStubs, setActiveStubs] = useState([] as Prisma.PayStubGetPayload<{ select: { uuid: true, payDate: true, periodEnd: true, periodStart: true } }>[])
-    const [paystub, setPaystub] = useState(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
+    const [paystub, setPaystub] = useState(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate, payrollDraftUUID))
 
     const [defaults, setDefaults] = useState({
         defaults: {
@@ -125,7 +129,7 @@ export default function PaystubEditForm({
         setDefaults(d)
 
         // Fetch all unlocked paystubs
-        const unlocked = deserializeData(await getEmployeeActivePaystubs(empUUID))
+        const unlocked = deserializeData(await getEmployeeActivePaystubs(empUUID, payrollDraftUUID !== undefined))
         setActiveStubs(unlocked)
 
         // Component supplied with UUID, or internal state has a valid UUID
@@ -511,6 +515,12 @@ export default function PaystubEditForm({
         defaults.defaults.group.forEach(g => { g.items.forEach(item => items.push(item)) })
         defaults.defaults.organization.forEach(item => items.push(item))
 
+        if (items.length === 0) {
+            toast("This usually means the employee wasn't set up propperly or you do not have the permissions to view the items.", { duration: 7000 })
+            toast.error("No Items to Import")
+            return
+        }
+
         items = items.filter(i => !shouldSkip(i))
 
         if (items.length == 0) {
@@ -726,7 +736,7 @@ export default function PaystubEditForm({
         })
     }
     function createNewStub() {
-        setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate))
+        setPaystub(getNewPaystub(empUUID, stubStart, stubEnd, stubPaydate, payrollDraftUUID))
         setEdited(false)
     }
 

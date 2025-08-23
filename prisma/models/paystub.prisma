@@ -14,11 +14,14 @@ model PayStub {
     totalExtras   Decimal @default(0)
     netPay        Decimal @default(0)
 
-    employee   Employee @relation(fields: [employeeId], references: [uuid])
+    employee   Employee @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
     employeeId String
 
     // Children:
     items PayStubItem[]
+
+    relatedPayrollDraft   PayrollDraft? @relation(fields: [relatedPayrollDraftId], references: [uuid], onDelete: SetNull)
+    relatedPayrollDraftId String?
 }
 
 enum PayStubItemType {

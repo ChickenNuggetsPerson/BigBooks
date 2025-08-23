@@ -15,7 +15,7 @@ model Employee {
 
     isDeleted Boolean @default(false)
 
-    organization   Organization @relation(fields: [organizationId], references: [uuid])
+    organization   Organization @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)
     organizationId String
 
     compensations EmployeeCompensation[]
@@ -28,10 +28,10 @@ model Employee {
 
 model EmployeeCompensation {
     uuid       String   @id @default(uuid())
-    employee   Employee @relation(fields: [employeeId], references: [uuid])
+    employee   Employee @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)
     employeeId String
 
-    payrollGroup   PayrollGroup @relation(fields: [payrollGroupId], references: [uuid])
+    payrollGroup   PayrollGroup @relation(fields: [payrollGroupId], references: [uuid], onDelete: Cascade)
     payrollGroupId String
 
     isSalary     Boolean      @default(true)
@@ -52,7 +52,7 @@ model HourlyRate {
     rate        Decimal
     canOvertime Boolean
 
-    compensation   EmployeeCompensation @relation(fields: [compensationId], references: [uuid])
+    compensation   EmployeeCompensation @relation(fields: [compensationId], references: [uuid], onDelete: Cascade)
     compensationId String
 
     paystubItems PayStubItem[]
