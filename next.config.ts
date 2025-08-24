@@ -1,5 +1,4 @@
 
 module.exports = {
-
-  
+    devIndicators: false
 };

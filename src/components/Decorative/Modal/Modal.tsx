@@ -23,7 +23,7 @@ export default function Modal({ modal }: { modal: ModalProps }) {
     return (
         <div
             className={`${modal.background ? "card min-w-md" : ""} w-fit h-fit`}
-            style={{ backdropFilter: modal.background ? "blur(5px)" : "none" }}
+            style={{ backdropFilter: modal.background ? "blur(10px)" : "none" }}
         >
 
             {(modal.background && !modal.required) &&

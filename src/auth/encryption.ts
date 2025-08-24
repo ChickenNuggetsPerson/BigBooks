@@ -15,7 +15,7 @@ export async function signSession(payload: Session) {
 
 export async function verifySession(token: string) {
     try {
-        const { payload } = await jwtVerify(token, secret);
+        const { payload } = await jwtVerify<Session>(token, secret);
         return payload;
     } catch {
         return null;

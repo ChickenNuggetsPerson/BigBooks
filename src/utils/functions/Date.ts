@@ -10,6 +10,13 @@ export function addDays(date: Date, amt: number) {
     return d
 }
 
+export function addHours(date: Date, amt: number) {
+    const d = new Date(date)
+    const hour = d.getHours()
+    d.setHours(hour + amt)
+    return d
+}
+
 export function nextOccurence(refDate: Date, daysPerOccurence: number, now?: Date) {
     if (!now) { now = new Date() }
     if (!refDate || !daysPerOccurence) { return new Date() }

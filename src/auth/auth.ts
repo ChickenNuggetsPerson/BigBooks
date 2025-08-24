@@ -4,13 +4,15 @@ import { hashPassword, signSession, verifySession } from './encryption';
 import { prisma } from '@/database/prisma';
 import bcrypt from 'bcryptjs';
 import { Prisma } from '@/database/generated/prisma';
+import { addHours } from '@/utils/functions/Date';
 
 
 
 export interface Session {
     userID: string,
     isAdmin: boolean,
-    orgUUID: string
+    orgUUID: string,
+    expireTime: Date
 }
 
 // Function for user login
@@ -29,47 +31,53 @@ export async function loginUser(username: string, password: string) {
             orgUUID: ""
         })
 
-    } else {
-
-        const user = await prisma.user.findUnique({
-            where: {
-                username: username,
-                isActive: true
-            }
-        })
-
-        if (!user) { throw new Error("Invalid Credentials") }
-
-        const match = await bcrypt.compare(password, user.passHash)
-        if (!match) { throw new Error("Invalid Credentials") }
-
-        await updateSession({
-            userID: user.uuid,
-            isAdmin: false,
-            orgUUID: ""
-        })
+        return
     }
+
+    const user = await prisma.user.findUnique({
+        where: {
+            username: username,
+            isActive: true
+        }
+    })
+
+    if (!user) { throw new Error("Invalid Credentials") }
+
+    const match = await bcrypt.compare(password, user.passHash)
+    if (!match) { throw new Error("Invalid Credentials") }
+
+    await updateSession({
+        userID: user.uuid,
+        isAdmin: false,
+        orgUUID: ""
+    })
 }
 
 
 // Updates the user's session
-export async function updateSession(session: Session) {
+export async function updateSession(session: Partial<Session>) {
 
-    if (session.orgUUID == "") {
-        const currentSession = await getSession()
-        session.orgUUID = currentSession?.orgUUID ?? "" // Copy over the selected organization if needed
+    const currentSession: Session = await getSession() ?? {
+        userID: "",
+        isAdmin: false,
+        orgUUID: "",
+        expireTime: new Date()
     }
 
-    const token = await signSession(session)
+    const newSession = { ...currentSession, ...session }
 
-    const age = 60 * 60 * (session.isAdmin ? 0.5 : 2) // 0.5 hours for SysAdmin, 2 hours for regular users
+    const expireHours = (session.isAdmin ? 1 : 2) // 0.5 hours for SysAdmin, 2 hours for regular users
+    newSession.expireTime = addHours(new Date(), expireHours)
+    const age = 60 * 60 * expireHours
+
+    const token = await signSession(newSession)
 
     const cookieStore = await cookies()
     cookieStore.set("session", token, { // Set session
         httpOnly: true,
         secure: process.env.NODE_ENV == "production",
         path: "/",
-        maxAge: age, 
+        maxAge: age,
         sameSite: "lax"
     })
 }
@@ -110,7 +118,7 @@ export async function getUserFromSession() {
     if (!session) { return null }
 
     if (session.isAdmin) { // Make a disp user for the admin
-        const dispUser : Prisma.UserGetPayload<{ include: { memberships: true } }> = {
+        const dispUser: Prisma.UserGetPayload<{ include: { memberships: true } }> = {
             uuid: '',
             isActive: false,
             firstName: 'SYSTEM',
