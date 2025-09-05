@@ -9,19 +9,16 @@ import { nextPayrollOccurence } from "@/utils/functions/Date"
 import toast from "react-hot-toast"
 import upsertPayrollDraft from "@/actions/payrollDraft/upsertPayrollDraft"
 import { PayrollDraftWithEmployees } from "@/actions/payrollDraft/types"
-import { promptUser } from "../Decorative/Modals/promptUser"
-import { useModalManager } from "../Decorative/Modal/ModalContext"
-import deletePayrollDraft from "@/actions/payrollDraft/deletePayrollDraft"
 import { useRouter } from "next/navigation"
 import { CardProp } from "../Forms/CardProp"
 import { PayrollSteps } from "./draftsystem/DraftPaths"
+import DeleteDraftButton from "./draftsystem/DeleteDraftButton"
 
 
 
 
 export default function PayrollImportGroupForm({ draft, groups }: { draft: PayrollDraftWithEmployees, groups: PayrollGroup[] }) {
 
-    const { addModal } = useModalManager()
     const router = useRouter()
     const [selectedGroup, setSelectedGroup] = useState("")
     const options = groups.map(group => { return { id: group.uuid, label: group.name } })
@@ -53,32 +50,6 @@ export default function PayrollImportGroupForm({ draft, groups }: { draft: Payro
         router.push(`/organization/payroll/${PayrollSteps[1].path}`)
     }
 
-    async function deleteDraft() {
-        const result = await promptUser({
-            addModal,
-            title: "Are You Sure?",
-            message: "Deleting this draft will not delete any active paystubs.",
-            trueButton: {
-                title: "Yes, Delete",
-                type: 'danger'
-            },
-            falseButton: {
-                title: "Cancel",
-                type: "primary"
-            }
-        })
-        if (!result) { return }
-
-        toast.promise(async () => {
-            await deletePayrollDraft(draft.uuid)
-            router.push("/organization/payroll")
-        }, {
-            loading: "Deleting Payroll Draft",
-            success: "Draft Deleted",
-            error: "Error Deleting Payroll Draft"
-        })
-    }
-
     return (
         <div className="flex flex-row gap-10 w-fit mx-auto">
 
@@ -100,7 +71,7 @@ export default function PayrollImportGroupForm({ draft, groups }: { draft: Payro
                 </div>
 
                 <div className="w-full flex justify-between mt-4">
-                    <button className="danger-button" onClick={deleteDraft}>Delete Draft</button>
+                    <DeleteDraftButton draftUUID={draft.uuid} />
                     <button className="primary-button" onClick={save}>Save Information</button>
                 </div>
             </div>

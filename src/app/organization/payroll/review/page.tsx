@@ -26,7 +26,7 @@ async function Page() {
     return (
         <>
             <DraftPageSelector path='review' />
-            <ActivePaystubList useActiveDraft />
+            <ActivePaystubList draftUUID={draft.uuid} />
         </>
     )
 }

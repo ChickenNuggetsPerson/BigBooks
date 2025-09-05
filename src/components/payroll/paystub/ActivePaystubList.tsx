@@ -8,12 +8,13 @@ import { PaystubCard } from "./PaystubCard"
 import toast from "react-hot-toast"
 import submitPaystub from "@/actions/paystub/submitPaystub"
 import { PaystubUUIDWithEmployee } from "@/actions/paystub/types"
+import DeleteDraftButton from "../draftsystem/DeleteDraftButton"
 
 
 
 
 
-export default function ActivePaystubList({ editStub, useActiveDraft }: { editStub?: (empUUID: string) => void, useActiveDraft?: boolean }) {
+export default function ActivePaystubList({ editStub, draftUUID }: { editStub?: (empUUID: string) => void, draftUUID?: string }) {
 
     const [paystubs, setPaystubs] = useState([] as PaystubUUIDWithEmployee[])
     const [index, setIndex] = useState(undefined as number | undefined)
@@ -21,12 +22,12 @@ export default function ActivePaystubList({ editStub, useActiveDraft }: { editSt
 
     useEffect(() => {
         load()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     async function load() {
         setLoading(true)
-        setPaystubs(deserializeData(await getActivePaystubs(useActiveDraft ?? false)))
+        setPaystubs(deserializeData(await getActivePaystubs(draftUUID !== undefined)))
         setLoading(false)
     }
 
@@ -63,7 +64,8 @@ export default function ActivePaystubList({ editStub, useActiveDraft }: { editSt
         <div className="flex flex-row gap-5 select-none">
 
             <div className="card w-3xs h-fit">
-                <p className="font-semibold">Active Paystubs:</p>
+                {draftUUID && <p className="font-semibold">Draft Paystubs:</p>}
+                {!draftUUID && <p className="font-semibold">Active Paystubs:</p>}
                 <Divider />
 
                 {loading &&
@@ -74,11 +76,13 @@ export default function ActivePaystubList({ editStub, useActiveDraft }: { editSt
                     </div>
                 }
                 {!loading &&
-                    paystubs.map((stub, i) => (
-                        <div key={stub.uuid} className="icon bg-primary/70 text-white font-bold mb-2" onClick={() => setIndex(i)}>
-                            {`${stub.employee.firstName} ${stub.employee.lastName}`}
-                        </div>
-                    ))
+                    <div>
+                        {paystubs.map((stub, i) => (
+                            <div key={stub.uuid} className="icon bg-primary/70 text-white font-bold mb-2" onClick={() => setIndex(i)}>
+                                {`${stub.employee.firstName} ${stub.employee.lastName}`}
+                            </div>
+                        ))}
+                    </div>
                 }
             </div>
 
@@ -99,6 +103,12 @@ export default function ActivePaystubList({ editStub, useActiveDraft }: { editSt
 
                 {(index !== undefined) && (index < paystubs.length) &&
                     <PaystubCard stubUUID={paystubs[index].uuid} editable />
+                }
+
+                {(paystubs.length === 0 && draftUUID) &&
+                    <div className="">
+                        <DeleteDraftButton draftUUID={draftUUID} />
+                    </div>
                 }
             </div>
 
