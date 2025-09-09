@@ -4,12 +4,25 @@ import EmployeeCompensationForm from "@/components/Employee/compensation/Employe
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
+import getEmployeeProps from "@/actions/employee/getEmployeeProps";
+import getEmployeeCompensations from "@/actions/employeeCompensation/getEmployeeCompensations";
+import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
+import { notFound } from "next/navigation";
+import { Permissions } from "@/auth/permissions/PermissionsDef";
 
 
 
 export default async function EmployeeSalaryPage({ params }: { params: Promise<{ employeeUUID: string }> }) {
 
     const { employeeUUID } = await params
+
+    await throwIfInsufficientPerms(Permissions.employee.compensation.edit)
+
+    const employee = await getEmployeeProps(employeeUUID, true)
+    if (!employee) {
+        notFound()
+    }
+    const comps = await getEmployeeCompensations(employee.uuid)
 
     return (
         <div className="">
@@ -20,7 +33,7 @@ export default async function EmployeeSalaryPage({ params }: { params: Promise<{
 
             <AnimateChildren y={-20} className="mx-20">
                 <Suspense fallback={<Loading hCenter vCenter />}>
-                    <EmployeeCompensationForm employeeUUID={employeeUUID} />
+                    <EmployeeCompensationForm payload={comps} employee={employee} />
                 </Suspense>
             </AnimateChildren>
         </div>

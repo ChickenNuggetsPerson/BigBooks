@@ -2,10 +2,12 @@
 
 import deleteEmployeeCompensation from "@/actions/employeeCompensation/deleteEmployeeCompensation"
 import upsertEmployeeCompensation from "@/actions/employeeCompensation/upsertEmployeeCompensation"
-import CollapsibleDiv from "@/components/Decorative/CollapsibleDiv"
+import AnimateChildren from "@/components/Decorative/AnimateChildren"
+import ClickableDiv from "@/components/Decorative/ClickableDiv"
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
 import { promptUser } from "@/components/Decorative/Modals/promptUser"
 import CheckboxInput from "@/components/Forms/CheckboxInput"
+import { Divider } from "@/components/Forms/Divider"
 import LargeTextInput from "@/components/Forms/LargeTextInput"
 import NumberInput from "@/components/Forms/NumberInput"
 import SelectInput from "@/components/Forms/SelectInput"
@@ -13,7 +15,8 @@ import TextInput from "@/components/Forms/TextInput"
 import { HourlyRate, Prisma } from "@/database/generated/prisma"
 import { Decimal } from "@/database/generated/prisma/runtime/index-browser"
 import { deserializeData, SerializationResult, serializeData } from "@/utils/serialization"
-import { Plus, Save, Trash2, X } from "lucide-react"
+import { AnimatePresence, motion } from "framer-motion"
+import { Trash2, X } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
@@ -21,21 +24,20 @@ import toast from "react-hot-toast"
 
 
 
-export default function EmployeeCompensationFormCard({ data }: {
-    data: SerializationResult<Prisma.EmployeeCompensationGetPayload<{ include: { hourlyRates: true, payrollGroup: true } }>>
+export default function EmployeeCompensationFormCard({ data, closeCB }: {
+    data: SerializationResult<Prisma.EmployeeCompensationGetPayload<{ include: { hourlyRates: true, payrollGroup: true } }>>,
+    closeCB?: () => void
 }) {
 
-    const comp = deserializeData(data)
     const router = useRouter()
     const { addModal } = useModalManager()
-    const [compensation, setCompensation] = useState(comp)
+    const [compensation, setCompensation] = useState(deserializeData(data))
+    useEffect(() => {
+        setCompensation(deserializeData(data))
+    }, [data])
 
     const sal = compensation.salaryAmount as number | null
-    
-    const [edited, setEdited] = useState(false)
-    useEffect(() => {
-        setEdited(comp !== compensation)
-    }, [comp, compensation])
+
 
 
     function saved() {
@@ -87,10 +89,10 @@ export default function EmployeeCompensationFormCard({ data }: {
             ...compensation,
             hourlyRates: [{
                 name: "New Rate",
-                uuid: "",
+                uuid: `${Math.random()}`,
                 rate: new Decimal(0),
                 canOvertime: false,
-                compensationId: comp.uuid
+                compensationId: compensation.uuid
             },
             ...compensation.hourlyRates]
         })
@@ -111,70 +113,96 @@ export default function EmployeeCompensationFormCard({ data }: {
     }
 
     return (
-        <CollapsibleDiv className="card w-md" title={
-            <div className="font-semibold flex flex-row" style={{ fontSize: 20 }}>
-                {comp.payrollGroup.name}
-            </div>
-        }>
+        <AnimateChildren
+            className="w-full flex flex-row gap-8"
+            fade
+            y={-20}
+            dt={.2}
+        >
+            <div className="card w-md h-fit">
 
-            <div className="h-5"></div>
+                <div className="w-full flex flex-row justify-between">
+                    <div className="font-semibold" style={{ fontSize: 20 }}>
+                        {compensation.payrollGroup.name}
+                    </div>
+                    <div className="flex gap-3">
+                        <ClickableDiv onClick={deleted} className="icon bg-gray-50 w-fit" >
+                            <Trash2 />
+                        </ClickableDiv>
+                        <ClickableDiv onClick={closeCB} className="icon bg-gray-50 w-fit" >
+                            <X />
+                        </ClickableDiv>
+                    </div>
+                </div>
 
-            <div className="flex flex-row gap-4">
-                <SelectInput label="Comp Type" options={[{ id: "0", label: "Hourly" }, { id: "1", label: "Salary" }]} val={compensation.isSalary ? "1" : "0"} changeCB={(val) => setCompensation({ ...compensation, isSalary: val == "1" })} />
+                <Divider />
+
+                <div className="h-5"></div>
+
                 <div className="w-full">
                     <LargeTextInput label="Description" val={compensation.description ?? ""} onChange={(val) => setCompensation({ ...compensation, description: val.trim() == "" ? null : val })} />
                 </div>
+
+                <div className="flex flex-row gap-4">
+                    <SelectInput label="Comp Type" options={[{ id: "0", label: "Hourly" }, { id: "1", label: "Salary" }]} val={compensation.isSalary ? "1" : "0"} changeCB={(val) => setCompensation({ ...compensation, isSalary: val == "1" })} />
+                    <button className="primary-button w-full" onClick={saved}>
+                        Save
+                    </button>
+                </div>
+
+
             </div>
 
-            {compensation.isSalary &&
-                <div className="w-full flex flex-row justify-between">
-                    <div className="w-3/4">
-                        <NumberInput label="Salary:" val={sal ?? 0} changeCB={(val) => setCompensation({ ...compensation, salaryAmount: val <= 0 ? null : new Decimal(val) })} />
-                    </div>
-                    <div className="flex flex-row gap-2 justify-center align-center h-full pt-3">
-                        {edited && <Save size={30} onClick={saved} className="bg-gray-100 rounded-md p-1 hover:bg-gray-200" />}
-                        <Trash2 size={30} onClick={deleted} className="bg-gray-100 rounded-md p-1 hover:bg-gray-200" />
-                    </div>
-                </div>
-            }
-
-            {!compensation.isSalary &&
-                <div>
-
-                    <div className="flex flex-row bg-gray-100 rounded-md p-1 hover:bg-gray-200 h-fit w-fit select-none mb-2" onClick={addRate}>
-                        <Plus size={30} />
-                        <div style={{ paddingTop: 3 }}>Add Rate</div>
-                    </div>
-
-                    {compensation.hourlyRates.map((rate, i) => (
-                        <div key={comp.uuid + " - " + i} className="p-5 bg-gray-50 rounded-md mb-2">
-                            <div className="flex flex-row gap-4 w-full">
-                                <div className="w-1/2">
-                                    <TextInput label="Name" val={rate.name} onChange={(val) => updateRate({ ...rate, name: val }, i)} />
-                                </div>
-                                <CheckboxInput label="Can Overtime" val={rate.canOvertime} changeCB={(val) => updateRate({ ...rate, canOvertime: val }, i)} />
-                            </div>
-
-                            <div className="flex flex-row justify-between gap-4 w-full">
-                                <div className="w-1/2">
-                                    <NumberInput label="Rate" val={rate.rate as unknown as number} changeCB={(val) => updateRate({ ...rate, rate: new Decimal(val) }, i)} />
-                                </div>
-                                <div className="flex flex-row bg-gray-100 rounded-md p-1 hover:bg-gray-200 h-fit select-none" onClick={() => deleteRate(i)}>
-                                    <div style={{ paddingTop: 3 }}>Delete Rate</div>
-                                    <X size={30} />
-                                </div>
-                            </div>
+            <div className="card h-fit w-md">
+                {compensation.isSalary &&
+                    <div className="w-full flex flex-row justify-between">
+                        <div className="w-3/4">
+                            <NumberInput label="Salary:" val={sal ?? 0} changeCB={(val) => setCompensation({ ...compensation, salaryAmount: val <= 0 ? null : new Decimal(val) })} />
                         </div>
-                    ))}
-
-                    <div className="flex flex-row gap-2 justify-end align-center h-full pt-3">
-                        {edited && <Save size={30} onClick={saved} className="bg-gray-100 rounded-md p-1 hover:bg-gray-200" />}
-                        <Trash2 size={30} onClick={deleted} className="bg-gray-100 rounded-md p-1 hover:bg-gray-200" />
                     </div>
+                }
 
-                </div>
-            }
+                {!compensation.isSalary &&
+                    <div>
 
-        </CollapsibleDiv>
+                        <AnimatePresence>
+                            {compensation.hourlyRates.map((rate, i) => (
+                                <motion.div
+                                    key={rate.uuid}
+                                    className="card mb-2"
+
+                                    initial={{ y: -30, opacity: 0.2, height: 0 }}
+                                    animate={{ y: 0, opacity: 1, height: "auto" }}
+                                    exit={{ x: 20, opacity: 0, height: 0 }}
+                                >
+                                    <div className="flex flex-row gap-4 w-full">
+                                        <div className="w-1/2">
+                                            <TextInput key={rate.uuid + "-label"} label="Name" val={rate.name} onChange={(val) => updateRate({ ...rate, name: val }, i)} />
+                                        </div>
+                                        <CheckboxInput label="Can Overtime" val={rate.canOvertime} changeCB={(val) => updateRate({ ...rate, canOvertime: val }, i)} />
+                                    </div>
+
+                                    <div className="flex flex-row justify-between gap-4 w-full">
+                                        <div className="w-1/2">
+                                            <NumberInput key={rate.uuid + "-rate"} label="Rate" val={rate.rate as unknown as number} changeCB={(val) => updateRate({ ...rate, rate: new Decimal(val) }, i)} />
+                                        </div>
+                                        <button className="danger-button" onClick={() => deleteRate(i)} style={{ marginTop: 5, marginBottom: 5 }}>
+                                            Delete Rate
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
+
+                        <Divider />
+
+                        <button className="primary-button w-full" onClick={addRate}>
+                            Add Rate
+                        </button>
+
+                    </div>
+                }
+            </div>
+        </AnimateChildren>
     )
 }
