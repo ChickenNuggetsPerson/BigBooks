@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { CompanyProvider } from "./CompanyContext";
 import ModalContainer from "@/components/Decorative/Modal/ModalContainer";
-import DevLink from "@/components/aboutModal/DevLink";
+import DevLink from "@/components/dev/DevLink";
 import { Toaster } from "react-hot-toast";
 import { Suspense } from "react";
 import SessionNotifier from "@/components/Decorative/SessionSystem/SesssionNotifier";

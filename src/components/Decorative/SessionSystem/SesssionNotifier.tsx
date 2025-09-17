@@ -1,5 +1,5 @@
 import { getSession } from "@/auth/auth"
-import { SessionNotifierNoSession, SesssionNotifierClient } from "./SesssionNotifierClient"
+import { SesssionNotifierClient } from "./SesssionNotifierClient"
 
 
 
@@ -9,11 +9,11 @@ export default async function SessionNotifier() {
     const session = await getSession()
 
     if (!session) {
-        return (<SessionNotifierNoSession />)
+        return (<></>)
     }
 
     if (session.userID.trim() === "") {
-        return (<SessionNotifierNoSession />)
+        return (<></>)
     }
 
     return (<SesssionNotifierClient expireTime={session.expireTime}/>)
