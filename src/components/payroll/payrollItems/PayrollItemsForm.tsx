@@ -2,7 +2,6 @@
 
 import { Divider } from "@/components/Forms/Divider"
 import getPayrollItems, { PayrollItemWithCount } from "@/actions/paystub/payrollItems/getPayrollItems"
-import PayrollItemFormCard from "./PayrollItemFormCard"
 import { getSession } from "@/auth/auth"
 import { redirect } from "next/navigation"
 import PayrollItemAddBtn from "./PayrollItemAddBtn"
@@ -11,6 +10,7 @@ import { prisma } from "@/database/prisma"
 import { deserializeData, serializeData } from "@/utils/serialization"
 import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions"
 import { Permissions } from "@/auth/permissions/PermissionsDef"
+import PayrollItemEditButton from "./PayrollItemFormCard"
 
 
 
@@ -28,6 +28,10 @@ export default async function PayrollItemsForm({
     employeeUUID?: string,
     groupUUID?: string
 }) {
+
+    if (!organization && !group && !employee) {
+        throw new Error("Payroll Items form not configured correctly")
+    }
 
     if (organization) {
         await throwIfInsufficientPerms(Permissions.admin.orgItem.edit)
@@ -53,7 +57,8 @@ export default async function PayrollItemsForm({
     }
     if (employee) {
         items = deserializeData(await getPayrollItems({ employeeId: employeeUUID })).employee
-        name = (await prisma.employee.findUnique({ where: { uuid: employeeUUID } }))?.firstName
+        const emp = (await prisma.employee.findUnique({ where: { uuid: employeeUUID } }))
+        name = `${emp?.firstName} ${emp?.lastName}`
     }
     if (group) {
         items = deserializeData(await getPayrollItems({ payrollGroupId: groupUUID })).group
@@ -63,7 +68,8 @@ export default async function PayrollItemsForm({
     const serializedData = items.map(item => {
         return {
             data: serializeData(item),
-            id: item.uuid
+            id: item.uuid,
+            name: item.name
         }
     })
 
@@ -71,26 +77,27 @@ export default async function PayrollItemsForm({
     if (group && groupUUID === "") { throw new Error("Invalid Props") }
 
     return (
-        <div className="h-fit w-fit flex flex-row gap-4">
+        <div className="h-fit w-fit mx-auto">
             <div className="card mb-5 w-sm h-fit">
                 <div className="flex flex-row justify-between">
                     <h5 className="text-xl font-semibold text-gray-700">{`${title} Payroll Items`}</h5>
                     <PayrollItemInfoBtn />
                 </div>
-                <Divider />
 
                 <p>{`Payroll Items for: ${name}`}</p>
 
-                <div className="h-7"></div>
-                <PayrollItemAddBtn organization={organization} group={group} employee={employee} employeeUUID={employeeUUID} groupUUID={groupUUID} />
-            </div>
+                {serializedData.length !== 0 && <Divider/> }
 
-            <div className="h-screen overflow-y-scroll pt-8 px-10 pb-20">
                 {serializedData.map((item) => (
-                    <div key={item.id} className="card mb-5">
-                        <PayrollItemFormCard serializedData={item.data} />
+                    <div key={item.id + "-name"} className="mb-1 smallCard flex justify-between" style={{ padding: 10 }}>
+                        <h1 className="select-none">{item.name}</h1>
+                        <PayrollItemEditButton serializedData={item.data}/>
                     </div>
                 ))}
+
+                <Divider />
+
+                <PayrollItemAddBtn organization={organization} group={group} employee={employee} employeeUUID={employeeUUID} groupUUID={groupUUID} />
             </div>
         </div>
     )
