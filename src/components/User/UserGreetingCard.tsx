@@ -53,15 +53,15 @@ export default async function UserGreetingCard() {
 
             <div className="h-px bg-accent mb-3"></div>
 
-            <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/user"} >
+            <Link className="block px-4 py-2 hover:bg-gray-100/80 rounded-lg" href={"/user"} >
                 View Profile
             </Link>
 
-            <Link className="block px-4 py-2 hover:bg-gray-100 rounded-lg" href={"/info/changelog"} >
+            <Link className="block px-4 py-2 hover:bg-gray-100/80 rounded-lg" href={"/info/changelog"} >
                 Changelog
             </Link>
 
-            <button onClick={logout} className="block px-4 py-2 hover:bg-gray-100 rounded-lg w-full text-left">
+            <button onClick={logout} className="block px-4 py-2 hover:bg-gray-100/80 rounded-lg w-full text-left">
                 Logout
             </button>
         </div>

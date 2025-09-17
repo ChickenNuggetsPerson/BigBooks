@@ -32,13 +32,27 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(
         const maxLength = longestStrLength(tabNames)
 
         useEffect(() => {
-            if (insideRef.current && tabsRef.current) {
-                const inside = insideRef.current.clientHeight + 50
-                const tabBar = tabsRef.current.clientHeight
-                setOversized(inside > tabBar)
-                setHeight(Math.max(inside, tabBar));
-            }
+            if (!insideRef.current || !tabsRef.current) return;
+
+            const updateSize = () => {
+                if (insideRef.current && tabsRef.current) {
+                    const inside = insideRef.current.clientHeight + 50;
+                    const tabBar = tabsRef.current.clientHeight;
+                    setOversized(inside > tabBar);
+                    setHeight(Math.max(inside, tabBar));
+                }
+            };
+
+            updateSize(); // initial measurement
+
+            const observer = new ResizeObserver(() => updateSize());
+            observer.observe(insideRef.current);
+
+            return () => {
+                observer.disconnect();
+            };
         }, [urlState.selected, children]);
+
 
         return (
             <div ref={ref} style={{ ...rest.style }} {...rest}>
@@ -74,9 +88,9 @@ const TabGroup = React.forwardRef<HTMLDivElement, TabGroupProps>(
                             zIndex: 200
                         }}
 
-                        animate={{ 
+                        animate={{
                             height: height,
-                            borderBottomLeftRadius: verticalTabs ? (oversized ? undefined : 0 ) : undefined,
+                            borderBottomLeftRadius: verticalTabs ? (oversized ? undefined : 0) : undefined,
                         }}
 
                         transition={{ duration: .3 }}
