@@ -1,5 +1,63 @@
 # Changelog
 
+## [0.10.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.9.0...v0.10.0) (2025-09-17)
+
+
+### Features
+
+* Added icon background to all user pages. ([7c02d62](https://github.com/ChickenNuggetsPerson/BigBooks/commit/7c02d6203d84cbe639a8991bba83a96437d44801))
+* Added icon effect to changelog page. ([0689069](https://github.com/ChickenNuggetsPerson/BigBooks/commit/06890699a55db1de4ea957a3299f657c1389ca7d))
+* Added icon effect to dev page. ([0689069](https://github.com/ChickenNuggetsPerson/BigBooks/commit/06890699a55db1de4ea957a3299f657c1389ca7d))
+* Added logout timer to bottom corner. ([f59c809](https://github.com/ChickenNuggetsPerson/BigBooks/commit/f59c8094edf7e6d64abc9dba151eba3a40681ee7))
+* Added new animations to landing page. ([493779a](https://github.com/ChickenNuggetsPerson/BigBooks/commit/493779a0bdf5aaf2bc3991fedb25731abf9f2037))
+* Added paystub view option in employee page. ([1c5a614](https://github.com/ChickenNuggetsPerson/BigBooks/commit/1c5a61415c9d0181708934fe37761bd9da5f7b3a))
+* Added propper suspense animations to whole website. ([4e0f848](https://github.com/ChickenNuggetsPerson/BigBooks/commit/4e0f848122266a027a7457e7fbe206b8d6bfe0ca))
+* Added styled 404 page. ([30c7723](https://github.com/ChickenNuggetsPerson/BigBooks/commit/30c7723374463551cead8964ae0a26a04156f6e6))
+* Employee list now stores state in url. ([13d0e05](https://github.com/ChickenNuggetsPerson/BigBooks/commit/13d0e05ab75635303550816ee0812032ad3fd049))
+* New Employee Compensation Editor ([c14e7a1](https://github.com/ChickenNuggetsPerson/BigBooks/commit/c14e7a1840bb57789a651aa6b70348c89a320137))
+* New homepage design ([acf1ca1](https://github.com/ChickenNuggetsPerson/BigBooks/commit/acf1ca1c153111864695d846ea02ec3682fbf4b5))
+* New Payroll Draft System ([6ed29e8](https://github.com/ChickenNuggetsPerson/BigBooks/commit/6ed29e86930141c7bfd61e98b096bf1503f25abf))
+* Payroll group form now shows paydates per year. ([42d5c20](https://github.com/ChickenNuggetsPerson/BigBooks/commit/42d5c20d79cef837f8646f2191cae334ad8eaa46))
+* Paystub editor now handles multiple unsaved paystubs. ([55f5a92](https://github.com/ChickenNuggetsPerson/BigBooks/commit/55f5a92de406df28b2b708057a1cacb94bdf4ff4))
+* Standarized warning modals across website. ([4393f37](https://github.com/ChickenNuggetsPerson/BigBooks/commit/4393f378c323c0a20c517b1c432c273d69602105))
+* Tabgroup now stores state in url. ([13d0e05](https://github.com/ChickenNuggetsPerson/BigBooks/commit/13d0e05ab75635303550816ee0812032ad3fd049))
+* TAXES ARE NOW CALCULATED! ([e042207](https://github.com/ChickenNuggetsPerson/BigBooks/commit/e04220750d7b23686e67b60c41dd0cdc4205e371))
+* You can now edit the item linking in the paystub edit form. ([83f9c19](https://github.com/ChickenNuggetsPerson/BigBooks/commit/83f9c19050f84bf097e9bccfd14ae5d866618e4d))
+* You can now link paystub items to compensations. ([1833d15](https://github.com/ChickenNuggetsPerson/BigBooks/commit/1833d15a300e7bab175b0614678a098e154a253e))
+
+
+### Bug Fixes
+
+* Added catch for invalid org properties in edit form. ([1a608fd](https://github.com/ChickenNuggetsPerson/BigBooks/commit/1a608fd713c394e2b79754345843fab9d6a88ba9))
+* Added loading states and error handling for better user experience during draft operations. ([6ed29e8](https://github.com/ChickenNuggetsPerson/BigBooks/commit/6ed29e86930141c7bfd61e98b096bf1503f25abf))
+* Added support for tax types in snapshots. ([b14c937](https://github.com/ChickenNuggetsPerson/BigBooks/commit/b14c9371209718bbd547bbf27ab3b7e1cc2a7a8d))
+* Adjusted header styling in overview page. ([0358bd8](https://github.com/ChickenNuggetsPerson/BigBooks/commit/0358bd8ae8272b7d9f9933d70f56fee8a48ca1ad))
+* Adjusted select paystub text. ([70cb050](https://github.com/ChickenNuggetsPerson/BigBooks/commit/70cb050ad661d81b451432d8587603c0fd083b70))
+* Adjusted values for landing page animations. ([08d96df](https://github.com/ChickenNuggetsPerson/BigBooks/commit/08d96df8b91b354d670351a423bbdb29412c8b53))
+* Button classes now show cursor pointer on hover. ([ce883a2](https://github.com/ChickenNuggetsPerson/BigBooks/commit/ce883a20a52eb3e1d9a2bd928df8c7a3f0610ac8))
+* Card Properties are no longer default to copyable. ([860f226](https://github.com/ChickenNuggetsPerson/BigBooks/commit/860f226adcd8f715f7f05e1e906d7dafb6e0b315))
+* Centered user page items. ([0da07a9](https://github.com/ChickenNuggetsPerson/BigBooks/commit/0da07a98736cf30d561ccfe667176c1457f49a81))
+* Change to paystub card background. ([c12e4cc](https://github.com/ChickenNuggetsPerson/BigBooks/commit/c12e4cc49784f7b2d4d52cba26de965ee6f3b446))
+* Changed sysadmin pages to new admin path ([f619568](https://github.com/ChickenNuggetsPerson/BigBooks/commit/f619568028c15a3f7bed74a092ba365d8464a716))
+* Changes to pay period calculations. ([aeac3ab](https://github.com/ChickenNuggetsPerson/BigBooks/commit/aeac3abe8c859a18915393d797c7f16bd61cfc88))
+* Deactivate button on Edit Org Page now is positioned correctly. ([0f463cb](https://github.com/ChickenNuggetsPerson/BigBooks/commit/0f463cb8064f51dc3e39dfe7f5a7326eb6dee276))
+* Fixed bug where payroll item links break if you set them to none. ([6c2c740](https://github.com/ChickenNuggetsPerson/BigBooks/commit/6c2c740c2a8ffc7c99449262e2d48809afe445cd))
+* Fixed client side errors with payroll items form. ([e4b67a6](https://github.com/ChickenNuggetsPerson/BigBooks/commit/e4b67a68d3ff88b09c194c768a6aeb5c73946d35))
+* Fixed compilation issue. ([c723510](https://github.com/ChickenNuggetsPerson/BigBooks/commit/c7235105614fe729d5d334fbe7cfd87006636cf9))
+* Fixed design payroll item page. ([ce01641](https://github.com/ChickenNuggetsPerson/BigBooks/commit/ce01641f29659c8ca9522d1d22fa7c35655e35c2))
+* Fixed employee tax card submit button. ([9ee5b5b](https://github.com/ChickenNuggetsPerson/BigBooks/commit/9ee5b5b838c15e89c6c9ae99cd090b5bb84eb134))
+* Fixed layout and style of invite accept page. ([30c7723](https://github.com/ChickenNuggetsPerson/BigBooks/commit/30c7723374463551cead8964ae0a26a04156f6e6))
+* Fixed logout button in user page. ([be429ff](https://github.com/ChickenNuggetsPerson/BigBooks/commit/be429ffa58ae3d93a100671a1841f140cec0fb39))
+* Fixed Period date calculations ([92e6e24](https://github.com/ChickenNuggetsPerson/BigBooks/commit/92e6e2485052e0a5fb485655ef3035a92abc1a8f))
+* Fixed serialization issue with payroll item. ([7cabe92](https://github.com/ChickenNuggetsPerson/BigBooks/commit/7cabe92edd755c15c3748f68d851063d17437f89))
+* Fixed sizing issue in landing page. ([0689069](https://github.com/ChickenNuggetsPerson/BigBooks/commit/06890699a55db1de4ea957a3299f657c1389ca7d))
+* Fixed top padding of user page. ([d8af63b](https://github.com/ChickenNuggetsPerson/BigBooks/commit/d8af63ba39a06c7128306c96fd6a90d5589ddd38))
+* Pay period dates are now calculated correctly. ([2f1dff1](https://github.com/ChickenNuggetsPerson/BigBooks/commit/2f1dff183a34dda0fd89422334f81f46f63d9e6e))
+* Paystub edit form now sorts items correctly. ([d5d41ec](https://github.com/ChickenNuggetsPerson/BigBooks/commit/d5d41ece0ff8d7b71c6f8bec27c8260de73c98c3))
+* Paystub form "Restore Dates" no longer shifts date inputs. ([a34143b](https://github.com/ChickenNuggetsPerson/BigBooks/commit/a34143bce4a18ff008f6fd875dafb7da4699559f))
+* Removed bottom green bar of landing page. ([4811bd3](https://github.com/ChickenNuggetsPerson/BigBooks/commit/4811bd360583f8737a0be72eb6edf805e6206397))
+* Updates to landing page icons are now physically simulated. ([6b95389](https://github.com/ChickenNuggetsPerson/BigBooks/commit/6b953898eae8e1350cfe467bb01106c22eb1b6c3))
+
 ## [0.9.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.8.1...v0.9.0) (2025-07-02)
 
 
