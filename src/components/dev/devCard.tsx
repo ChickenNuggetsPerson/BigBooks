@@ -16,7 +16,7 @@ export default function DevCard() {
             <div className="flex flex-row m-5">
 
                 <Image
-                    src="/Hayden-Square.jpg"
+                    src="/Hayden-Square.png"
                     width={150}
                     height={150}
                     alt=""
