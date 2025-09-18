@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { PayrollSteps } from "./DraftPaths"
-import upsertPayrollDraft from "@/actions/payrollDraft/upsertPayrollDraft"
+import { clientNewPayrollDraft } from "./newDraftFunction"
 
 
 
@@ -65,6 +65,10 @@ export default function DraftSelector() {
     })
     function selectCB(val: string) { setSelected(val) }
 
+    function newClicked() {
+        clientNewPayrollDraft(router)
+    }
+
     function editClicked() {
         if (!selected) { return }
 
@@ -75,24 +79,6 @@ export default function DraftSelector() {
             loading: "Setting Active Payroll Draft",
             success: "Active Payroll Draft Changed",
             error: "Error Setting Active Payroll Draft"
-        })
-    }
-    function newClicked() {
-        toast.promise(async () => {
-            await upsertPayrollDraft({
-                employees: [],
-                uuid: "",
-                membershipId: "",
-                startedDate: new Date(),
-                periodStart: new Date(),
-                periodEnd: new Date(),
-                periodPaydate: new Date()
-            })
-            router.push(`/organization/payroll/${PayrollSteps[0].path}`)
-        }, {
-            loading: "Creating New Payroll Draft",
-            success: "Payroll Draft Created",
-            error: "Error Creating New Payroll Draft"
         })
     }
 

@@ -2,13 +2,15 @@
 
 import getActivePaystubs from "@/actions/paystub/getActivePaystubs"
 import { Divider } from "@/components/Forms/Divider"
-import { deserializeData } from "@/utils/serialization"
 import { useEffect, useState } from "react"
 import { PaystubCard } from "./PaystubCard"
 import toast from "react-hot-toast"
 import submitPaystub from "@/actions/paystub/submitPaystub"
 import { PaystubUUIDWithEmployee } from "@/actions/paystub/types"
 import DeleteDraftButton from "../draftsystem/DeleteDraftButton"
+import ClickableDiv from "@/components/Decorative/ClickableDiv"
+import { useRouter } from "next/navigation"
+import { clientNewPayrollDraft } from "../draftsystem/newDraftFunction"
 
 
 
@@ -16,6 +18,7 @@ import DeleteDraftButton from "../draftsystem/DeleteDraftButton"
 
 export default function ActivePaystubList({ editStub, draftUUID }: { editStub?: (empUUID: string) => void, draftUUID?: string }) {
 
+    const router = useRouter()
     const [paystubs, setPaystubs] = useState([] as PaystubUUIDWithEmployee[])
     const [index, setIndex] = useState(undefined as number | undefined)
     const [loading, setLoading] = useState(false)
@@ -27,7 +30,7 @@ export default function ActivePaystubList({ editStub, draftUUID }: { editStub?: 
 
     async function load() {
         setLoading(true)
-        setPaystubs(deserializeData(await getActivePaystubs(draftUUID !== undefined)))
+        setPaystubs(await getActivePaystubs(draftUUID !== undefined))
         setLoading(false)
     }
 
@@ -60,12 +63,16 @@ export default function ActivePaystubList({ editStub, draftUUID }: { editStub?: 
         }
     }
 
+    function newDraft() {
+        clientNewPayrollDraft(router)
+    }
+
     return (
         <div className="flex flex-row gap-5 select-none">
 
             <div className="card w-3xs h-fit">
                 {draftUUID && <p className="font-semibold">Draft Paystubs:</p>}
-                {!draftUUID && <p className="font-semibold">Active Paystubs:</p>}
+                {!draftUUID && <p className="font-semibold">All Active Paystubs:</p>}
                 <Divider />
 
                 {loading &&
@@ -78,10 +85,28 @@ export default function ActivePaystubList({ editStub, draftUUID }: { editStub?: 
                 {!loading &&
                     <div>
                         {paystubs.map((stub, i) => (
-                            <div key={stub.uuid} className="icon bg-primary/70 text-white font-bold mb-2" onClick={() => setIndex(i)}>
+                            <ClickableDiv key={stub.uuid} className="icon bg-primary/70 text-white font-bold mb-2" onClick={() => setIndex(i)}>
                                 {`${stub.employee.firstName} ${stub.employee.lastName}`}
-                            </div>
+                            </ClickableDiv>
                         ))}
+
+                        {paystubs.length === 0 &&
+                            <ClickableDiv className="text-gray-400 font-bold mb-2 text-center">
+                                {`No Paystubs...`}
+                            </ClickableDiv>
+                        }
+
+
+                        {!draftUUID &&
+                            <div>
+                                <Divider />
+                                <ClickableDiv className="primary-button w-full text-center font-bold" onClick={newDraft}>
+                                    New Draft
+                                </ClickableDiv>
+                            </div>
+                        }
+
+
                     </div>
                 }
             </div>
