@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Employee = $Result.DefaultSelection<Prisma.$EmployeePayload>
 /**
+ * Model EmployeeSensitive
+ * 
+ */
+export type EmployeeSensitive = $Result.DefaultSelection<Prisma.$EmployeeSensitivePayload>
+/**
  * Model EmployeeCompensation
  * 
  */
@@ -178,7 +183,7 @@ export const TaxType: typeof $Enums.TaxType
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -210,13 +215,6 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
-
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -296,6 +294,16 @@ export class PrismaClient<
     * ```
     */
   get employee(): Prisma.EmployeeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.employeeSensitive`: Exposes CRUD operations for the **EmployeeSensitive** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EmployeeSensitives
+    * const employeeSensitives = await prisma.employeeSensitive.findMany()
+    * ```
+    */
+  get employeeSensitive(): Prisma.EmployeeSensitiveDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.employeeCompensation`: Exposes CRUD operations for the **EmployeeCompensation** model.
@@ -504,8 +512,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.9.0
-   * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
+   * Prisma Client JS version: 6.16.2
+   * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
    */
   export type PrismaVersion = {
     client: string
@@ -887,6 +895,7 @@ export namespace Prisma {
 
   export const ModelName: {
     Employee: 'Employee',
+    EmployeeSensitive: 'EmployeeSensitive',
     EmployeeCompensation: 'EmployeeCompensation',
     HourlyRate: 'HourlyRate',
     Organization: 'Organization',
@@ -920,7 +929,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "employee" | "employeeCompensation" | "hourlyRate" | "organization" | "payrollGroup" | "payrollItem" | "payrollDraft" | "payStub" | "payStubItem" | "tax" | "taxSnapshot" | "taxBracket" | "user" | "registrationCode" | "inviteCode" | "membership"
+      modelProps: "employee" | "employeeSensitive" | "employeeCompensation" | "hourlyRate" | "organization" | "payrollGroup" | "payrollItem" | "payrollDraft" | "payStub" | "payStubItem" | "tax" | "taxSnapshot" | "taxBracket" | "user" | "registrationCode" | "inviteCode" | "membership"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -995,6 +1004,80 @@ export namespace Prisma {
           count: {
             args: Prisma.EmployeeCountArgs<ExtArgs>
             result: $Utils.Optional<EmployeeCountAggregateOutputType> | number
+          }
+        }
+      }
+      EmployeeSensitive: {
+        payload: Prisma.$EmployeeSensitivePayload<ExtArgs>
+        fields: Prisma.EmployeeSensitiveFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmployeeSensitiveFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSensitivePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmployeeSensitiveFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSensitivePayload>
+          }
+          findFirst: {
+            args: Prisma.EmployeeSensitiveFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSensitivePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmployeeSensitiveFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSensitivePayload>
+          }
+          findMany: {
+            args: Prisma.EmployeeSensitiveFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSensitivePayload>[]
+          }
+          create: {
+            args: Prisma.EmployeeSensitiveCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSensitivePayload>
+          }
+          createMany: {
+            args: Prisma.EmployeeSensitiveCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EmployeeSensitiveCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSensitivePayload>[]
+          }
+          delete: {
+            args: Prisma.EmployeeSensitiveDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSensitivePayload>
+          }
+          update: {
+            args: Prisma.EmployeeSensitiveUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSensitivePayload>
+          }
+          deleteMany: {
+            args: Prisma.EmployeeSensitiveDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmployeeSensitiveUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EmployeeSensitiveUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSensitivePayload>[]
+          }
+          upsert: {
+            args: Prisma.EmployeeSensitiveUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmployeeSensitivePayload>
+          }
+          aggregate: {
+            args: Prisma.EmployeeSensitiveAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmployeeSensitive>
+          }
+          groupBy: {
+            args: Prisma.EmployeeSensitiveGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmployeeSensitiveGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmployeeSensitiveCountArgs<ExtArgs>
+            result: $Utils.Optional<EmployeeSensitiveCountAggregateOutputType> | number
           }
         }
       }
@@ -2151,16 +2234,24 @@ export namespace Prisma {
     /**
      * @example
      * ```
-     * // Defaults to stdout
+     * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
      * 
-     * // Emit as events
+     * // Emit as events only
      * log: [
-     *   { emit: 'stdout', level: 'query' },
-     *   { emit: 'stdout', level: 'info' },
-     *   { emit: 'stdout', level: 'warn' }
-     *   { emit: 'stdout', level: 'error' }
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
      * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -2175,6 +2266,10 @@ export namespace Prisma {
       timeout?: number
       isolationLevel?: Prisma.TransactionIsolationLevel
     }
+    /**
+     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
+     */
+    adapter?: runtime.SqlDriverAdapterFactory | null
     /**
      * Global configuration for omitting model fields by default.
      * 
@@ -2193,6 +2288,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     employee?: EmployeeOmit
+    employeeSensitive?: EmployeeSensitiveOmit
     employeeCompensation?: EmployeeCompensationOmit
     hourlyRate?: HourlyRateOmit
     organization?: OrganizationOmit
@@ -2217,10 +2313,15 @@ export namespace Prisma {
     emit: 'stdout' | 'event'
   }
 
-  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
-  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
-    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
-    : never
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
 
   export type QueryEvent = {
     timestamp: Date
@@ -2260,25 +2361,6 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
-
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -2810,12 +2892,12 @@ export namespace Prisma {
     address: string | null
     email: string | null
     phoneNumber: string | null
-    ssn: string | null
     filingStatus: $Enums.FilingTypes | null
     dependants: number | null
     residence: $Enums.AvaliableStates | null
     isDeleted: boolean | null
     organizationId: string | null
+    employeeSensitiveUuid: string | null
   }
 
   export type EmployeeMaxAggregateOutputType = {
@@ -2827,12 +2909,12 @@ export namespace Prisma {
     address: string | null
     email: string | null
     phoneNumber: string | null
-    ssn: string | null
     filingStatus: $Enums.FilingTypes | null
     dependants: number | null
     residence: $Enums.AvaliableStates | null
     isDeleted: boolean | null
     organizationId: string | null
+    employeeSensitiveUuid: string | null
   }
 
   export type EmployeeCountAggregateOutputType = {
@@ -2844,12 +2926,12 @@ export namespace Prisma {
     address: number
     email: number
     phoneNumber: number
-    ssn: number
     filingStatus: number
     dependants: number
     residence: number
     isDeleted: number
     organizationId: number
+    employeeSensitiveUuid: number
     _all: number
   }
 
@@ -2871,12 +2953,12 @@ export namespace Prisma {
     address?: true
     email?: true
     phoneNumber?: true
-    ssn?: true
     filingStatus?: true
     dependants?: true
     residence?: true
     isDeleted?: true
     organizationId?: true
+    employeeSensitiveUuid?: true
   }
 
   export type EmployeeMaxAggregateInputType = {
@@ -2888,12 +2970,12 @@ export namespace Prisma {
     address?: true
     email?: true
     phoneNumber?: true
-    ssn?: true
     filingStatus?: true
     dependants?: true
     residence?: true
     isDeleted?: true
     organizationId?: true
+    employeeSensitiveUuid?: true
   }
 
   export type EmployeeCountAggregateInputType = {
@@ -2905,12 +2987,12 @@ export namespace Prisma {
     address?: true
     email?: true
     phoneNumber?: true
-    ssn?: true
     filingStatus?: true
     dependants?: true
     residence?: true
     isDeleted?: true
     organizationId?: true
+    employeeSensitiveUuid?: true
     _all?: true
   }
 
@@ -3009,12 +3091,12 @@ export namespace Prisma {
     address: string
     email: string
     phoneNumber: string
-    ssn: string
     filingStatus: $Enums.FilingTypes
     dependants: number
     residence: $Enums.AvaliableStates
     isDeleted: boolean
     organizationId: string
+    employeeSensitiveUuid: string | null
     _count: EmployeeCountAggregateOutputType | null
     _avg: EmployeeAvgAggregateOutputType | null
     _sum: EmployeeSumAggregateOutputType | null
@@ -3045,12 +3127,13 @@ export namespace Prisma {
     address?: boolean
     email?: boolean
     phoneNumber?: boolean
-    ssn?: boolean
     filingStatus?: boolean
     dependants?: boolean
     residence?: boolean
     isDeleted?: boolean
     organizationId?: boolean
+    employeeSensitiveUuid?: boolean
+    sensitive?: boolean | Employee$sensitiveArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     compensations?: boolean | Employee$compensationsArgs<ExtArgs>
     payStubs?: boolean | Employee$payStubsArgs<ExtArgs>
@@ -3068,12 +3151,12 @@ export namespace Prisma {
     address?: boolean
     email?: boolean
     phoneNumber?: boolean
-    ssn?: boolean
     filingStatus?: boolean
     dependants?: boolean
     residence?: boolean
     isDeleted?: boolean
     organizationId?: boolean
+    employeeSensitiveUuid?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
@@ -3086,12 +3169,12 @@ export namespace Prisma {
     address?: boolean
     email?: boolean
     phoneNumber?: boolean
-    ssn?: boolean
     filingStatus?: boolean
     dependants?: boolean
     residence?: boolean
     isDeleted?: boolean
     organizationId?: boolean
+    employeeSensitiveUuid?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
@@ -3104,16 +3187,17 @@ export namespace Prisma {
     address?: boolean
     email?: boolean
     phoneNumber?: boolean
-    ssn?: boolean
     filingStatus?: boolean
     dependants?: boolean
     residence?: boolean
     isDeleted?: boolean
     organizationId?: boolean
+    employeeSensitiveUuid?: boolean
   }
 
-  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "firstName" | "middleName" | "lastName" | "notes" | "address" | "email" | "phoneNumber" | "ssn" | "filingStatus" | "dependants" | "residence" | "isDeleted" | "organizationId", ExtArgs["result"]["employee"]>
+  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "firstName" | "middleName" | "lastName" | "notes" | "address" | "email" | "phoneNumber" | "filingStatus" | "dependants" | "residence" | "isDeleted" | "organizationId" | "employeeSensitiveUuid", ExtArgs["result"]["employee"]>
   export type EmployeeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sensitive?: boolean | Employee$sensitiveArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     compensations?: boolean | Employee$compensationsArgs<ExtArgs>
     payStubs?: boolean | Employee$payStubsArgs<ExtArgs>
@@ -3131,6 +3215,7 @@ export namespace Prisma {
   export type $EmployeePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Employee"
     objects: {
+      sensitive: Prisma.$EmployeeSensitivePayload<ExtArgs> | null
       organization: Prisma.$OrganizationPayload<ExtArgs>
       compensations: Prisma.$EmployeeCompensationPayload<ExtArgs>[]
       payStubs: Prisma.$PayStubPayload<ExtArgs>[]
@@ -3146,12 +3231,12 @@ export namespace Prisma {
       address: string
       email: string
       phoneNumber: string
-      ssn: string
       filingStatus: $Enums.FilingTypes
       dependants: number
       residence: $Enums.AvaliableStates
       isDeleted: boolean
       organizationId: string
+      employeeSensitiveUuid: string | null
     }, ExtArgs["result"]["employee"]>
     composites: {}
   }
@@ -3546,6 +3631,7 @@ export namespace Prisma {
    */
   export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    sensitive<T extends Employee$sensitiveArgs<ExtArgs> = {}>(args?: Subset<T, Employee$sensitiveArgs<ExtArgs>>): Prisma__EmployeeSensitiveClient<$Result.GetResult<Prisma.$EmployeeSensitivePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     compensations<T extends Employee$compensationsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$compensationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeCompensationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payStubs<T extends Employee$payStubsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$payStubsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayStubPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3588,12 +3674,12 @@ export namespace Prisma {
     readonly address: FieldRef<"Employee", 'String'>
     readonly email: FieldRef<"Employee", 'String'>
     readonly phoneNumber: FieldRef<"Employee", 'String'>
-    readonly ssn: FieldRef<"Employee", 'String'>
     readonly filingStatus: FieldRef<"Employee", 'FilingTypes'>
     readonly dependants: FieldRef<"Employee", 'Int'>
     readonly residence: FieldRef<"Employee", 'AvaliableStates'>
     readonly isDeleted: FieldRef<"Employee", 'Boolean'>
     readonly organizationId: FieldRef<"Employee", 'String'>
+    readonly employeeSensitiveUuid: FieldRef<"Employee", 'String'>
   }
     
 
@@ -3990,6 +4076,25 @@ export namespace Prisma {
   }
 
   /**
+   * Employee.sensitive
+   */
+  export type Employee$sensitiveArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSensitive
+     */
+    select?: EmployeeSensitiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeSensitive
+     */
+    omit?: EmployeeSensitiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSensitiveInclude<ExtArgs> | null
+    where?: EmployeeSensitiveWhereInput
+  }
+
+  /**
    * Employee.compensations
    */
   export type Employee$compensationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4101,6 +4206,1064 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: EmployeeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EmployeeSensitive
+   */
+
+  export type AggregateEmployeeSensitive = {
+    _count: EmployeeSensitiveCountAggregateOutputType | null
+    _min: EmployeeSensitiveMinAggregateOutputType | null
+    _max: EmployeeSensitiveMaxAggregateOutputType | null
+  }
+
+  export type EmployeeSensitiveMinAggregateOutputType = {
+    uuid: string | null
+    employeeId: string | null
+    ssnEnc: string | null
+    ssnIv: string | null
+    ssnTag: string | null
+  }
+
+  export type EmployeeSensitiveMaxAggregateOutputType = {
+    uuid: string | null
+    employeeId: string | null
+    ssnEnc: string | null
+    ssnIv: string | null
+    ssnTag: string | null
+  }
+
+  export type EmployeeSensitiveCountAggregateOutputType = {
+    uuid: number
+    employeeId: number
+    ssnEnc: number
+    ssnIv: number
+    ssnTag: number
+    _all: number
+  }
+
+
+  export type EmployeeSensitiveMinAggregateInputType = {
+    uuid?: true
+    employeeId?: true
+    ssnEnc?: true
+    ssnIv?: true
+    ssnTag?: true
+  }
+
+  export type EmployeeSensitiveMaxAggregateInputType = {
+    uuid?: true
+    employeeId?: true
+    ssnEnc?: true
+    ssnIv?: true
+    ssnTag?: true
+  }
+
+  export type EmployeeSensitiveCountAggregateInputType = {
+    uuid?: true
+    employeeId?: true
+    ssnEnc?: true
+    ssnIv?: true
+    ssnTag?: true
+    _all?: true
+  }
+
+  export type EmployeeSensitiveAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmployeeSensitive to aggregate.
+     */
+    where?: EmployeeSensitiveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeSensitives to fetch.
+     */
+    orderBy?: EmployeeSensitiveOrderByWithRelationInput | EmployeeSensitiveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmployeeSensitiveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeSensitives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeSensitives.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EmployeeSensitives
+    **/
+    _count?: true | EmployeeSensitiveCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmployeeSensitiveMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmployeeSensitiveMaxAggregateInputType
+  }
+
+  export type GetEmployeeSensitiveAggregateType<T extends EmployeeSensitiveAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmployeeSensitive]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmployeeSensitive[P]>
+      : GetScalarType<T[P], AggregateEmployeeSensitive[P]>
+  }
+
+
+
+
+  export type EmployeeSensitiveGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmployeeSensitiveWhereInput
+    orderBy?: EmployeeSensitiveOrderByWithAggregationInput | EmployeeSensitiveOrderByWithAggregationInput[]
+    by: EmployeeSensitiveScalarFieldEnum[] | EmployeeSensitiveScalarFieldEnum
+    having?: EmployeeSensitiveScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmployeeSensitiveCountAggregateInputType | true
+    _min?: EmployeeSensitiveMinAggregateInputType
+    _max?: EmployeeSensitiveMaxAggregateInputType
+  }
+
+  export type EmployeeSensitiveGroupByOutputType = {
+    uuid: string
+    employeeId: string
+    ssnEnc: string | null
+    ssnIv: string | null
+    ssnTag: string | null
+    _count: EmployeeSensitiveCountAggregateOutputType | null
+    _min: EmployeeSensitiveMinAggregateOutputType | null
+    _max: EmployeeSensitiveMaxAggregateOutputType | null
+  }
+
+  type GetEmployeeSensitiveGroupByPayload<T extends EmployeeSensitiveGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmployeeSensitiveGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmployeeSensitiveGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmployeeSensitiveGroupByOutputType[P]>
+            : GetScalarType<T[P], EmployeeSensitiveGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmployeeSensitiveSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    employeeId?: boolean
+    ssnEnc?: boolean
+    ssnIv?: boolean
+    ssnTag?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeSensitive"]>
+
+  export type EmployeeSensitiveSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    employeeId?: boolean
+    ssnEnc?: boolean
+    ssnIv?: boolean
+    ssnTag?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeSensitive"]>
+
+  export type EmployeeSensitiveSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    uuid?: boolean
+    employeeId?: boolean
+    ssnEnc?: boolean
+    ssnIv?: boolean
+    ssnTag?: boolean
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["employeeSensitive"]>
+
+  export type EmployeeSensitiveSelectScalar = {
+    uuid?: boolean
+    employeeId?: boolean
+    ssnEnc?: boolean
+    ssnIv?: boolean
+    ssnTag?: boolean
+  }
+
+  export type EmployeeSensitiveOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "employeeId" | "ssnEnc" | "ssnIv" | "ssnTag", ExtArgs["result"]["employeeSensitive"]>
+  export type EmployeeSensitiveInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  }
+  export type EmployeeSensitiveIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  }
+  export type EmployeeSensitiveIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  }
+
+  export type $EmployeeSensitivePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EmployeeSensitive"
+    objects: {
+      employee: Prisma.$EmployeePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      uuid: string
+      employeeId: string
+      ssnEnc: string | null
+      ssnIv: string | null
+      ssnTag: string | null
+    }, ExtArgs["result"]["employeeSensitive"]>
+    composites: {}
+  }
+
+  type EmployeeSensitiveGetPayload<S extends boolean | null | undefined | EmployeeSensitiveDefaultArgs> = $Result.GetResult<Prisma.$EmployeeSensitivePayload, S>
+
+  type EmployeeSensitiveCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EmployeeSensitiveFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EmployeeSensitiveCountAggregateInputType | true
+    }
+
+  export interface EmployeeSensitiveDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EmployeeSensitive'], meta: { name: 'EmployeeSensitive' } }
+    /**
+     * Find zero or one EmployeeSensitive that matches the filter.
+     * @param {EmployeeSensitiveFindUniqueArgs} args - Arguments to find a EmployeeSensitive
+     * @example
+     * // Get one EmployeeSensitive
+     * const employeeSensitive = await prisma.employeeSensitive.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EmployeeSensitiveFindUniqueArgs>(args: SelectSubset<T, EmployeeSensitiveFindUniqueArgs<ExtArgs>>): Prisma__EmployeeSensitiveClient<$Result.GetResult<Prisma.$EmployeeSensitivePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EmployeeSensitive that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EmployeeSensitiveFindUniqueOrThrowArgs} args - Arguments to find a EmployeeSensitive
+     * @example
+     * // Get one EmployeeSensitive
+     * const employeeSensitive = await prisma.employeeSensitive.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EmployeeSensitiveFindUniqueOrThrowArgs>(args: SelectSubset<T, EmployeeSensitiveFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmployeeSensitiveClient<$Result.GetResult<Prisma.$EmployeeSensitivePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmployeeSensitive that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSensitiveFindFirstArgs} args - Arguments to find a EmployeeSensitive
+     * @example
+     * // Get one EmployeeSensitive
+     * const employeeSensitive = await prisma.employeeSensitive.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EmployeeSensitiveFindFirstArgs>(args?: SelectSubset<T, EmployeeSensitiveFindFirstArgs<ExtArgs>>): Prisma__EmployeeSensitiveClient<$Result.GetResult<Prisma.$EmployeeSensitivePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmployeeSensitive that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSensitiveFindFirstOrThrowArgs} args - Arguments to find a EmployeeSensitive
+     * @example
+     * // Get one EmployeeSensitive
+     * const employeeSensitive = await prisma.employeeSensitive.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EmployeeSensitiveFindFirstOrThrowArgs>(args?: SelectSubset<T, EmployeeSensitiveFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmployeeSensitiveClient<$Result.GetResult<Prisma.$EmployeeSensitivePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EmployeeSensitives that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSensitiveFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EmployeeSensitives
+     * const employeeSensitives = await prisma.employeeSensitive.findMany()
+     * 
+     * // Get first 10 EmployeeSensitives
+     * const employeeSensitives = await prisma.employeeSensitive.findMany({ take: 10 })
+     * 
+     * // Only select the `uuid`
+     * const employeeSensitiveWithUuidOnly = await prisma.employeeSensitive.findMany({ select: { uuid: true } })
+     * 
+     */
+    findMany<T extends EmployeeSensitiveFindManyArgs>(args?: SelectSubset<T, EmployeeSensitiveFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeSensitivePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EmployeeSensitive.
+     * @param {EmployeeSensitiveCreateArgs} args - Arguments to create a EmployeeSensitive.
+     * @example
+     * // Create one EmployeeSensitive
+     * const EmployeeSensitive = await prisma.employeeSensitive.create({
+     *   data: {
+     *     // ... data to create a EmployeeSensitive
+     *   }
+     * })
+     * 
+     */
+    create<T extends EmployeeSensitiveCreateArgs>(args: SelectSubset<T, EmployeeSensitiveCreateArgs<ExtArgs>>): Prisma__EmployeeSensitiveClient<$Result.GetResult<Prisma.$EmployeeSensitivePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EmployeeSensitives.
+     * @param {EmployeeSensitiveCreateManyArgs} args - Arguments to create many EmployeeSensitives.
+     * @example
+     * // Create many EmployeeSensitives
+     * const employeeSensitive = await prisma.employeeSensitive.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EmployeeSensitiveCreateManyArgs>(args?: SelectSubset<T, EmployeeSensitiveCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EmployeeSensitives and returns the data saved in the database.
+     * @param {EmployeeSensitiveCreateManyAndReturnArgs} args - Arguments to create many EmployeeSensitives.
+     * @example
+     * // Create many EmployeeSensitives
+     * const employeeSensitive = await prisma.employeeSensitive.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EmployeeSensitives and only return the `uuid`
+     * const employeeSensitiveWithUuidOnly = await prisma.employeeSensitive.createManyAndReturn({
+     *   select: { uuid: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EmployeeSensitiveCreateManyAndReturnArgs>(args?: SelectSubset<T, EmployeeSensitiveCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeSensitivePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EmployeeSensitive.
+     * @param {EmployeeSensitiveDeleteArgs} args - Arguments to delete one EmployeeSensitive.
+     * @example
+     * // Delete one EmployeeSensitive
+     * const EmployeeSensitive = await prisma.employeeSensitive.delete({
+     *   where: {
+     *     // ... filter to delete one EmployeeSensitive
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EmployeeSensitiveDeleteArgs>(args: SelectSubset<T, EmployeeSensitiveDeleteArgs<ExtArgs>>): Prisma__EmployeeSensitiveClient<$Result.GetResult<Prisma.$EmployeeSensitivePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EmployeeSensitive.
+     * @param {EmployeeSensitiveUpdateArgs} args - Arguments to update one EmployeeSensitive.
+     * @example
+     * // Update one EmployeeSensitive
+     * const employeeSensitive = await prisma.employeeSensitive.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EmployeeSensitiveUpdateArgs>(args: SelectSubset<T, EmployeeSensitiveUpdateArgs<ExtArgs>>): Prisma__EmployeeSensitiveClient<$Result.GetResult<Prisma.$EmployeeSensitivePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EmployeeSensitives.
+     * @param {EmployeeSensitiveDeleteManyArgs} args - Arguments to filter EmployeeSensitives to delete.
+     * @example
+     * // Delete a few EmployeeSensitives
+     * const { count } = await prisma.employeeSensitive.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EmployeeSensitiveDeleteManyArgs>(args?: SelectSubset<T, EmployeeSensitiveDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmployeeSensitives.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSensitiveUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EmployeeSensitives
+     * const employeeSensitive = await prisma.employeeSensitive.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EmployeeSensitiveUpdateManyArgs>(args: SelectSubset<T, EmployeeSensitiveUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmployeeSensitives and returns the data updated in the database.
+     * @param {EmployeeSensitiveUpdateManyAndReturnArgs} args - Arguments to update many EmployeeSensitives.
+     * @example
+     * // Update many EmployeeSensitives
+     * const employeeSensitive = await prisma.employeeSensitive.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EmployeeSensitives and only return the `uuid`
+     * const employeeSensitiveWithUuidOnly = await prisma.employeeSensitive.updateManyAndReturn({
+     *   select: { uuid: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EmployeeSensitiveUpdateManyAndReturnArgs>(args: SelectSubset<T, EmployeeSensitiveUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeeSensitivePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EmployeeSensitive.
+     * @param {EmployeeSensitiveUpsertArgs} args - Arguments to update or create a EmployeeSensitive.
+     * @example
+     * // Update or create a EmployeeSensitive
+     * const employeeSensitive = await prisma.employeeSensitive.upsert({
+     *   create: {
+     *     // ... data to create a EmployeeSensitive
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EmployeeSensitive we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EmployeeSensitiveUpsertArgs>(args: SelectSubset<T, EmployeeSensitiveUpsertArgs<ExtArgs>>): Prisma__EmployeeSensitiveClient<$Result.GetResult<Prisma.$EmployeeSensitivePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EmployeeSensitives.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSensitiveCountArgs} args - Arguments to filter EmployeeSensitives to count.
+     * @example
+     * // Count the number of EmployeeSensitives
+     * const count = await prisma.employeeSensitive.count({
+     *   where: {
+     *     // ... the filter for the EmployeeSensitives we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmployeeSensitiveCountArgs>(
+      args?: Subset<T, EmployeeSensitiveCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmployeeSensitiveCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EmployeeSensitive.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSensitiveAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmployeeSensitiveAggregateArgs>(args: Subset<T, EmployeeSensitiveAggregateArgs>): Prisma.PrismaPromise<GetEmployeeSensitiveAggregateType<T>>
+
+    /**
+     * Group by EmployeeSensitive.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmployeeSensitiveGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmployeeSensitiveGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmployeeSensitiveGroupByArgs['orderBy'] }
+        : { orderBy?: EmployeeSensitiveGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmployeeSensitiveGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmployeeSensitiveGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EmployeeSensitive model
+   */
+  readonly fields: EmployeeSensitiveFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EmployeeSensitive.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmployeeSensitiveClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    employee<T extends EmployeeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeDefaultArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EmployeeSensitive model
+   */
+  interface EmployeeSensitiveFieldRefs {
+    readonly uuid: FieldRef<"EmployeeSensitive", 'String'>
+    readonly employeeId: FieldRef<"EmployeeSensitive", 'String'>
+    readonly ssnEnc: FieldRef<"EmployeeSensitive", 'String'>
+    readonly ssnIv: FieldRef<"EmployeeSensitive", 'String'>
+    readonly ssnTag: FieldRef<"EmployeeSensitive", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EmployeeSensitive findUnique
+   */
+  export type EmployeeSensitiveFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSensitive
+     */
+    select?: EmployeeSensitiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeSensitive
+     */
+    omit?: EmployeeSensitiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSensitiveInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeSensitive to fetch.
+     */
+    where: EmployeeSensitiveWhereUniqueInput
+  }
+
+  /**
+   * EmployeeSensitive findUniqueOrThrow
+   */
+  export type EmployeeSensitiveFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSensitive
+     */
+    select?: EmployeeSensitiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeSensitive
+     */
+    omit?: EmployeeSensitiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSensitiveInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeSensitive to fetch.
+     */
+    where: EmployeeSensitiveWhereUniqueInput
+  }
+
+  /**
+   * EmployeeSensitive findFirst
+   */
+  export type EmployeeSensitiveFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSensitive
+     */
+    select?: EmployeeSensitiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeSensitive
+     */
+    omit?: EmployeeSensitiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSensitiveInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeSensitive to fetch.
+     */
+    where?: EmployeeSensitiveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeSensitives to fetch.
+     */
+    orderBy?: EmployeeSensitiveOrderByWithRelationInput | EmployeeSensitiveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmployeeSensitives.
+     */
+    cursor?: EmployeeSensitiveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeSensitives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeSensitives.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmployeeSensitives.
+     */
+    distinct?: EmployeeSensitiveScalarFieldEnum | EmployeeSensitiveScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeSensitive findFirstOrThrow
+   */
+  export type EmployeeSensitiveFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSensitive
+     */
+    select?: EmployeeSensitiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeSensitive
+     */
+    omit?: EmployeeSensitiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSensitiveInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeSensitive to fetch.
+     */
+    where?: EmployeeSensitiveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeSensitives to fetch.
+     */
+    orderBy?: EmployeeSensitiveOrderByWithRelationInput | EmployeeSensitiveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmployeeSensitives.
+     */
+    cursor?: EmployeeSensitiveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeSensitives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeSensitives.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmployeeSensitives.
+     */
+    distinct?: EmployeeSensitiveScalarFieldEnum | EmployeeSensitiveScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeSensitive findMany
+   */
+  export type EmployeeSensitiveFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSensitive
+     */
+    select?: EmployeeSensitiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeSensitive
+     */
+    omit?: EmployeeSensitiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSensitiveInclude<ExtArgs> | null
+    /**
+     * Filter, which EmployeeSensitives to fetch.
+     */
+    where?: EmployeeSensitiveWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmployeeSensitives to fetch.
+     */
+    orderBy?: EmployeeSensitiveOrderByWithRelationInput | EmployeeSensitiveOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EmployeeSensitives.
+     */
+    cursor?: EmployeeSensitiveWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmployeeSensitives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmployeeSensitives.
+     */
+    skip?: number
+    distinct?: EmployeeSensitiveScalarFieldEnum | EmployeeSensitiveScalarFieldEnum[]
+  }
+
+  /**
+   * EmployeeSensitive create
+   */
+  export type EmployeeSensitiveCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSensitive
+     */
+    select?: EmployeeSensitiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeSensitive
+     */
+    omit?: EmployeeSensitiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSensitiveInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EmployeeSensitive.
+     */
+    data: XOR<EmployeeSensitiveCreateInput, EmployeeSensitiveUncheckedCreateInput>
+  }
+
+  /**
+   * EmployeeSensitive createMany
+   */
+  export type EmployeeSensitiveCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EmployeeSensitives.
+     */
+    data: EmployeeSensitiveCreateManyInput | EmployeeSensitiveCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EmployeeSensitive createManyAndReturn
+   */
+  export type EmployeeSensitiveCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSensitive
+     */
+    select?: EmployeeSensitiveSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeSensitive
+     */
+    omit?: EmployeeSensitiveOmit<ExtArgs> | null
+    /**
+     * The data used to create many EmployeeSensitives.
+     */
+    data: EmployeeSensitiveCreateManyInput | EmployeeSensitiveCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSensitiveIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmployeeSensitive update
+   */
+  export type EmployeeSensitiveUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSensitive
+     */
+    select?: EmployeeSensitiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeSensitive
+     */
+    omit?: EmployeeSensitiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSensitiveInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EmployeeSensitive.
+     */
+    data: XOR<EmployeeSensitiveUpdateInput, EmployeeSensitiveUncheckedUpdateInput>
+    /**
+     * Choose, which EmployeeSensitive to update.
+     */
+    where: EmployeeSensitiveWhereUniqueInput
+  }
+
+  /**
+   * EmployeeSensitive updateMany
+   */
+  export type EmployeeSensitiveUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EmployeeSensitives.
+     */
+    data: XOR<EmployeeSensitiveUpdateManyMutationInput, EmployeeSensitiveUncheckedUpdateManyInput>
+    /**
+     * Filter which EmployeeSensitives to update
+     */
+    where?: EmployeeSensitiveWhereInput
+    /**
+     * Limit how many EmployeeSensitives to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmployeeSensitive updateManyAndReturn
+   */
+  export type EmployeeSensitiveUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSensitive
+     */
+    select?: EmployeeSensitiveSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeSensitive
+     */
+    omit?: EmployeeSensitiveOmit<ExtArgs> | null
+    /**
+     * The data used to update EmployeeSensitives.
+     */
+    data: XOR<EmployeeSensitiveUpdateManyMutationInput, EmployeeSensitiveUncheckedUpdateManyInput>
+    /**
+     * Filter which EmployeeSensitives to update
+     */
+    where?: EmployeeSensitiveWhereInput
+    /**
+     * Limit how many EmployeeSensitives to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSensitiveIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmployeeSensitive upsert
+   */
+  export type EmployeeSensitiveUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSensitive
+     */
+    select?: EmployeeSensitiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeSensitive
+     */
+    omit?: EmployeeSensitiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSensitiveInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EmployeeSensitive to update in case it exists.
+     */
+    where: EmployeeSensitiveWhereUniqueInput
+    /**
+     * In case the EmployeeSensitive found by the `where` argument doesn't exist, create a new EmployeeSensitive with this data.
+     */
+    create: XOR<EmployeeSensitiveCreateInput, EmployeeSensitiveUncheckedCreateInput>
+    /**
+     * In case the EmployeeSensitive was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmployeeSensitiveUpdateInput, EmployeeSensitiveUncheckedUpdateInput>
+  }
+
+  /**
+   * EmployeeSensitive delete
+   */
+  export type EmployeeSensitiveDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSensitive
+     */
+    select?: EmployeeSensitiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeSensitive
+     */
+    omit?: EmployeeSensitiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSensitiveInclude<ExtArgs> | null
+    /**
+     * Filter which EmployeeSensitive to delete.
+     */
+    where: EmployeeSensitiveWhereUniqueInput
+  }
+
+  /**
+   * EmployeeSensitive deleteMany
+   */
+  export type EmployeeSensitiveDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmployeeSensitives to delete
+     */
+    where?: EmployeeSensitiveWhereInput
+    /**
+     * Limit how many EmployeeSensitives to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmployeeSensitive without action
+   */
+  export type EmployeeSensitiveDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmployeeSensitive
+     */
+    select?: EmployeeSensitiveSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmployeeSensitive
+     */
+    omit?: EmployeeSensitiveOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeSensitiveInclude<ExtArgs> | null
   }
 
 
@@ -21523,15 +22686,26 @@ export namespace Prisma {
     address: 'address',
     email: 'email',
     phoneNumber: 'phoneNumber',
-    ssn: 'ssn',
     filingStatus: 'filingStatus',
     dependants: 'dependants',
     residence: 'residence',
     isDeleted: 'isDeleted',
-    organizationId: 'organizationId'
+    organizationId: 'organizationId',
+    employeeSensitiveUuid: 'employeeSensitiveUuid'
   };
 
   export type EmployeeScalarFieldEnum = (typeof EmployeeScalarFieldEnum)[keyof typeof EmployeeScalarFieldEnum]
+
+
+  export const EmployeeSensitiveScalarFieldEnum: {
+    uuid: 'uuid',
+    employeeId: 'employeeId',
+    ssnEnc: 'ssnEnc',
+    ssnIv: 'ssnIv',
+    ssnTag: 'ssnTag'
+  };
+
+  export type EmployeeSensitiveScalarFieldEnum = (typeof EmployeeSensitiveScalarFieldEnum)[keyof typeof EmployeeSensitiveScalarFieldEnum]
 
 
   export const EmployeeCompensationScalarFieldEnum: {
@@ -21924,12 +23098,13 @@ export namespace Prisma {
     address?: StringFilter<"Employee"> | string
     email?: StringFilter<"Employee"> | string
     phoneNumber?: StringFilter<"Employee"> | string
-    ssn?: StringFilter<"Employee"> | string
     filingStatus?: EnumFilingTypesFilter<"Employee"> | $Enums.FilingTypes
     dependants?: IntFilter<"Employee"> | number
     residence?: EnumAvaliableStatesFilter<"Employee"> | $Enums.AvaliableStates
     isDeleted?: BoolFilter<"Employee"> | boolean
     organizationId?: StringFilter<"Employee"> | string
+    employeeSensitiveUuid?: StringNullableFilter<"Employee"> | string | null
+    sensitive?: XOR<EmployeeSensitiveNullableScalarRelationFilter, EmployeeSensitiveWhereInput> | null
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     compensations?: EmployeeCompensationListRelationFilter
     payStubs?: PayStubListRelationFilter
@@ -21946,12 +23121,13 @@ export namespace Prisma {
     address?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
-    ssn?: SortOrder
     filingStatus?: SortOrder
     dependants?: SortOrder
     residence?: SortOrder
     isDeleted?: SortOrder
     organizationId?: SortOrder
+    employeeSensitiveUuid?: SortOrderInput | SortOrder
+    sensitive?: EmployeeSensitiveOrderByWithRelationInput
     organization?: OrganizationOrderByWithRelationInput
     compensations?: EmployeeCompensationOrderByRelationAggregateInput
     payStubs?: PayStubOrderByRelationAggregateInput
@@ -21971,12 +23147,13 @@ export namespace Prisma {
     address?: StringFilter<"Employee"> | string
     email?: StringFilter<"Employee"> | string
     phoneNumber?: StringFilter<"Employee"> | string
-    ssn?: StringFilter<"Employee"> | string
     filingStatus?: EnumFilingTypesFilter<"Employee"> | $Enums.FilingTypes
     dependants?: IntFilter<"Employee"> | number
     residence?: EnumAvaliableStatesFilter<"Employee"> | $Enums.AvaliableStates
     isDeleted?: BoolFilter<"Employee"> | boolean
     organizationId?: StringFilter<"Employee"> | string
+    employeeSensitiveUuid?: StringNullableFilter<"Employee"> | string | null
+    sensitive?: XOR<EmployeeSensitiveNullableScalarRelationFilter, EmployeeSensitiveWhereInput> | null
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     compensations?: EmployeeCompensationListRelationFilter
     payStubs?: PayStubListRelationFilter
@@ -21993,12 +23170,12 @@ export namespace Prisma {
     address?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
-    ssn?: SortOrder
     filingStatus?: SortOrder
     dependants?: SortOrder
     residence?: SortOrder
     isDeleted?: SortOrder
     organizationId?: SortOrder
+    employeeSensitiveUuid?: SortOrderInput | SortOrder
     _count?: EmployeeCountOrderByAggregateInput
     _avg?: EmployeeAvgOrderByAggregateInput
     _max?: EmployeeMaxOrderByAggregateInput
@@ -22018,12 +23195,67 @@ export namespace Prisma {
     address?: StringWithAggregatesFilter<"Employee"> | string
     email?: StringWithAggregatesFilter<"Employee"> | string
     phoneNumber?: StringWithAggregatesFilter<"Employee"> | string
-    ssn?: StringWithAggregatesFilter<"Employee"> | string
     filingStatus?: EnumFilingTypesWithAggregatesFilter<"Employee"> | $Enums.FilingTypes
     dependants?: IntWithAggregatesFilter<"Employee"> | number
     residence?: EnumAvaliableStatesWithAggregatesFilter<"Employee"> | $Enums.AvaliableStates
     isDeleted?: BoolWithAggregatesFilter<"Employee"> | boolean
     organizationId?: StringWithAggregatesFilter<"Employee"> | string
+    employeeSensitiveUuid?: StringNullableWithAggregatesFilter<"Employee"> | string | null
+  }
+
+  export type EmployeeSensitiveWhereInput = {
+    AND?: EmployeeSensitiveWhereInput | EmployeeSensitiveWhereInput[]
+    OR?: EmployeeSensitiveWhereInput[]
+    NOT?: EmployeeSensitiveWhereInput | EmployeeSensitiveWhereInput[]
+    uuid?: StringFilter<"EmployeeSensitive"> | string
+    employeeId?: StringFilter<"EmployeeSensitive"> | string
+    ssnEnc?: StringNullableFilter<"EmployeeSensitive"> | string | null
+    ssnIv?: StringNullableFilter<"EmployeeSensitive"> | string | null
+    ssnTag?: StringNullableFilter<"EmployeeSensitive"> | string | null
+    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+  }
+
+  export type EmployeeSensitiveOrderByWithRelationInput = {
+    uuid?: SortOrder
+    employeeId?: SortOrder
+    ssnEnc?: SortOrderInput | SortOrder
+    ssnIv?: SortOrderInput | SortOrder
+    ssnTag?: SortOrderInput | SortOrder
+    employee?: EmployeeOrderByWithRelationInput
+  }
+
+  export type EmployeeSensitiveWhereUniqueInput = Prisma.AtLeast<{
+    uuid?: string
+    employeeId?: string
+    AND?: EmployeeSensitiveWhereInput | EmployeeSensitiveWhereInput[]
+    OR?: EmployeeSensitiveWhereInput[]
+    NOT?: EmployeeSensitiveWhereInput | EmployeeSensitiveWhereInput[]
+    ssnEnc?: StringNullableFilter<"EmployeeSensitive"> | string | null
+    ssnIv?: StringNullableFilter<"EmployeeSensitive"> | string | null
+    ssnTag?: StringNullableFilter<"EmployeeSensitive"> | string | null
+    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+  }, "uuid" | "uuid" | "employeeId">
+
+  export type EmployeeSensitiveOrderByWithAggregationInput = {
+    uuid?: SortOrder
+    employeeId?: SortOrder
+    ssnEnc?: SortOrderInput | SortOrder
+    ssnIv?: SortOrderInput | SortOrder
+    ssnTag?: SortOrderInput | SortOrder
+    _count?: EmployeeSensitiveCountOrderByAggregateInput
+    _max?: EmployeeSensitiveMaxOrderByAggregateInput
+    _min?: EmployeeSensitiveMinOrderByAggregateInput
+  }
+
+  export type EmployeeSensitiveScalarWhereWithAggregatesInput = {
+    AND?: EmployeeSensitiveScalarWhereWithAggregatesInput | EmployeeSensitiveScalarWhereWithAggregatesInput[]
+    OR?: EmployeeSensitiveScalarWhereWithAggregatesInput[]
+    NOT?: EmployeeSensitiveScalarWhereWithAggregatesInput | EmployeeSensitiveScalarWhereWithAggregatesInput[]
+    uuid?: StringWithAggregatesFilter<"EmployeeSensitive"> | string
+    employeeId?: StringWithAggregatesFilter<"EmployeeSensitive"> | string
+    ssnEnc?: StringNullableWithAggregatesFilter<"EmployeeSensitive"> | string | null
+    ssnIv?: StringNullableWithAggregatesFilter<"EmployeeSensitive"> | string | null
+    ssnTag?: StringNullableWithAggregatesFilter<"EmployeeSensitive"> | string | null
   }
 
   export type EmployeeCompensationWhereInput = {
@@ -23132,11 +24364,12 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
+    employeeSensitiveUuid?: string | null
+    sensitive?: EmployeeSensitiveCreateNestedOneWithoutEmployeeInput
     organization: OrganizationCreateNestedOneWithoutEmployeesInput
     compensations?: EmployeeCompensationCreateNestedManyWithoutEmployeeInput
     payStubs?: PayStubCreateNestedManyWithoutEmployeeInput
@@ -23153,12 +24386,13 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
     organizationId: string
+    employeeSensitiveUuid?: string | null
+    sensitive?: EmployeeSensitiveUncheckedCreateNestedOneWithoutEmployeeInput
     compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutEmployeeInput
     payStubs?: PayStubUncheckedCreateNestedManyWithoutEmployeeInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
@@ -23174,11 +24408,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    sensitive?: EmployeeSensitiveUpdateOneWithoutEmployeeNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutEmployeesNestedInput
     compensations?: EmployeeCompensationUpdateManyWithoutEmployeeNestedInput
     payStubs?: PayStubUpdateManyWithoutEmployeeNestedInput
@@ -23195,12 +24430,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: StringFieldUpdateOperationsInput | string
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    sensitive?: EmployeeSensitiveUncheckedUpdateOneWithoutEmployeeNestedInput
     compensations?: EmployeeCompensationUncheckedUpdateManyWithoutEmployeeNestedInput
     payStubs?: PayStubUncheckedUpdateManyWithoutEmployeeNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -23216,12 +24452,12 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
     organizationId: string
+    employeeSensitiveUuid?: string | null
   }
 
   export type EmployeeUpdateManyMutationInput = {
@@ -23233,11 +24469,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EmployeeUncheckedUpdateManyInput = {
@@ -23249,12 +24485,67 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: StringFieldUpdateOperationsInput | string
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EmployeeSensitiveCreateInput = {
+    uuid?: string
+    ssnEnc?: string | null
+    ssnIv?: string | null
+    ssnTag?: string | null
+    employee: EmployeeCreateNestedOneWithoutSensitiveInput
+  }
+
+  export type EmployeeSensitiveUncheckedCreateInput = {
+    uuid?: string
+    employeeId: string
+    ssnEnc?: string | null
+    ssnIv?: string | null
+    ssnTag?: string | null
+  }
+
+  export type EmployeeSensitiveUpdateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    ssnEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    ssnIv?: NullableStringFieldUpdateOperationsInput | string | null
+    ssnTag?: NullableStringFieldUpdateOperationsInput | string | null
+    employee?: EmployeeUpdateOneRequiredWithoutSensitiveNestedInput
+  }
+
+  export type EmployeeSensitiveUncheckedUpdateInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    ssnEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    ssnIv?: NullableStringFieldUpdateOperationsInput | string | null
+    ssnTag?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EmployeeSensitiveCreateManyInput = {
+    uuid?: string
+    employeeId: string
+    ssnEnc?: string | null
+    ssnIv?: string | null
+    ssnTag?: string | null
+  }
+
+  export type EmployeeSensitiveUpdateManyMutationInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    ssnEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    ssnIv?: NullableStringFieldUpdateOperationsInput | string | null
+    ssnTag?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EmployeeSensitiveUncheckedUpdateManyInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    employeeId?: StringFieldUpdateOperationsInput | string
+    ssnEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    ssnIv?: NullableStringFieldUpdateOperationsInput | string | null
+    ssnTag?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EmployeeCompensationCreateInput = {
@@ -24442,6 +25733,26 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type EmployeeSensitiveNullableScalarRelationFilter = {
+    is?: EmployeeSensitiveWhereInput | null
+    isNot?: EmployeeSensitiveWhereInput | null
+  }
+
   export type OrganizationScalarRelationFilter = {
     is?: OrganizationWhereInput
     isNot?: OrganizationWhereInput
@@ -24471,6 +25782,11 @@ export namespace Prisma {
     none?: PayrollDraftWhereInput
   }
 
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type EmployeeCompensationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -24496,12 +25812,12 @@ export namespace Prisma {
     address?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
-    ssn?: SortOrder
     filingStatus?: SortOrder
     dependants?: SortOrder
     residence?: SortOrder
     isDeleted?: SortOrder
     organizationId?: SortOrder
+    employeeSensitiveUuid?: SortOrder
   }
 
   export type EmployeeAvgOrderByAggregateInput = {
@@ -24517,12 +25833,12 @@ export namespace Prisma {
     address?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
-    ssn?: SortOrder
     filingStatus?: SortOrder
     dependants?: SortOrder
     residence?: SortOrder
     isDeleted?: SortOrder
     organizationId?: SortOrder
+    employeeSensitiveUuid?: SortOrder
   }
 
   export type EmployeeMinOrderByAggregateInput = {
@@ -24534,12 +25850,12 @@ export namespace Prisma {
     address?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
-    ssn?: SortOrder
     filingStatus?: SortOrder
     dependants?: SortOrder
     residence?: SortOrder
     isDeleted?: SortOrder
     organizationId?: SortOrder
+    employeeSensitiveUuid?: SortOrder
   }
 
   export type EmployeeSumOrderByAggregateInput = {
@@ -24608,18 +25924,7 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type DecimalNullableFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -24631,12 +25936,50 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EmployeeScalarRelationFilter = {
     is?: EmployeeWhereInput
     isNot?: EmployeeWhereInput
+  }
+
+  export type EmployeeSensitiveCountOrderByAggregateInput = {
+    uuid?: SortOrder
+    employeeId?: SortOrder
+    ssnEnc?: SortOrder
+    ssnIv?: SortOrder
+    ssnTag?: SortOrder
+  }
+
+  export type EmployeeSensitiveMaxOrderByAggregateInput = {
+    uuid?: SortOrder
+    employeeId?: SortOrder
+    ssnEnc?: SortOrder
+    ssnIv?: SortOrder
+    ssnTag?: SortOrder
+  }
+
+  export type EmployeeSensitiveMinOrderByAggregateInput = {
+    uuid?: SortOrder
+    employeeId?: SortOrder
+    ssnEnc?: SortOrder
+    ssnIv?: SortOrder
+    ssnTag?: SortOrder
+  }
+
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type PayrollGroupScalarRelationFilter = {
@@ -24654,11 +25997,6 @@ export namespace Prisma {
     every?: PayStubItemWhereInput
     some?: PayStubItemWhereInput
     none?: PayStubItemWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type HourlyRateOrderByRelationAggregateInput = {
@@ -24723,24 +26061,6 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -25538,6 +26858,12 @@ export namespace Prisma {
     activeDraftId?: SortOrder
   }
 
+  export type EmployeeSensitiveCreateNestedOneWithoutEmployeeInput = {
+    create?: XOR<EmployeeSensitiveCreateWithoutEmployeeInput, EmployeeSensitiveUncheckedCreateWithoutEmployeeInput>
+    connectOrCreate?: EmployeeSensitiveCreateOrConnectWithoutEmployeeInput
+    connect?: EmployeeSensitiveWhereUniqueInput
+  }
+
   export type OrganizationCreateNestedOneWithoutEmployeesInput = {
     create?: XOR<OrganizationCreateWithoutEmployeesInput, OrganizationUncheckedCreateWithoutEmployeesInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutEmployeesInput
@@ -25569,6 +26895,12 @@ export namespace Prisma {
     create?: XOR<PayrollDraftCreateWithoutEmployeesInput, PayrollDraftUncheckedCreateWithoutEmployeesInput> | PayrollDraftCreateWithoutEmployeesInput[] | PayrollDraftUncheckedCreateWithoutEmployeesInput[]
     connectOrCreate?: PayrollDraftCreateOrConnectWithoutEmployeesInput | PayrollDraftCreateOrConnectWithoutEmployeesInput[]
     connect?: PayrollDraftWhereUniqueInput | PayrollDraftWhereUniqueInput[]
+  }
+
+  export type EmployeeSensitiveUncheckedCreateNestedOneWithoutEmployeeInput = {
+    create?: XOR<EmployeeSensitiveCreateWithoutEmployeeInput, EmployeeSensitiveUncheckedCreateWithoutEmployeeInput>
+    connectOrCreate?: EmployeeSensitiveCreateOrConnectWithoutEmployeeInput
+    connect?: EmployeeSensitiveWhereUniqueInput
   }
 
   export type EmployeeCompensationUncheckedCreateNestedManyWithoutEmployeeInput = {
@@ -25620,6 +26952,20 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type EmployeeSensitiveUpdateOneWithoutEmployeeNestedInput = {
+    create?: XOR<EmployeeSensitiveCreateWithoutEmployeeInput, EmployeeSensitiveUncheckedCreateWithoutEmployeeInput>
+    connectOrCreate?: EmployeeSensitiveCreateOrConnectWithoutEmployeeInput
+    upsert?: EmployeeSensitiveUpsertWithoutEmployeeInput
+    disconnect?: EmployeeSensitiveWhereInput | boolean
+    delete?: EmployeeSensitiveWhereInput | boolean
+    connect?: EmployeeSensitiveWhereUniqueInput
+    update?: XOR<XOR<EmployeeSensitiveUpdateToOneWithWhereWithoutEmployeeInput, EmployeeSensitiveUpdateWithoutEmployeeInput>, EmployeeSensitiveUncheckedUpdateWithoutEmployeeInput>
   }
 
   export type OrganizationUpdateOneRequiredWithoutEmployeesNestedInput = {
@@ -25685,6 +27031,16 @@ export namespace Prisma {
     deleteMany?: PayrollDraftScalarWhereInput | PayrollDraftScalarWhereInput[]
   }
 
+  export type EmployeeSensitiveUncheckedUpdateOneWithoutEmployeeNestedInput = {
+    create?: XOR<EmployeeSensitiveCreateWithoutEmployeeInput, EmployeeSensitiveUncheckedCreateWithoutEmployeeInput>
+    connectOrCreate?: EmployeeSensitiveCreateOrConnectWithoutEmployeeInput
+    upsert?: EmployeeSensitiveUpsertWithoutEmployeeInput
+    disconnect?: EmployeeSensitiveWhereInput | boolean
+    delete?: EmployeeSensitiveWhereInput | boolean
+    connect?: EmployeeSensitiveWhereUniqueInput
+    update?: XOR<XOR<EmployeeSensitiveUpdateToOneWithWhereWithoutEmployeeInput, EmployeeSensitiveUpdateWithoutEmployeeInput>, EmployeeSensitiveUncheckedUpdateWithoutEmployeeInput>
+  }
+
   export type EmployeeCompensationUncheckedUpdateManyWithoutEmployeeNestedInput = {
     create?: XOR<EmployeeCompensationCreateWithoutEmployeeInput, EmployeeCompensationUncheckedCreateWithoutEmployeeInput> | EmployeeCompensationCreateWithoutEmployeeInput[] | EmployeeCompensationUncheckedCreateWithoutEmployeeInput[]
     connectOrCreate?: EmployeeCompensationCreateOrConnectWithoutEmployeeInput | EmployeeCompensationCreateOrConnectWithoutEmployeeInput[]
@@ -25740,6 +27096,20 @@ export namespace Prisma {
     deleteMany?: PayrollDraftScalarWhereInput | PayrollDraftScalarWhereInput[]
   }
 
+  export type EmployeeCreateNestedOneWithoutSensitiveInput = {
+    create?: XOR<EmployeeCreateWithoutSensitiveInput, EmployeeUncheckedCreateWithoutSensitiveInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutSensitiveInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
+  export type EmployeeUpdateOneRequiredWithoutSensitiveNestedInput = {
+    create?: XOR<EmployeeCreateWithoutSensitiveInput, EmployeeUncheckedCreateWithoutSensitiveInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutSensitiveInput
+    upsert?: EmployeeUpsertWithoutSensitiveInput
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutSensitiveInput, EmployeeUpdateWithoutSensitiveInput>, EmployeeUncheckedUpdateWithoutSensitiveInput>
+  }
+
   export type EmployeeCreateNestedOneWithoutCompensationsInput = {
     create?: XOR<EmployeeCreateWithoutCompensationsInput, EmployeeUncheckedCreateWithoutCompensationsInput>
     connectOrCreate?: EmployeeCreateOrConnectWithoutCompensationsInput
@@ -25786,10 +27156,6 @@ export namespace Prisma {
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type EmployeeUpdateOneRequiredWithoutCompensationsNestedInput = {
@@ -27038,6 +28404,20 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -27110,18 +28490,7 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -27132,7 +28501,32 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -27149,34 +28543,6 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedDecimalFilter<$PrismaModel = never> = {
@@ -27305,6 +28671,25 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTaxTypeFilter<$PrismaModel>
     _max?: NestedEnumTaxTypeFilter<$PrismaModel>
+  }
+
+  export type EmployeeSensitiveCreateWithoutEmployeeInput = {
+    uuid?: string
+    ssnEnc?: string | null
+    ssnIv?: string | null
+    ssnTag?: string | null
+  }
+
+  export type EmployeeSensitiveUncheckedCreateWithoutEmployeeInput = {
+    uuid?: string
+    ssnEnc?: string | null
+    ssnIv?: string | null
+    ssnTag?: string | null
+  }
+
+  export type EmployeeSensitiveCreateOrConnectWithoutEmployeeInput = {
+    where: EmployeeSensitiveWhereUniqueInput
+    create: XOR<EmployeeSensitiveCreateWithoutEmployeeInput, EmployeeSensitiveUncheckedCreateWithoutEmployeeInput>
   }
 
   export type OrganizationCreateWithoutEmployeesInput = {
@@ -27475,6 +28860,31 @@ export namespace Prisma {
     create: XOR<PayrollDraftCreateWithoutEmployeesInput, PayrollDraftUncheckedCreateWithoutEmployeesInput>
   }
 
+  export type EmployeeSensitiveUpsertWithoutEmployeeInput = {
+    update: XOR<EmployeeSensitiveUpdateWithoutEmployeeInput, EmployeeSensitiveUncheckedUpdateWithoutEmployeeInput>
+    create: XOR<EmployeeSensitiveCreateWithoutEmployeeInput, EmployeeSensitiveUncheckedCreateWithoutEmployeeInput>
+    where?: EmployeeSensitiveWhereInput
+  }
+
+  export type EmployeeSensitiveUpdateToOneWithWhereWithoutEmployeeInput = {
+    where?: EmployeeSensitiveWhereInput
+    data: XOR<EmployeeSensitiveUpdateWithoutEmployeeInput, EmployeeSensitiveUncheckedUpdateWithoutEmployeeInput>
+  }
+
+  export type EmployeeSensitiveUpdateWithoutEmployeeInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    ssnEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    ssnIv?: NullableStringFieldUpdateOperationsInput | string | null
+    ssnTag?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EmployeeSensitiveUncheckedUpdateWithoutEmployeeInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    ssnEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    ssnIv?: NullableStringFieldUpdateOperationsInput | string | null
+    ssnTag?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type OrganizationUpsertWithoutEmployeesInput = {
     update: XOR<OrganizationUpdateWithoutEmployeesInput, OrganizationUncheckedUpdateWithoutEmployeesInput>
     create: XOR<OrganizationCreateWithoutEmployeesInput, OrganizationUncheckedCreateWithoutEmployeesInput>
@@ -27636,6 +29046,106 @@ export namespace Prisma {
     periodPaydate?: DateTimeFilter<"PayrollDraft"> | Date | string
   }
 
+  export type EmployeeCreateWithoutSensitiveInput = {
+    uuid?: string
+    firstName?: string
+    middleName?: string
+    lastName?: string
+    notes?: string
+    address?: string
+    email?: string
+    phoneNumber?: string
+    filingStatus?: $Enums.FilingTypes
+    dependants?: number
+    residence?: $Enums.AvaliableStates
+    isDeleted?: boolean
+    employeeSensitiveUuid?: string | null
+    organization: OrganizationCreateNestedOneWithoutEmployeesInput
+    compensations?: EmployeeCompensationCreateNestedManyWithoutEmployeeInput
+    payStubs?: PayStubCreateNestedManyWithoutEmployeeInput
+    defaultPayrollItems?: PayrollItemCreateNestedManyWithoutEmployeeInput
+    payrollDrafts?: PayrollDraftCreateNestedManyWithoutEmployeesInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutSensitiveInput = {
+    uuid?: string
+    firstName?: string
+    middleName?: string
+    lastName?: string
+    notes?: string
+    address?: string
+    email?: string
+    phoneNumber?: string
+    filingStatus?: $Enums.FilingTypes
+    dependants?: number
+    residence?: $Enums.AvaliableStates
+    isDeleted?: boolean
+    organizationId: string
+    employeeSensitiveUuid?: string | null
+    compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutEmployeeInput
+    payStubs?: PayStubUncheckedCreateNestedManyWithoutEmployeeInput
+    defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
+    payrollDrafts?: PayrollDraftUncheckedCreateNestedManyWithoutEmployeesInput
+  }
+
+  export type EmployeeCreateOrConnectWithoutSensitiveInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutSensitiveInput, EmployeeUncheckedCreateWithoutSensitiveInput>
+  }
+
+  export type EmployeeUpsertWithoutSensitiveInput = {
+    update: XOR<EmployeeUpdateWithoutSensitiveInput, EmployeeUncheckedUpdateWithoutSensitiveInput>
+    create: XOR<EmployeeCreateWithoutSensitiveInput, EmployeeUncheckedCreateWithoutSensitiveInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutSensitiveInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutSensitiveInput, EmployeeUncheckedUpdateWithoutSensitiveInput>
+  }
+
+  export type EmployeeUpdateWithoutSensitiveInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    notes?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
+    dependants?: IntFieldUpdateOperationsInput | number
+    residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: OrganizationUpdateOneRequiredWithoutEmployeesNestedInput
+    compensations?: EmployeeCompensationUpdateManyWithoutEmployeeNestedInput
+    payStubs?: PayStubUpdateManyWithoutEmployeeNestedInput
+    defaultPayrollItems?: PayrollItemUpdateManyWithoutEmployeeNestedInput
+    payrollDrafts?: PayrollDraftUpdateManyWithoutEmployeesNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutSensitiveInput = {
+    uuid?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    notes?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
+    dependants?: IntFieldUpdateOperationsInput | number
+    residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    organizationId?: StringFieldUpdateOperationsInput | string
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    compensations?: EmployeeCompensationUncheckedUpdateManyWithoutEmployeeNestedInput
+    payStubs?: PayStubUncheckedUpdateManyWithoutEmployeeNestedInput
+    defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
+    payrollDrafts?: PayrollDraftUncheckedUpdateManyWithoutEmployeesNestedInput
+  }
+
   export type EmployeeCreateWithoutCompensationsInput = {
     uuid?: string
     firstName?: string
@@ -27645,11 +29155,12 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
+    employeeSensitiveUuid?: string | null
+    sensitive?: EmployeeSensitiveCreateNestedOneWithoutEmployeeInput
     organization: OrganizationCreateNestedOneWithoutEmployeesInput
     payStubs?: PayStubCreateNestedManyWithoutEmployeeInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutEmployeeInput
@@ -27665,12 +29176,13 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
     organizationId: string
+    employeeSensitiveUuid?: string | null
+    sensitive?: EmployeeSensitiveUncheckedCreateNestedOneWithoutEmployeeInput
     payStubs?: PayStubUncheckedCreateNestedManyWithoutEmployeeInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
     payrollDrafts?: PayrollDraftUncheckedCreateNestedManyWithoutEmployeesInput
@@ -27794,11 +29306,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    sensitive?: EmployeeSensitiveUpdateOneWithoutEmployeeNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutEmployeesNestedInput
     payStubs?: PayStubUpdateManyWithoutEmployeeNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutEmployeeNestedInput
@@ -27814,12 +29327,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: StringFieldUpdateOperationsInput | string
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    sensitive?: EmployeeSensitiveUncheckedUpdateOneWithoutEmployeeNestedInput
     payStubs?: PayStubUncheckedUpdateManyWithoutEmployeeNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollDrafts?: PayrollDraftUncheckedUpdateManyWithoutEmployeesNestedInput
@@ -28041,11 +29555,12 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
+    employeeSensitiveUuid?: string | null
+    sensitive?: EmployeeSensitiveCreateNestedOneWithoutEmployeeInput
     compensations?: EmployeeCompensationCreateNestedManyWithoutEmployeeInput
     payStubs?: PayStubCreateNestedManyWithoutEmployeeInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutEmployeeInput
@@ -28061,11 +29576,12 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
+    employeeSensitiveUuid?: string | null
+    sensitive?: EmployeeSensitiveUncheckedCreateNestedOneWithoutEmployeeInput
     compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutEmployeeInput
     payStubs?: PayStubUncheckedCreateNestedManyWithoutEmployeeInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
@@ -28262,12 +29778,12 @@ export namespace Prisma {
     address?: StringFilter<"Employee"> | string
     email?: StringFilter<"Employee"> | string
     phoneNumber?: StringFilter<"Employee"> | string
-    ssn?: StringFilter<"Employee"> | string
     filingStatus?: EnumFilingTypesFilter<"Employee"> | $Enums.FilingTypes
     dependants?: IntFilter<"Employee"> | number
     residence?: EnumAvaliableStatesFilter<"Employee"> | $Enums.AvaliableStates
     isDeleted?: BoolFilter<"Employee"> | boolean
     organizationId?: StringFilter<"Employee"> | string
+    employeeSensitiveUuid?: StringNullableFilter<"Employee"> | string | null
   }
 
   export type PayrollGroupUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -28634,11 +30150,12 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
+    employeeSensitiveUuid?: string | null
+    sensitive?: EmployeeSensitiveCreateNestedOneWithoutEmployeeInput
     organization: OrganizationCreateNestedOneWithoutEmployeesInput
     compensations?: EmployeeCompensationCreateNestedManyWithoutEmployeeInput
     payStubs?: PayStubCreateNestedManyWithoutEmployeeInput
@@ -28654,12 +30171,13 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
     organizationId: string
+    employeeSensitiveUuid?: string | null
+    sensitive?: EmployeeSensitiveUncheckedCreateNestedOneWithoutEmployeeInput
     compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutEmployeeInput
     payStubs?: PayStubUncheckedCreateNestedManyWithoutEmployeeInput
     payrollDrafts?: PayrollDraftUncheckedCreateNestedManyWithoutEmployeesInput
@@ -28800,11 +30318,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    sensitive?: EmployeeSensitiveUpdateOneWithoutEmployeeNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutEmployeesNestedInput
     compensations?: EmployeeCompensationUpdateManyWithoutEmployeeNestedInput
     payStubs?: PayStubUpdateManyWithoutEmployeeNestedInput
@@ -28820,12 +30339,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: StringFieldUpdateOperationsInput | string
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    sensitive?: EmployeeSensitiveUncheckedUpdateOneWithoutEmployeeNestedInput
     compensations?: EmployeeCompensationUncheckedUpdateManyWithoutEmployeeNestedInput
     payStubs?: PayStubUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollDrafts?: PayrollDraftUncheckedUpdateManyWithoutEmployeesNestedInput
@@ -28906,11 +30426,12 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
+    employeeSensitiveUuid?: string | null
+    sensitive?: EmployeeSensitiveCreateNestedOneWithoutEmployeeInput
     organization: OrganizationCreateNestedOneWithoutEmployeesInput
     compensations?: EmployeeCompensationCreateNestedManyWithoutEmployeeInput
     payStubs?: PayStubCreateNestedManyWithoutEmployeeInput
@@ -28926,12 +30447,13 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
     organizationId: string
+    employeeSensitiveUuid?: string | null
+    sensitive?: EmployeeSensitiveUncheckedCreateNestedOneWithoutEmployeeInput
     compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutEmployeeInput
     payStubs?: PayStubUncheckedCreateNestedManyWithoutEmployeeInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
@@ -29087,11 +30609,12 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
+    employeeSensitiveUuid?: string | null
+    sensitive?: EmployeeSensitiveCreateNestedOneWithoutEmployeeInput
     organization: OrganizationCreateNestedOneWithoutEmployeesInput
     compensations?: EmployeeCompensationCreateNestedManyWithoutEmployeeInput
     defaultPayrollItems?: PayrollItemCreateNestedManyWithoutEmployeeInput
@@ -29107,12 +30630,13 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
     organizationId: string
+    employeeSensitiveUuid?: string | null
+    sensitive?: EmployeeSensitiveUncheckedCreateNestedOneWithoutEmployeeInput
     compensations?: EmployeeCompensationUncheckedCreateNestedManyWithoutEmployeeInput
     defaultPayrollItems?: PayrollItemUncheckedCreateNestedManyWithoutEmployeeInput
     payrollDrafts?: PayrollDraftUncheckedCreateNestedManyWithoutEmployeesInput
@@ -29210,11 +30734,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    sensitive?: EmployeeSensitiveUpdateOneWithoutEmployeeNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutEmployeesNestedInput
     compensations?: EmployeeCompensationUpdateManyWithoutEmployeeNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutEmployeeNestedInput
@@ -29230,12 +30755,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: StringFieldUpdateOperationsInput | string
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    sensitive?: EmployeeSensitiveUncheckedUpdateOneWithoutEmployeeNestedInput
     compensations?: EmployeeCompensationUncheckedUpdateManyWithoutEmployeeNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
     payrollDrafts?: PayrollDraftUncheckedUpdateManyWithoutEmployeesNestedInput
@@ -30651,11 +32177,11 @@ export namespace Prisma {
     address?: string
     email?: string
     phoneNumber?: string
-    ssn?: string
     filingStatus?: $Enums.FilingTypes
     dependants?: number
     residence?: $Enums.AvaliableStates
     isDeleted?: boolean
+    employeeSensitiveUuid?: string | null
   }
 
   export type PayrollGroupCreateManyOrganizationInput = {
@@ -30713,11 +32239,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    sensitive?: EmployeeSensitiveUpdateOneWithoutEmployeeNestedInput
     compensations?: EmployeeCompensationUpdateManyWithoutEmployeeNestedInput
     payStubs?: PayStubUpdateManyWithoutEmployeeNestedInput
     defaultPayrollItems?: PayrollItemUpdateManyWithoutEmployeeNestedInput
@@ -30733,11 +32260,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    sensitive?: EmployeeSensitiveUncheckedUpdateOneWithoutEmployeeNestedInput
     compensations?: EmployeeCompensationUncheckedUpdateManyWithoutEmployeeNestedInput
     payStubs?: PayStubUncheckedUpdateManyWithoutEmployeeNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -30753,11 +32281,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PayrollGroupUpdateWithoutOrganizationInput = {
@@ -31082,11 +32610,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    sensitive?: EmployeeSensitiveUpdateOneWithoutEmployeeNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutEmployeesNestedInput
     compensations?: EmployeeCompensationUpdateManyWithoutEmployeeNestedInput
     payStubs?: PayStubUpdateManyWithoutEmployeeNestedInput
@@ -31102,12 +32631,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: StringFieldUpdateOperationsInput | string
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    sensitive?: EmployeeSensitiveUncheckedUpdateOneWithoutEmployeeNestedInput
     compensations?: EmployeeCompensationUncheckedUpdateManyWithoutEmployeeNestedInput
     payStubs?: PayStubUncheckedUpdateManyWithoutEmployeeNestedInput
     defaultPayrollItems?: PayrollItemUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -31122,12 +32652,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
     filingStatus?: EnumFilingTypesFieldUpdateOperationsInput | $Enums.FilingTypes
     dependants?: IntFieldUpdateOperationsInput | number
     residence?: EnumAvaliableStatesFieldUpdateOperationsInput | $Enums.AvaliableStates
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     organizationId?: StringFieldUpdateOperationsInput | string
+    employeeSensitiveUuid?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PayStubUpdateWithoutRelatedPayrollDraftInput = {

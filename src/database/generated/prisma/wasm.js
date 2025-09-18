@@ -5,13 +5,28 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 
 const {
+  PrismaClientKnownRequestError,
+  PrismaClientUnknownRequestError,
+  PrismaClientRustPanicError,
+  PrismaClientInitializationError,
+  PrismaClientValidationError,
+  getPrismaClient,
+  sqltag,
+  empty,
+  join,
+  raw,
+  skip,
   Decimal,
+  Debug,
   objectEnumValues,
   makeStrictEnum,
+  Extensions,
+  warnOnce,
+  defineDmmfProperty,
   Public,
   getRuntime,
-  skip
-} = require('./runtime/index-browser.js')
+  createParam,
+} = require('./runtime/wasm-engine-edge.js')
 
 
 const Prisma = {}
@@ -20,79 +35,35 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.9.0
- * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
+ * Prisma Client JS version: 6.16.2
+ * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
  */
 Prisma.prismaVersion = {
-  client: "6.9.0",
-  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
+  client: "6.16.2",
+  engine: "1c57fdcd7e44b29b9313256c76699e91c3ac3c43"
 }
 
-Prisma.PrismaClientKnownRequestError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientKnownRequestError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)};
-Prisma.PrismaClientUnknownRequestError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientUnknownRequestError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.PrismaClientRustPanicError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientRustPanicError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.PrismaClientInitializationError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientInitializationError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.PrismaClientValidationError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientValidationError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
+Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
+Prisma.PrismaClientUnknownRequestError = PrismaClientUnknownRequestError
+Prisma.PrismaClientRustPanicError = PrismaClientRustPanicError
+Prisma.PrismaClientInitializationError = PrismaClientInitializationError
+Prisma.PrismaClientValidationError = PrismaClientValidationError
 Prisma.Decimal = Decimal
 
 /**
  * Re-export of sql-template-tag
  */
-Prisma.sql = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`sqltag is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.empty = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`empty is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.join = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`join is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.raw = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`raw is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
+Prisma.sql = sqltag
+Prisma.empty = empty
+Prisma.join = join
+Prisma.raw = raw
 Prisma.validator = Public.validator
 
 /**
 * Extensions
 */
-Prisma.getExtensionContext = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`Extensions.getExtensionContext is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.defineExtension = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`Extensions.defineExtension is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
+Prisma.getExtensionContext = Extensions.getExtensionContext
+Prisma.defineExtension = Extensions.defineExtension
 
 /**
  * Shorthand utilities for JSON filtering
@@ -109,10 +80,11 @@ Prisma.NullTypes = {
 
 
 
+
+
 /**
  * Enums
  */
-
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
   ReadCommitted: 'ReadCommitted',
@@ -129,12 +101,20 @@ exports.Prisma.EmployeeScalarFieldEnum = {
   address: 'address',
   email: 'email',
   phoneNumber: 'phoneNumber',
-  ssn: 'ssn',
   filingStatus: 'filingStatus',
   dependants: 'dependants',
   residence: 'residence',
   isDeleted: 'isDeleted',
-  organizationId: 'organizationId'
+  organizationId: 'organizationId',
+  employeeSensitiveUuid: 'employeeSensitiveUuid'
+};
+
+exports.Prisma.EmployeeSensitiveScalarFieldEnum = {
+  uuid: 'uuid',
+  employeeId: 'employeeId',
+  ssnEnc: 'ssnEnc',
+  ssnIv: 'ssnIv',
+  ssnTag: 'ssnTag'
 };
 
 exports.Prisma.EmployeeCompensationScalarFieldEnum = {
@@ -305,6 +285,18 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.AbsMaxPeriodTypes = exports.$Enums.AbsMaxPeriodTypes = {
+  None: 'None',
+  Month: 'Month',
+  Year: 'Year'
+};
+
+exports.PayStubItemType = exports.$Enums.PayStubItemType = {
+  Earning: 'Earning',
+  Tax: 'Tax',
+  Other: 'Other'
+};
+
 exports.FilingTypes = exports.$Enums.FilingTypes = {
   Single: 'Single',
   Joint: 'Joint'
@@ -315,18 +307,6 @@ exports.AvaliableStates = exports.$Enums.AvaliableStates = {
   Utah: 'Utah'
 };
 
-exports.PayStubItemType = exports.$Enums.PayStubItemType = {
-  Earning: 'Earning',
-  Tax: 'Tax',
-  Other: 'Other'
-};
-
-exports.AbsMaxPeriodTypes = exports.$Enums.AbsMaxPeriodTypes = {
-  None: 'None',
-  Month: 'Month',
-  Year: 'Year'
-};
-
 exports.TaxType = exports.$Enums.TaxType = {
   FlatRate: 'FlatRate',
   FlatAmmount: 'FlatAmmount',
@@ -335,6 +315,7 @@ exports.TaxType = exports.$Enums.TaxType = {
 
 exports.Prisma.ModelName = {
   Employee: 'Employee',
+  EmployeeSensitive: 'EmployeeSensitive',
   EmployeeCompensation: 'EmployeeCompensation',
   HourlyRate: 'HourlyRate',
   Organization: 'Organization',
@@ -351,34 +332,87 @@ exports.Prisma.ModelName = {
   InviteCode: 'InviteCode',
   Membership: 'Membership'
 };
-
 /**
- * This is a stub Prisma Client that will error at runtime if called.
+ * Create the Client
  */
-class PrismaClient {
-  constructor() {
-    return new Proxy(this, {
-      get(target, prop) {
-        let message
-        const runtime = getRuntime()
-        if (runtime.isEdge) {
-          message = `PrismaClient is not configured to run in ${runtime.prettyName}. In order to run Prisma Client on edge runtime, either:
-- Use Prisma Accelerate: https://pris.ly/d/accelerate
-- Use Driver Adapters: https://pris.ly/d/driver-adapters
-`;
-        } else {
-          message = 'PrismaClient is unable to run in this browser environment, or has been bundled for the browser (running in `' + runtime.prettyName + '`).'
-        }
-
-        message += `
-If this is unexpected, please open an issue: https://pris.ly/prisma-prisma-bug-report`
-
-        throw new Error(message)
+const config = {
+  "generator": {
+    "name": "client",
+    "provider": {
+      "fromEnvVar": null,
+      "value": "prisma-client-js"
+    },
+    "output": {
+      "value": "/Users/haydensteele/GitRepos/BigBooks/src/database/generated/prisma",
+      "fromEnvVar": null
+    },
+    "config": {
+      "engineType": "library"
+    },
+    "binaryTargets": [
+      {
+        "fromEnvVar": null,
+        "value": "darwin-arm64",
+        "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
-    })
+    ],
+    "previewFeatures": [],
+    "sourceFilePath": "/Users/haydensteele/GitRepos/BigBooks/prisma/schema.prisma",
+    "isCustomOutput": true
+  },
+  "relativeEnvPaths": {
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../../.env"
+  },
+  "relativePath": "../../../../prisma",
+  "clientVersion": "6.16.2",
+  "engineVersion": "1c57fdcd7e44b29b9313256c76699e91c3ac3c43",
+  "datasourceNames": [
+    "db"
+  ],
+  "activeProvider": "postgresql",
+  "postinstall": false,
+  "inlineDatasources": {
+    "db": {
+      "url": {
+        "fromEnvVar": "DATABASE_URL",
+        "value": null
+      }
+    }
+  },
+  "inlineSchema": "model Employee {\n  uuid        String @id @unique @default(uuid())\n  firstName   String @default(\"\")\n  middleName  String @default(\"\")\n  lastName    String @default(\"\")\n  notes       String @default(\"\")\n  address     String @default(\"\")\n  email       String @default(\"\")\n  phoneNumber String @default(\"\")\n\n  sensitive EmployeeSensitive?\n\n  filingStatus FilingTypes     @default(Single)\n  dependants   Int             @default(0)\n  residence    AvaliableStates @default(Other)\n\n  isDeleted Boolean @default(false)\n\n  organization   Organization @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)\n  organizationId String\n\n  compensations EmployeeCompensation[]\n  payStubs      PayStub[]\n\n  defaultPayrollItems PayrollItem[]\n\n  payrollDrafts         PayrollDraft[]\n  employeeSensitiveUuid String?\n}\n\nmodel EmployeeSensitive {\n  uuid String @id @unique @default(uuid())\n\n  employee   Employee @relation(fields: [employeeId], references: [uuid])\n  employeeId String   @unique\n\n  ssnEnc String?\n  ssnIv  String?\n  ssnTag String?\n}\n\nmodel EmployeeCompensation {\n  uuid       String   @id @default(uuid())\n  employee   Employee @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)\n  employeeId String\n\n  payrollGroup   PayrollGroup @relation(fields: [payrollGroupId], references: [uuid], onDelete: Cascade)\n  payrollGroupId String\n\n  isSalary     Boolean      @default(true)\n  salaryAmount Decimal?\n  hourlyRates  HourlyRate[]\n\n  description String?\n\n  paystubItems PayStubItem[]\n\n  @@unique([employeeId, payrollGroupId]) // no duplicate “employee‐group” rows\n}\n\nmodel HourlyRate {\n  uuid String @id @unique @default(uuid())\n\n  name        String\n  rate        Decimal\n  canOvertime Boolean\n\n  compensation   EmployeeCompensation @relation(fields: [compensationId], references: [uuid], onDelete: Cascade)\n  compensationId String\n\n  paystubItems PayStubItem[]\n}\n\nmodel Organization {\n  uuid      String  @id @unique @default(uuid())\n  name      String\n  notes     String  @default(\"\")\n  address   String  @default(\"\")\n  isDeleted Boolean @default(false)\n\n  employees     Employee[]\n  payrollGroups PayrollGroup[]\n\n  inviteCodes InviteCode[]\n  memberships Membership[]\n\n  defaultPayrollItems PayrollItem[]\n\n  orgTaxes Tax[]\n}\n\nmodel PayrollGroup {\n  uuid        String @id @unique @default(uuid())\n  name        String\n  description String\n\n  payFrequency  Int      @default(14) // e.g. days\n  payRefDate    DateTime @default(now())\n  periodRefDate DateTime @default(now())\n\n  organization   Organization @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)\n  organizationId String\n\n  compensations EmployeeCompensation[]\n\n  defaultPayrollItems PayrollItem[]\n}\n\nenum AbsMaxPeriodTypes {\n  None\n  Month\n  Year\n}\n\nmodel PayrollItem {\n  uuid String @id @default(uuid())\n\n  organization   Organization? @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)\n  organizationId String?\n  payrollGroup   PayrollGroup? @relation(fields: [payrollGroupId], references: [uuid], onDelete: Cascade)\n  payrollGroupId String?\n  employee       Employee?     @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)\n  employeeId     String?\n\n  type        PayStubItemType\n  name        String\n  description String?\n\n  percent Decimal?\n  amount  Decimal\n\n  absMaxPeriod AbsMaxPeriodTypes @default(None)\n  absMax       Decimal           @default(0)\n\n  PayStubItem PayStubItem[]\n}\n\nmodel PayrollDraft {\n  uuid String @id @unique @default(uuid())\n\n  membership          Membership  @relation(fields: [membershipId], references: [uuid], onDelete: Cascade)\n  membershipId        String\n  activeForMembership Membership? @relation(\"ActiveDraft\")\n\n  startedDate DateTime @default(now())\n\n  periodStart   DateTime\n  periodEnd     DateTime\n  periodPaydate DateTime\n\n  employees Employee[]\n  paystubs  PayStub[]\n}\n\nmodel PayStub {\n  uuid        String   @id @unique @default(uuid())\n  payDate     DateTime\n  periodStart DateTime\n  periodEnd   DateTime\n\n  locked        Boolean   @default(false)\n  lockedTime    DateTime?\n  submittedTime DateTime?\n\n  // Totals or summaries (computed at generation time)\n  grossEarnings Decimal @default(0)\n  totalTaxes    Decimal @default(0)\n  totalExtras   Decimal @default(0)\n  netPay        Decimal @default(0)\n\n  employee   Employee @relation(fields: [employeeId], references: [uuid], onDelete: Cascade)\n  employeeId String\n\n  // Children:\n  items PayStubItem[]\n\n  relatedPayrollDraft   PayrollDraft? @relation(fields: [relatedPayrollDraftId], references: [uuid], onDelete: SetNull)\n  relatedPayrollDraftId String?\n}\n\nenum PayStubItemType {\n  Earning\n  Tax\n  Other\n}\n\nmodel PayStubItem {\n  uuid String @id @default(uuid())\n\n  payStub   PayStub @relation(fields: [payStubId], references: [uuid], onDelete: Cascade)\n  payStubId String\n\n  payrollItem   PayrollItem? @relation(fields: [payrollItemId], references: [uuid], onDelete: SetNull)\n  payrollItemId String?\n\n  compensation   EmployeeCompensation? @relation(fields: [compensationId], references: [uuid], onDelete: SetNull)\n  compensationId String?\n\n  hourlyRate   HourlyRate? @relation(fields: [hourlyRateId], references: [uuid], onDelete: SetNull)\n  hourlyRateId String?\n\n  tax   TaxSnapshot? @relation(fields: [taxID], references: [uuid], onDelete: SetNull)\n  taxID String?\n\n  type        PayStubItemType\n  name        String\n  description String?\n\n  hours   Decimal?\n  rate    Decimal?\n  percent Decimal?\n  amount  Decimal\n}\n\nenum FilingTypes {\n  Single\n  Joint\n}\n\nenum AvaliableStates {\n  Other\n  Utah\n}\n\nenum TaxType {\n  FlatRate\n  FlatAmmount\n  ProgressiveRate\n}\n\nmodel Tax {\n  uuid               String  @id @unique @default(uuid())\n  sysAdminControlled Boolean @default(false)\n\n  organization   Organization? @relation(fields: [organizationID], references: [uuid], onDelete: Cascade)\n  organizationID String?\n\n  name        String\n  description String?\n  state       AvaliableStates @default(Other)\n\n  archived Boolean @default(false)\n\n  snapshots TaxSnapshot[]\n}\n\nmodel TaxSnapshot {\n  uuid  String @id @unique @default(uuid())\n  tax   Tax    @relation(fields: [taxId], references: [uuid], onDelete: Cascade)\n  taxId String\n\n  effectiveThrough DateTime\n  supportsJoint    Boolean  @default(false)\n  taxType          TaxType  @default(ProgressiveRate)\n\n  description String?\n  brackets    TaxBracket[]\n\n  paystubItems PayStubItem[]\n}\n\nmodel TaxBracket {\n  uuid          String      @id @unique @default(uuid())\n  taxSnapshot   TaxSnapshot @relation(fields: [taxSnapshotId], references: [uuid], onDelete: Cascade)\n  taxSnapshotId String\n\n  min         Decimal @default(0)\n  hasMinBound Boolean\n  max         Decimal @default(0)\n  hasMaxBound Boolean\n\n  filingType FilingTypes @default(Single)\n\n  rate    Decimal @default(0)\n  ammount Decimal @default(0)\n}\n\nmodel User {\n  uuid     String  @id @unique @default(uuid())\n  isActive Boolean\n\n  firstName String\n  lastName  String\n\n  email String\n\n  username String @unique\n  passHash String @unique\n\n  memberships Membership[]\n\n  allocatedOrganizations Int @default(0)\n}\n\nmodel RegistrationCode {\n  uuid    String   @id @unique @default(uuid())\n  expires DateTime\n}\n\nmodel InviteCode {\n  uuid String @id @unique @default(uuid())\n\n  organization   Organization @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)\n  organizationId String\n\n  perms String[]\n\n  expires DateTime\n}\n\nmodel Membership {\n  uuid   String @id @default(uuid())\n  user   User   @relation(fields: [userId], references: [uuid], onDelete: Cascade)\n  userId String\n\n  organization   Organization @relation(fields: [organizationId], references: [uuid], onDelete: Cascade)\n  organizationId String\n\n  orgAdmin    Boolean  @default(false)\n  permissions String[]\n  joinedAt    DateTime @default(now())\n\n  payrollDrafts PayrollDraft[]\n  activeDraft   PayrollDraft?  @relation(\"ActiveDraft\", fields: [activeDraftId], references: [uuid])\n  activeDraftId String?        @unique\n\n  @@unique([userId, organizationId]) // Prevents duplicate entries\n}\n\n// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/database/generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n",
+  "inlineSchemaHash": "36ae4bb45afd7c99a973e73d0c44610e1b18c8f293938641c9d79199d6475c0b",
+  "copyEngine": true
+}
+config.dirname = '/'
+
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Employee\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"firstName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"middleName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"notes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"address\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phoneNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sensitive\",\"kind\":\"object\",\"type\":\"EmployeeSensitive\",\"relationName\":\"EmployeeToEmployeeSensitive\"},{\"name\":\"filingStatus\",\"kind\":\"enum\",\"type\":\"FilingTypes\"},{\"name\":\"dependants\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"residence\",\"kind\":\"enum\",\"type\":\"AvaliableStates\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"organization\",\"kind\":\"object\",\"type\":\"Organization\",\"relationName\":\"EmployeeToOrganization\"},{\"name\":\"organizationId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"compensations\",\"kind\":\"object\",\"type\":\"EmployeeCompensation\",\"relationName\":\"EmployeeToEmployeeCompensation\"},{\"name\":\"payStubs\",\"kind\":\"object\",\"type\":\"PayStub\",\"relationName\":\"EmployeeToPayStub\"},{\"name\":\"defaultPayrollItems\",\"kind\":\"object\",\"type\":\"PayrollItem\",\"relationName\":\"EmployeeToPayrollItem\"},{\"name\":\"payrollDrafts\",\"kind\":\"object\",\"type\":\"PayrollDraft\",\"relationName\":\"EmployeeToPayrollDraft\"},{\"name\":\"employeeSensitiveUuid\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"EmployeeSensitive\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"employee\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"EmployeeToEmployeeSensitive\"},{\"name\":\"employeeId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ssnEnc\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ssnIv\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ssnTag\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"EmployeeCompensation\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"employee\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"EmployeeToEmployeeCompensation\"},{\"name\":\"employeeId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"payrollGroup\",\"kind\":\"object\",\"type\":\"PayrollGroup\",\"relationName\":\"EmployeeCompensationToPayrollGroup\"},{\"name\":\"payrollGroupId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isSalary\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"salaryAmount\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"hourlyRates\",\"kind\":\"object\",\"type\":\"HourlyRate\",\"relationName\":\"EmployeeCompensationToHourlyRate\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"paystubItems\",\"kind\":\"object\",\"type\":\"PayStubItem\",\"relationName\":\"EmployeeCompensationToPayStubItem\"}],\"dbName\":null},\"HourlyRate\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rate\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"canOvertime\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"compensation\",\"kind\":\"object\",\"type\":\"EmployeeCompensation\",\"relationName\":\"EmployeeCompensationToHourlyRate\"},{\"name\":\"compensationId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"paystubItems\",\"kind\":\"object\",\"type\":\"PayStubItem\",\"relationName\":\"HourlyRateToPayStubItem\"}],\"dbName\":null},\"Organization\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"notes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"address\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"employees\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"EmployeeToOrganization\"},{\"name\":\"payrollGroups\",\"kind\":\"object\",\"type\":\"PayrollGroup\",\"relationName\":\"OrganizationToPayrollGroup\"},{\"name\":\"inviteCodes\",\"kind\":\"object\",\"type\":\"InviteCode\",\"relationName\":\"InviteCodeToOrganization\"},{\"name\":\"memberships\",\"kind\":\"object\",\"type\":\"Membership\",\"relationName\":\"MembershipToOrganization\"},{\"name\":\"defaultPayrollItems\",\"kind\":\"object\",\"type\":\"PayrollItem\",\"relationName\":\"OrganizationToPayrollItem\"},{\"name\":\"orgTaxes\",\"kind\":\"object\",\"type\":\"Tax\",\"relationName\":\"OrganizationToTax\"}],\"dbName\":null},\"PayrollGroup\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"payFrequency\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"payRefDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"periodRefDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"organization\",\"kind\":\"object\",\"type\":\"Organization\",\"relationName\":\"OrganizationToPayrollGroup\"},{\"name\":\"organizationId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"compensations\",\"kind\":\"object\",\"type\":\"EmployeeCompensation\",\"relationName\":\"EmployeeCompensationToPayrollGroup\"},{\"name\":\"defaultPayrollItems\",\"kind\":\"object\",\"type\":\"PayrollItem\",\"relationName\":\"PayrollGroupToPayrollItem\"}],\"dbName\":null},\"PayrollItem\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"organization\",\"kind\":\"object\",\"type\":\"Organization\",\"relationName\":\"OrganizationToPayrollItem\"},{\"name\":\"organizationId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"payrollGroup\",\"kind\":\"object\",\"type\":\"PayrollGroup\",\"relationName\":\"PayrollGroupToPayrollItem\"},{\"name\":\"payrollGroupId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"employee\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"EmployeeToPayrollItem\"},{\"name\":\"employeeId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"PayStubItemType\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"percent\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"amount\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"absMaxPeriod\",\"kind\":\"enum\",\"type\":\"AbsMaxPeriodTypes\"},{\"name\":\"absMax\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"PayStubItem\",\"kind\":\"object\",\"type\":\"PayStubItem\",\"relationName\":\"PayStubItemToPayrollItem\"}],\"dbName\":null},\"PayrollDraft\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"membership\",\"kind\":\"object\",\"type\":\"Membership\",\"relationName\":\"MembershipToPayrollDraft\"},{\"name\":\"membershipId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"activeForMembership\",\"kind\":\"object\",\"type\":\"Membership\",\"relationName\":\"ActiveDraft\"},{\"name\":\"startedDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"periodStart\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"periodEnd\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"periodPaydate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"employees\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"EmployeeToPayrollDraft\"},{\"name\":\"paystubs\",\"kind\":\"object\",\"type\":\"PayStub\",\"relationName\":\"PayStubToPayrollDraft\"}],\"dbName\":null},\"PayStub\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"payDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"periodStart\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"periodEnd\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"locked\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"lockedTime\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"submittedTime\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"grossEarnings\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"totalTaxes\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"totalExtras\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"netPay\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"employee\",\"kind\":\"object\",\"type\":\"Employee\",\"relationName\":\"EmployeeToPayStub\"},{\"name\":\"employeeId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"items\",\"kind\":\"object\",\"type\":\"PayStubItem\",\"relationName\":\"PayStubToPayStubItem\"},{\"name\":\"relatedPayrollDraft\",\"kind\":\"object\",\"type\":\"PayrollDraft\",\"relationName\":\"PayStubToPayrollDraft\"},{\"name\":\"relatedPayrollDraftId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"PayStubItem\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"payStub\",\"kind\":\"object\",\"type\":\"PayStub\",\"relationName\":\"PayStubToPayStubItem\"},{\"name\":\"payStubId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"payrollItem\",\"kind\":\"object\",\"type\":\"PayrollItem\",\"relationName\":\"PayStubItemToPayrollItem\"},{\"name\":\"payrollItemId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"compensation\",\"kind\":\"object\",\"type\":\"EmployeeCompensation\",\"relationName\":\"EmployeeCompensationToPayStubItem\"},{\"name\":\"compensationId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"hourlyRate\",\"kind\":\"object\",\"type\":\"HourlyRate\",\"relationName\":\"HourlyRateToPayStubItem\"},{\"name\":\"hourlyRateId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tax\",\"kind\":\"object\",\"type\":\"TaxSnapshot\",\"relationName\":\"PayStubItemToTaxSnapshot\"},{\"name\":\"taxID\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"PayStubItemType\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"hours\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"rate\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"percent\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"amount\",\"kind\":\"scalar\",\"type\":\"Decimal\"}],\"dbName\":null},\"Tax\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sysAdminControlled\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"organization\",\"kind\":\"object\",\"type\":\"Organization\",\"relationName\":\"OrganizationToTax\"},{\"name\":\"organizationID\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"state\",\"kind\":\"enum\",\"type\":\"AvaliableStates\"},{\"name\":\"archived\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"snapshots\",\"kind\":\"object\",\"type\":\"TaxSnapshot\",\"relationName\":\"TaxToTaxSnapshot\"}],\"dbName\":null},\"TaxSnapshot\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tax\",\"kind\":\"object\",\"type\":\"Tax\",\"relationName\":\"TaxToTaxSnapshot\"},{\"name\":\"taxId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"effectiveThrough\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"supportsJoint\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"taxType\",\"kind\":\"enum\",\"type\":\"TaxType\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"brackets\",\"kind\":\"object\",\"type\":\"TaxBracket\",\"relationName\":\"TaxBracketToTaxSnapshot\"},{\"name\":\"paystubItems\",\"kind\":\"object\",\"type\":\"PayStubItem\",\"relationName\":\"PayStubItemToTaxSnapshot\"}],\"dbName\":null},\"TaxBracket\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"taxSnapshot\",\"kind\":\"object\",\"type\":\"TaxSnapshot\",\"relationName\":\"TaxBracketToTaxSnapshot\"},{\"name\":\"taxSnapshotId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"min\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"hasMinBound\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"max\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"hasMaxBound\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"filingType\",\"kind\":\"enum\",\"type\":\"FilingTypes\"},{\"name\":\"rate\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"ammount\",\"kind\":\"scalar\",\"type\":\"Decimal\"}],\"dbName\":null},\"User\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"firstName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"passHash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"memberships\",\"kind\":\"object\",\"type\":\"Membership\",\"relationName\":\"MembershipToUser\"},{\"name\":\"allocatedOrganizations\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"RegistrationCode\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"InviteCode\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"organization\",\"kind\":\"object\",\"type\":\"Organization\",\"relationName\":\"InviteCodeToOrganization\"},{\"name\":\"organizationId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"perms\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Membership\":{\"fields\":[{\"name\":\"uuid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"MembershipToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"organization\",\"kind\":\"object\",\"type\":\"Organization\",\"relationName\":\"MembershipToOrganization\"},{\"name\":\"organizationId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"orgAdmin\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"permissions\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"joinedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"payrollDrafts\",\"kind\":\"object\",\"type\":\"PayrollDraft\",\"relationName\":\"MembershipToPayrollDraft\"},{\"name\":\"activeDraft\",\"kind\":\"object\",\"type\":\"PayrollDraft\",\"relationName\":\"ActiveDraft\"},{\"name\":\"activeDraftId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
+config.engineWasm = {
+  getRuntime: async () => require('./query_engine_bg.js'),
+  getQueryEngineWasmModule: async () => {
+    const loader = (await import('#wasm-engine-loader')).default
+    const engine = (await loader).default
+    return engine
   }
 }
+config.compilerWasm = undefined
 
+config.injectableEdgeEnv = () => ({
+  parsed: {
+    DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.DATABASE_URL || undefined
+  }
+})
+
+if (typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined) {
+  Debug.enable(typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined)
+}
+
+const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
-
 Object.assign(exports, Prisma)
+

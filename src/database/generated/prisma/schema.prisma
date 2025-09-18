@@ -7,7 +7,8 @@ model Employee {
   address     String @default("")
   email       String @default("")
   phoneNumber String @default("")
-  ssn         String @default("")
+
+  sensitive EmployeeSensitive?
 
   filingStatus FilingTypes     @default(Single)
   dependants   Int             @default(0)
@@ -23,7 +24,19 @@ model Employee {
 
   defaultPayrollItems PayrollItem[]
 
-  payrollDrafts PayrollDraft[]
+  payrollDrafts         PayrollDraft[]
+  employeeSensitiveUuid String?
+}
+
+model EmployeeSensitive {
+  uuid String @id @unique @default(uuid())
+
+  employee   Employee @relation(fields: [employeeId], references: [uuid])
+  employeeId String   @unique
+
+  ssnEnc String?
+  ssnIv  String?
+  ssnTag String?
 }
 
 model EmployeeCompensation {

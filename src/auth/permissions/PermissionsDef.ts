@@ -59,6 +59,12 @@ const Perms = {
         items: {
             view,
             edit,
+        },
+        sensitive: {
+            ssn: {
+                view,
+                edit
+            }
         }
     },
     payroll: {
