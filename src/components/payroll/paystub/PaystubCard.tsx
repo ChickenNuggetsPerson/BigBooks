@@ -47,7 +47,7 @@ export function PaystubCard({
                 return
             }
 
-            const emp = await getEmployeeProps(st.employeeId, true)
+            const emp = await getEmployeeProps(st.employeeId)
             if (!emp) {
                 setLoading(false)
                 return

@@ -24,7 +24,6 @@ export default async function submitEmployeeForm(newEmployee: boolean, formData:
 
     const notes = formData.get("notes") as string
     const address = formData.get("address") as string
-    const ssn = formData.get("ssn") as string
 
     if (newEmployee) {
         try {
@@ -36,7 +35,6 @@ export default async function submitEmployeeForm(newEmployee: boolean, formData:
                     lastName: lastname,
                     notes: notes,
                     address: address,
-                    ssn: ssn,
                     email: email,
                     phoneNumber: phoneNumber,
                     isDeleted: false,
@@ -58,7 +56,6 @@ export default async function submitEmployeeForm(newEmployee: boolean, formData:
                     lastName: lastname,
                     notes: notes,
                     address: address,
-                    ssn: ssn,
                     email: email,
                     phoneNumber: phoneNumber
                 }

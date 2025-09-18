@@ -25,8 +25,8 @@ import setTaxArchive from "@/actions/taxes/setTaxArchive"
 import { CardProp } from "../Forms/CardProp"
 import CheckboxInput from "../Forms/CheckboxInput"
 import { percentToStr } from "@/utils/functions/PercentStr"
-import { StateOptions } from "@/utils/taxes/calcTaxRates"
 import SelectInput from "../Forms/SelectInput"
+import { StateOptions } from "@/utils/taxes/StateOptions"
 
 
 export type TaxWithSnapshots = Prisma.TaxGetPayload<{

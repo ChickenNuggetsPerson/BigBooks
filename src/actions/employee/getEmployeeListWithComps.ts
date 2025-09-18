@@ -25,10 +25,5 @@ export default async function getEmployeeListWithComps() {
         include: { compensations: true }
     })
 
-    // Strip SSNs from payload
-    for (let i = 0; i < list.length; i++) {
-        list[i].ssn = ""
-    }
-
     return serializeData(list)
 }

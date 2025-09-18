@@ -11,7 +11,7 @@ import { Employee, FilingTypes } from "@/database/generated/prisma";
 import TextInput from "../../Forms/TextInput";
 import toast from "react-hot-toast";
 import { notFound, useRouter } from "next/navigation";
-import { StateOptions } from "@/utils/taxes/calcTaxRates";
+import { StateOptions } from "@/utils/taxes/StateOptions";
 
 
 const FilingOptions = [
@@ -39,7 +39,7 @@ export default function EmployeeTaxForm({ empUUID }: EmployeeTaxFormProps) {
         setLoading(true)
         async function load() {
 
-            const employee = await getEmployeeProps(empUUID, false)
+            const employee = await getEmployeeProps(empUUID)
             if (employee) { // Employee exists
                 setProps(employee)
 

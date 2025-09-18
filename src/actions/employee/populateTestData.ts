@@ -42,7 +42,6 @@ export default async function populateTestData() {
                 lastName: faker.person.lastName(),
                 email: faker.internet.email(),
                 phoneNumber: faker.phone.number(),
-                ssn: faker.string.numeric(9),
                 organizationId: org.uuid,
             },
         })

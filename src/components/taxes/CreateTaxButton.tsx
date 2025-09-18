@@ -12,7 +12,7 @@ import { serializeData } from "@/utils/serialization"
 import { useRouter } from "next/navigation"
 import { useCompany } from "@/app/CompanyContext"
 import SelectInput from "../Forms/SelectInput"
-import { StateOptions } from "@/utils/taxes/calcTaxRates"
+import { StateOptions } from "@/utils/taxes/StateOptions"
 
 
 

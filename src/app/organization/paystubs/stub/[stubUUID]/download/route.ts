@@ -2,7 +2,6 @@ import { getSession } from "@/auth/auth";
 import { Permissions } from "@/auth/permissions/PermissionsDef";
 import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunctions";
 import { prisma } from "@/database/prisma";
-import { hideSSN } from "@/utils/functions/SSNStr";
 import { NextRequest, NextResponse } from "next/server"
 
 
@@ -23,8 +22,6 @@ export async function GET(
     } catch {
         return NextResponse.json({ error: "Insufficient Permissions" })
     }
-
-    paystub.employee.ssn = hideSSN(paystub.employee.ssn)
 
     return NextResponse.json({ message: "Work in progress page", data: paystub })
 }

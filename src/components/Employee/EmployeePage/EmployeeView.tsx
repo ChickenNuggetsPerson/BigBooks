@@ -33,7 +33,7 @@ export function EmployeeView_Loading() {
 
 export default async function EmployeeView({ empUUID }: { empUUID: string }) {
 
-    const employee = await getEmployeeProps(empUUID, true)
+    const employee = await getEmployeeProps(empUUID)
 
     if (!employee) {
         notFound()

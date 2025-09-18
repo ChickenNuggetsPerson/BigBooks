@@ -30,7 +30,7 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
         async function load() {
 
             if (!newEmployee) {
-                const employee = await getEmployeeProps(empUUID, false)
+                const employee = await getEmployeeProps(empUUID)
                 if (employee) { // Employee exists
                     setProps(employee)
                 } else {
@@ -111,7 +111,6 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
                 <TextInput id={"email"} label={"Email"} val={props.email} />
                 <TextInput id={"phoneNumber"} label={"Phone Number"} val={props.phoneNumber} mask={InputMasks.PHONE} />
                 <LargeTextInput id={"address"} label={"Address"} val={props.address} />
-                <TextInput id={"ssn"} label={"SSN"} val={props.ssn} mask={InputMasks.SSN} />
 
                 <TextInput id={"orgUUID"} label={"Org UUID"} val={context?.companyUUID ?? ""} disabled={true} />
                 <TextInput id={"uuid"} label={"Emp UUID"} val={props.uuid} disabled={true} />

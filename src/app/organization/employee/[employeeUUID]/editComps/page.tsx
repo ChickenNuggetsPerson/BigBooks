@@ -18,7 +18,7 @@ export default async function EmployeeSalaryPage({ params }: { params: Promise<{
 
     await throwIfInsufficientPerms(Permissions.employee.compensation.edit)
 
-    const employee = await getEmployeeProps(employeeUUID, true)
+    const employee = await getEmployeeProps(employeeUUID)
     if (!employee) {
         notFound()
     }

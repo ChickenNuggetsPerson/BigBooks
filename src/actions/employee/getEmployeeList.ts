@@ -32,11 +32,6 @@ export default async function getEmployeeList(orgUUID: string, filter: FilterOpt
 
         let list = organization.employees
 
-        // Strip SSNs from payload
-        for (let i = 0; i < list.length; i++) {
-            list[i].ssn = ""
-        }
-
         if (filter == FilterOption.Deactivated) {
             list = list.filter((e) => e.isDeleted === true)
         }
