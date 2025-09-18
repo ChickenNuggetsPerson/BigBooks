@@ -11,6 +11,7 @@ import Loading from "@/components/Decorative/Loading/Loading";
 import { Employee } from "@/database/generated/prisma";
 import toast from "react-hot-toast";
 import { notFound, useRouter } from "next/navigation";
+import EmployeeChangeSSNButton from "./sensitive/ssn/EmployeeChangeSSNButton";
 
 
 
@@ -114,6 +115,8 @@ export default function EmployeeForm({ empUUID }: EmployeeFormProps) {
 
                 <TextInput id={"orgUUID"} label={"Org UUID"} val={context?.companyUUID ?? ""} disabled={true} />
                 <TextInput id={"uuid"} label={"Emp UUID"} val={props.uuid} disabled={true} />
+
+                {!newEmployee && <EmployeeChangeSSNButton employeeUUID={props.uuid}/>}
             </div>
 
         </form>

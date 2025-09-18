@@ -94,14 +94,14 @@ async function getEmployeeSSN(employeeUUID: string, full: boolean) {
         throw new Error("Insufficient Permissions")
     }
 
-    if (!employee.sensitive) {
-        throw new Error("Insufficient Permissions")
-    }
-
     if (full) {
         await throwIfInsufficientPerms(Permissions.employee.sensitive.ssn.view, employee.organizationId)
     } else {
         await throwIfInsufficientPerms(Permissions.employee.tax.view, employee.organizationId)
+    }
+
+    if (!employee.sensitive) {
+        return ""
     }
 
     return decryptSSN(

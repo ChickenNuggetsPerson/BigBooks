@@ -7,6 +7,7 @@ import toast from "react-hot-toast"
 import { Employee } from "@/database/generated/prisma"
 import { CardProp } from "../Forms/CardProp"
 import LoadingBlock from "../Decorative/LoadingBlock"
+import EmployeeSSNCardProp from "./sensitive/ssn/EmployeeSSNCardProp"
 
 
 
@@ -22,6 +23,7 @@ export function EmployeeCard_Loading() {
 
             <CardProp label="Email:" loading />
             <CardProp label="Phone:" loading />
+            <CardProp label="SSN:" loading />
 
         </div>
     )
@@ -58,6 +60,7 @@ export default function EmployeeCard({ employee }: { employee: Employee }) {
 
             <CardProp copyable label="Email:" val={employee.email} />
             <CardProp copyable label="Phone:" val={employee.phoneNumber} />
+            <EmployeeSSNCardProp employeeUUID={employee.uuid}/>
 
             {employee.notes != "" &&
                 <>
