@@ -136,16 +136,16 @@ export function hideSSN(str: string) {
 export const SSNPrismaExtension = Prisma.defineExtension({
     name: "SSN Extension",
     model: {
-        user: {
-            async getSSNFull(userUUID: string) {
-                return await getEmployeeSSN(userUUID, true)
+        employee: {
+            async getSSNFull(employeeUUID: string) {
+                return await getEmployeeSSN(employeeUUID, true)
             },
-            async getSSN(userUUID: string) {
-                const ssn = await getEmployeeSSN(userUUID, false)
+            async getSSN(employeeUUID: string) {
+                const ssn = await getEmployeeSSN(employeeUUID, false)
                 return hideSSN(ssn)
             },
-            async setSSN(userUUID: string, newSSN: string) {
-                await setEmployeeSSN(userUUID, newSSN)
+            async setSSN(employeeUUID: string, newSSN: string) {
+                await setEmployeeSSN(employeeUUID, newSSN)
             }
         }
     }
