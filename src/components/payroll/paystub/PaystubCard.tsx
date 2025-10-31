@@ -11,7 +11,6 @@ import { percentToStr } from "@/utils/functions/PercentStr"
 import { deserializeData, SerializationResult } from "@/utils/serialization"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
-import { motion } from "framer-motion"
 import React from "react"
 import ScrollCard from "@/components/Decorative/ScrollCard"
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
@@ -195,7 +194,7 @@ function PaystubItemView({ item }: { item: PayStubItem }) {
     function itemClicked() {
         addModal({
             background: false,
-            component: (push, pop) => <PaystubItemModal item={item} />
+            component: () => <PaystubItemModal item={item} />
         })
     }
 
