@@ -11,6 +11,9 @@ import DeleteDraftButton from "../draftsystem/DeleteDraftButton"
 import ClickableDiv from "@/components/Decorative/ClickableDiv"
 import { useRouter } from "next/navigation"
 import { clientNewPayrollDraft } from "../draftsystem/newDraftFunction"
+import submitAllDraftPaystubs from "@/actions/payrollDraft/submitAllDraftPaystubs"
+import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
+import { promptUser } from "@/components/Decorative/Modals/promptUser"
 
 
 
@@ -19,6 +22,7 @@ import { clientNewPayrollDraft } from "../draftsystem/newDraftFunction"
 export default function ActivePaystubList({ editStub, draftUUID }: { editStub?: (empUUID: string) => void, draftUUID?: string }) {
 
     const router = useRouter()
+    const { addModal } = useModalManager()
     const [paystubs, setPaystubs] = useState([] as PaystubUUIDWithEmployee[])
     const [index, setIndex] = useState(undefined as number | undefined)
     const [loading, setLoading] = useState(false)
@@ -67,6 +71,36 @@ export default function ActivePaystubList({ editStub, draftUUID }: { editStub?: 
         clientNewPayrollDraft(router)
     }
 
+    async function submitAllStubs() {
+        if (!draftUUID) { return }
+
+        const result = await promptUser({
+            addModal,
+            title: "Are You Sure?",
+            message: "Are you sure that you want to submit all paystubs in this payroll draft?",
+            trueButton: {
+                title: "Yes",
+                type: "danger"
+            },
+            falseButton: {
+                title: "Cancel",
+                type: "primary"
+            }
+        })
+
+        if (!result) { return }
+
+        await toast.promise(submitAllDraftPaystubs, {
+            loading: "Submitting All Draft Paystubs",
+            success: "All Paystubs Submitted Successfully",
+            error: "Error Submitting Paystubs"
+        })
+        
+        setTimeout(() => {
+            load()
+        }, 1000);
+    }
+
     return (
         <div className="flex flex-row gap-5 select-none">
 
@@ -77,15 +111,15 @@ export default function ActivePaystubList({ editStub, draftUUID }: { editStub?: 
 
                 {loading &&
                     <div>
-                        <div className="icon bg-accent/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
-                        <div className="icon bg-accent/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
-                        <div className="icon bg-accent/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
+                        <div className="icon bg-primary/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
+                        <div className="icon bg-primary/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
+                        <div className="icon bg-primary/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
                     </div>
                 }
                 {!loading &&
                     <div>
                         {paystubs.map((stub, i) => (
-                            <ClickableDiv key={stub.uuid} className="icon bg-accent/70 text-white font-bold mb-2" onClick={() => setIndex(i)}>
+                            <ClickableDiv key={stub.uuid} className="icon bg-primary/70 text-white font-bold mb-2" onClick={() => setIndex(i)}>
                                 {`${stub.employee.firstName} ${stub.employee.lastName}`}
                             </ClickableDiv>
                         ))}
@@ -95,6 +129,15 @@ export default function ActivePaystubList({ editStub, draftUUID }: { editStub?: 
                                 {`No Paystubs...`}
                             </ClickableDiv>
                         }
+
+                        {(draftUUID && paystubs.length !== 0) && (
+                            <div>
+                                <Divider />
+                                <ClickableDiv className="primary-button text-center" onClick={submitAllStubs}>
+                                    Submit All
+                                </ClickableDiv>
+                            </div>
+                        )}
 
 
                         {!draftUUID &&
