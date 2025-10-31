@@ -10,7 +10,13 @@ import { HourlyRateStr, HourStr, MoneyToStr } from "@/utils/functions/MoneyStr"
 import { percentToStr } from "@/utils/functions/PercentStr"
 import { deserializeData, SerializationResult } from "@/utils/serialization"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { motion } from "framer-motion"
+import React from "react"
+import ScrollCard from "@/components/Decorative/ScrollCard"
+import { useModalManager } from "@/components/Decorative/Modal/ModalContext"
+import ClickableDiv from "@/components/Decorative/ClickableDiv"
+import { CardProp } from "@/components/Forms/CardProp"
 
 
 
@@ -30,6 +36,7 @@ export function PaystubCard({
     downloadable?: boolean
 }) {
 
+    const scrollRef = useRef(null)
     const [paystub, setPaystub] = useState(null as Payload | null)
     const [loading, setLoading] = useState(false)
     useEffect(() => {
@@ -64,7 +71,7 @@ export function PaystubCard({
 
 
     if (loading) {
-        return (<Loading vCenter hCenter/>)
+        return (<Loading vCenter hCenter />)
     }
 
     if (!paystub) {
@@ -80,7 +87,7 @@ export function PaystubCard({
     const other = paystub.items.filter(item => item.type == PayStubItemType.Other)
 
     return (
-        <div className="w-full flex flex-row gap-8 pb-50 justify-center">
+        <div className="w-full flex flex-row gap-8 justify-center">
 
             <div className="flex flex-col gap-4">
                 <EditableDiv className="card w-3xs" url={`/organization/paystubs/stub/${paystub.uuid}/edit`} enabled={editable}>
@@ -118,21 +125,43 @@ export function PaystubCard({
                 }
             </div>
 
-            <div className="flex flex-col gap-4 smallCard" style={{ padding: 6 }}>
-                <PaystubItemGroupView name={"Earnings"} items={earnings} total={paystub.grossEarnings.toNumber()} />
-                <PaystubItemGroupView name={"Taxes"} items={tax} total={paystub.totalTaxes.toNumber()} />
-                <PaystubItemGroupView name={"Other Items"} items={other} total={paystub.totalExtras.toNumber()} />
+            <div className="card overflow-clip" style={{ padding: 0 }}>
+                <div
+                    className="flex flex-col gap-4 h-[75dvh] overflow-y-scroll shadow-inner"
+                    style={{ padding: 6, scrollbarWidth: "none" }}
+                    ref={scrollRef}
+                >
 
-                <div className="grid grid-cols-4 gap-4 card">
-                    <p className="font-semibold text-2xl">Net Pay:</p>
-                    <p></p>
-                    <p></p>
-                    <p>{MoneyToStr(paystub.netPay.toNumber())}</p>
+                    <ScrollCard containerRef={scrollRef}>
+                        <PaystubItemGroupView name={"Earnings"} items={earnings} total={paystub.grossEarnings.toNumber()} />
+                    </ScrollCard>
+
+                    <ScrollCard containerRef={scrollRef}>
+                        <PaystubItemGroupView name={"Taxes"} items={tax} total={paystub.totalTaxes.toNumber()} />
+                    </ScrollCard>
+
+                    <ScrollCard containerRef={scrollRef}>
+                        <PaystubItemGroupView name={"Other Items"} items={other} total={paystub.totalExtras.toNumber()} />
+                    </ScrollCard>
+
+                    <ScrollCard containerRef={scrollRef}>
+                        <div className="grid grid-cols-4 gap-4 card">
+                            <p className="font-semibold text-2xl">Net Pay:</p>
+                            <p></p>
+                            <p></p>
+                            <p>{MoneyToStr(paystub.netPay.toNumber())}</p>
+                        </div>
+                    </ScrollCard>
                 </div>
             </div>
         </div>
     )
 }
+
+
+
+
+
 
 
 function PaystubItemGroupView({ name, items, total }: { name: string, items: PayStubItem[], total: number }) {
@@ -162,14 +191,15 @@ function PaystubItemGroupView({ name, items, total }: { name: string, items: Pay
 
 function PaystubItemView({ item }: { item: PayStubItem }) {
 
-    function Desc() {
-        if (item.description) { // TODO: Figure out how to show the description nicely
-            return (
-                <>
-                    <div className="h-px bg-primary w-5/7 col-span-4"></div>
-                </>
-            )
-        }
+    const { addModal } = useModalManager();
+    function itemClicked() {
+        addModal({
+            background: false,
+            component: (push, pop) => <PaystubItemModal item={item} />
+        })
+    }
+
+    function Sep() {
         return (
             <div className="h-px bg-primary w-5/7 col-span-4"></div>
         )
@@ -178,12 +208,14 @@ function PaystubItemView({ item }: { item: PayStubItem }) {
     if (item.hours && item.rate) {
         return (
             <>
-                <p>{item.name}</p>
-                <p>{HourStr(item.hours.toNumber())}</p>
+                <ClickableDiv className="select-none" onClick={itemClicked}>
+                    <p>{item.name}</p>
+                </ClickableDiv>
+                <p className="ml-auto mr-4">{HourStr(item.hours.toNumber())}</p>
                 <p>{HourlyRateStr(item.rate.toNumber())}</p>
                 <p>{MoneyToStr(item.amount.toNumber())}</p>
 
-                <Desc />
+                <Sep />
             </>
         )
     }
@@ -191,21 +223,76 @@ function PaystubItemView({ item }: { item: PayStubItem }) {
     if (item.percent) {
         return (
             <>
-                <p className="col-span-2">{item.name}</p>
+                <ClickableDiv className="col-span-2 select-none" onClick={itemClicked}>
+                    <p>{item.name}</p>
+                </ClickableDiv>
                 <p>{percentToStr(item.percent.toNumber())}</p>
                 <p>{MoneyToStr(item.amount.toNumber())}</p>
 
-                <Desc />
+                <Sep />
             </>
         )
     }
 
     return (
         <>
-            <p className="col-span-3">{item.name}</p>
+            <ClickableDiv className="col-span-3 select-none" onClick={itemClicked}>
+                <p>{item.name}</p>
+            </ClickableDiv>
             <p>{MoneyToStr(item.amount.toNumber())}</p>
 
-            <Desc />
+            <Sep />
         </>
+    )
+}
+
+
+
+
+// type PayStubItem = {
+//     payrollItemId: string | null;
+//     compensationId: string | null;
+//     hourlyRateId: string | null;
+//     taxID: string | null;
+// }
+
+function PaystubItemModal({ item }: { item: PayStubItem }) {
+
+    return (
+        <div className="smallCard">
+            <div className="smallCard min-w-sm" style={{ padding: "1rem" }}>
+
+                <h1 className="font-semibold text-xl">{item.name}</h1>
+                <Divider />
+                <CardProp label="Type:" val={item.type} />
+                <CardProp label="Amount:" val={MoneyToStr(item.amount.toNumber())} />
+
+                {(item.hours || item.percent || item.rate) && (
+                    <>
+                        <Divider />
+                        {item.hours && (
+                            <CardProp label="Hours:" val={HourStr(item.hours.toNumber())} />
+                        )}
+                        {item.rate && (
+                            <CardProp label="Rate:" val={HourlyRateStr(item.rate.toNumber())} />
+                        )}
+                        {item.percent && (
+                            <CardProp label="Percent:" val={percentToStr(item.percent.toNumber())} />
+                        )}
+                    </>
+                )}
+
+                {item.description && (
+                    <>
+                        <Divider />
+                        <p className="pb-1">Description:</p>
+                        <div className="bg-gray-200 rounded-2xl p-3 max-h-40 overflow-scroll">
+                            <p>{item.description}</p>
+                        </div>
+                    </>
+                )}
+
+            </div>
+        </div>
     )
 }

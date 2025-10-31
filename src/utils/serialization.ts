@@ -16,7 +16,7 @@ superjson.registerCustom<Prisma.Decimal, string>(
 
 export type SerializationResult<T> = {
     json: SuperJSONResult;
-    __type?: T; // Store type to ensure type saftey
+    __type?: T; // Store type to ensure type safety
 };
 
 export function serializeData<T>(data: T): SerializationResult<T> {

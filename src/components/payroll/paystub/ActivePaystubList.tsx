@@ -77,15 +77,15 @@ export default function ActivePaystubList({ editStub, draftUUID }: { editStub?: 
 
                 {loading &&
                     <div>
-                        <div className="icon bg-primary/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
-                        <div className="icon bg-primary/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
-                        <div className="icon bg-primary/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
+                        <div className="icon bg-accent/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
+                        <div className="icon bg-accent/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
+                        <div className="icon bg-accent/50 text-white font-bold mb-2 h-8 animate-pulse"></div>
                     </div>
                 }
                 {!loading &&
                     <div>
                         {paystubs.map((stub, i) => (
-                            <ClickableDiv key={stub.uuid} className="icon bg-primary/70 text-white font-bold mb-2" onClick={() => setIndex(i)}>
+                            <ClickableDiv key={stub.uuid} className="icon bg-accent/70 text-white font-bold mb-2" onClick={() => setIndex(i)}>
                                 {`${stub.employee.firstName} ${stub.employee.lastName}`}
                             </ClickableDiv>
                         ))}
@@ -127,10 +127,12 @@ export default function ActivePaystubList({ editStub, draftUUID }: { editStub?: 
                 }
 
                 {(index !== undefined) && (index < paystubs.length) &&
-                    <PaystubCard stubUUID={paystubs[index].uuid} editable />
+                    <div className="h-full overflow-y-scroll">
+                        <PaystubCard stubUUID={paystubs[index].uuid} editable />
+                    </div>
                 }
 
-                {(paystubs.length === 0 && draftUUID) &&
+                {(paystubs.length === 0 && draftUUID && !loading) &&
                     <div className="">
                         <DeleteDraftButton draftUUID={draftUUID} />
                     </div>

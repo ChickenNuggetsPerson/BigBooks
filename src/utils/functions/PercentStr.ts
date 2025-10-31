@@ -4,15 +4,23 @@
 export type Percent = number
 export function percentToStr(percent: Percent) {
 
-    percent = percent * 100
-    
-    if ((percent * 100) % 100 == 0) {
-        return percent.toLocaleString() + ".00 %"
-    } 
-    
-    if ((percent * 100) % 10 == 0) {
-        return percent.toLocaleString() + "0 %"
-    } 
+    function convert() {
+        const p = Math.abs(percent * 100)
 
-    return percent.toLocaleString() + " %"
+        if ((p * 100) % 100 == 0) {
+            return p.toLocaleString() + ".00 %"
+        }
+
+        if ((p * 100) % 10 == 0) {
+            return p.toLocaleString() + "0 %"
+        }
+
+        return p.toLocaleString() + " %"
+    }
+
+    if (percent < 0) {
+        return `(${convert()})`
+    } else {
+        return convert()
+    }
 }
