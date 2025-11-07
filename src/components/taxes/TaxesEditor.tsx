@@ -11,7 +11,7 @@ export function TaxesEditor_Loading() {
     )
 }
 
-// TODO: Make sure to add this form for sys admins
+
 export default async function TaxesEditor({
     sysTaxes = false
 }: {
