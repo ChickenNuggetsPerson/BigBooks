@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.11.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.10.0...v0.11.0) (2025-11-07)
+
+
+### Features
+
+* All draft paystubs can be submitted at once now. ([5c81acf](https://github.com/ChickenNuggetsPerson/BigBooks/commit/5c81acf6267ec0b280edef148cf2454b90fa9616))
+* SSNs are now stored securely in the database. ([1c573ca](https://github.com/ChickenNuggetsPerson/BigBooks/commit/1c573ca5b5cee968cbb3cae28a6a7d4ea00581cc))
+
 ## [0.10.0](https://github.com/ChickenNuggetsPerson/BigBooks/compare/v0.9.0...v0.10.0) (2025-09-17)
 
 
