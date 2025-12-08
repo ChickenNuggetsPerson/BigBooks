@@ -1,10 +1,17 @@
 import { PrismaClient } from './generated/prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg'
 import { SSNPrismaExtension } from './SSNEncryption';
+
 
 type ExtendedPrismaClient = ReturnType<typeof prismaGenerator>;
 
 function prismaGenerator() {
-    return new PrismaClient().$extends(SSNPrismaExtension);
+
+    const adapter = new PrismaPg({
+        connectionString: process.env.DATABASE_URL
+    })
+
+    return new PrismaClient({ adapter }).$extends(SSNPrismaExtension);
 }
 
 const globalForPrisma = globalThis as unknown as {
