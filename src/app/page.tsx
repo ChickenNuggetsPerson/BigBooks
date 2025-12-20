@@ -2,9 +2,11 @@ import AnimateChildren from "@/components/Decorative/AnimateChildren";
 import ClickableDiv from "@/components/Decorative/ClickableDiv";
 import IconBackground from "@/components/Decorative/IconBackground/IconBackground";
 import UserGreetingCard, { UserGreetingCard_Loading } from "@/components/User/UserGreetingCard";
+import { GitCompareArrows } from "lucide-react";
 
 
 import { Open_Sans } from 'next/font/google'
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -23,6 +25,16 @@ export default async function Home() {
 
       <div className="flex flex-row justify-between h-screen">
         <IconBackground />
+
+        <ClickableDiv
+          className="absolute left-1 top-1 smallCard select-none"
+          href="/info/changelog"
+        >
+          <div className="flex gap-2 px-4 py-2 rounded-lg font-semibold text-gray-600">
+            <GitCompareArrows size={25} color="#575757"/>
+            Changelog
+          </div>
+        </ClickableDiv>
 
         <div className="w-1/2 flex flex-row justify-center">
           <div className="h-full flex flex-col justify-center">
