@@ -3,7 +3,6 @@
 import deletePayrollGroup from "@/actions/payrollGroup/deletePayrollGroup";
 import upsertPayrollGroup from "@/actions/payrollGroup/upsertPayrollGroup";
 import { useModalManager } from "@/components/Decorative/Modal/ModalContext";
-import NumericText from "@/components/Decorative/NumericText/NumericText";
 import DateInput from "@/components/Forms/DateInput";
 import { Divider } from "@/components/Forms/Divider";
 import LargeTextInput from "@/components/Forms/LargeTextInput";
@@ -226,7 +225,9 @@ function PayrollGroupForm({ group, saved }: { group: PayrollGroup, saved: () => 
             }
 
             <div className="font-semibold text-xl pb-1">
-                <NumericText val={selected.name == "" ? "." : selected.name} spacing={-2} animDelta={0} expand={false} />
+                <h1 style={{
+                    color: selected.name == "" ? "gray" : "black"
+                }}>{selected.name == "" ? "[ No Name ]" : selected.name}</h1>
             </div>
             <Divider />
 
