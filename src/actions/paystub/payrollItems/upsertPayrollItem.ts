@@ -39,6 +39,7 @@ export default async function upsertPayrollItem(item: SerializationResult<Payrol
 
 
     // Make sure connection is valid
+    // TODO: Verify the user has permissions to access this item 
     if (paystubItem.organizationId) {
         await prisma.organization.findUniqueOrThrow({ where: { uuid: paystubItem.organizationId } })
     }
