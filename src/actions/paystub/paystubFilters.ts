@@ -6,8 +6,8 @@ type DateFilter = {
     gte: Date
 }
 type NumberFilter = {
-    lte: Number,
-    gte: Number
+    lte: number,
+    gte: number
 }
 
 export type PaystubFilters = Partial<{
