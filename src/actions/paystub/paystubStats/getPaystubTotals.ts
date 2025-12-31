@@ -6,39 +6,17 @@ import { throwIfInsufficientPerms } from "@/auth/permissions/PermissionsFunction
 import { Decimal } from "@/database/generated/prisma/runtime/index-browser" // Same Decimal used by Prisma 
 import { prisma } from "@/database/prisma"
 import { serializeData } from "@/utils/serialization"
+import { PaystubFilters } from "../paystubFilters"
 
 
 
-interface IdentifierOptions {
-    periodStart: {
-        lte: Date,
-        gte: Date
-    },
-    periodEnd: {
-        lte: Date,
-        gte: Date
-    },
-    payDate: {
-        lte: Date,
-        gte: Date
-    },
-    locked: boolean,
-    lockedTime: {
-        lte: Date,
-        gte: Date
-    },
-    submittedTime: {
-        lte: Date,
-        gte: Date
-    },
-    employeeId: string
-}
-
-export default async function getPaystubTotals(identifier: Partial<IdentifierOptions>) {
+export default async function getPaystubTotals(identifier: PaystubFilters) {
 
     await throwIfInsufficientPerms(Permissions.employee.compensation.view)
     await throwIfInsufficientPerms(Permissions.payroll.paystub.view)
     const session = await getSession()
+
+
 
     const result = await prisma.payStub.aggregate({
         _sum: {
@@ -50,9 +28,12 @@ export default async function getPaystubTotals(identifier: Partial<IdentifierOpt
         _count: {
             netPay: true
         },
-        where: identifier && {
-            employee: {  // Ensures session has permissions
-                organizationId: session?.orgUUID ?? ""
+        where: {
+            ...identifier,
+            ...{
+                employee: {  // Ensures session has permissions
+                    organizationId: session?.orgUUID ?? ""
+                }
             }
         }
     })

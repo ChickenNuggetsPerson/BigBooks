@@ -35,7 +35,7 @@ export default async function getPaystubItemLinkedTotals(
         _count: {
             amount: true
         },
-        where: identifier && {
+        where: {...identifier, ...{
             payStub: {
                 payDate: {
                     lte: timeRange?.payDateEnd,
@@ -45,7 +45,7 @@ export default async function getPaystubItemLinkedTotals(
                     organizationId: session?.orgUUID ?? ""
                 }
             }
-        }
+        }}
     })
     
     return serializeData({
