@@ -1,4 +1,4 @@
-import ActivePaystubList from "@/components/payroll/paystub/ActivePaystubList";
+import PaystubSearchTable from "@/components/payroll/paystub/PaystubSearchTable";
 
 
 
@@ -6,8 +6,8 @@ import ActivePaystubList from "@/components/payroll/paystub/ActivePaystubList";
 export default function PaystubsPage() {
 
     return (
-        <div>
-            <ActivePaystubList />
+        <div className="mb-10">
+            <PaystubSearchTable />
         </div>
     )
 }
