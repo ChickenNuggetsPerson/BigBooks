@@ -31,7 +31,7 @@ export default async function OrganizationStatsCard() {
     const employeeCount = await prisma.employee.count({ where: { organizationId: session?.orgUUID } })
     const completedPaystubCount = await prisma.payStub.count({ where: { employee: { organizationId: session?.orgUUID }, locked: true } })
     const activePaystubCount = await prisma.payStub.count({ where: { employee: { organizationId: session?.orgUUID }, locked: false } })
-    const orgTotals = (new Decimal(deserializeData(await getPaystubTotals({})).totalNetPay)).toNumber()
+    const orgTotals = (new Decimal(deserializeData(await getPaystubTotals({ locked: true })).totalNetPay)).toNumber()
 
     return (
         <div className="card">
