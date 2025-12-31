@@ -21,6 +21,14 @@ export default async function getPaystubs(identifiers: PaystubFilters) {
                     organizationId: session?.orgUUID ?? ""
                 }
             }
+        },
+        include: {
+            employee: {
+                select: {
+                    firstName: true,
+                    lastName: true
+                }
+            }
         }
     })
 
