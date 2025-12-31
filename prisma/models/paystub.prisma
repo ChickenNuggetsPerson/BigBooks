@@ -22,6 +22,8 @@ model PayStub {
 
     relatedPayrollDraft   PayrollDraft? @relation(fields: [relatedPayrollDraftId], references: [uuid], onDelete: SetNull)
     relatedPayrollDraftId String?
+
+    // TODO: Store which user created the paystub
 }
 
 enum PayStubItemType {
