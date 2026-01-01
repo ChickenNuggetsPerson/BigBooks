@@ -51,14 +51,14 @@ export default function Sidebar() {
                         Employees
                     </Link>
 
-                    <Link className={btnClass} href={href(Page.Paystubs)}>
-                        <FileText size={16} />
-                        Paystubs
-                    </Link>
-
                     <Link className={btnClass} href={href(Page.Payroll)}>
                         <ScrollText size={16} />
                         Payroll
+                    </Link>
+
+                    <Link className={btnClass} href={href(Page.Paystubs)}>
+                        <FileText size={16} />
+                        Paystubs
                     </Link>
 
                 </ul>
