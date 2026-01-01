@@ -5,8 +5,9 @@ import ClickableDiv from "@/components/Decorative/ClickableDiv"
 import { PayStub, Prisma } from "@/database/generated/prisma"
 import { MoneyToStr } from "@/utils/functions/MoneyStr"
 import { deserializeData } from "@/utils/serialization"
-import { DataGrid, GridColDef, GridFilterListIcon, GridFilterModel, GridRenderCellParams, useGridApiRef } from "@mui/x-data-grid"
+import { DataGrid, GridActionsCellItem, GridColDef, GridFilterListIcon, GridFilterModel, GridRenderCellParams, GridRowParams, useGridApiRef } from "@mui/x-data-grid"
 import { GridToolbar } from "@mui/x-data-grid/internals"
+import { Link, NotebookPen, X } from "lucide-react"
 import { useEffect, useState } from "react"
 
 
@@ -22,8 +23,6 @@ type PaystubsResult = Prisma.PayStubGetPayload<{
 }>
 
 export default function PaystubSearchTable() {
-
-    const apiRef = useGridApiRef()
 
     const [paystubs, setPaystubs] = useState<PaystubsResult[]>([])
     const [loading, setLoading] = useState(false)
@@ -174,51 +173,37 @@ export default function PaystubSearchTable() {
                 return (<p>{val}</p>)
             },
         },
-        // {
-        //     field: 'actions',
-        //     type: 'actions',
-        //     headerName: 'Actions',
-        //     width: 130,
-        //     getActions: (params: GridRowParams<PayStubItem>) => [
-        //         <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-desc"} icon={
-        //             <NotebookPen opacity={params.row.description ? 1 : 0.3} />
-        //         } onClick={() => {
-        //             showDescriptionModal(params.row)
-        //         }} label="Description" />,
+        {
+            field: 'actions',
+            type: 'actions',
+            headerName: 'Actions',
+            width: 130,
+            getActions: (params: GridRowParams<PaystubsResult>) => [
+                <GridActionsCellItem key={params.row.uuid + "-desc"} icon={
+                    <NotebookPen />
+                } onClick={() => {
+                    
+                }} label="Description" />,
 
-        //         <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-link"} icon={
-        //             <Link opacity={(params.row.payrollItemId || params.row.compensationId || params.row.hourlyRateId || params.row.taxID) ? 1 : 0.3} />
-        //         } onClick={() => {
-        //             if (params.row.taxID) {
-        //                 toast("Cannot Edit Link: (Linked to Tax)")
-        //             } else {
-        //                 showLinkItemModal(params.row)
-        //             }
-        //         }} label="Link" />,
+                <GridActionsCellItem key={params.row.uuid + "-link"} icon={
+                    <Link />
+                } onClick={() => {
+                    
+                }} label="Link" />,
 
-        //         <GridActionsCellItem disabled={isLocked} key={params.row.uuid + "-delete"} icon={
-        //             <X />
-        //         } onClick={() => {
-        //             deleteItem(params.row)
-        //         }} label="Delete" />,
-        //     ]
-        // }
+                <GridActionsCellItem key={params.row.uuid + "-delete"} icon={
+                    <X />
+                } onClick={() => {
+                    
+                }} label="Delete" />,
+            ]
+        }
     ]
 
     return (
         <div>
 
-            <div className="flex mb-5 align-right w-full">
-                <ClickableDiv
-                    className="smallCard w-fit select-none"
-                    onClick={() => apiRef.current?.showFilterPanel()}
-                >
-                    <p className="px-2">Search</p>
-                </ClickableDiv>
-            </div>
-
             <DataGrid
-                apiRef={apiRef}
                 rows={paystubs}
                 columns={columns}
                 getRowId={(row) => row.uuid}
