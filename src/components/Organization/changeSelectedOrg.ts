@@ -20,7 +20,7 @@ export function useChangeSelectedOrg() { // Turn this into a react hook
             return
         }
         
-        setContext(generateCompanyContext(uuid, name));
+        setContext(generateCompanyContext(uuid, name, result.name));
         
         router.push(`/organization/overview`);
         router.refresh(); 

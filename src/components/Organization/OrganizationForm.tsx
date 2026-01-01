@@ -73,7 +73,7 @@ export default function OrganizationForm({ orgUUID }: OrganizationFormProps) {
         toast.promise(
             async () => {
                 const result = await submitOrganizationForm(newOrganization, new FormData(e.currentTarget));
-                setContext({ companyUUID: result.companyUUID, companyName: result.companyName });
+                setContext(result);
 
                 if (newOrganization) {
                     router.push("/user")

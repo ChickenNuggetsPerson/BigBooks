@@ -21,11 +21,11 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
     let returnUUID = ""
     let returnNAME = ""
 
+    const session = await getSession()
+    const user = await getUserFromSession()
+
     if (newOrganization) {
         // New Organization
-
-        const session = await getSession()
-        const user = await getUserFromSession()
 
         if (!user || !session) { throw new Error("Insufficient Permissions") }
 
@@ -91,5 +91,5 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
     }
 
     revalidatePath(`/organization/overview`)
-    return generateCompanyContext(returnUUID, returnNAME)
+    return generateCompanyContext(returnUUID, returnNAME, `${user?.firstName} ${user?.lastName}`)
 }

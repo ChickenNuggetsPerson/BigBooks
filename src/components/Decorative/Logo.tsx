@@ -20,7 +20,9 @@ export default function Logo({ width = 500, rounded = false, shadow = false }: L
                 fontSize: width / 5.8, 
                 backgroundColor: "var(--color-primary)", 
                 color: "white",
-                boxShadow: shadow ? "0px 10px 20px 0px var(--primary_col)" : ""
+                boxShadow: shadow ? "0px 10px 20px 0px var(--primary_col)" : "",
+                paddingRight: 5,
+                paddingLeft: 5
             }} 
             className={'text-center border border-primary-down select-none ' + openSans.className + (rounded ? " rounded-md " : "")}
         >

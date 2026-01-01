@@ -7,11 +7,13 @@
 
 export interface CompanyContextProps {
     companyUUID: string,
-    companyName: string
+    companyName: string,
+    userName: string
 }
-export function generateCompanyContext(companyUUID: string, companyName: string): CompanyContextProps {
+export function generateCompanyContext(companyUUID: string, companyName: string, userName: string): CompanyContextProps {
     return {
         companyUUID: companyUUID,
-        companyName: companyName
+        companyName: companyName,
+        userName: userName
     }
 }
