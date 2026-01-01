@@ -6,8 +6,6 @@ import { GitCompareArrows } from "lucide-react";
 
 
 import { Open_Sans } from 'next/font/google'
-import Image from "next/image";
-import Link from "next/link";
 import { Suspense } from "react";
 
 const openSans = Open_Sans({
@@ -62,51 +60,7 @@ export default async function Home() {
             </AnimateChildren>
           </div>
         </div>
-
-        <div className="absolute bottom-4 w-full flex justify-center">
-          <ClickableDiv className="smallCard select-none" style={{ padding: 10 }}>
-            <Link href={"/#NewUser"}>
-              New To Bigbooks?
-            </Link>
-          </ClickableDiv>
-        </div>
       </div>
-
-      <div className="bg-primary w-screen" id="NewUser">
-        <div className="p-5 pb-10 w-full flex justify-start">
-          <div>
-            <h1 className={'text-9xl w-fit select-none text-white ' + openSans.className}>What is</h1>
-            <h1 className={'text-9xl w-fit select-none text-white ' + openSans.className}>Big Books?</h1>
-          </div>
-        </div>
-      </div>
-
-      <div className="w-screen">
-        <div className="p-25 pb-30 w-full flex justify-center">
-          <div className="w-3/4">
-            <h1 className={'text-6xl w-fit text-center select-none text-text/80 ' + openSans.className}>An all-in-one accounting software for small businesses</h1>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-primary w-screen">
-        <div className="p-5 pb-10 w-full flex justify-start">
-          <div>
-            <h1 className={'text-9xl w-fit select-none text-white ' + openSans.className}>But why</h1>
-            <h1 className={'text-9xl w-fit select-none text-white ' + openSans.className}>Big Books?</h1>
-          </div>
-        </div>
-      </div>
-
-      <div className="w-screen">
-        <div className="p-25 pb-30 w-full flex justify-center">
-          <div className="w-3/4">
-            <h1 className={'text-6xl w-fit text-center select-none text-text/80 ' + openSans.className}>{"We don't charge outrageous prices!"}</h1>
-            <h2 className="text-end" >*Cough Quickbooks*</h2>
-          </div>
-        </div>
-      </div>
-
     </div>
   );
 }
