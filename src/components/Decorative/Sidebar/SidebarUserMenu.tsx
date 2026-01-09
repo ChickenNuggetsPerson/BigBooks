@@ -5,6 +5,8 @@ import {
     DropdownMenuTrigger,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuGroup,
+    DropdownMenuSeparator
 } from "@/components/Decorative/shadcn/ui/dropdown-menu"
 import { User2, ChevronUp } from "lucide-react";
 import { SidebarMenuItem, SidebarMenuButton } from "../shadcn/ui/sidebar";
@@ -41,17 +43,24 @@ export default function SidebarUserMenu() {
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent side="top" className="w-[--radix-popper-anchor-width]">
-                    <DropdownMenuItem>
-                        <button onClick={changeOrgClicked}> Change Organization </button>
-                    </DropdownMenuItem>
+                    
+                    <DropdownMenuGroup>
+                        <DropdownMenuItem>
+                            <button onClick={changeOrgClicked}> Change Organization </button>
+                        </DropdownMenuItem>
 
-                    <DropdownMenuItem>
-                        <Link className="w-full" href={'/user'}>Account Page</Link>
-                    </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <Link className="w-full" href={'/user'}>Account Page</Link>
+                        </DropdownMenuItem>
+                    </DropdownMenuGroup>
 
-                    <DropdownMenuItem>
-                        <button className="text-red-400" onClick={logout}>Logout</button>
-                    </DropdownMenuItem>
+                    <DropdownMenuSeparator/>
+
+                    <DropdownMenuGroup>
+                        <DropdownMenuItem>
+                            <button className="text-red-400" onClick={logout}>Logout</button>
+                        </DropdownMenuItem>
+                    </DropdownMenuGroup>
 
                 </DropdownMenuContent>
             </DropdownMenu>
