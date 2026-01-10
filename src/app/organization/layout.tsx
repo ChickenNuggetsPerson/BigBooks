@@ -9,17 +9,15 @@ export default function OrganizationLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <SidebarProvider>
-        <BigBooksSidebar />
+    <SidebarProvider>
+      <BigBooksSidebar />
 
-        <SidebarInset>
-          <main className="px-2 py-6">
-            {children}
-          </main>
-        </SidebarInset>
-      </SidebarProvider>
-    </>
+      <SidebarInset>
+        <main className="px-2 py-6">
+          {children}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
 

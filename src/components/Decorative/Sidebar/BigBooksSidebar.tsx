@@ -44,37 +44,37 @@ export default function BigBooksSidebar() {
                         <SidebarMenu>
                             <SidebarMenuItem >
                                 <SidebarMenuButton asChild>
-                                    <a href={href(Page.Overview)}>
+                                    <Link href={href(Page.Overview)}>
                                         <House />
                                         <span>Overview</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
 
                             <SidebarMenuItem >
                                 <SidebarMenuButton asChild>
-                                    <a href={href(Page.Employee)}>
+                                    <Link href={href(Page.Employee)}>
                                         <Users />
                                         <span>Employee</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
 
                             <SidebarMenuItem >
                                 <SidebarMenuButton asChild>
-                                    <a href={href(Page.Payroll)}>
+                                    <Link href={href(Page.Payroll)}>
                                         <ScrollText />
                                         <span>Payroll</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
 
                             <SidebarMenuItem >
                                 <SidebarMenuButton asChild>
-                                    <a href={href(Page.Paystubs)}>
+                                    <Link href={href(Page.Paystubs)}>
                                         <FileText />
                                         <span>Paystubs</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
 
@@ -91,37 +91,37 @@ export default function BigBooksSidebar() {
                             
                             <SidebarMenuItem >
                                 <SidebarMenuButton asChild>
-                                    <a href={'/organization/admin/groups'}>
+                                    <Link href={'/organization/admin/groups'}>
                                         <Boxes />
                                         <span>Payroll Groups</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
 
                             <SidebarMenuItem >
                                 <SidebarMenuButton asChild>
-                                    <a href={'/organization/admin/defaults'}>
+                                    <Link href={'/organization/admin/defaults'}>
                                         <LayoutList />
                                         <span>Payroll Items</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
 
                             <SidebarMenuItem >
                                 <SidebarMenuButton asChild>
-                                    <a href={'/organization/admin/taxes'}>
+                                    <Link href={'/organization/admin/taxes'}>
                                         <NotepadText />
                                         <span>Taxes</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
 
-                            <SidebarMenuItem >
+                            <SidebarMenuItem>
                                 <SidebarMenuButton asChild>
-                                    <a href={'/organization/admin/users'}>
+                                    <Link href={'/organization/admin/users'}>
                                         <BookUser />
                                         <span>Users</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
 
