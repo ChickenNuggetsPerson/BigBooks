@@ -24,10 +24,12 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
     const session = await getSession()
     const user = await getUserFromSession()
 
+    if (!session) { throw new Error("Insufficient Permissions") }
+
     if (newOrganization) {
         // New Organization
 
-        if (!user || !session) { throw new Error("Insufficient Permissions") }
+        if (!user) { throw new Error("Insufficient Permissions") }
 
         if (user.allocatedOrganizations <= 0 && !session.isAdmin) { throw new Error("Insufficient Permissions") }
 
@@ -91,5 +93,5 @@ export default async function submitOrganizationForm(newOrganization: boolean, f
     }
 
     revalidatePath(`/organization/overview`)
-    return generateCompanyContext(returnUUID, returnNAME, `${user?.firstName} ${user?.lastName}`)
+    return generateCompanyContext(returnUUID, returnNAME, `${user?.firstName} ${user?.lastName}`, session.expireTime)
 }

@@ -15,6 +15,7 @@ import { useCompany } from "@/app/CompanyContext";
 import Link from "next/link";
 import { useModalManager } from "../Modal/ModalContext";
 import OrganizationList from "@/components/Organization/OrganizationList";
+import { SesssionNotifierClient } from "../SessionSystem/SesssionNotifierClient";
 
 
 
@@ -43,22 +44,32 @@ export default function SidebarUserMenu() {
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent side="top" className="w-[--radix-popper-anchor-width]">
-                    
+
                     <DropdownMenuGroup>
-                        <DropdownMenuItem>
-                            <button onClick={changeOrgClicked}> Change Organization </button>
+                        <DropdownMenuItem className="cursor-pointer">
+                            <button onClick={changeOrgClicked} className="cursor-pointer"> Change Organization </button>
                         </DropdownMenuItem>
 
-                        <DropdownMenuItem>
+                        <DropdownMenuItem className="cursor-pointer">
                             <Link className="w-full" href={'/user'}>Account Page</Link>
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
 
-                    <DropdownMenuSeparator/>
+                    <DropdownMenuSeparator />
 
                     <DropdownMenuGroup>
-                        <DropdownMenuItem>
-                            <button className="text-red-400" onClick={logout}>Logout</button>
+                        <DropdownMenuItem className="cursor-pointer">
+
+                            <SesssionNotifierClient/>
+
+                        </DropdownMenuItem>
+                    </DropdownMenuGroup>
+
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuGroup>
+                        <DropdownMenuItem className="cursor-pointer">
+                            <button className="text-red-400 cursor-pointer" onClick={logout}>Logout</button>
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
 

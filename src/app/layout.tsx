@@ -4,8 +4,6 @@ import { CompanyProvider } from "./CompanyContext";
 import ModalContainer from "@/components/Decorative/Modal/ModalContainer";
 import DevLink from "@/components/dev/DevLink";
 import { Toaster } from "react-hot-toast";
-import { Suspense } from "react";
-import SessionNotifier from "@/components/Decorative/SessionSystem/SesssionNotifier";
 
 
 export const metadata: Metadata = {
@@ -34,13 +32,6 @@ export default function RootLayout({
         <CompanyProvider>
           <ModalContainer>
             {children}
-
-            <div style={{ position: "fixed", bottom: "5px", left: "5px" }} className="select-none" >
-              <Suspense>
-                <SessionNotifier />
-              </Suspense>
-            </div>
-
           </ModalContainer>
         </CompanyProvider>
 

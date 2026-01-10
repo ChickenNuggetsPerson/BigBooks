@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import ClickableDiv from "../ClickableDiv"
 import { useModalManager } from "../Modal/ModalContext"
 import { infoUser } from "../Modals/infoUser"
+import { useCompany } from "@/app/CompanyContext"
 
 
 function getCountDownText(time: Date) {
@@ -29,14 +29,19 @@ function formatNumber(n: number) {
     return `${n}`
 }
 
-export function SesssionNotifierClient({ expireTime }: { expireTime: Date }) {
+export function SesssionNotifierClient() {
 
+    const { context } = useCompany()
     const { addModal } = useModalManager()
-    const [text, setText] = useState("")
+    const [text, setText] = useState("00:00:00")
+
+    if (!context?.sessionExpireTime) {
+        return (<SessionNotifierNoSession />)
+    }
 
     useEffect(() => {
         const id = setInterval(() => {
-            const d = getCountDownText(new Date(expireTime))
+            const d = getCountDownText(new Date(context?.sessionExpireTime))
 
             if (d.hours !== 0) {
                 setText(`${formatNumber(d.hours)}:${formatNumber(d.minutes)}:${formatNumber(d.seconds)}`)
@@ -47,7 +52,7 @@ export function SesssionNotifierClient({ expireTime }: { expireTime: Date }) {
         }, 1000);
 
         return () => { clearInterval(id) }
-    }, [expireTime])
+    }, [context.sessionExpireTime])
 
     function clicked() {
         infoUser({
@@ -58,17 +63,11 @@ export function SesssionNotifierClient({ expireTime }: { expireTime: Date }) {
     }
 
     return (
-        <ClickableDiv
-            onClick={clicked}
-            className="smallCard font-mono text-md overflow-clip h-fit"
-            style={{ paddingInline: 10 }}
-        >
-            <h1 className="text-gray-600" >{text}</h1>
-        </ClickableDiv>
+        <h1 className="text-gray-600 animate-pulse" onClick={clicked} >{text}</h1>
     )
 }
 
 
 export function SessionNotifierNoSession() {
-    return (<div className="smallCard" style={{ paddingInline: 10 }}>Not Logged In</div>)
+    return (<h1 className="text-gray-600">Not Logged In</h1>)
 }
