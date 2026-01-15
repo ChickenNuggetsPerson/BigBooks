@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useModalManager } from "../Modal/ModalContext"
 import { infoUser } from "../Modals/infoUser"
 import { useCompany } from "@/app/CompanyContext"
+import NumericText from "../NumericText/NumericText"
 
 
 function getCountDownText(time: Date) {
@@ -29,7 +30,7 @@ function formatNumber(n: number) {
     return `${n}`
 }
 
-export function SesssionNotifierClient() {
+export function SessionNotifierClient() {
 
     const { context } = useCompany()
     const { addModal } = useModalManager()
@@ -58,12 +59,15 @@ export function SesssionNotifierClient() {
         infoUser({
             addModal,
             title: "Session Time",
-            message: "This clock shows how much time is left before you are logged out. Certain actions will refresh this clock."
+            message: "This clock shows how much time is left before you are automatically logged out. Certain actions will refresh this clock."
         })
     }
 
     return (
-        <h1 className="text-gray-600 animate-pulse" onClick={clicked} >{text}</h1>
+        // <h1 className="text-gray-600 animate-pulse" onClick={clicked} >{text}</h1>
+        <div className="text-gray-600 animate-pulse w-full" onClick={clicked}>
+            <NumericText val={text} spacing={-5} />
+        </div>
     )
 }
 

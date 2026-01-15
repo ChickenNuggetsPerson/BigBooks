@@ -15,7 +15,7 @@ import { useCompany } from "@/app/CompanyContext";
 import Link from "next/link";
 import { useModalManager } from "../Modal/ModalContext";
 import OrganizationList from "@/components/Organization/OrganizationList";
-import { SesssionNotifierClient } from "../SessionSystem/SesssionNotifierClient";
+import { SessionNotifierClient } from "../SessionSystem/SessionNotifierClient";
 
 
 
@@ -60,7 +60,7 @@ export default function SidebarUserMenu() {
                     <DropdownMenuGroup>
                         <DropdownMenuItem className="cursor-pointer">
 
-                            <SesssionNotifierClient/>
+                            <SessionNotifierClient/>
 
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
