@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link";
 import Logo from "../Logo";
 import { BookUser, Boxes, FileText, House, LayoutList, NotepadText, ScrollText, Users } from "lucide-react";
@@ -14,6 +16,9 @@ import {
     SidebarMenuItem,
 } from "@/components/Decorative/shadcn/ui/sidebar"
 import SidebarUserMenu from "./SidebarUserMenu";
+import { useEffect, useState } from "react";
+import getUserPagePermissions, { UserPagePermissions } from "@/actions/user/getUserPagePermissions";
+import { useCompany } from "@/app/CompanyContext";
 
 
 enum Page {
@@ -28,6 +33,19 @@ export default function BigBooksSidebar() {
     function href(p: Page) {
         return `/organization/${p}`
     }
+
+    const { context } = useCompany()
+    const [perms, setPerms] = useState({} as UserPagePermissions)
+    const [showAdmin, setShowAdmin] = useState(false)
+
+    useEffect(() => {
+        async function load() {
+            const result = await getUserPagePermissions()
+            setPerms(result)
+            setShowAdmin(result.orgItemsEdit || result.orgUsersEdit || result.payrollGroupEdit || result.taxesEdit)
+        }
+        load()
+    }, [context?.companyUUID])
 
     return (
         <Sidebar className="h-screen" variant="floating" collapsible="none">
@@ -84,51 +102,61 @@ export default function BigBooksSidebar() {
                 </SidebarGroup>
 
 
-                <SidebarGroup>
-                    <SidebarGroupLabel>Admin:</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            
-                            <SidebarMenuItem >
-                                <SidebarMenuButton asChild>
-                                    <Link href={'/organization/admin/groups'}>
-                                        <Boxes />
-                                        <span>Payroll Groups</span>
-                                    </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
+                {showAdmin &&
+                    <SidebarGroup>
+                        <SidebarGroupLabel>Admin:</SidebarGroupLabel>
+                        <SidebarGroupContent>
+                            <SidebarMenu>
 
-                            <SidebarMenuItem >
-                                <SidebarMenuButton asChild>
-                                    <Link href={'/organization/admin/defaults'}>
-                                        <LayoutList />
-                                        <span>Payroll Items</span>
-                                    </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
+                                {perms.payrollGroupEdit &&
+                                    <SidebarMenuItem >
+                                        <SidebarMenuButton asChild>
+                                            <Link href={'/organization/admin/groups'}>
+                                                <Boxes />
+                                                <span>Payroll Groups</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                }
 
-                            <SidebarMenuItem >
-                                <SidebarMenuButton asChild>
-                                    <Link href={'/organization/admin/taxes'}>
-                                        <NotepadText />
-                                        <span>Taxes</span>
-                                    </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
+                                {perms.orgItemsEdit &&
+                                    <SidebarMenuItem >
+                                        <SidebarMenuButton asChild>
+                                            <Link href={'/organization/admin/defaults'}>
+                                                <LayoutList />
+                                                <span>Payroll Items</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                }
 
-                            <SidebarMenuItem>
-                                <SidebarMenuButton asChild>
-                                    <Link href={'/organization/admin/users'}>
-                                        <BookUser />
-                                        <span>Users</span>
-                                    </Link>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
+                                {perms.taxesEdit &&
+                                    <SidebarMenuItem >
+                                        <SidebarMenuButton asChild>
+                                            <Link href={'/organization/admin/taxes'}>
+                                                <NotepadText />
+                                                <span>Taxes</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                }
+
+                                {perms.orgUsersEdit &&
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton asChild>
+                                            <Link href={'/organization/admin/users'}>
+                                                <BookUser />
+                                                <span>Users</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                }
 
 
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
+                            </SidebarMenu>
+                        </SidebarGroupContent>
+                    </SidebarGroup>
+                }
             </SidebarContent>
 
 
@@ -136,7 +164,7 @@ export default function BigBooksSidebar() {
                 <SidebarMenu>
 
                     <SidebarUserMenu />
-                    
+
                 </SidebarMenu>
             </SidebarFooter>
         </Sidebar>
