@@ -69,7 +69,7 @@ export default function SidebarUserMenu() {
 
                     <DropdownMenuGroup>
                         <DropdownMenuItem className="cursor-pointer">
-                            <button className="text-red-400 cursor-pointer" onClick={logout}>Logout</button>
+                            <button className="text-red-400 cursor-pointer w-full text-start" onClick={logout}>Logout</button>
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
 
